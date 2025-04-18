@@ -1,0 +1,7 @@
+# vscode settings
+*
+!*.json
+!.gitignore
+!.prettierrc.js
+!.editorconfig
+!README.md
