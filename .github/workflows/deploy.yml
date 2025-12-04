@@ -2,36 +2,47 @@ name: uCss Build & Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ] # Runs on every edit
   release:
-    types: [published]
+    types: [published]   # Runs when you tag a release (v1.0)
 
 jobs:
   build-and-deploy:
     name: 🚀 Build uCss
     runs-on: ubuntu-latest
     steps:
+      # 1. Get your code from GitHub
       - name: 🚚 Checkout Code
         uses: actions/checkout@v4
 
+      # 2. The Build Process (3 Files Generated)
       - name: 🏗️ Build & Optimize
         run: |
+          # Create the output folder
           mkdir -p dist
 
-          # 1. Combine all CSS files (Alphabetical order)
+          # --- FILE 1: Full Readable Source (u.css) ---
+          # We combine all files alphabetically. 
+          # This file keeps comments and formatting for debugging.
           cat src/css/*.css > dist/u.css
 
-          # 2. Install Minifier
-          npm install -g clean-css-cli
+          # --- PREP: Install Lightning CSS ---
+          # Using lightningcss-cli because it correctly handles 
+          # modern nesting (&) and @container queries.
+          npm install -g lightningcss-cli
 
-          # 3. Minify (Safe Mode / Level 1 Default)
-          # We removed "--level 1" because it is the default behavior.
-          # This removes comments & spaces but keeps your @container queries safe.
-          cleancss -o dist/u.min.css dist/u.css
+          # --- FILE 2: Minified (u.min.css) ---
+          # --minify: Removes spaces/comments
+          # --targets: ">= 0.25%" ensures it converts modern nesting 
+          # into standard CSS so it doesn't break older browsers.
+          lightningcss --minify --bundle --targets ">= 0.25%" dist/u.css -o dist/u.min.css
 
-          # 4. Gzip (Pre-compress)
+          # --- FILE 3: Gzipped (u.min.css.gz) ---
+          # -9: Max compression
+          # -k: Keep the original file (don't delete u.min.css)
           gzip -9 -k dist/u.min.css
 
+      # 3. Determine Server Folder
       - name: 📂 Set Server Path
         id: target
         run: |
@@ -41,11 +52,12 @@ jobs:
             echo "dir=latest/" >> $GITHUB_OUTPUT
           fi
 
+      # 4. Upload to Server
       - name: ☁️ Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: "${{ secrets.FTP_SERVER }}"
           username: "${{ secrets.FTP_USERNAME }}"
           password: "${{ secrets.FTP_PASSWORD }}"
-          local-dir: ./dist/
+          local-dir: ./dist/      # Uploads the entire 'dist' folder (all 3 files)
           server-dir: ./${{ steps.target.outputs.dir }}
