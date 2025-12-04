@@ -3,7 +3,9 @@
     color: var(--set-tx, var(--set-color, var(--theme-palette-color-3, currentColor)));
     background-image: var(--set-img, none);
     background-color: var(--set-bg, transparent);
-    border-color: var(--set-border);
+    border-width: var(--set-border-w, 0);
+    border-style: var(--set-border-s, solid);
+    border-color: var(--set-border-c, currentColor);
     --theme-text-color: var(--set-tx, var(--set-color, var(--theme-palette-color-3, currentColor)));
 
     :where(h1, h2) {
@@ -37,21 +39,21 @@
 
 .set.secondary,
 .set-secondary {
-    --set-bg: var(--bg-s, var(--theme-palette-color-6, transparent))
+    --set-bg: var(--bg-a, var(--theme-palette-color-6, transparent))
 }
 
 .set.dark,
 .set-dark {
-    --set-tx: var(--theme-palette-color-6, currentColor);
-    --set-t: var(--theme-palette-color-7, currentColor);
-    --set-st: var(--theme-palette-color-7, currentColor);
-    --set-bg: var(--bg-d, var(--theme-palette-color-4, #000))
+    --set-t: var(--l-bd, var(--theme-palette-color-7, #fff));
+    --set-st: var(--l, var(--theme-palette-color-7, #ddd));
+    --set-tx: var(--l, var(--theme-palette-color-6, #ddd));
+    --set-bg: var(--bg-d, var(--theme-palette-color-4, #000));
 }
 
 .set.light,
 .set-light {
-    --set-tx: var(--theme-palette-color-4, currentColor);
-    --set-t: var(--theme-palette-color-4, currentColor);
-    --set-st: var(--theme-palette-color-4, currentColor);
-    --set-bg: var(--bg-l, var(--theme-palette-color-7, #fff))
+    --set-t: var(--d, var(--theme-palette-color-4, #000));
+    --set-st: var(--d, var(--theme-palette-color-4, #222));
+    --set-tx: var(--d-bd, var(--theme-palette-color-4, #222));
+    --set-bg: var(--bg-l, var(--theme-palette-color-7, #fff));
 }

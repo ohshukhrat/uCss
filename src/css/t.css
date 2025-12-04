@@ -10,7 +10,7 @@
 
     text-align: var(--t-text-a--sm, var(--t-text-a, var(--ta--sm, var(--ta))));
 
-    font-style: var(--t-font-s, var(--t-fst));
+    font-style: var(--t-font-st, var(--t-fst));
     text-transform: var(--t-text-tf, var(--t-tt));
     text-decoration: var(--t-text-dec, var(--t-dec));
     text-decoration-color: var(--t-text-dec-c, var(--t-dec-c));

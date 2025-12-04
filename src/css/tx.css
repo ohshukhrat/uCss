@@ -11,7 +11,7 @@
 
     text-align: var(--tx-text-a--sm, var(--tx-text-a, var(--ta--sm, var(--ta))));
 
-    font-style: var(--tx-font-s, var(--tx-fst));
+    font-style: var(--tx-font-st, var(--tx-fst));
     text-transform: var(--tx-text-tf, var(--tx-tt));
     text-decoration: var(--tx-text-dec, var(--tx-dec));
     text-decoration-color: var(--tx-text-dec-c, var(--tx-dec-c));
