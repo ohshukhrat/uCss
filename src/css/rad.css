@@ -1,0 +1,51 @@
+:where(.rad, .rad-t, .rad-tl, [class^="rad--"]) {
+    border-top-left-radius: var(--rad-tl, var(--rad-t, var(--rad)));
+}
+
+:where(.rad, .rad-t, .rad-tr, [class^="rad--"]) {
+    border-top-right-radius: var(--rad-tr, var(--rad-t, var(--rad)));
+}
+
+:where(.rad, .rad-b, .rad-br, [class^="rad--"]) {
+    border-bottom-right-radius: var(--rad-br, var(--rad-b, var(--rad)));
+}
+
+:where(.rad, .rad-b, .rad-bl, [class^="rad--"]) {
+    border-bottom-left-radius: var(--rad-bl, var(--rad-b, var(--rad)));
+}
+
+:where(.rad.sq, .rad--sq) {
+    --rad: var(--rad-sq, 0);
+}
+
+:where(.rad.xs, .rad--xs) {
+    --rad: var(--rad-xs, 0.25em);
+}
+
+:where(.rad--s) {
+    --rad: var(--rad-s, 0.375em);
+}
+
+:where(.rad--m) {
+    --rad: var(--rad-m, 0.625em);
+}
+
+:where(.rad.l, .rad--l) {
+    --rad: var(--rad-l, 1em);
+}
+
+:where(.rad.xl, .rad--xl) {
+    --rad: var(--rad-xl, 1.5em);
+}
+
+:where(.rad.xxl, .rad--xxl, .rad--2xl) {
+    --rad: var(--rad-xxl, 2em);
+}
+
+:where(.rad.xxxl, .rad--xxxl, .rad--3xl) {
+    --rad: var(--rad-xxxl, 3em);
+}
+
+:where(.rad.rd, .rad--rd, .rad.full, .rad--full) {
+    --rad: 640em;
+}

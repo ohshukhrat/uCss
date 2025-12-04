@@ -32,6 +32,9 @@ jobs:
               src/css/ta.css \
               src/css/med.css \
               src/css/o.css \
+              src/css/m.css \
+              src/css/p.css \
+              src/css/rad.css \
               src/css/lnk.css \
               src/css/crd.css \
               src/css/btn.css \
