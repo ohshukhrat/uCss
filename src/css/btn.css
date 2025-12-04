@@ -1,0 +1,366 @@
+:where(.btn, [data-style="btn"]),
+button.btn,
+a.btn {
+  /* --- Positioning --- */
+  position: var(--btn-pos, relative);
+  inset: var(--btn-inset);
+
+  /* --- Base Layout --- */
+  display: var(--btn-d, inline-flex);
+  align-items: var(--btn-ai, center);
+  justify-content: var(--btn-jc, center);
+  gap: var(--btn-gap, 0.5em);
+  flex-wrap: var(--btn-fw);
+
+  order: var(--btn-o);
+
+  /* --- Cursor & Text --- */
+  cursor: var(--btn-cursor, pointer);
+  text-decoration: var(--btn-tx-dec, none);
+
+  /* --- Font & Text --- */
+  font-family: var(--btn-font-f);
+  /* Inherits by default */
+  font-size: var(--btn-font-s, 1.125rem);
+  font-weight: var(--btn-font-w, 600);
+  line-height: var(--btn-line-h, 1.5);
+  text-transform: var(--btn-text-t, none);
+
+  /* --- Spacing --- */
+  /* 'em'-based padding scales with font-size */
+  padding: var(--btn-p, var(--btn-pb, .75em) var(--btn-pi, 1.5em));
+  margin: var(--btn-m, var(--btn-mb) var(--btn-mi));
+
+  /* ~44px */
+
+  /* --- Appearance (The API) --- */
+  color: var(--btn-color,
+      var(--theme-button-text-initial-color,
+        var(--theme-palette-color-3, currentColor)));
+  background-color: var(--btn-bg, var(--p,
+        var(--theme-button-background-initial-color,
+          var(--theme-palette-color-1, #eec14c))));
+  opacity: var(--btn-opacity);
+
+  border-width: var(--btn-border-w, .125rem);
+  border-style: var(--btn-border-s, solid);
+  border-color: var(--btn-border-c, var(--btn-bg, var(--p,
+          var(--theme-button-border-initial-color,
+            var(--theme-palette-color-1, #eec14c)))));
+  border-radius: var(--btn-rad, var(--theme-button-border-radius, 4em));
+
+  box-shadow: var(--btn-shadow);
+
+  /* --- Animation --- */
+  transition: var(--btn-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
+  transition-property: var(--btn-trans-p, background-color, border-color, color, opacity, transform);
+  --theme-transition: var(--btn-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
+  transform: var(--btn-tf);
+
+  /* --- Sizing --- */
+  width: var(--btn-w--sm, var(--btn-w, fit-content));
+  min-height: var(--btn-min-h--sm, var(--btn-min-h, 2.75em));
+
+  :not(.g, .block-library-block__reusable-block-container):has(> &) {
+    container-name: btnp;
+    container-type: inline-size;
+    contain: inline-size;
+  }
+
+  &:where([data-size="full"], .full) {
+    --btn-w: 100%;
+  }
+
+  @container (width < 669.99px) {
+    &:where(.full--sm, .full--smd) {
+      --btn-w--sm: 100%;
+    }
+  }
+
+  @container (669.99px <=width <=999.99px) {
+    width: var(--btn-w--md, var(--btn-w, fit-content));
+
+    &:where(.full--md, .full--smd, .full--mdl) {
+      --btn-w--md: 100%;
+    }
+  }
+
+  @container (width > 999.99px) {
+    width: var(--btn-w--lg, var(--btn-w, fit-content));
+
+    &:where(.full--lg, .full--mdl) {
+      --btn-w--lg: 100%;
+    }
+  }
+}
+
+/* --- Icon Support --- */
+:where(.btn > .icn, .btn > svg, [data-style="btn"] > .icn, [data-style="btn"] > svg) {
+  fill: var(--btn-icn-fill, currentColor);
+  stroke: var(--btn-icn-stroke, currentColor);
+  width: var(--btn-icn-size, 1.25em);
+  height: var(--btn-icn-size, 1.25em);
+  flex-shrink: 0;
+  order: var(--btn-icn-o, -1);
+
+  transition: var(--btn-icn-trans, var(--btn-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out)));
+  transition-property: var(--btn-icn-trans-p, fill, stroke);
+}
+
+/* --- STATES --- */
+:where(.btn:hover:not(:disabled, .is-disabled), [data-style="btn"]:hover:not(:disabled, .is-disabled)),
+button.btn:hover:not(:disabled, .is-disabled),
+a.btn:hover:not(:disabled, .is-disabled) {
+  color: var(--btn-color-hover,
+      var(--theme-button-text-hover-color,
+        var(--theme-palette-color-4, currentColor)));
+  background-color: var(--btn-bg-hover, var(--a,
+        var(--theme-button-background-hover-color,
+          var(--theme-palette-color-2, #FFB900))));
+  opacity: var(--btn-opacity-hover);
+  border-color: var(--btn-border-c-hover, var(--btn-border-c, var(--btn-bg-hover, var(--a,
+            var(--theme-button-border-hover-color,
+              var(--theme-palette-color-2, #FFB900))))));
+  box-shadow: var(--btn-shadow-hover, var(--btn-shadow));
+
+  /* Separate transition for hover allows different timing on hover vs. unhover */
+  transition: var(--btn-transition-hover, 0.16s ease-in-out);
+  --theme-transition: var(--btn-transition-hover, 0.16s ease-in-out);
+
+  transform: var(--btn-tf-hover, translatey(var(--tf-translatey, -0.125em)));
+}
+
+:where(.btn:focus-visible, [data-style="btn"]:focus-visible),
+button.btn:focus-visible,
+a.btn:focus-visible {
+  outline: var(--btn-outline, .25rem solid var(--btn-outline-c, var(--theme-palette-color-1, currentColor)));
+  outline-offset: var(--btn-outline-offset, .125rem);
+
+  box-shadow: var(--btn-shadow-hover, var(--btn-shadow));
+  transform: var(--btn-tf-hover, translatey(var(--tf-translatey, -0.125em)));
+}
+
+:where(.btn:active:not(:disabled, .is-disabled), [data-style="btn"]:active:not(:disabled, .is-disabled)),
+button.btn:active:not(:disabled, .is-disabled),
+a.btn:active:not(:disabled, .is-disabled) {
+  transition: var(--btn-transition-active, 0.16s ease-in-out);
+  transform: var(--btn-tf-active, translatey(var(--tf-translatey-active, 0.0625em)));
+}
+
+:where(.btn:disabled, .btn.is-disabled, [data-style="btn"]:disabled, [data-style="btn"].is-disabled) {
+  color: var(--btn-color-disabled);
+  background-color: var(--btn-bg-disabled);
+  border-color: var(--btn-border-c-disabled);
+  opacity: var(--btn-opacity-disabled, 0.6);
+  cursor: not-allowed;
+}
+
+:where(.btn.is-loading, [data-style="btn"].is-loading) {
+  opacity: var(--btn-opacity-loading, 0.7);
+  cursor: wait;
+}
+
+/* ================================================
+  VARIANTS (These just set the API variables)
+================================================ */
+
+/* --- Primary (Default) --- */
+:where(.btn, [data-style="btn"], [data-variant="primary"], .btn.primary, [data-style="btn"].primary) {
+  --btn-color: var(--btn-primary-color, var(--b, var(--theme-button-text-initial-color, var(--theme-palette-color-3, #131313))));
+  --btn-bg: var(--btn-primary-bg, var(--p, var(--theme-button-background-initial-color, var(--theme-palette-color-1, #eec14c))));
+  --btn-border-c: var(--btn-primary-border-c, var(--p, var(--theme-button-border-initial-color, var(--theme-palette-color-1, #eec14c))));
+
+  --btn-color-hover: var(--btn-primary-color-hover, var(--t, var(--theme-button-text-hover-color, var(--theme-palette-color-4, #131313))));
+  --btn-bg-hover: var(--btn-primary-bg-hover, var(--a, var(--theme-button-background-hover-color, var(--theme-palette-color-2, #FFB900))));
+  --btn-border-c-hover: var(--btn-primary-border-c-hover, var(--a, var(--theme-button-border-hover-color, var(--theme-palette-color-2, #FFB900))));
+}
+
+:where(.btn.secondary, [data-variant="secondary"], [data-style="btn"].secondary) {
+  --btn-color: var(--btn-secondary-color, var(--b, var(--theme-palette-color-3, #131313)));
+  --btn-bg: var(--btn-secondary-bg, var(--s, hsl(43 83% 62% / .16)));
+  --btn-border-c: var(--btn-secondary-border-c, var(--btn-secondary-bg, var(--s, hsl(43 83% 62% / .08))));
+
+  --btn-color-hover: var(--btn-secondary-color-hover, var(--t, var(--theme-palette-color-4, #000)));
+  --btn-bg-hover: var(--btn-secondary-bg-hover, var(--sa, hsl(44 100% 50% / .48)));
+  --btn-border-c-hover: var(--btn-secondary-border-c-hover, var(--btn-secondary-bg-hover, var(--sa, hsl(44 100% 50% / .24))));
+}
+
+:where(.btn.plain, [data-variant="plain"], [data-style="btn"].plain) {
+  --btn-color: var(--btn-plain-color, var(--b, var(--theme-palette-color-3, #131313)));
+  --btn-bg: var(--btn-plain-bg, transparent);
+  --btn-border-c: var(--btn-plain-border-c, transparent);
+
+  --btn-color-hover: var(--btn-plain-color-hover, var(--t, var(--theme-palette-color-4, #000)));
+  --btn-bg-hover: var(--btn-plain-bg-hover, var(--sa, hsl(44 100% 50% / .48)));
+  --btn-border-c-hover: var(--btn-plain-border-c-hover, var(--btn-plain-bg-hover, var(--sa, hsl(44 100% 50% / .24))));
+}
+
+/* --- Outlined --- */
+:where(.btn.outlined, [data-variant="outlined"], [data-style="btn"].outlined) {
+  --btn-color: var(--btn-outlined-color, currentColor);
+  --btn-bg: var(--btn-outlined-bg, transparent);
+  --btn-border-c: var(--btn-outlined-border-c, currentColor);
+
+  --btn-color-hover: var(--btn-outlined-color-hover, var(--t, #000));
+  --btn-bg-hover: var(--btn-outlined-bg-hover, var(--a, #ffb900));
+  --btn-border-c-hover: var(--btn-outlined-border-c-hover, var(--btn-outlined-bg-hover, var(--a, #ffb900)));
+}
+
+/* --- Dark --- */
+:where(.btn.dark, .btn[data-variant="dark"], [data-style="btn"].dark) {
+  --btn-color: var(--btn-dark-color, var(--l, #fff));
+  --btn-bg: var(--btn-dark-bg, var(--d-lt, #343a40));
+  --btn-border-c: var(--btn-dark-border-c, var(--btn-dark-bg, var(--d-lt, #343a40)));
+
+  --btn-color-hover: var(--btn-dark-color-hover, var(--l, #fff));
+  --btn-bg-hover: var(--btn-dark-bg-hover, var(--d, #23272b));
+  --btn-border-c-hover: var(--btn-dark-border-c-hover, var(--btn-dark-bg-hover, var(--d, #23272b)));
+}
+
+/* --- Light --- */
+:where(.btn.light, .btn[data-variant="light"], [data-style="btn"].light) {
+  --btn-color: var(--btn-light-color, var(--d-lt, #343a40));
+  --btn-bg: var(--btn-light-bg, var(--l-lt, #eee));
+  --btn-border-c: var(--btn-light-border-c, var(--btn-light-bg, var(--l-lt, #eee)));
+
+  --btn-color-hover: var(--btn-light-color-hover, var(--d, #23272b));
+  --btn-bg-hover: var(--btn-light-bg-hover, var(--l, #fff));
+  --btn-border-c-hover: var(--btn-light-border-c-hover, var(--btn-light-bg-hover, var(--l, #fff)));
+}
+
+/* ================================================
+  SIZES (These also just set the API variables)
+================================================ */
+:where(.btn[data-size="sm"], .btn.sm, [data-style="btn"].sm) {
+  --btn-font-s: var(--btn-sm-font-s, 0.875rem);
+  /* ~14px */
+  --btn-p: var(--btn-sm-p, 0.5em 1em);
+  --btn-min-h: var(--btn-sm-min-h, 2.375rem);
+  /* ~38px */
+}
+
+:where(.btn[data-size="lg"], .btn.lg, [data-style="btn"].lg) {
+  --btn-font-s: var(--btn-lg-font-s, 1.25rem);
+  /* ~18px */
+  --btn-p: var(--btn-lg-p, 0.8em 1.6em);
+  --btn-min-h: var(--btn-lg-min-h, 3.25rem);
+  /* ~52px */
+}
+
+/* ================================================
+  Radius
+================================================ */
+
+:where(.btn[data-radius="sq"], .btn.sq, [data-style="btn"].sq) {
+  --btn-rad: var(--btn-rad-sq, 0);
+}
+
+:where(.btn[data-radius="lt"], .btn.lt, [data-style="btn"].lt) {
+  --btn-rad: var(--btn-rad-lt, 0.375rem);
+}
+
+:where(.btn[data-radius="bd"], .btn.bd, [data-style="btn"].bd) {
+  --btn-rad: var(--btn-rad-bd, 0.625rem);
+}
+
+:where(.btn[data-radius="rd"], .btn.rd, [data-style="btn"].rd) {
+  --btn-rad: var(--btn-rad-rd, 8rem);
+}
+
+/* ================================================
+  GROUPS
+================================================ */
+
+:where(.btns) {
+  display: var(--btns-d, flex);
+  flex-direction: var(--btns-fd);
+  align-items: var(--btns-ai--sm, var(--btns-ai, center));
+  align-content: var(--btns-ac);
+  justify-content: var(--btns-jc--sm, var(--btns-jc));
+  gap: var(--btns-gap, clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem));
+  flex-wrap: var(--btns-fw, wrap);
+
+  width: var(--btns-w--sm, var(--btns-w, 100%));
+  max-width: var(--btns-max-w);
+  align-self: var(--btns-as);
+  margin-inline: var(--btns-mi,
+      var(--btns-mis) var(--btns-mie));
+
+  @container (669.99px <=width <=999.99px) {
+    width: var(--btns-w--md, var(--btns-w, 100%));
+    justify-content: var(--btns-jc--md, var(--btns-jc));
+    align-items: var(--btns-ai--md, var(--btns-ai));
+  }
+
+  @container (width > 999.99px) {
+    width: var(--btns-w--lg, var(--btns-w, 100%));
+    justify-content: var(--btns-jc--lg, var(--btns-jc));
+    align-items: var(--btns-ai--lg, var(--btns-ai));
+  }
+}
+
+:where(.btns.c, .btns-c) {
+  --btns-jc: center;
+  --btns-mi: auto;
+}
+
+:where(.btns.c--sm, .btns-c--sm, .btns.c--smd, .btns-c--smd) {
+  --btns-jc--sm: center;
+  --btns-mi--sm: auto;
+}
+
+:where(.btns.c--md, .btns-c--md, .btns.c--smd, .btns-c--smd, .btns.c--mdl, .btns-c--mdl) {
+  --btns-jc--md: center;
+  --btns-mi--md: auto;
+}
+
+:where(.btns.c--lg, .btns-c--lg, .btns.c--mdl, .btns-c--mdl) {
+  --btns-jc--lg: center;
+  --btns-mi--lg: auto;
+}
+
+:where(.btns.s, .btns-s) {
+  --btns-jc: start;
+}
+
+:where(.btns.s--sm, .btns-s--sm, .btns.s--smd, .btns-s--smd) {
+  --btns-jc--sm: start;
+}
+
+:where(.btns.s--md, .btns-s--md, .btns.s--smd, .btns-s--smd, .btns.s--mdl, .btns-s--mdl) {
+  --btns-jc--md: start;
+}
+
+:where(.btns.s--lg, .btns-s--lg, .btns.s--mdl, .btns-s--mdl) {
+  --btns-jc--lg: start;
+}
+
+:where(.btns.e, .btns-e) {
+  --btns-jc: end;
+}
+
+:where(.btns.e--sm, .btns-e--sm, .btns.e--smd, .btns-e--smd) {
+  --btns-jc--sm: end;
+}
+
+:where(.btns.e--md, .btns-e--md, .btns.e--smd, .btns-e--smd, .btns.e--mdl, .btns-e--mdl) {
+  --btns-jc--md: end;
+}
+
+:where(.btns.e--lg, .btns-e--lg, .btns.e--mdl, .btns-e--mdl) {
+  --btns-jc--lg: end;
+}
+
+/* Fix for Blocksy Theme */
+
+:where(a.btn, a[data-style="btn"]),
+:where(.btn>a, [data-style="btn"] > a) {
+  --theme-link-initial-color: var(--btn-color, var(--theme-palette-color-3, currentColor));
+  --theme-link-hover-color: var(--btn-color-hover, var(--theme-palette-color-4, currentColor));
+}
+
+
+/* Fix for Gutenberg when using reusable blocks */
+/* .is-root-container .block-library-block__reusable-block-container {
+  container-type: unset;
+} */

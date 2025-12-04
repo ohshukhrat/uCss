@@ -1,0 +1,26 @@
+name: Deploy Framework
+on:
+  push:
+    branches: [ "main" ] # Runs automatically when you save & push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get your code
+        uses: actions/checkout@v4
+
+      - name: 🔨 Combine CSS files
+        run: |
+          mkdir -p dist
+          # This takes ALL css files in src/css and combines them
+          cat src/css/*.css > dist/framework.css
+
+      - name: 🚀 Upload to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/             # Uploads only the combined file
+          server-dir: ./latest/          # Puts it in the 'latest' folder on server

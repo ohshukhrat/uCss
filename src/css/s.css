@@ -1,0 +1,201 @@
+:where(.s) {
+  display: var(--s-d, flex);
+  flex-direction: var(--s-fd, column);
+  align-items: var(--s-ai, center);
+  align-content: var(--s-ac);
+  justify-content: var(--s-jc);
+  gap: var(--s-gap, clamp(2rem, 3.059vw + 1.388rem, 4rem));
+  flex-wrap: var(--s-fw, nowrap);
+
+  min-block-size: var(--s-min-h);
+  block-size: var(--s-h);
+  max-block-size: var(--s-max-h);
+
+  position: var(--s-pos, relative);
+
+  padding-block: var(--s-pb--sm, var(--s-pb,
+        var(--s-pbs--sm, var(--s-pbs, clamp(4rem, 3.059vw + 3.388rem, 6rem))) var(--s-pbe--sm, var(--s-pbe, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
+  padding-inline: var(--s-pi--sm, var(--s-pi,
+        var(--s-pis--sm, var(--s-pis, 5%)) var(--s-pie--sm, var(--s-pie, 5%))));
+  margin-block: var(--s-mb,
+      var(--s-mbs, 0) var(--s-mbe, 0));
+  margin-inline: var(--s-mi,
+      var(--s-mis) var(--s-mie));
+
+  overflow-x: var(--s-of-x, var(--s-of, clip));
+  overflow-y: var(--s-of-y, var(--s-of, clip));
+
+  background-color: var(--s-bg--sm, var(--s-bg));
+
+  border-width: var(--s-border-w);
+  border-style: var(--s-border-s);
+  border-color: var(--s-border-c);
+
+  border-top-left-radius: var(--s-rad-tl, var(--s-rad-t, var(--s-rad)));
+  border-top-right-radius: var(--s-rad-tr, var(--s-rad-t, var(--s-rad)));
+  border-bottom-right-radius: var(--s-rad-br, var(--s-rad-b, var(--s-rad)));
+  border-bottom-left-radius: var(--s-rad-bl, var(--s-rad-b, var(--s-rad)));
+
+  z-index: var(--s-z);
+
+  @media (736.991px <=width <=1111.99px) {
+    padding-block: var(--s-pb--md, var(--s-pb,
+          var(--s-pbs--md, var(--s-pbs, clamp(4rem, 3.059vw + 3.388rem, 6rem))) var(--s-pbe--md, var(--s-pbe, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
+    padding-inline: var(--s-pi--md, var(--s-pi,
+          var(--s-pis--md, var(--s-pis, 5%)) var(--s-pie--md, var(--s-pie, 5%))));
+    background-color: var(--s-bg--md, var(--s-bg));
+  }
+
+  @media (width >1111.99px) {
+    padding-block: var(--s-pb--lg, var(--s-pb,
+          var(--s-pbs--lg, var(--s-pbs, clamp(4rem, 3.059vw + 3.388rem, 6rem))) var(--s-pbe--lg, var(--s-pbe, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
+    padding-inline: var(--s-pi--lg, var(--s-pi,
+          var(--s-pis--lg, var(--s-pis, 5%)) var(--s-pie--lg, var(--s-pie, 5%))));
+    background-color: var(--s-bg--lg, var(--s-bg));
+  }
+
+  @media (height > 1024px) {
+    min-block-size: var(--s-min-h--fh, var(--s-min-h));
+  }
+}
+
+:where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc) {
+  display: var(--sc-d, flex);
+  flex-direction: var(--sc-fd, column);
+  align-items: var(--sc-ai, stretch);
+  align-content: var(--sc-ac);
+  justify-content: var(--sc-jc);
+  gap: var(--sc-gap, clamp(2rem, 3.059vw + 1.388rem, 4rem));
+  flex-wrap: var(--sc-fw);
+
+  align-self: var(--sc-as);
+
+  inline-size: var(--sc-w--sm, var(--sc-w, 100%));
+  max-inline-size: var(--sc-max-w--sm, var(--sc-max-w, 1366px));
+
+  min-block-size: var(--sc-min-h);
+  block-size: var(--sc-h);
+  max-block-size: var(--sc-max-h);
+
+  padding-block: var(--sc-pb,
+      var(--sc-pbs) var(--sc-pbe));
+  padding-inline: var(--sc-pi,
+      var(--sc-pis) var(--sc-pie));
+  margin-block: var(--sc-mb,
+      var(--sc-mbs, 0) var(--sc-mbe, 0));
+  margin-inline: var(--sc-mi,
+      var(--sc-mis) var(--sc-mie));
+
+  background-color: var(--sc-bg--sm, var(--sc-bg));
+
+  border-width: var(--sc-border-w);
+  border-style: var(--sc-border-s);
+  border-color: var(--sc-border-c);
+
+  border-top-left-radius: var(--sc-rad-tl, var(--sc-rad-t, var(--sc-rad)));
+  border-top-right-radius: var(--sc-rad-tr, var(--sc-rad-t, var(--sc-rad)));
+  border-bottom-right-radius: var(--sc-rad-br, var(--sc-rad-b, var(--sc-rad)));
+  border-bottom-left-radius: var(--sc-rad-bl, var(--sc-rad-b, var(--sc-rad)));
+
+  z-index: var(--sc-z, 2);
+
+  @media (737.99px <=width <=1111.99px) {
+    inline-size: var(--sc-w--md, var(--sc-w, 100%));
+    max-inline-size: var(--sc-max-w--md, var(--sc-max-w, 1366px));
+    background-color: var(--sc-bg--md, var(--sc-bg));
+  }
+
+  @media (width >1111.99px) {
+    inline-size: var(--sc-w--lg, var(--sc-w, 100%));
+    max-inline-size: var(--sc-max-w--lg, var(--sc-max-w, 1366px));
+    background-color: var(--sc-bg--lg, var(--sc-bg));
+  }
+
+  @media (height > 1024px) {
+    min-block-size: var(--sc-min-h--fh, var(--sc-min-h));
+  }
+}
+
+:where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc)>:where(*, .scc) {
+  inline-size: var(--scc-w--sm, var(--scc-w, 100%));
+  max-inline-size: var(--scc-max-w--sm, var(--scc-max-w));
+
+  flex-grow: var(--scc-grow);
+  flex-shrink: var(--scc-shrink);
+  flex-basis: var(--scc-basis);
+
+  align-self: var(--scc-as);
+  order: var(--scc-o);
+
+  padding-block: var(--scc-pb, var(--scc-pbs, 0) var(--scc-pbe, 0));
+  padding-inline: var(--scc-pi, var(--scc-pis, 0) var(--scc-pie, 0));
+
+  margin-inline-start: var(--scc-mis, var(--scc-mi));
+  margin-inline-end: var(--scc-mie, var(--scc-mi));
+
+  z-index: var(--scc-z, 3);
+
+  @media (737.99px <=width <=1111.99px) {
+    inline-size: var(--scc-w--md, var(--scc-w, 100%));
+    max-inline-size: var(--scc-max-w--md, var(--scc-max-w));
+  }
+
+  @media (width >1111.99px) {
+    inline-size: var(--scc-w--lg, var(--scc-w, 100%));
+    max-inline-size: var(--scc-max-w--lg, var(--scc-max-w));
+  }
+}
+
+:where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc)>:where(.as-c),
+:where(.scc-as-c, .scc.as-c) {
+  --scc-as: center;
+}
+
+:where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc)>:where(.as-s),
+:where(.scc-as-s, .scc.as-s) {
+  --scc-as: stretch;
+}
+
+:where(.s_h) {
+  --scc-w: 100%;
+  --scc-max-w: 64rem;
+  max-inline-size: var(--s-h-max-w, var(--scc-max-w));
+}
+
+:where(.s_hw) {
+  --scc-w: 100%;
+  --scc-max-w: 72rem;
+  max-inline-size: var(--s-hw-max-w, var(--scc-max-w));
+}
+
+:where(.s_hn) {
+  --scc-w: 100%;
+  --scc-max-w: 56rem;
+  max-inline-size: var(--s-hn-max-w, var(--scc-max-w));
+}
+
+:where(.s_c) {
+  --scc-w: 100%;
+  --scc-max-w: 48rem;
+  max-inline-size: var(--scc-max-w);
+}
+
+:where(.s_cw) {
+  --scc-w: 100%;
+  --scc-max-w: 56rem;
+  max-inline-size: var(--s-cw-max-w, var(--scc-max-w));
+}
+
+:where(.s_cn) {
+  --scc-w: 100%;
+  --scc-max-w: 40rem;
+  max-inline-size: var(--s-cn-max-w, var(--scc-max-w));
+}
+
+
+/* WordPress Gutenberg Fix */
+:is(.is-layout-flow, .is-layout-constrained)>.s {
+  margin-block-start: var(--s-mbs, var(--s-mb, 0));
+  margin-block-end: var(--s-mbe, var(--s-mb, 0));
+  --theme-content-spacing: var(--s-mb, var(--content-mb, 0));
+}

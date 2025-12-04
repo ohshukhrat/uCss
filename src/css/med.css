@@ -1,0 +1,140 @@
+:where(.med),
+figure.med {
+  display: var(--med-d, block);
+  position: var(--med-pos, relative);
+
+  margin: var(--med-m, 0);
+  padding: var(--med-p);
+  object-fit: var(--med-obj-f, cover);
+  aspect-ratio: var(--med-ar);
+  overflow: var(--med-of, clip);
+  border: var(--med-border-s, 0) var(--med-border-s) var(--med-border-c);
+  border-radius: var(--med-border-r);
+
+  inline-size: var(--med-w--sm,
+      var(--med-size--sm,
+        var(--med-w,
+          var(--med-size, 100%))));
+  block-size: var(--med-h--sm,
+      var(--med-size--sm,
+        var(--med-h,
+          var(--med-size, auto))));
+
+  min-inline-size: var(--med-min-w--sm,
+      var(--med-min-w));
+  min-block-size: var(--med-min-h--sm,
+      var(--med-min-h));
+
+  max-inline-size: var(--med-max-w--sm,
+      var(--med-max-w));
+  max-block-size: var(--med-max-h--sm,
+      var(--med-max-h));
+
+  flex-shrink: var(--med-shrink, 0);
+
+  background-color: var(--med-bg, transparent);
+
+  filter: var(--med-f);
+  mix-blend-mode: var(--med-mbm);
+
+  isolation: var(--med-iso);
+  z-index: var(--med-z);
+
+  :not(.g, .sg, .f):has(> &) {
+    container-name: medp;
+    container-type: inline-size;
+    contain: inline-size layout;
+  }
+
+  @container (669.99px <=width <=999.99px) {
+    min-inline-size: var(--med-min-w--md,
+        var(--med-min-w));
+    min-block-size: var(--med-min-h--md,
+        var(--med-min-h));
+
+    max-inline-size: var(--med-max-w--md,
+        var(--med-max-w));
+    max-block-size: var(--med-max-h--md,
+        var(--med-max-h));
+  }
+
+  @container (width > 999.99px) {
+    min-inline-size: var(--med-min-w--lg,
+        var(--med-min-w));
+    min-block-size: var(--med-min-h--lg,
+        var(--med-min-h));
+
+    max-inline-size: var(--med-max-w--lg,
+        var(--med-max-w));
+    max-block-size: var(--med-max-h--lg,
+        var(--med-max-h));
+  }
+
+  :where(& > img) {
+    display: var(--med-img-d, block);
+    inline-size: var(--med-img-w, var(--med-img-size, 100%));
+    block-size: var(--med-img-h, var(--med-img-size, 100%));
+    object-fit: var(--med-img-obj-f, var(--med-obj-f, cover));
+    aspect-ratio: var(--med-img-ar, var(--med-ar));
+
+    margin: var(--med-img-m, 0);
+    padding: var(--med-img-p);
+
+    background-color: var(--med-img-bg, var(--med-bg, transparent));
+
+    filter: var(--med-img-f, var(--med-f));
+    mix-blend-mode: var(--med-img-mbm, var(--med-mbm));
+  }
+}
+
+:where(.med.ar-1) {
+  --med-ar: 1 / 1;
+}
+
+:where(.med.ar-1-2) {
+  --med-ar: 1 / 2;
+}
+
+:where(.med.ar-2-1) {
+  --med-ar: 2 / 1;
+}
+
+:where(.med.ar-2-3) {
+  --med-ar: 2 / 3;
+}
+
+:where(.med.ar-3-2) {
+  --med-ar: 3 / 2;
+}
+
+:where(.med.ar-3-4) {
+  --med-ar: 3 / 4;
+}
+
+:where(.med.ar-4-3) {
+  --med-ar: 4 / 3;
+}
+
+:where(.med.ar-16-9) {
+  --med-ar: 16 / 9;
+}
+
+:where(.med.ar-9-16) {
+  --med-ar: 9 / 16;
+}
+
+:where(.med.sq) {
+  --med-border-r: var(--med-border-r-sq, 0);
+}
+
+:where(.med.lt) {
+  --med-border-r: var(--med-border-r-lt, 1.125rem);
+}
+
+:where(.med.bd) {
+  --med-border-r: var(--med-border-r-bd, 2.25rem);
+}
+
+:where(.med.rd) {
+  --med-border-r: var(--med-border-r-rd, 50%);
+}

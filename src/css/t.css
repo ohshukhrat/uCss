@@ -1,0 +1,136 @@
+:is(.t, [class^="t--"]):is(h1, h2, h3, h4) {
+    color: var(--t-color, var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
+
+    font-family: var(--t-font-f, var(--font-family, var(--theme-font-family)));
+
+    font-size: var(--t-font-s--sm, var(--t-font-s,
+                var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));
+    line-height: var(--t-line-h--sm, var(--t-line-h, var(--t-lh, 1.25)));
+    font-weight: var(--t-font-w, var(--t-fw, 800));
+
+    text-align: var(--t-text-a--sm, var(--t-text-a, var(--ta--sm, var(--ta))));
+
+    font-style: var(--t-font-s, var(--t-fst));
+    text-transform: var(--t-text-tf, var(--t-tt));
+    text-decoration: var(--t-text-dec, var(--t-dec));
+    text-decoration-color: var(--t-text-dec-c, var(--t-dec-c));
+    text-decoration-thickness: var(--t-text-dec-th, var(--t-dec-th));
+    text-overflow: var(--t-text-ov, var(--t-to));
+
+    white-space: var(--t-white-space, var(--t-ws));
+    overflow-wrap: var(--t-of-wrap, var(--t-ofw));
+
+    letter-spacing: var(--t-letter-s, var(--t-ls, calc(var(--t-ls-base, 1em) / var(--t-ls-ratio, 64))));
+    word-spacing: var(--t-word-s, var(--t-ws));
+
+    @container (669.99px <=width <=999.99px) {
+        font-size: var(--t-font-s--md, var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));
+        text-align: var(--t-text-a--md, var(--t-text-a, var(--ta--md, var(--ta))));
+    }
+
+    @container (width >999.99px) {
+        font-size: var(--t-font-s--lg, var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));
+        text-align: var(--t-text-a--lg, var(--t-text-a, var(--ta--lg, var(--ta))));
+    }
+
+    &:where(.ub, .hl) {
+        --t-font-w: 900;
+    }
+
+    &:where(.xb) {
+        --t-font-w: 800;
+    }
+
+    &:where(.bd) {
+        --t-font-w: 700;
+    }
+
+    &:where(.sb) {
+        --t-font-w: 600;
+    }
+
+    &:where(.md) {
+        --t-font-w: 500;
+    }
+
+    &:where(.rg) {
+        --t-font-w: 400;
+    }
+
+    &:where(.lt) {
+        --t-font-w: 300;
+    }
+
+    &:where(.up, .hl) {
+        --t-text-tf: uppercase;
+    }
+
+    &:where(.t--xxxl, .xxxl, .t--3xl) {
+        --t-font-s: var(--t-fs--xxxl, clamp(3.5rem, 2.294vw + 3.041rem, 5rem));
+    }
+
+    &:where(.t--xxl, .xxl, .t--2xl) {
+        --t-font-s: var(--t-fs--xxl, clamp(3.25rem, 1.912vw + 2.868rem, 4.5rem));
+    }
+
+    &:where(.t--xl, .xl) {
+        --t-font-s: var(--t-fs--xl, clamp(3rem, 1.53vw + 2.694rem, 4rem));
+    }
+
+    &:where(.t--l, .l) {
+        --t-font-s: var(--t-fs--l, clamp(2.75rem, 1.53vw + 2.444rem, 3.75rem));
+    }
+
+    &:where(.t--m) {
+        --t-font-s: var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem));
+    }
+
+    &:where(.t--s) {
+        --t-font-s: var(--t-fs--s, clamp(2.25rem, 1.147vw + 2.021rem, 3rem));
+    }
+
+    &:where(.t--xs, .xs) {
+        --t-font-s: var(--t-fs--xs, clamp(2rem, 0.765vw + 1.847rem, 2.5rem));
+    }
+
+    &:where(.t--xxs, .xxs, .t--2xs) {
+        --t-font-s: var(--t-fs--xxs, clamp(1.75rem, 0.765vw + 1.597rem, 2.25rem));
+    }
+
+    &:where(.t--xxxs, .xxxs, .t--3xs) {
+        --t-font-s: var(--t-fs--xxxs, clamp(1.5rem, 0.765vw + 1.347rem, 2rem));
+    }
+
+    &:where(.lh--xl) {
+        --t-line-h: 1.5;
+    }
+
+    &:where(.lh--l) {
+        --t-line-h: 1.375;
+    }
+
+    &:where(.lh--m) {
+        --t-line-h: 1.25;
+    }
+
+    &:where(.lh--s) {
+        --t-line-h: 1.125;
+    }
+
+    &:where(.lh--xs) {
+        --t-line-h: 1;
+    }
+
+}
+
+/* For Blocksy */
+:is(.t, [class^="t-"]):is(h1, h2, h3, h4) {
+    --theme-heading-color: var(--t-color, var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
+    --theme-font-size: var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem))));
+    --theme-font-weight: var(--t-font-w, var(--t-fw, 800));
+    --theme-font-style: var(--t-font-s, var(--t-fst));
+    --theme-line-height: var(--t-line-h, var(--t-lh, 1.25));
+    --theme-letter-spacing: var(--t-letter-s, var(--t-ls, calc(var(--t-ls-base, 1em) / var(--t-ls-ratio, 64))));
+    --theme-text-transform: var(--t-text-tf, var(--t-tt));
+    --theme-text-decoration: var(--t-text-dec, var(--t-dec));
+}

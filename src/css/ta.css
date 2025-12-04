@@ -1,0 +1,59 @@
+:where(.ta, .ta > [class*="ta-"], [class*="ta-"]) {
+    text-align: var(--ta--sm, var(--ta, left));
+
+    @container (669.99px <=width <=999.99px) {
+        text-align: var(--ta--md, var(--ta, left));
+    }
+
+    @container (width > 999.99px) {
+        text-align: var(--ta--lg, var(--ta, left));
+    }
+}
+
+:where(.ta.ta-s, .ta.s, .ta-s) {
+    --ta: start;
+}
+
+:where(.ta.ta-s--lg, .ta.ta-s--mdl, .ta.s--lg, .ta-s--lg, .ta.s--mdl, .ta-s--mdl) {
+    --ta--lg: start;
+}
+
+:where(.ta.ta-s--md, .ta.ta-s--mdl, .ta.ta-s--smd, .ta.s--md, .ta-s--md, .ta.s--smd) {
+    --ta--md: start;
+}
+
+:where(.ta.ta-s--sm, .ta.ta-s--smd, .ta.s--sm, .ta-s--sm, .ta.s--smd) {
+    --ta--sm: start;
+}
+
+:where(.ta.ta-c, .ta.c, .ta-c) {
+    --ta: center;
+}
+
+:where(.ta.ta-c--lg, .ta.ta-c--mdl, .ta.c--lg, .ta-c--lg, .ta.c--mdl, .ta-c--mdl) {
+    --ta--lg: center;
+}
+
+:where(.ta.ta-c--md, .ta.ta-c--mdl, .ta.ta-c--smd, .ta.c--md, .ta-c--md, .ta.c--smd) {
+    --ta--md: center;
+}
+
+:where(.ta.ta-c--sm, .ta.ta-c--smd, .ta.c--sm, .ta-c--sm, .ta.c--smd) {
+    --ta--sm: center;
+}
+
+:where(.ta.ta-e, .ta.e, .ta-e) {
+    --ta: end;
+}
+
+:where(.ta.ta-e--lg, .ta.ta-e--mdl, .ta.e--lg, .ta-e--lg, .ta.e--mdl, .ta-e--mdl) {
+    --ta--lg: end;
+}
+
+:where(.ta.ta-e--md, .ta.ta-e--mdl, .ta.ta-e--smd, .ta.e--md, .ta-e--md, .ta.e--smd) {
+    --ta--md: end;
+}
+
+:where(.ta.ta-e--sm, .ta.ta-e--smd, .ta.e--sm, .ta-e--sm, .ta.e--smd, .ta-e--smd) {
+    --ta--sm: end;
+}

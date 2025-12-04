@@ -1,0 +1,72 @@
+.cs {
+    :is(h1, h2, h3, h4, h5) {
+        margin-block: var(--cs-mb, var(--content-mb,
+                    var(--content-mbs, 0) var(--content-mbe, 0)));
+    }
+
+    :is(p, ul, li, blockquote) {
+        margin-block: var(--cs-mb, var(--content-mb,
+                    var(--content-mbs, 0) var(--content-mbe, 0)));
+    }
+
+    style {
+        display: none;
+    }
+
+}
+
+.cs .csc {
+    *+ :is(h1, h2, h3, h4, h5) {
+        --content-mbs: .75em;
+    }
+
+    :is(h1, h2, h3, h4, h5) {
+        --content-mbe: .5em;
+    }
+
+    *+ :is(p, li) {
+        --content-mbs: .75em;
+    }
+
+    p+ :is(a, button, btn) {
+        margin-block: var(--cs-mb, var(--content-mb,
+                    var(--content-mbs, .75em) var(--content-mbe, 0)));
+    }
+}
+
+.csc .cs {
+    --cs-mb: 0;
+}
+
+.cl {
+    list-style: var(--cl-list-style, none);
+    padding-inline: var(--cl-pi, 0);
+    margin-block: var(--cl-mb, 0);
+}
+
+.cs blockquote.cq {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.cs figure.cfg {
+    display: var(--figure-d, grid);
+    margin: 0;
+    margin-block: 0;
+    padding: 0;
+    border: none;
+}
+
+.cs figcaption.cfgc {
+    display: var(--figcaption-d, flex);
+    margin: 0;
+    margin-block: 0;
+    padding: 0;
+    border: none;
+    text-align: var(--figcaption-ta);
+}
+
+.cnt {
+    display: contents
+}

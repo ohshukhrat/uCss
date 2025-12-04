@@ -1,7 +1,51 @@
-# vscode settings
-*
-!*.json
-!.gitignore
-!.prettierrc.js
-!.editorconfig
-!README.md
+# ===========================
+# 1. System & OS Junk
+# ===========================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ===========================
+# 2. Dependencies (Never commit these)
+# ===========================
+node_modules/
+vendor/
+
+# ===========================
+# 3. Security & Environment (CRITICAL)
+# ===========================
+.env
+.env.local
+*.pem
+*.key
+
+# ===========================
+# 4. Logs & Debugging
+# ===========================
+npm-debug.log*
+yarn-debug.log*
+*.log
+
+# ===========================
+# 5. Build Outputs
+# ===========================
+# We ignore 'dist' because the GitHub Robot builds it for us.
+# This prevents conflicts if you build locally.
+dist/
+build/
+
+# ===========================
+# 6. IDE & Editor Settings
+# ===========================
+# Keep your personal editor settings out of the shared code
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===========================
+# 7. Local Configs
+# ===========================
+# Ignore local git config if it exists
+.git/config.local

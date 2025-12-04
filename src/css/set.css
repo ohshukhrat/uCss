@@ -1,0 +1,57 @@
+.set,
+[class*="set--"] {
+    color: var(--set-tx, var(--set-color, var(--theme-palette-color-3, currentColor)));
+    background-image: var(--set-img, none);
+    background-color: var(--set-bg, transparent);
+    border-color: var(--set-border);
+    --theme-text-color: var(--set-tx, var(--set-color, var(--theme-palette-color-3, currentColor)));
+
+    :where(h1, h2) {
+        color: var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor))));
+        --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor))));
+    }
+
+    :where(h3, h4, h5, h6) {
+        color: var(--set-st, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor))));
+        --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor))));
+    }
+
+    :is(a):not(.btn, [data-style="btn"]) {
+        color: var(--set-lnk, var(--set-st, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
+        background-color: var(--set-lnk-bg);
+        text-decoration: var(--set-lnk-dec, none);
+        --theme-link-initial-color: var(--set-lnk, var(--set-st, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
+        --theme-link-hover-color: var(--set-lnk-hover, var(--set-lnk, var(--p, var(--theme-palette-color-2))));
+    }
+
+    :is(a:hover):not(.btn, [data-style="btn"]) {
+        color: var(--set-lnk-hover, var(--set-lnk, var(--p, var(--theme-palette-color-2))));
+        background-color: var(--set-lnk-bg-hover, var(--set-lnk-bg));
+    }
+}
+
+.set.primary,
+.set-primary {
+    --set-bg: var(--bg-p, var(--theme-palette-color-8, transparent))
+}
+
+.set.secondary,
+.set-secondary {
+    --set-bg: var(--bg-s, var(--theme-palette-color-6, transparent))
+}
+
+.set.dark,
+.set-dark {
+    --set-tx: var(--theme-palette-color-6, currentColor);
+    --set-t: var(--theme-palette-color-7, currentColor);
+    --set-st: var(--theme-palette-color-7, currentColor);
+    --set-bg: var(--bg-d, var(--theme-palette-color-4, transparent))
+}
+
+.set.light,
+.set-light {
+    --set-tx: var(--theme-palette-color-4, currentColor);
+    --set-t: var(--theme-palette-color-4, currentColor);
+    --set-st: var(--theme-palette-color-4, currentColor);
+    --set-bg: var(--bg-l, var(--theme-palette-color-7, transparent))
+}

@@ -1,0 +1,90 @@
+:where(.o),
+figure.o {
+  display: var(--o-d, block);
+  position: var(--o-pos, absolute);
+  inset: var(--o-inset, 0);
+  z-index: var(--o-z);
+
+  margin: var(--o-margin, 0);
+  aspect-ratio: var(--o-ar);
+  inline-size: var(--o-w, var(--o-size, 100%));
+  block-size: var(--o-h, var(--o-size, 100%));
+
+  min-inline-size: var(--o-min-w--sm, var(--o-min-w));
+  min-block-size: var(--o-min-h--sm, var(--o-min-h));
+
+  max-inline-size: var(--o-max-w--sm, var(--o-max-w));
+  max-block-size: var(--o-max-h--sm, var(--o-max-h));
+
+  border-radius: var(--o-rad, inherit);
+  opacity: var(--o-op, 1);
+  background-color: var(--o-bg, transparent);
+  isolation: var(--o-iso);
+
+  flex-shrink: var(--o-shrink, 0);
+
+  @container (669.99px <=width <=999.99px) {
+    min-inline-size: var(--o-min-w--md, var(--o-min-w));
+    min-block-size: var(--o-min-h--md, var(--o-min-h));
+    max-inline-size: var(--o-max-w--md, var(--o-max-w));
+    max-block-size: var(--o-max-h--md, var(--o-max-h));
+  }
+
+  @container (width > 999.99px) {
+    min-inline-size: var(--o-min-w--lg, var(--o-min-w));
+    min-block-size: var(--o-min-h--lg, var(--o-min-h));
+    max-inline-size: var(--o-max-w--lg, var(--o-max-w));
+    max-block-size: var(--o-max-h--lg, var(--o-max-h));
+  }
+
+  >img,
+  >video {
+    display: var(--o-img-d, block);
+    inline-size: var(--o-img-w, var(--o-img-size, 100%));
+    block-size: var(--o-img-h, var(--o-img-size, 100%));
+    object-fit: var(--o-img-obj-fit, cover);
+    background-color: var(--o-img-bg, transparent);
+    margin: var(--o-img-margin, 0);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-color: var(--o-l-bg, var(--theme-palette-color-1, #eec14c));
+    opacity: var(--o-l-op, .32);
+  }
+
+  &.grd::after {
+    background: var(--o-l-grd, linear-gradient(135deg,
+          var(--gradient-color-1, var(--overlay-darker, rgba(6, 27, 35, 0.92))) 23%,
+          var(--gradient-color-2, var(--overlay-darker, rgba(6, 27, 35, 0.76))) 94%));
+  }
+}
+
+:where(.o.l) {
+  --o-l-bg: var(--theme-palette-color-7, #fff);
+}
+
+:where(.o.d) {
+  --o-l-bg: var(--theme-palette-color-4, #000);
+}
+
+:where(.o.lt) {
+  --o-l-op: .24;
+}
+
+:where(.o.bd) {
+  --o-l-op: .64;
+}
+
+:where(.o.no) {
+  --o-l-op: 0;
+}
+
+/* Gutenberg Block */
+
+.block-editor-block-list__block .o {
+  position: var(--o-pos, absolute);
+}
