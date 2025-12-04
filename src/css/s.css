@@ -13,10 +13,10 @@
 
   position: var(--s-pos, relative);
 
-  padding-block: var(--s-pb--sm, var(--s-pb,
-        var(--s-pbs--sm, var(--s-pbs, clamp(4rem, 3.059vw + 3.388rem, 6rem))) var(--s-pbe--sm, var(--s-pbe, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
-  padding-inline: var(--s-pi--sm, var(--s-pi,
-        var(--s-pis--sm, var(--s-pis, 5%)) var(--s-pie--sm, var(--s-pie, 5%))));
+  padding-block:
+    var(--s-pbs--sm, var(--s-pbs, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem))))) var(--s-pbe--sm, var(--s-pbe, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
+  padding-inline:
+    var(--s-pis--sm, var(--s-pis, var(--s-pi--sm, var(--s-pi, 5%)))) var(--s-pie--sm, var(--s-pie, var(--s-pi--sm, var(--s-pi, 5%))));
   margin-block: var(--s-mb,
       var(--s-mbs, 0) var(--s-mbe, 0));
   margin-inline: var(--s-mi,
@@ -39,18 +39,18 @@
   z-index: var(--s-z);
 
   @media (736.991px <=width <=1111.99px) {
-    padding-block: var(--s-pb--md, var(--s-pb,
-          var(--s-pbs--md, var(--s-pbs, clamp(4rem, 3.059vw + 3.388rem, 6rem))) var(--s-pbe--md, var(--s-pbe, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
-    padding-inline: var(--s-pi--md, var(--s-pi,
-          var(--s-pis--md, var(--s-pis, 5%)) var(--s-pie--md, var(--s-pie, 5%))));
+    padding-block:
+      var(--s-pbs--md, var(--s-pbs, var(--s-pb--md, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem))))) var(--s-pbe--md, var(--s-pbe, var(--s-pb--md, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
+    padding-inline:
+      var(--s-pis--md, var(--s-pis, var(--s-pi--md, var(--s-pi, 5%)))) var(--s-pie--md, var(--s-pie, var(--s-pi--md, var(--s-pi, 5%))));
     background-color: var(--s-bg--md, var(--s-bg));
   }
 
   @media (width >1111.99px) {
-    padding-block: var(--s-pb--lg, var(--s-pb,
-          var(--s-pbs--lg, var(--s-pbs, clamp(4rem, 3.059vw + 3.388rem, 6rem))) var(--s-pbe--lg, var(--s-pbe, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
-    padding-inline: var(--s-pi--lg, var(--s-pi,
-          var(--s-pis--lg, var(--s-pis, 5%)) var(--s-pie--lg, var(--s-pie, 5%))));
+    padding-block:
+      var(--s-pbs--lg, var(--s-pbs, var(--s-pb--lg, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem))))) var(--s-pbe--lg, var(--s-pbe, var(--s-pb--lg, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
+    padding-inline:
+      var(--s-pis--lg, var(--s-pis, var(--s-pi--lg, var(--s-pi, 5%)))) var(--s-pie--lg, var(--s-pie, var(--s-pi--lg, var(--s-pi, 5%))));
     background-color: var(--s-bg--lg, var(--s-bg));
   }
 
@@ -77,14 +77,10 @@
   block-size: var(--sc-h);
   max-block-size: var(--sc-max-h);
 
-  padding-block: var(--sc-pb,
-      var(--sc-pbs) var(--sc-pbe));
-  padding-inline: var(--sc-pi,
-      var(--sc-pis) var(--sc-pie));
-  margin-block: var(--sc-mb,
-      var(--sc-mbs, 0) var(--sc-mbe, 0));
-  margin-inline: var(--sc-mi,
-      var(--sc-mis) var(--sc-mie));
+  padding-block: var(--sc-pbs, var(--sc-pb)) var(--sc-pbe, var(--sc-pb));
+  padding-inline: var(--sc-pis, var(--sc-pi)) var(--sc-pie, var(--sc-pi));
+  margin-block: var(--sc-mbs, var(--sc-mb)) var(--sc-mbe, var(--sc-mb));
+  margin-inline: var(--sc-mis, var(--sc-mi)) var(--sc-mie, var(--sc-mi));
 
   background-color: var(--sc-bg--sm, var(--sc-bg));
 
@@ -127,8 +123,8 @@
   align-self: var(--scc-as);
   order: var(--scc-o);
 
-  padding-block: var(--scc-pb, var(--scc-pbs, 0) var(--scc-pbe, 0));
-  padding-inline: var(--scc-pi, var(--scc-pis, 0) var(--scc-pie, 0));
+  padding-block: var(--scc-pbs, var(--scc-pb)) var(--scc-pbe, var(--scc-pb));
+  padding-inline: var(--scc-pis, var(--scc-pi)) var(--scc-pie, var(--scc-pi));
 
   margin-inline-start: var(--scc-mis, var(--scc-mi));
   margin-inline-end: var(--scc-mie, var(--scc-mi));
@@ -157,39 +153,27 @@
 }
 
 :where(.s_h) {
-  --scc-w: 100%;
-  --scc-max-w: 64rem;
-  max-inline-size: var(--s-h-max-w, var(--scc-max-w));
+  --scc-max-w: var(--s-h-max-w, 64rem);
 }
 
 :where(.s_hw) {
-  --scc-w: 100%;
-  --scc-max-w: 72rem;
-  max-inline-size: var(--s-hw-max-w, var(--scc-max-w));
+  --scc-max-w: var(--s-hw-max-w, 72rem);
 }
 
 :where(.s_hn) {
-  --scc-w: 100%;
-  --scc-max-w: 56rem;
-  max-inline-size: var(--s-hn-max-w, var(--scc-max-w));
+  --scc-max-w: var(--s-hn-max-w, 56rem);
 }
 
 :where(.s_c) {
-  --scc-w: 100%;
-  --scc-max-w: 48rem;
-  max-inline-size: var(--scc-max-w);
+  --scc-max-w: var(--s-c-max-w, 48rem);
 }
 
 :where(.s_cw) {
-  --scc-w: 100%;
-  --scc-max-w: 56rem;
-  max-inline-size: var(--s-cw-max-w, var(--scc-max-w));
+  --scc-max-w: var(--s-cw-max-w, 56rem);
 }
 
 :where(.s_cn) {
-  --scc-w: 100%;
-  --scc-max-w: 40rem;
-  max-inline-size: var(--s-cn-max-w, var(--scc-max-w));
+  --scc-max-w: var(--s-cn-max-w, 40rem);
 }
 
 

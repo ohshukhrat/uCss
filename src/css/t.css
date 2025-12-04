@@ -1,7 +1,7 @@
 :is(.t, [class^="t--"]):is(h1, h2, h3, h4) {
     color: var(--t-color, var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
 
-    font-family: var(--t-font-f, var(--font-family, var(--theme-font-family)));
+    font-family: var(--t-font-f, var(--t-font-fam, var(--theme-font-family)));
 
     font-size: var(--t-font-s--sm, var(--t-font-s,
                 var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));
@@ -102,23 +102,23 @@
     }
 
     &:where(.lh--xl) {
-        --t-line-h: 1.5;
+        --t-line-h: var(--t-lh-xl, 1.5);
     }
 
     &:where(.lh--l) {
-        --t-line-h: 1.375;
+        --t-line-h: var(--t-lh-l, 1.375);
     }
 
     &:where(.lh--m) {
-        --t-line-h: 1.25;
+        --t-line-h: var(--t-lh-m, 1.25);
     }
 
     &:where(.lh--s) {
-        --t-line-h: 1.125;
+        --t-line-h: var(--t-lh-s, 1.125);
     }
 
     &:where(.lh--xs) {
-        --t-line-h: 1;
+        --t-line-h: var(--t-lh-xs, 1);
     }
 
 }

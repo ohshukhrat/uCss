@@ -64,11 +64,11 @@ figure.o {
 }
 
 :where(.o.l) {
-  --o-l-bg: var(--theme-palette-color-7, #fff);
+  --o-l-bg: var(--l, var(--theme-palette-color-7, #fff));
 }
 
 :where(.o.d) {
-  --o-l-bg: var(--theme-palette-color-4, #000);
+  --o-l-bg: var(--d, var(--theme-palette-color-4, #000));
 }
 
 :where(.o.lt) {

@@ -18,12 +18,10 @@ jobs:
       # 2. The Build Process (3 Files Generated)
       - name: 🏗️ Build & Optimize
         run: |
-          # Create the output folder
-          mkdir -p dist
+          # Create the output folders
+          mkdir -p dist/lib
 
           # --- FILE 1: Full Readable Source (u.css) ---
-          # We combine all files in the specific order requested.
-          # var.css is EXCLUDED from the build but tracked in git.
           cat src/css/clear.css \
               src/css/s.css \
               src/css/set.css \
@@ -41,20 +39,25 @@ jobs:
               src/css/f.css \
               src/css/g.css > dist/u.css
 
-          # --- PREP: Install Lightning CSS ---
-          # Using lightningcss-cli because it correctly handles 
-          # modern nesting (&) and @container queries.
-          npm install -g lightningcss-cli
+          # --- FILE 2: root.css (Standalone) ---
+          # Copied to dist/lib/root.css so it uploads to /latest/lib/root.css
+          cp src/css/root.css dist/lib/root.css
+          
+          # Minify root.css -> root.min.css
+          perl -0777 -pe 's|/\*.*?\*/||gs' dist/lib/root.css | tr '\n' ' ' | sed 's/ \+/ /g' | sed 's/ {/{/g' | sed 's/ }/}/g' | sed 's/; /;/g' > dist/lib/root.min.css
+          
+          # Gzip root.min.css -> root.min.css.gz
+          gzip -9 -k dist/lib/root.min.css
 
-          # --- FILE 2: Minified (u.min.css) ---
-          # --minify: Removes spaces/comments
-          # --targets: ">= 0.25%" ensures it converts modern nesting 
-          # into standard CSS so it doesn't break older browsers.
-          lightningcss --minify --bundle --targets ">= 0.25%" dist/u.css -o dist/u.min.css
+          # --- FILE 3: Minified (u.min.css) ---
+          # Simple minification: remove block comments and collapse whitespace.
+          # 1. Remove /* ... */ comments (non-greedy)
+          # 2. Replace newlines with spaces
+          # 3. Collapse multiple spaces to one
+          # 4. Remove spaces around braces/semicolons (optional but good for size)
+          perl -0777 -pe 's|/\*.*?\*/||gs' dist/u.css | tr '\n' ' ' | sed 's/ \+/ /g' | sed 's/ {/{/g' | sed 's/ }/}/g' | sed 's/; /;/g' > dist/u.min.css
 
-          # --- FILE 3: Gzipped (u.min.css.gz) ---
-          # -9: Max compression
-          # -k: Keep the original file (don't delete u.min.css)
+          # --- FILE 4: Gzipped (u.min.css.gz) ---
           gzip -9 -k dist/u.min.css
 
       # 3. Determine Server Folder

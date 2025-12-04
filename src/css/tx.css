@@ -2,7 +2,7 @@
 :is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li) {
     color: var(--tx-color, var(--set-tx, var(--set-color, var(--theme-palette-color-4, currentColor))));
 
-    font-family: var(--tx-font-f, var(--font-family, var(--theme-font-family)));
+    font-family: var(--tx-font-f, var(--tx-font-fam, var(--theme-font-family)));
 
     font-size: var(--tx-font-s--sm, var(--tx-font-s,
                 var(--tx-fs, var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem)))));
@@ -95,23 +95,23 @@
     }
 
     &:where(.lh--xl) {
-        --tx-line-h: 1.5;
+        --tx-line-h: var(--tx-lh-xl, 1.5);
     }
 
     &:where(.lh--l, .shl, .st) {
-        --tx-line-h: 1.375;
+        --tx-line-h: var(--tx-lh-l, 1.375);
     }
 
     &:where(.lh--m) {
-        --tx-line-h: 1.25;
+        --tx-line-h: var(--tx-lh-m, 1.25);
     }
 
     &:where(.lh--s) {
-        --tx-line-h: 1.125;
+        --tx-line-h: var(--tx-lh-s, 1.125);
     }
 
     &:where(.lh--xs) {
-        --tx-line-h: 1;
+        --tx-line-h: var(--tx-lh-xs, 1);
     }
 
 }

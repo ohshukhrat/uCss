@@ -52,9 +52,9 @@
   overflow-x: var(--crd-of-x, var(--crd-of, clip));
   overflow-y: var(--crd-of-y, var(--crd-of, clip));
 
-  transition: var(--crd-transition,
+  transition: var(--crd-trans,
     var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
-  transition-property: var(--crd-transition-p,
+  transition-property: var(--crd-trans-p,
     background-color,
     border-color,
     box-shadow,
@@ -66,7 +66,7 @@
     outline-color: var(--crd-outline-c-hover, var(--crd-outline-c, currentColor));
     box-shadow: var(--crd-shadow-hover, var(--crd-shadow));
 
-    transition: var(--crd-transition-hover, var(--crd-transition,
+    transition: var(--crd-trans-hover, var(--crd-trans,
           var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
   }
 
@@ -229,7 +229,7 @@
     }
 
     :where(& > img, & > picture, & > svg) {
-      transition: var(--crd-med-transition,
+      transition: var(--crd-med-trans,
           var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
       transition-property: var(--crd-med-trans-p,
           background-color, transform, opacity, fill, stroke);
@@ -237,13 +237,13 @@
   }
 
   :where(&:hover .crd__media) {
-    transition: var(--crd-med-transition-hover, var(--crd-med-transition,
+    transition: var(--crd-med-trans-hover, var(--crd-med-trans,
           var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
     opacity: var(--crd-med-op-hover, var(--crd-med-op, 1));
   }
 
   :where(&:hover .crd__media)> :where(img, picture, svg) {
-    transition: var(--crd-med-transition-hover, var(--crd-med-transition,
+    transition: var(--crd-med-trans-hover, var(--crd-med-trans,
           var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
     transform: var(--crd-med-tf-hover, var(--crd-med-tf,
           scale(var(--crd-med-tf-scale, var(--tf-scale, 1.125)))));
@@ -265,15 +265,15 @@
     text-align: var(--crd-content-ta--sm, var(--crd-content-ta, var(--crd-ta--sm, var(--crd-ta))));
 
     /* PADDING lives here! */
-    padding-block: var(--crd-content-pb--sm, var(--crd-content-pb, var(--crd-content-p, 1.25em)));
-    padding-inline: var(--crd-content-pi--sm, var(--crd-content-pi, var(--crd-content-p, 1.25em)));
+    padding-block: var(--crd-content-pb--sm, var(--crd-content-pb, var(--crd-content-p, 1.25rem)));
+    padding-inline: var(--crd-content-pi--sm, var(--crd-content-pi, var(--crd-content-p, 1.25rem)));
   }
 
   /* Granular slots (header, body, footer) for semantic structure */
   :where(.crd__header, .crd__body, .crd__footer) {
     display: var(--crd-slot-d, flex);
     flex-direction: var(--crd-slot-fd, column);
-    gap: var(--crd-slot-gap--sm, var(--crd-slot-gap, .75em));
+    gap: var(--crd-slot-gap--sm, var(--crd-slot-gap, .75rem));
     flex-wrap: var(--crd-slot-fw--sm, var(--crd-slot-fw));
   }
 
@@ -302,14 +302,14 @@
       align-content: var(--crd-content-ac--md, var(--crd-content-ac, var(--crd-ac)));
       gap: var(--crd-content-gap--md, var(--crd-content-gap,
             var(--crd-gap--md, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
-      padding-block: var(--crd-content-pb--md, var(--crd-content-pb, var(--crd-content-p, 1.25em)));
-      padding-inline: var(--crd-content-pi--md, var(--crd-content-pi, var(--crd-content-p, 1.25em)));
+      padding-block: var(--crd-content-pb--md, var(--crd-content-pb, var(--crd-content-p, 1.25rem)));
+      padding-inline: var(--crd-content-pi--md, var(--crd-content-pi, var(--crd-content-p, 1.25rem)));
       flex-wrap: var(--crd-content-fw--md, var(--crd-content-fw));
       text-align: var(--crd-content-ta--md, var(--crd-content-ta, var(--crd-ta--md, var(--crd-ta))));
     }
 
     :where(.crd__header, .crd__body, .crd__footer) {
-      gap: var(--crd-slot-gap--md, var(--crd-slot-gap, .75em));
+      gap: var(--crd-slot-gap--md, var(--crd-slot-gap, .75rem));
       flex-wrap: var(--crd-slot-fw--md, var(--crd-slot-fw));
     }
   }
@@ -329,14 +329,14 @@
       align-content: var(--crd-content-ac--lg, var(--crd-content-ac, var(--crd-ac)));
       gap: var(--crd-content-gap--lg, var(--crd-content-gap,
             var(--crd-gap--lg, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
-      padding-block: var(--crd-content-pb--lg, var(--crd-content-pb, var(--crd-content-p, 1.25em)));
-      padding-inline: var(--crd-content-pi--lg, var(--crd-content-pi, var(--crd-content-p, 1.25em)));
+      padding-block: var(--crd-content-pb--lg, var(--crd-content-pb, var(--crd-content-p, 1.25rem)));
+      padding-inline: var(--crd-content-pi--lg, var(--crd-content-pi, var(--crd-content-p, 1.25rem)));
       flex-wrap: var(--crd-content-fw--lg, var(--crd-content-fw));
       text-align: var(--crd-content-ta--lg, var(--crd-content-ta, var(--crd-ta--lg, var(--crd-ta))));
     }
 
     :where(.crd__header, .crd__body, .crd__footer) {
-      gap: var(--crd-slot-gap--lg, var(--crd-slot-gap, .75em));
+      gap: var(--crd-slot-gap--lg, var(--crd-slot-gap, .75rem));
       flex-wrap: var(--crd-slot-fw--lg, var(--crd-slot-fw));
     }
   }
@@ -361,9 +361,9 @@
     text-decoration: var(--crd-hd-tx-dec, none);
     opacity: var(--crd-hd-op, 1);
 
-    transition: var(--crd-transition,
+    transition: var(--crd-trans,
         var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
-    transition-property: var(--crd-transition-p,
+    transition-property: var(--crd-trans-p,
         color, opacity);
 
     --theme-link-initial-color: var(--crd-t-color, var(--set-st, var(--set-h, var(--theme-palette-color-4, currentColor))));
@@ -373,7 +373,7 @@
   &:hover :where(h2, h3, h4) a:not(.btn, [data-style="btn"]) {
     color: var(--crd-t-color-hover, var(--crd-t-color, var(--set-st, var(--set-h, var(--theme-palette-color-2, currentColor)))));
     opacity: var(--crd-hd-op-hover);
-    transition: var(--crd-transition-hover, var(--crd-transition,
+    transition: var(--crd-trans-hover, var(--crd-trans,
           var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
   }
 }
