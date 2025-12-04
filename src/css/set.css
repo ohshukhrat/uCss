@@ -45,7 +45,7 @@
     --set-tx: var(--theme-palette-color-6, currentColor);
     --set-t: var(--theme-palette-color-7, currentColor);
     --set-st: var(--theme-palette-color-7, currentColor);
-    --set-bg: var(--bg-d, var(--theme-palette-color-4, transparent))
+    --set-bg: var(--bg-d, var(--theme-palette-color-4, #000))
 }
 
 .set.light,
@@ -53,5 +53,5 @@
     --set-tx: var(--theme-palette-color-4, currentColor);
     --set-t: var(--theme-palette-color-4, currentColor);
     --set-st: var(--theme-palette-color-4, currentColor);
-    --set-bg: var(--bg-l, var(--theme-palette-color-7, transparent))
+    --set-bg: var(--bg-l, var(--theme-palette-color-7, #fff))
 }

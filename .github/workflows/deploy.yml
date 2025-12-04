@@ -22,9 +22,21 @@ jobs:
           mkdir -p dist
 
           # --- FILE 1: Full Readable Source (u.css) ---
-          # We combine all files alphabetically. 
-          # This file keeps comments and formatting for debugging.
-          cat src/css/*.css > dist/u.css
+          # We combine all files in the specific order requested.
+          # var.css is EXCLUDED from the build but tracked in git.
+          cat src/css/clear.css \
+              src/css/s.css \
+              src/css/set.css \
+              src/css/t.css \
+              src/css/tx.css \
+              src/css/ta.css \
+              src/css/med.css \
+              src/css/o.css \
+              src/css/lnk.css \
+              src/css/crd.css \
+              src/css/btn.css \
+              src/css/f.css \
+              src/css/g.css > dist/u.css
 
           # --- PREP: Install Lightning CSS ---
           # Using lightningcss-cli because it correctly handles 
