@@ -1,26 +1,58 @@
-name: Deploy Framework
+name: uCss Build & Deploy
+
 on:
   push:
-    branches: [ "main" ] # Runs automatically when you save & push
+    branches: [ "main" ] # Runs on every save to main branch
+  release:
+    types: [published]   # Runs when you publish a release (v1.0)
 
 jobs:
-  deploy:
+  build-and-deploy:
+    name: 🚀 Build uCss
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get your code
+      # 1. Get your code
+      - name: 🚚 Checkout Code
         uses: actions/checkout@v4
 
-      - name: 🔨 Combine CSS files
+      # 2. Build, Minify, and Gzip
+      - name: 🏗️ Build & Optimize
         run: |
+          # Create output folder
           mkdir -p dist
-          # This takes ALL css files in src/css and combines them
-          cat src/css/*.css > dist/framework.css
 
-      - name: 🚀 Upload to Hostinger
+          # A. Combine all CSS files into one readable file (u.css)
+          # Note: Files are loaded alphabetically. 
+          # To force order, rename files like 01-set.css, 02-f.css, etc.
+          cat src/css/*.css > dist/u.css
+
+          # B. Install Minifier Tool (CleanCSS)
+          npm install -g clean-css-cli
+
+          # C. Generate Minified Version (u.min.css)
+          # --level 1: Removes comments/whitespace but strictly preserves rule order
+          cleancss --level 1 -o dist/u.min.css dist/u.css
+
+          # D. Generate Gzip Version (u.min.css.gz)
+          # -9: Max compression, -k: Keep original file
+          gzip -9 -k dist/u.min.css
+
+      # 3. Determine Target Folder (latest vs v1.0)
+      - name: 📂 Set Server Path
+        id: target
+        run: |
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            echo "dir=${{ github.ref_name }}/" >> $GITHUB_OUTPUT
+          else
+            echo "dir=latest/" >> $GITHUB_OUTPUT
+          fi
+
+      # 4. Upload to Server
+      - name: ☁️ Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/             # Uploads only the combined file
-          server-dir: ./latest/          # Puts it in the 'latest' folder on server
+          server: "${{ secrets.FTP_SERVER }}"
+          username: "${{ secrets.FTP_USERNAME }}"
+          password: "${{ secrets.FTP_PASSWORD }}"
+          local-dir: ./dist/      # Uploads u.css, u.min.css, and u.min.css.gz
+          server-dir: ./${{ steps.target.outputs.dir }}
