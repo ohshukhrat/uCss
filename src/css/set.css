@@ -34,12 +34,12 @@
 
 .set.primary,
 .set-primary {
-    --set-bg: var(--bg-p, var(--theme-palette-color-8, transparent))
+    --set-bg: var(--sp, var(--theme-palette-color-8, transparent))
 }
 
 .set.secondary,
 .set-secondary {
-    --set-bg: var(--bg-a, var(--theme-palette-color-6, transparent))
+    --set-bg: var(--sa, var(--theme-palette-color-6, transparent))
 }
 
 .set.dark,

@@ -10,18 +10,18 @@
      * @prop --d: Dark Base (e.g., Background)
      * @prop --l: Light Base (e.g., Background)
      */
-  --p: var(--theme-palette-color-1, #EEC14C);
-  --a: var(--theme-palette-color-2, #FFB900);
-  --d: var(--theme-palette-color-3, #141414);
-  --l: var(--theme-palette-color-6, #E6E6E6);
+  --p: var(--theme-palette-color-1, hsl(43 83% 62%));
+  --a: var(--theme-palette-color-2, hsl(44 100% 50%));
+  --d: var(--theme-palette-color-3, hsl(0 0% 8%));
+  --l: var(--theme-palette-color-7, hsl(0 0% 96%));
 
   /* Dark Variants */
-  --d-lt: var(--theme-palette-color-5, #1f1f1f);
-  --d-bd: var(--theme-palette-color-4, #0A0A0A);
+  --d-lt: var(--theme-palette-color-5, hsl(0 0% 12%));
+  --d-bd: var(--theme-palette-color-4, hsl(0 0% 4%));
 
   /* Light Variants */
-  --l-lt: var(--theme-palette-color-8, #D9D9D9);
-  --l-bd: var(--theme-palette-color-7, #FAFAFA);
+  --l-lt: var(--theme-palette-color-6, hsl(0 0% 88%));
+  --l-bd: var(--theme-palette-color-8, hsl(0 0% 100%));
 
 
   /* ==========================================================================
@@ -36,21 +36,36 @@
      * @prop --on-p: Text on Primary
      * @prop --on-a: Text on Accent
      */
-  --bg: var(--l, #E6E6E6);
-  --bg-bd: var(--l-bd, #FAFAFA);
-  --bg-lt: var(--l-lt, #D9D9D9);
-  --srf: var(--bg-lt, #D9D9D9);
+  --bg: var(--l, hsl(0 0% 96%));
+  --bg-lt: var(--l-lt, hsl(0 0% 88%));
+  --bg-bd: var(--l-bd, hsl(0 0% 100%));
+  --srf: var(--bg-lt, hsl(0 0% 88%));
 
-  --on-p: var(--d, #141414);
-  --on-a: var(--d, #141414);
+  --on-p: var(--d, hsl(0 0% 4%));
+  --on-a: var(--d-bd, hsl(0 0% 4%));
+  --on-d: var(--l, hsl(0 0% 4%));
+
+  /* Overlay & Backdrop */
+
+  --o: var(--theme-palette-color-9, hsl(0 0% 96% / .64));
+  --o-lt: var(--theme-palette-color-10, hsl(0 0% 96% / .32));
+  --o-bd: var(--theme-palette-color-11, hsl(0 0% 96% / .8));
+
+  --bd: var(--theme-palette-color-12, hsl(0 0% 8% / .64));
+  --bd-lt: var(--theme-palette-color-13, hsl(0 0% 8% / .32));
+  --bd-bd: var(--theme-palette-color-14, hsl(0 0% 8% / .8));
 
   /* Primary Background Variants (for .set) */
-  --bg-p: var(--p, #EEC14C);
-  --bg-p-bd: #E5B02A;
-  /* Slightly darker/bolder primary */
-  --bg-p-lt: #F2D075;
-  /* Lighter primary */
+  --sp: hsl(43 83% 62% / .64);
+  --sp-lt: hsl(43 83% 62% / .32);
+  --sp-bd: hsl(43 83% 62% / .8);
+  --sa: hsl(44 100% 50% / .64);
+  --sa-lt: hsl(44 100% 50% / .32);
+  --sa-bd: hsl(44 100% 50% / .8);
 
+  /* Notification Colors */
+  --alr: hsl(13 83% 62%);
+  --scs: hsl(103 83% 62%);
 
   /* ==========================================================================
        Typography Colors
@@ -79,6 +94,15 @@
   --t-fs--xxs: clamp(1.75rem, 0.765vw + 1.597rem, 2.25rem);
   --t-fs--xxxs: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
 
+  /* .t (Typography - Heading) */
+  --t-lh: 1.25;
+  --t-fw: 800;
+  --t-lh-xl: 1.5;
+  --t-lh-l: 1.375;
+  --t-lh-m: 1.25;
+  --t-lh-s: 1.125;
+  --t-lh-xs: 1;
+
   /* Body Text (.tx) */
   --tx-fs--xxl: clamp(1.5rem, 0.382vw + 1.424rem, 1.75rem);
   --tx-fs--xl: clamp(1.375rem, 0.191vw + 1.337rem, 1.5rem);
@@ -88,6 +112,15 @@
   --tx-fs--xs: clamp(0.875rem, 0.191vw + 0.837rem, 1rem);
   --tx-fs--xxs: clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem);
   --tx-fs--xxxs: clamp(0.625rem, 0.191vw + 0.587rem, 0.75rem);
+
+  /* .tx (Typography - Body) */
+  --tx-lh: 1.5;
+  --tx-fw: 400;
+  --tx-lh-xl: 1.5;
+  --tx-lh-l: 1.375;
+  --tx-lh-m: 1.25;
+  --tx-lh-s: 1.125;
+  --tx-lh-xs: 1;
 
 
   /* ==========================================================================
@@ -167,21 +200,4 @@
   --btn-rad-bd: 0.625em;
   --btns-gap: clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem);
 
-  /* .t (Typography - Heading) */
-  --t-lh: 1.25;
-  --t-fw: 800;
-  --t-lh-xl: 1.5;
-  --t-lh-l: 1.375;
-  --t-lh-m: 1.25;
-  --t-lh-s: 1.125;
-  --t-lh-xs: 1;
-
-  /* .tx (Typography - Body) */
-  --tx-lh: 1.5;
-  --tx-fw: 400;
-  --tx-lh-xl: 1.5;
-  --tx-lh-l: 1.375;
-  --tx-lh-m: 1.25;
-  --tx-lh-s: 1.125;
-  --tx-lh-xs: 1;
 }

@@ -177,12 +177,12 @@ a.btn:active:not(:disabled, .is-disabled) {
 
 :where(.btn.secondary, [data-variant="secondary"], [data-style="btn"].secondary) {
   --btn-color: var(--btn-secondary-color, var(--b, var(--theme-palette-color-3, #131313)));
-  --btn-bg: var(--btn-secondary-bg, var(--s, hsl(43 83% 62% / .16)));
-  --btn-border-c: var(--btn-secondary-border-c, var(--btn-secondary-bg, var(--s, hsl(43 83% 62% / .08))));
+  --btn-bg: var(--btn-secondary-bg, var(--sp-lt, hsl(43 83% 62% / .32)));
+  --btn-border-c: var(--btn-secondary-border-c, var(--btn-secondary-bg, var(--sp-lt, hsl(43 83% 62% / .32))));
 
   --btn-color-hover: var(--btn-secondary-color-hover, var(--t, var(--theme-palette-color-4, #000)));
-  --btn-bg-hover: var(--btn-secondary-bg-hover, var(--sa, hsl(44 100% 50% / .48)));
-  --btn-border-c-hover: var(--btn-secondary-border-c-hover, var(--btn-secondary-bg-hover, var(--sa, hsl(44 100% 50% / .24))));
+  --btn-bg-hover: var(--btn-secondary-bg-hover, var(--sa, hsl(44 100% 50% / .64)));
+  --btn-border-c-hover: var(--btn-secondary-border-c-hover, var(--btn-secondary-bg-hover, var(--sa, hsl(44 100% 50% / .64))));
 }
 
 :where(.btn.plain, [data-variant="plain"], [data-style="btn"].plain) {
@@ -191,8 +191,8 @@ a.btn:active:not(:disabled, .is-disabled) {
   --btn-border-c: var(--btn-plain-border-c, transparent);
 
   --btn-color-hover: var(--btn-plain-color-hover, var(--t, var(--theme-palette-color-4, #000)));
-  --btn-bg-hover: var(--btn-plain-bg-hover, var(--sa, hsl(44 100% 50% / .48)));
-  --btn-border-c-hover: var(--btn-plain-border-c-hover, var(--btn-plain-bg-hover, var(--sa, hsl(44 100% 50% / .24))));
+  --btn-bg-hover: var(--btn-plain-bg-hover, var(--sa, hsl(44 100% 50% / .64)));
+  --btn-border-c-hover: var(--btn-plain-border-c-hover, var(--btn-plain-bg-hover, var(--sa, hsl(44 100% 50% / .64))));
 }
 
 /* --- Outlined --- */
