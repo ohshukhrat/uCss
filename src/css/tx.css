@@ -1,5 +1,5 @@
-:is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol),
-:is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li) {
+:is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption),
+:is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
     color: var(--tx-color, var(--set-tx, var(--set-color, var(--theme-palette-color-4, currentColor))));
 
     font-family: var(--tx-font-f, var(--tx-font-fam, var(--theme-font-family)));
@@ -119,8 +119,8 @@
 
 /* For Blocksy */
 
-:is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol),
-:is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li) {
+:is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption),
+:is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
     --theme-heading-color: var(--tx-color, var(--set-tx, var(--set-color, var(--theme-palette-color-4, currentColor))));
     --theme-text-color: var(--tx-color, var(--set-tx, var(--set-color, var(--theme-palette-color-4, currentColor))));
     --theme-font-size: var(--tx-font-s, var(--tx-fs, var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem))));

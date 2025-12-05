@@ -28,15 +28,7 @@ cp src/css/root.css dist/lib/root.css
 
 # Minify root.css -> root.min.css
 echo "Minifying root.css..."
-ESBUILD="./node_modules/.bin/esbuild"
-if [ -f "$ESBUILD" ]; then
-    $ESBUILD src/css/root.css --minify-whitespace --outfile=dist/lib/root.min.css
-elif command -v npx &> /dev/null; then
-    npx -y esbuild src/css/root.css --minify-whitespace --outfile=dist/lib/root.min.css
-else
-    echo "Error: esbuild not found. Please run 'npm install -D esbuild'."
-    exit 1
-fi
+cat src/css/root.css | node minify.js > dist/lib/root.min.css
 
 # Gzip root.min.css -> root.min.css.gz
 echo "Gzipping root.min.css..."
@@ -44,11 +36,7 @@ gzip -9 -k -f dist/lib/root.min.css
 
 # --- FILE 3: Minified (u.min.css) ---
 echo "Minifying u.css..."
-if [ -f "$ESBUILD" ]; then
-    $ESBUILD dist/u.css --minify-whitespace --outfile=dist/u.min.css
-else
-    npx -y esbuild dist/u.css --minify-whitespace --outfile=dist/u.min.css
-fi
+cat dist/u.css | node minify.js > dist/u.min.css
 
 # --- FILE 4: Gzipped (u.min.css.gz) ---
 echo "Gzipping u.min.css..."

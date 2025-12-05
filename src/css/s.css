@@ -112,6 +112,22 @@
   }
 }
 
+:where(.s__w) {
+  --sc-max-w: var(--sc-w-max-w, 1440px);
+}
+
+:where(.s__xw) {
+  --sc-max-w: var(--sc-xw-max-w, 1600px);
+}
+
+:where(.s__uw) {
+  --sc-max-w: var(--sc-uw-max-w, 1920px);
+}
+
+:where(.s__f) {
+  --sc-max-w: var(--sc-f-max-w, 100%);
+}
+
 :where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc)>:where(*, .scc) {
   inline-size: var(--scc-w--sm, var(--scc-w, 100%));
   max-inline-size: var(--scc-max-w--sm, var(--scc-max-w));
@@ -152,27 +168,27 @@
   --scc-as: stretch;
 }
 
-:where(.s_h) {
+:where(.s__h) {
   --scc-max-w: var(--s-h-max-w, 64rem);
 }
 
-:where(.s_hw) {
+:where(.s__hw) {
   --scc-max-w: var(--s-hw-max-w, 72rem);
 }
 
-:where(.s_hn) {
+:where(.s__hn) {
   --scc-max-w: var(--s-hn-max-w, 56rem);
 }
 
-:where(.s_c) {
+:where(.s__c) {
   --scc-max-w: var(--s-c-max-w, 48rem);
 }
 
-:where(.s_cw) {
+:where(.s__cw) {
   --scc-max-w: var(--s-cw-max-w, 56rem);
 }
 
-:where(.s_cn) {
+:where(.s__cn) {
   --scc-max-w: var(--s-cn-max-w, 40rem);
 }
 

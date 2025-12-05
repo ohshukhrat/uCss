@@ -18,43 +18,9 @@ jobs:
       # 2. The Build Process (3 Files Generated)
       - name: 🏗️ Build & Optimize
         run: |
-          # Create the output folders
-          mkdir -p dist/lib
-
-          # --- FILE 1: Full Readable Source (u.css) ---
-          cat src/css/clear.css \
-              src/css/s.css \
-              src/css/set.css \
-              src/css/t.css \
-              src/css/tx.css \
-              src/css/ta.css \
-              src/css/med.css \
-              src/css/o.css \
-              src/css/m.css \
-              src/css/p.css \
-              src/css/rad.css \
-              src/css/lnk.css \
-              src/css/crd.css \
-              src/css/btn.css \
-              src/css/f.css \
-              src/css/g.css > dist/u.css
-
-          # --- FILE 2: root.css (Standalone) ---
-          # Copied to dist/lib/root.css so it uploads to /latest/lib/root.css
-          cp src/css/root.css dist/lib/root.css
-          
-          # Minify root.css -> root.min.css
-          npx -y esbuild src/css/root.css --minify-whitespace --outfile=dist/lib/root.min.css
-          
-          # Gzip root.min.css -> root.min.css.gz
-          gzip -9 -k dist/lib/root.min.css
-
-          # --- FILE 3: Minified (u.min.css) ---
-          # Use esbuild for proper minification
-          npx -y esbuild dist/u.css --minify-whitespace --outfile=dist/u.min.css
-
-          # --- FILE 4: Gzipped (u.min.css.gz) ---
-          gzip -9 -k dist/u.min.css
+          # Run the build script
+          chmod +x build.sh
+          ./build.sh
 
       # 3. Determine Server Folder
       - name: 📂 Set Server Path

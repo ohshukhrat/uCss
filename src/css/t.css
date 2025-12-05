@@ -1,4 +1,5 @@
-:is(.t, [class^="t--"]):is(h1, h2, h3, h4) {
+:is(.t, [class^="t--"]):is(h1, h2, h3, h4),
+:is(.t, [class^="t--"]):where(p, span, div) {
     color: var(--t-color, var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
 
     font-family: var(--t-font-f, var(--t-font-fam, var(--theme-font-family)));
@@ -124,7 +125,8 @@
 }
 
 /* For Blocksy */
-:is(.t, [class^="t-"]):is(h1, h2, h3, h4) {
+:is(.t, [class^="t-"]):is(h1, h2, h3, h4),
+:is(.t, [class^="t-"]):where(p, span, div) {
     --theme-heading-color: var(--t-color, var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
     --theme-font-size: var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem))));
     --theme-font-weight: var(--t-font-w, var(--t-fw, 800));

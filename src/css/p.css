@@ -1,48 +1,48 @@
 :where(.p, .pb, .pbs) {
-    margin-block-start: var(--pbs--sm, var(--pbs, var(--pb--sm, var(--pb, var(--p--sm, var(--p))))));
+    padding-block-start: var(--pbs--sm, var(--pbs, var(--pb--sm, var(--pb, var(--p--sm, var(--p))))));
 
     @container (669.99px <=width <=999.99px) {
-        margin-block-start: var(--pbs--md, var(--pbs, var(--pb--md, var(--pb, var(--p--md, var(--p))))));
+        padding-block-start: var(--pbs--md, var(--pbs, var(--pb--md, var(--pb, var(--p--md, var(--p))))));
     }
 
     @container (width >=1000px) {
-        margin-block-start: var(--pbs--lg, var(--pbs, var(--pb--lg, var(--pb, var(--p--lg, var(--p))))));
+        padding-block-start: var(--pbs--lg, var(--pbs, var(--pb--lg, var(--pb, var(--p--lg, var(--p))))));
     }
 }
 
 :where(.p, .pb, .pbe) {
-    margin-block-end: var(--pbe--sm, var(--pbe, var(--pb--sm, var(--pb, var(--p--sm, var(--p))))));
+    padding-block-end: var(--pbe--sm, var(--pbe, var(--pb--sm, var(--pb, var(--p--sm, var(--p))))));
 
     @container (669.99px <=width <=999.99px) {
-        margin-block-end: var(--pbe--md, var(--pbe, var(--pb--md, var(--pb, var(--p--md, var(--p))))));
+        padding-block-end: var(--pbe--md, var(--pbe, var(--pb--md, var(--pb, var(--p--md, var(--p))))));
     }
 
     @container (width >=1000px) {
-        margin-block-end: var(--pbe--lg, var(--pbe, var(--pb--lg, var(--pb, var(--p--lg, var(--p))))));
+        padding-block-end: var(--pbe--lg, var(--pbe, var(--pb--lg, var(--pb, var(--p--lg, var(--p))))));
     }
 }
 
 :where(.p, .pi, .pis) {
-    margin-inline-start: var(--pis--sm, var(--pis, var(--pi--sm, var(--pi, var(--p--sm, var(--p))))));
+    padding-inline-start: var(--pis--sm, var(--pis, var(--pi--sm, var(--pi, var(--p--sm, var(--p))))));
 
     @container (669.99px <=width <=999.99px) {
-        margin-inline-start: var(--pis--md, var(--pis, var(--pi--md, var(--pi, var(--p--md, var(--p))))));
+        padding-inline-start: var(--pis--md, var(--pis, var(--pi--md, var(--pi, var(--p--md, var(--p))))));
     }
 
     @container (width >=1000px) {
-        margin-inline-start: var(--pis--lg, var(--pis, var(--pi--lg, var(--pi, var(--p--lg, var(--p))))));
+        padding-inline-start: var(--pis--lg, var(--pis, var(--pi--lg, var(--pi, var(--p--lg, var(--p))))));
     }
 }
 
 :where(.p, .pi, .pie) {
-    margin-inline-end: var(--pie--sm, var(--pie, var(--pi--sm, var(--pi, var(--p--sm, var(--p))))));
+    padding-inline-end: var(--pie--sm, var(--pie, var(--pi--sm, var(--pi, var(--p--sm, var(--p))))));
 
     @container (669.99px <=width <=999.99px) {
-        margin-inline-end: var(--pie--md, var(--pie, var(--pi--md, var(--pi, var(--p--md, var(--p))))));
+        padding-inline-end: var(--pie--md, var(--pie, var(--pi--md, var(--pi, var(--p--md, var(--p))))));
     }
 
     @container (width >=1000px) {
-        margin-inline-end: var(--pie--lg, var(--pie, var(--pi--lg, var(--pi, var(--p--lg, var(--p))))));
+        padding-inline-end: var(--pie--lg, var(--pie, var(--pi--lg, var(--pi, var(--p--lg, var(--p))))));
     }
 }
 
