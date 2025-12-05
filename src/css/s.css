@@ -14,13 +14,13 @@
   position: var(--s-pos, relative);
 
   padding-block:
-    var(--s-pbs--sm, var(--s-pbs, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem))))) var(--s-pbe--sm, var(--s-pbe, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
+    var(--s-pd, var(--s-pbs--sm, var(--s-pbs, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem))))) var(--s-pbe--sm, var(--s-pbe, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem))))));
   padding-inline:
-    var(--s-pis--sm, var(--s-pis, var(--s-pi--sm, var(--s-pi, 5%)))) var(--s-pie--sm, var(--s-pie, var(--s-pi--sm, var(--s-pi, 5%))));
-  margin-block: var(--s-mb,
-      var(--s-mbs, 0) var(--s-mbe, 0));
-  margin-inline: var(--s-mi,
-      var(--s-mis) var(--s-mie));
+    var(--s-pd, var(--s-pis--sm, var(--s-pis, var(--s-pi--sm, var(--s-pi, 5%)))) var(--s-pie--sm, var(--s-pie, var(--s-pi--sm, var(--s-pi, 5%)))));
+  margin-block: var(--s-md, var(--s-mb,
+        var(--s-mbs, 0) var(--s-mbe, 0)));
+  margin-inline: var(--s-md, var(--s-mi,
+        var(--s-mis) var(--s-mie)));
 
   overflow-x: var(--s-of-x, var(--s-of, clip));
   overflow-y: var(--s-of-y, var(--s-of, clip));
