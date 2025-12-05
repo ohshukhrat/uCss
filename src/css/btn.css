@@ -61,7 +61,7 @@ a.btn {
   width: var(--btn-w--sm, var(--btn-w, fit-content));
   min-height: var(--btn-min-h--sm, var(--btn-min-h, 2.75em));
 
-  :not(.g, .block-library-block__reusable-block-container):has(> &) {
+  :not(.g, .sg, .block-library-block__reusable-block-container):has(> &) {
     container-name: btnp;
     container-type: inline-size;
     contain: inline-size;

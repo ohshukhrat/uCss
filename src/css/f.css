@@ -31,7 +31,7 @@
     var(--f-fw--sm,
       var(--f-fw, wrap));
 
-  :not(.g, .sg):has(> &) {
+  :not(.g, .sg, .sgc):has(> &) {
     container-name: fp;
     container-type: inline-size;
     contain: inline-size layout;

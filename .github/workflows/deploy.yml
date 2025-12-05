@@ -15,24 +15,31 @@ jobs:
       - name: 🚚 Checkout Code
         uses: actions/checkout@v4
 
-      # 2. The Build Process (3 Files Generated)
-      - name: 🏗️ Build & Optimize
-        run: |
-          # Run the build script
-          chmod +x build.sh
-          ./build.sh
-
-      # 3. Determine Server Folder
+      # Determine Server Folder logic (MOVED EARLIER)
       - name: 📂 Set Server Path
         id: target
         run: |
           if [[ "${{ github.event_name }}" == "release" ]]; then
             echo "dir=${{ github.ref_name }}/" >> $GITHUB_OUTPUT
+            echo "build_arg=${{ github.ref_name }}" >> $GITHUB_OUTPUT
           elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "dir=stable/" >> $GITHUB_OUTPUT
-          else
+            echo "build_arg=stable" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
             echo "dir=latest/" >> $GITHUB_OUTPUT
+            echo "build_arg=latest" >> $GITHUB_OUTPUT
+          else
+            TIMESTAMP=$(date +"%Y-%m-%d-%H-%M")
+            echo "dir=preview/$TIMESTAMP/" >> $GITHUB_OUTPUT
+            echo "build_arg=preview/$TIMESTAMP" >> $GITHUB_OUTPUT
           fi
+
+      # 2. The Build Process (3 Files Generated)
+      - name: 🏗️ Build & Optimize
+        run: |
+          # Run the build script with target arg
+          chmod +x build.sh
+          ./build.sh "${{ steps.target.outputs.build_arg }}"
 
       # 4. Upload to Server
       - name: ☁️ Upload via FTP
@@ -41,5 +48,5 @@ jobs:
           server: "${{ secrets.FTP_SERVER }}"
           username: "${{ secrets.FTP_USERNAME }}"
           password: "${{ secrets.FTP_PASSWORD }}"
-          local-dir: ./dist/      # Uploads the entire 'dist' folder (all 3 files)
+          local-dir: ./dist/${{ steps.target.outputs.dir }}      # Uploads specific variant folder
           server-dir: ./${{ steps.target.outputs.dir }}
