@@ -49,3 +49,8 @@ build/
 # ===========================
 # Ignore local git config if it exists
 .git/config.local
+
+# ===========================
+# 8. Local Temp
+# ===========================
+local/temp/

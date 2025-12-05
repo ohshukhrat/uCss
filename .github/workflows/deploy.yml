@@ -44,14 +44,14 @@ jobs:
           cp src/css/root.css dist/lib/root.css
           
           # Minify root.css -> root.min.css
-          npx -y esbuild src/css/root.css --minify --target=chrome90 --outfile=dist/lib/root.min.css
+          npx -y esbuild src/css/root.css --minify-whitespace --outfile=dist/lib/root.min.css
           
           # Gzip root.min.css -> root.min.css.gz
           gzip -9 -k dist/lib/root.min.css
 
           # --- FILE 3: Minified (u.min.css) ---
           # Use esbuild for proper minification
-          npx -y esbuild dist/u.css --minify --target=chrome90 --outfile=dist/u.min.css
+          npx -y esbuild dist/u.css --minify-whitespace --outfile=dist/u.min.css
 
           # --- FILE 4: Gzipped (u.min.css.gz) ---
           gzip -9 -k dist/u.min.css

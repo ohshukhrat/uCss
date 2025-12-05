@@ -30,9 +30,9 @@ cp src/css/root.css dist/lib/root.css
 echo "Minifying root.css..."
 ESBUILD="./node_modules/.bin/esbuild"
 if [ -f "$ESBUILD" ]; then
-    $ESBUILD src/css/root.css --minify --target=chrome90 --outfile=dist/lib/root.min.css
+    $ESBUILD src/css/root.css --minify-whitespace --outfile=dist/lib/root.min.css
 elif command -v npx &> /dev/null; then
-    npx -y esbuild src/css/root.css --minify --target=chrome90 --outfile=dist/lib/root.min.css
+    npx -y esbuild src/css/root.css --minify-whitespace --outfile=dist/lib/root.min.css
 else
     echo "Error: esbuild not found. Please run 'npm install -D esbuild'."
     exit 1
@@ -45,9 +45,9 @@ gzip -9 -k -f dist/lib/root.min.css
 # --- FILE 3: Minified (u.min.css) ---
 echo "Minifying u.css..."
 if [ -f "$ESBUILD" ]; then
-    $ESBUILD dist/u.css --minify --target=chrome90 --outfile=dist/u.min.css
+    $ESBUILD dist/u.css --minify-whitespace --outfile=dist/u.min.css
 else
-    npx -y esbuild dist/u.css --minify --target=chrome90 --outfile=dist/u.min.css
+    npx -y esbuild dist/u.css --minify-whitespace --outfile=dist/u.min.css
 fi
 
 # --- FILE 4: Gzipped (u.min.css.gz) ---
