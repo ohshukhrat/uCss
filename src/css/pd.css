@@ -1,0 +1,119 @@
+:where(.pd, .pdb, .pdbs) {
+    padding-block-start: var(--pdbs--sm, var(--pdbs, var(--pdb--sm, var(--pdb, var(--pd--sm, var(--pd))))));
+
+    @container (669.99px <=width <=999.99px) {
+        padding-block-start: var(--pdbs--md, var(--pdbs, var(--pdb--md, var(--pdb, var(--pd--md, var(--pd))))));
+    }
+
+    @container (width >=1000px) {
+        padding-block-start: var(--pdbs--lg, var(--pdbs, var(--pdb--lg, var(--pdb, var(--pd--lg, var(--pd))))));
+    }
+}
+
+:where(.pd, .pdb, .pdbe) {
+    padding-block-end: var(--pdbe--sm, var(--pdbe, var(--pdb--sm, var(--pdb, var(--pd--sm, var(--pd))))));
+
+    @container (669.99px <=width <=999.99px) {
+        padding-block-end: var(--pdbe--md, var(--pdbe, var(--pdb--md, var(--pdb, var(--pd--md, var(--pd))))));
+    }
+
+    @container (width >=1000px) {
+        padding-block-end: var(--pdbe--lg, var(--pdbe, var(--pdb--lg, var(--pdb, var(--pd--lg, var(--pd))))));
+    }
+}
+
+:where(.pd, .pdi, .pdis) {
+    padding-inline-start: var(--pdis--sm, var(--pdis, var(--pdi--sm, var(--pdi, var(--pd--sm, var(--pd))))));
+
+    @container (669.99px <=width <=999.99px) {
+        padding-inline-start: var(--pdis--md, var(--pdis, var(--pdi--md, var(--pdi, var(--pd--md, var(--pd))))));
+    }
+
+    @container (width >=1000px) {
+        padding-inline-start: var(--pdis--lg, var(--pdis, var(--pdi--lg, var(--pdi, var(--pd--lg, var(--pd))))));
+    }
+}
+
+:where(.pd, .pdi, .pdie) {
+    padding-inline-end: var(--pdie--sm, var(--pdie, var(--pdi--sm, var(--pdi, var(--pd--sm, var(--pd))))));
+
+    @container (669.99px <=width <=999.99px) {
+        padding-inline-end: var(--pdie--md, var(--pdie, var(--pdi--md, var(--pdi, var(--pd--md, var(--pd))))));
+    }
+
+    @container (width >=1000px) {
+        padding-inline-end: var(--pdie--lg, var(--pdie, var(--pdi--lg, var(--pdi, var(--pd--lg, var(--pd))))));
+    }
+}
+
+:where(.pdb.xxxl, .pdb--xxxl, .pdb--3xl) {
+    --pdb: clamp(6rem, 3.059vw + 5.388rem, 8rem);
+}
+
+:where(.pdb.xxl, .pdb--xxl, .pdb--2xl) {
+    --pdb: clamp(4rem, 3.059vw + 3.388rem, 6rem);
+}
+
+:where(.pdb.xl, .pdb--xl, .pdb--lg) {
+    --pdb: clamp(3rem, 1.53vw + 2.694rem, 4rem);
+}
+
+:where(.pdb.l, .pdb--l) {
+    --pdb: clamp(2.5rem, 0.765vw + 2.347rem, 3rem);
+}
+
+:where(.pdb--m, .pd--m) {
+    --pdb: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
+}
+
+:where(.pdb--s, .pd--s) {
+    --pdb: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
+}
+
+:where(.pdb.xs, .pdb--xs, .pd.xs, .pd--xs) {
+    --pdb: clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem);
+}
+
+:where(.pdb.xxs, .pdb--xxs, .pdb--2xs, .pd.xxs, .pd--xxs, .pd--2xs) {
+    --pdb: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
+}
+
+:where(.pdi.xxl, .pdi--xxl, .pdi--2xl) {
+    --pdi: 7%;
+}
+
+:where(.pdi.xl, .pdi--xl) {
+    --pdi: 5%;
+}
+
+:where(.pdi.l, .pdi--l) {
+    --pdi: 3%;
+}
+
+:where(.pdi--m, .pd--m) {
+    --pdi: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
+}
+
+:where(.pdi--s, .pd--s) {
+    --pdi: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
+}
+
+:where(.pdi.xs, .pdi--xs, .pd.xs, .pd--xs) {
+    --pdi: clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem);
+}
+
+:where(.pdi.xxs, .pdi--xxs, .pdi--2xs, .pd.xxs, .pd--xxs, .pd--2xs) {
+    --pdi: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
+}
+
+:where(.pd.l, .pd--l) {
+    --pd: clamp(2.5rem, 0.765vw + 2.347rem, 3rem);
+}
+
+:where(.pd.xl, .pd--xl) {
+    --pd: clamp(3rem, 1.53vw + 2.694rem, 4rem);
+}
+
+:where(.pd.xxl, .pd--xxl, .pd--2xl) {
+    --pd: clamp(4rem, 3.059vw + 3.388rem, 6rem);
+}
