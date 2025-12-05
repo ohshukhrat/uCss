@@ -230,7 +230,7 @@ a.btn:active:not(:disabled, .is-disabled) {
 :where(.btn[data-size="md"], .btn.md, [data-style="btn"].md) {
   --btn-font-s: var(--btn-md-font-s, 1rem);
   /* ~16px */
-  --btn-p: var(--btn-md-p, 0.75em 1.5em);
+  --btn-pd: var(--btn-md-p, 0.75em 1.5em);
   --btn-min-h: var(--btn-md-min-h, 2.75rem);
   /* ~44px */
 }
@@ -238,7 +238,7 @@ a.btn:active:not(:disabled, .is-disabled) {
 :where(.btn[data-size="sm"], .btn.sm, [data-style="btn"].sm) {
   --btn-font-s: var(--btn-sm-font-s, 0.875rem);
   /* ~14px */
-  --btn-p: var(--btn-sm-p, 0.5em 1em);
+  --btn-pd: var(--btn-sm-p, 0.5em 1em);
   --btn-min-h: var(--btn-sm-min-h, 2.375rem);
   /* ~38px */
 }
@@ -246,7 +246,7 @@ a.btn:active:not(:disabled, .is-disabled) {
 :where(.btn[data-size="xsm"], .btn.xsm, [data-style="btn"].xsm) {
   --btn-font-s: var(--btn-xsm-font-s, 0.75rem);
   /* ~12px */
-  --btn-p: var(--btn-xsm-p, 0.5em 1em);
+  --btn-pd: var(--btn-xsm-p, 0.5em 1em);
   --btn-min-h: var(--btn-xsm-min-h, 2rem);
   /* ~32px */
 }
@@ -254,7 +254,7 @@ a.btn:active:not(:disabled, .is-disabled) {
 :where(.btn[data-size="lg"], .btn.lg, [data-style="btn"].lg) {
   --btn-font-s: var(--btn-lg-font-s, 1.25rem);
   /* ~18px */
-  --btn-p: var(--btn-lg-p, 0.8em 1.6em);
+  --btn-pd: var(--btn-lg-p, 0.8em 1.6em);
   --btn-min-h: var(--btn-lg-min-h, 3.25rem);
   /* ~52px */
 }
@@ -262,7 +262,7 @@ a.btn:active:not(:disabled, .is-disabled) {
 :where(.btn[data-size="xlg"], .btn.xlg, [data-style="btn"].xlg) {
   --btn-font-s: var(--btn-xlg-font-s, 1.375rem);
   /* ~22px */
-  --btn-p: var(--btn-xlg-p, 0.8em 1.6em);
+  --btn-pd: var(--btn-xlg-p, 0.8em 1.6em);
   --btn-min-h: var(--btn-xlg-min-h, 3.5rem);
   /* ~56px */
 }
