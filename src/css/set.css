@@ -1,28 +1,28 @@
 .set,
 [class*="set--"] {
-    color: var(--set-tx, var(--set-color, var(--theme-palette-color-3, currentColor)));
+    color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
     background-image: var(--set-img, none);
     background-color: var(--set-bg, transparent);
     border-width: var(--set-border-w, 0);
     border-style: var(--set-border-s, solid);
     border-color: var(--set-border-c, currentColor);
-    --theme-text-color: var(--set-tx, var(--set-color, var(--theme-palette-color-3, currentColor)));
+    --theme-text-color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
 
     :where(h1, h2) {
-        color: var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor))));
-        --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor))));
+        color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+        --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
     }
 
     :where(h3, h4, h5, h6) {
-        color: var(--set-st, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor))));
-        --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor))));
+        color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+        --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
     }
 
     :is(a):not(.btn, [data-style="btn"]) {
-        color: var(--set-lnk, var(--set-st, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
+        color: var(--set-lnk, var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))));
         background-color: var(--set-lnk-bg);
         text-decoration: var(--set-lnk-dec, none);
-        --theme-link-initial-color: var(--set-lnk, var(--set-st, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
+        --theme-link-initial-color: var(--set-lnk, var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))));
         --theme-link-hover-color: var(--set-lnk-hover, var(--set-lnk, var(--p, var(--theme-palette-color-2))));
     }
 
@@ -34,26 +34,30 @@
 
 .set.primary,
 .set-primary {
-    --set-bg: var(--sp, var(--theme-palette-color-8, transparent))
+    --set-h: var(--theme-palette-color-4, hsl(0 0% 4%));
+    --set-color: var(--tx, var(--theme-palette-color-3, hsl(0 0% 8%)));
+    --set-bg: var(--sp, var(--theme-palette-color-8, hsl(43 83% 62% / .64)))
 }
 
 .set.secondary,
 .set-secondary {
-    --set-bg: var(--sa, var(--theme-palette-color-6, transparent))
+    --set-h: var(--theme-palette-color-4, hsl(0 0% 4%));
+    --set-color: var(--tx, var(--theme-palette-color-3, hsl(0 0% 8%)));
+    --set-bg: var(--sa, var(--theme-palette-color-6, hsl(44 100% 50% / .64)))
 }
 
 .set.dark,
 .set-dark {
-    --set-t: var(--l-bd, var(--theme-palette-color-7, #fff));
-    --set-st: var(--l, var(--theme-palette-color-7, #ddd));
-    --set-tx: var(--l, var(--theme-palette-color-6, #ddd));
-    --set-bg: var(--bg-d, var(--theme-palette-color-4, #000));
+    --set-t: var(--l-bd, var(--theme-palette-color-7, hsl(0 0% 100%)));
+    --set-st: var(--l, var(--theme-palette-color-7, hsl(0 0% 96%)));
+    --set-tx: var(--l, var(--theme-palette-color-6, hsl(0 0% 96%)));
+    --set-bg: var(--d-bd, var(--theme-palette-color-4, hsl(0 0% 4%)));
 }
 
 .set.light,
 .set-light {
-    --set-t: var(--d, var(--theme-palette-color-4, #000));
-    --set-st: var(--d, var(--theme-palette-color-4, #222));
-    --set-tx: var(--d-bd, var(--theme-palette-color-4, #222));
-    --set-bg: var(--bg-l, var(--theme-palette-color-7, #fff));
+    --set-t: var(--d-bd, var(--theme-palette-color-4, hsl(0 0% 4%)));
+    --set-st: var(--d-bd, var(--theme-palette-color-4, hsl(0 0% 4%)));
+    --set-tx: var(--d, var(--theme-palette-color-3, hsl(0 0% 8%)));
+    --set-bg: var(--l-bd, var(--theme-palette-color-7, hsl(0 0% 100%)));
 }

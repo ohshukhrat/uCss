@@ -1,34 +1,34 @@
 :root {
 
-  /* ==========================================================================
+     /* ==========================================================================
        Core (Brand)
        ========================================================================== */
 
-  /**
+     /**
      * @prop --p: Primary Color
      * @prop --a: Accent Color
      * @prop --d: Dark Base (e.g., Background)
      * @prop --l: Light Base (e.g., Background)
      */
-  --p: var(--theme-palette-color-1, hsl(43 83% 62%));
-  --a: var(--theme-palette-color-2, hsl(44 100% 50%));
-  --d: var(--theme-palette-color-3, hsl(0 0% 8%));
-  --l: var(--theme-palette-color-7, hsl(0 0% 96%));
+     --p: var(--theme-palette-color-1, hsl(43 83% 62%));
+     --a: var(--theme-palette-color-2, hsl(44 100% 50%));
+     --d: var(--theme-palette-color-3, hsl(0 0% 8%));
+     --l: var(--theme-palette-color-7, hsl(0 0% 96%));
 
-  /* Dark Variants */
-  --d-lt: var(--theme-palette-color-5, hsl(0 0% 12%));
-  --d-bd: var(--theme-palette-color-4, hsl(0 0% 4%));
+     /* Dark Variants */
+     --d-lt: hsl(0 0% 12%);
+     --d-bd: hsl(0 0% 4%);
 
-  /* Light Variants */
-  --l-lt: var(--theme-palette-color-6, hsl(0 0% 88%));
-  --l-bd: var(--theme-palette-color-8, hsl(0 0% 100%));
+     /* Light Variants */
+     --l-lt: hsl(0 0% 88%);
+     --l-bd: hsl(0 0% 100%);
 
 
-  /* ==========================================================================
+     /* ==========================================================================
        Core Colors
        ========================================================================== */
 
-  /**
+     /**
      * @prop --bg: Main Background
      * @prop --bg-bd: Bold Background (Deep/Bright)
      * @prop --bg-lt: Light Background (Surface)
@@ -36,168 +36,182 @@
      * @prop --on-p: Text on Primary
      * @prop --on-a: Text on Accent
      */
-  --bg: var(--l, hsl(0 0% 96%));
-  --bg-lt: var(--l-lt, hsl(0 0% 88%));
-  --bg-bd: var(--l-bd, hsl(0 0% 100%));
-  --srf: var(--bg-lt, hsl(0 0% 88%));
+     --bg: var(--l, var(--theme-palette-color-7, hsl(0 0% 96%)));
+     --bg-lt: var(--l-lt, var(--theme-palette-color-6, hsl(0 0% 88%)));
+     --bg-bd: var(--l-bd, var(--theme-palette-color-8, hsl(0 0% 100%)));
+     --srf: var(--bg-lt, hsl(0 0% 88%));
 
-  --on-p: var(--d, hsl(0 0% 4%));
-  --on-a: var(--d-bd, hsl(0 0% 4%));
-  --on-d: var(--l, hsl(0 0% 4%));
+     --alt: var(--d, var(--theme-palette-color-3, hsl(0 0% 8%)));
+     --alt-lt: var(--d-lt, var(--theme-palette-color-5, hsl(0 0% 4%)));
+     --alt-bd: var(--l-bd, var(--theme-palette-color-4, hsl(0 0% 12%)));
 
-  /* Overlay & Backdrop */
+     --on-p: var(--d, hsl(0 0% 4%));
+     --on-a: var(--d-bd, hsl(0 0% 4%));
+     --on-d: var(--l, hsl(0 0% 4%));
+     --on-l: var(--d, hsl(0 0% 8%));
 
-  --o: var(--theme-palette-color-9, hsl(0 0% 96% / .64));
-  --o-lt: var(--theme-palette-color-10, hsl(0 0% 96% / .32));
-  --o-bd: var(--theme-palette-color-11, hsl(0 0% 96% / .8));
+     --on-alt: var(--theme-palette-color-7, hsl(0 0% 96%));
 
-  --bd: var(--theme-palette-color-12, hsl(0 0% 8% / .64));
-  --bd-lt: var(--theme-palette-color-13, hsl(0 0% 8% / .32));
-  --bd-bd: var(--theme-palette-color-14, hsl(0 0% 8% / .8));
+     /* Outline / Borders */
 
-  /* Primary Background Variants (for .set) */
-  --sp: hsl(43 83% 62% / .64);
-  --sp-lt: hsl(43 83% 62% / .32);
-  --sp-bd: hsl(43 83% 62% / .8);
-  --sa: hsl(44 100% 50% / .64);
-  --sa-lt: hsl(44 100% 50% / .32);
-  --sa-bd: hsl(44 100% 50% / .8);
+     --out: var(--theme-palette-color-5, currentColor);
+     --out-p: var(--p, currentColor);
+     --out-a: var(--a, currentColor);
 
-  /* Notification Colors */
-  --alr: hsl(13 83% 62%);
-  --scs: hsl(103 83% 62%);
 
-  /* ==========================================================================
+     /* Overlay & Backdrop */
+
+     --o: var(--theme-palette-color-9, hsl(0 0% 96% / .64));
+     --o-lt: var(--theme-palette-color-10, hsl(0 0% 96% / .32));
+     --o-bd: var(--theme-palette-color-11, hsl(0 0% 96% / .8));
+
+     --bd: var(--theme-palette-color-12, hsl(0 0% 8% / .64));
+     --bd-lt: var(--theme-palette-color-13, hsl(0 0% 8% / .32));
+     --bd-bd: var(--theme-palette-color-14, hsl(0 0% 8% / .8));
+
+     /* Primary Background Variants (for .set) */
+     --sp: hsl(43 83% 62% / .64);
+     --sp-lt: hsl(43 83% 62% / .32);
+     --sp-bd: hsl(43 83% 62% / .8);
+     --sa: hsl(44 100% 50% / .64);
+     --sa-lt: hsl(44 100% 50% / .32);
+     --sa-bd: hsl(44 100% 50% / .8);
+
+     /* Notification Colors */
+     --alr: hsl(13 83% 62%);
+     --scs: hsl(103 83% 62%);
+
+     /* ==========================================================================
        Typography Colors
        ========================================================================== */
 
-  /**
+     /**
      * @prop --tx: Body Text Color
      * @prop --t: Heading Text Color
      */
-  --tx: var(--d, #141414);
-  --t: var(--theme-palette-color-4, #0A0A0A);
+     --tx: var(--d, var(--theme-palette-color-3, hsl(0 0% 8%)));
+     --t: var(--d-bd, var(--theme-palette-color-4, hsl(0 0% 4%)));
 
 
-  /* ==========================================================================
+     /* ==========================================================================
        Typography Sizes (Centralized)
        ========================================================================== */
 
-  /* Headings (.t) */
-  --t-fs--xxxl: clamp(3.5rem, 2.294vw + 3.041rem, 5rem);
-  --t-fs--xxl: clamp(3.25rem, 1.912vw + 2.868rem, 4.5rem);
-  --t-fs--xl: clamp(3rem, 1.53vw + 2.694rem, 4rem);
-  --t-fs--l: clamp(2.75rem, 1.53vw + 2.444rem, 3.75rem);
-  --t-fs--m: clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem);
-  --t-fs--s: clamp(2.25rem, 1.147vw + 2.021rem, 3rem);
-  --t-fs--xs: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
-  --t-fs--xxs: clamp(1.75rem, 0.765vw + 1.597rem, 2.25rem);
-  --t-fs--xxxs: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
+     /* Headings (.t) */
+     --t-fs--xxxl: clamp(3.5rem, 2.294vw + 3.041rem, 5rem);
+     --t-fs--xxl: clamp(3.25rem, 1.912vw + 2.868rem, 4.5rem);
+     --t-fs--xl: clamp(3rem, 1.53vw + 2.694rem, 4rem);
+     --t-fs--l: clamp(2.75rem, 1.53vw + 2.444rem, 3.75rem);
+     --t-fs--m: clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem);
+     --t-fs--s: clamp(2.25rem, 1.147vw + 2.021rem, 3rem);
+     --t-fs--xs: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
+     --t-fs--xxs: clamp(1.75rem, 0.765vw + 1.597rem, 2.25rem);
+     --t-fs--xxxs: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
 
-  /* .t (Typography - Heading) */
-  --t-lh: 1.25;
-  --t-fw: 800;
-  --t-lh-xl: 1.5;
-  --t-lh-l: 1.375;
-  --t-lh-m: 1.25;
-  --t-lh-s: 1.125;
-  --t-lh-xs: 1;
+     /* .t (Typography - Heading) */
+     --t-lh: 1.25;
+     --t-fw: 800;
+     --t-lh-xl: 1.5;
+     --t-lh-l: 1.375;
+     --t-lh-m: 1.25;
+     --t-lh-s: 1.125;
+     --t-lh-xs: 1;
 
-  /* Body Text (.tx) */
-  --tx-fs--xxl: clamp(1.5rem, 0.382vw + 1.424rem, 1.75rem);
-  --tx-fs--xl: clamp(1.375rem, 0.191vw + 1.337rem, 1.5rem);
-  --tx-fs--l: clamp(1.25rem, 0.191vw + 1.212rem, 1.375rem);
-  --tx-fs--m: clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem);
-  --tx-fs--s: clamp(1rem, 0.191vw + 0.962rem, 1.125rem);
-  --tx-fs--xs: clamp(0.875rem, 0.191vw + 0.837rem, 1rem);
-  --tx-fs--xxs: clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem);
-  --tx-fs--xxxs: clamp(0.625rem, 0.191vw + 0.587rem, 0.75rem);
+     /* Body Text (.tx) */
+     --tx-fs--xxl: clamp(1.5rem, 0.382vw + 1.424rem, 1.75rem);
+     --tx-fs--xl: clamp(1.375rem, 0.191vw + 1.337rem, 1.5rem);
+     --tx-fs--l: clamp(1.25rem, 0.191vw + 1.212rem, 1.375rem);
+     --tx-fs--m: clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem);
+     --tx-fs--s: clamp(1rem, 0.191vw + 0.962rem, 1.125rem);
+     --tx-fs--xs: clamp(0.875rem, 0.191vw + 0.837rem, 1rem);
+     --tx-fs--xxs: clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem);
+     --tx-fs--xxxs: clamp(0.625rem, 0.191vw + 0.587rem, 0.75rem);
 
-  /* .tx (Typography - Body) */
-  --tx-lh: 1.5;
-  --tx-fw: 400;
-  --tx-lh-xl: 1.5;
-  --tx-lh-l: 1.375;
-  --tx-lh-m: 1.25;
-  --tx-lh-s: 1.125;
-  --tx-lh-xs: 1;
+     /* .tx (Typography - Body) */
+     --tx-lh: 1.5;
+     --tx-fw: 400;
+     --tx-lh-xl: 1.5;
+     --tx-lh-l: 1.375;
+     --tx-lh-m: 1.25;
+     --tx-lh-s: 1.125;
+     --tx-lh-xs: 1;
 
 
-  /* ==========================================================================
+     /* ==========================================================================
        Theme Defaults
        ========================================================================== */
 
-  /**
+     /**
      * @prop --sc-max-w: Scaffold Max Width
      * @prop --gap: Base Gap
      * @prop --rad: Base Radius
      */
-  --sc-max-w: 1366px;
-  --gap: 1rem;
-  --rad: 0.5rem;
+     --sc-max-w: 1366px;
+     --gap: 1rem;
+     --rad: 0.5rem;
 
-  /* Transitions */
-  --trans-d: 0.32s;
-  --trans-d-hover: 0.16s;
-  --trans-t: ease-in-out;
+     /* Transitions */
+     --trans-d: 0.32s;
+     --trans-d-hover: 0.16s;
+     --trans-t: ease-in-out;
 
 
-  /* ==========================================================================
+     /* ==========================================================================
        Component Specifics (Fallbacks)
        ========================================================================== */
 
-  /* .s (Scaffold/Section) */
-  --s-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
-  --s-pb: clamp(4rem, 3.059vw + 3.388rem, 6rem);
-  --s-pi: 5%;
-  --sc-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
-  --s-h-max-w: 64rem;
-  --s-hw-max-w: 72rem;
-  --s-hn-max-w: 56rem;
-  --s-c-max-w: 48rem;
-  --s-cw-max-w: 56rem;
-  --s-cn-max-w: 40rem;
+     /* .s (Scaffold/Section) */
+     --s-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
+     --s-pb: clamp(4rem, 3.059vw + 3.388rem, 6rem);
+     --s-pi: 5%;
+     --sc-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
+     --s-h-max-w: 64rem;
+     --s-hw-max-w: 72rem;
+     --s-hn-max-w: 56rem;
+     --s-c-max-w: 48rem;
+     --s-cw-max-w: 56rem;
+     --s-cn-max-w: 40rem;
 
-  /* .g (Grid) */
-  --g-gap: clamp(1.75rem, 1.912vw + 1.368rem, 3rem);
-  --g-min: 256px;
-  --g-gap--m: clamp(1.75rem, 1.912vw + 1.368rem, 3rem);
-  --g-gap--s: clamp(1.5rem, 0.769vw + 1.346rem, 2rem);
-  --g-gap--xs: clamp(1.25rem, 0.769vw + 1.096rem, 1.75rem);
-  --g-gap--l: clamp(2rem, 3.077vw + 1.385rem, 4rem);
-  --g-gap--xl: clamp(2.5rem, 3.824vw + 1.735rem, 5rem);
+     /* .g (Grid) */
+     --g-gap: clamp(1.75rem, 1.912vw + 1.368rem, 3rem);
+     --g-min: 256px;
+     --g-gap--m: clamp(1.75rem, 1.912vw + 1.368rem, 3rem);
+     --g-gap--s: clamp(1.5rem, 0.769vw + 1.346rem, 2rem);
+     --g-gap--xs: clamp(1.25rem, 0.769vw + 1.096rem, 1.75rem);
+     --g-gap--l: clamp(2rem, 3.077vw + 1.385rem, 4rem);
+     --g-gap--xl: clamp(2.5rem, 3.824vw + 1.735rem, 5rem);
 
-  /* .f (Flex) */
-  --f-gap: clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem);
-  --f-gap--m: clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem);
-  --f-gap--s: clamp(1.125rem, 0.574vw + 1.01rem, 1.5rem);
-  --f-gap--xs: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
-  --f-gap--l: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
-  --f-gap--xl: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
+     /* .f (Flex) */
+     --f-gap: clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem);
+     --f-gap--m: clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem);
+     --f-gap--s: clamp(1.125rem, 0.574vw + 1.01rem, 1.5rem);
+     --f-gap--xs: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
+     --f-gap--l: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
+     --f-gap--xl: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
 
-  /* .crd (Card) */
-  --crd-rad: var(--rad, 0.5rem);
-  --crd-bg: var(--srf, #D9D9D9);
-  --crd-gap: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
-  --crd-p: 1.25rem;
-  --crd-fs: clamp(1rem, 0.191vw + 0.962rem, 1.125rem);
-  --crd-med-ar: 1.91 / 1;
-  --tf-scale: 1.125;
-  --crd-slot-gap: .75rem;
-  --crd-meta-fs: clamp(0.875rem, 0.191vw + 0.837rem, 1rem);
-  --crd-h-font-s: clamp(1.375rem, 0.417vw + 1.292rem, 1.625rem);
-  --crd-h-line-h: 1.25;
-  --crd-h-font-w: 700;
+     /* .crd (Card) */
+     --crd-rad: var(--rad, 0.5rem);
+     --crd-bg: var(--srf, #D9D9D9);
+     --crd-gap: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
+     --crd-p: 1.25rem;
+     --crd-fs: clamp(1rem, 0.191vw + 0.962rem, 1.125rem);
+     --crd-med-ar: 1.91 / 1;
+     --tf-scale: 1.125;
+     --crd-slot-gap: .75rem;
+     --crd-meta-fs: clamp(0.875rem, 0.191vw + 0.837rem, 1rem);
+     --crd-h-font-s: clamp(1.375rem, 0.417vw + 1.292rem, 1.625rem);
+     --crd-h-line-h: 1.25;
+     --crd-h-font-w: 700;
 
-  /* .btn (Button) */
-  --btn-font-s: 1.125rem;
-  --btn-font-w: 600;
-  --btn-line-h: 1.5;
-  --btn-pb: .75em;
-  --btn-pi: 1.5em;
-  --btn-rad: 4em;
-  --btn-rad-lt: 0.375em;
-  --btn-rad-bd: 0.625em;
-  --btns-gap: clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem);
+     /* .btn (Button) */
+     --btn-font-s: 1.125rem;
+     --btn-font-w: 600;
+     --btn-line-h: 1.5;
+     --btn-pb: .75em;
+     --btn-pi: 1.5em;
+     --btn-rad: 4em;
+     --btn-rad-lt: 0.375em;
+     --btn-rad-bd: 0.625em;
+     --btns-gap: clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem);
 
 }
