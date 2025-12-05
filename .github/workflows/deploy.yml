@@ -2,7 +2,7 @@ name: uCss Build & Deploy
 
 on:
   push:
-    branches: [ "main" ] # Runs on every edit
+    branches: [ "main", "dev" ] # Runs on updates to main and dev
   release:
     types: [published]   # Runs when you tag a release (v1.0)
 
@@ -28,6 +28,8 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" == "release" ]]; then
             echo "dir=${{ github.ref_name }}/" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "dir=stable/" >> $GITHUB_OUTPUT
           else
             echo "dir=latest/" >> $GITHUB_OUTPUT
           fi

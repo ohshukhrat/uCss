@@ -1,6 +1,6 @@
 {
   "name": "ucss",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "uCss is a modern, mobile-first, pure CSS framework designed for granular control, responsiveness, and flexibility. It leverages **CSS Variables** and **Container Queries** to provide a highly adaptable styling API without the need for complex build steps or JavaScript.",
   "main": "index.js",
   "directories": {
@@ -19,8 +19,5 @@
   "bugs": {
     "url": "https://github.com/ohshukhrat/uCss/issues"
   },
-  "homepage": "https://github.com/ohshukhrat/uCss#readme",
-  "devDependencies": {
-    "esbuild": "^0.27.1"
-  }
+  "homepage": "https://github.com/ohshukhrat/uCss#readme"
 }

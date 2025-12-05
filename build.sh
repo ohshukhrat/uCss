@@ -31,16 +31,13 @@ echo "Minifying root.css..."
 cat src/css/root.css | node minify.js > dist/lib/root.min.css
 
 # Gzip root.min.css -> root.min.css.gz
-echo "Gzipping root.min.css..."
-gzip -9 -k -f dist/lib/root.min.css
-
 # --- FILE 3: Minified (u.min.css) ---
 echo "Minifying u.css..."
 cat dist/u.css | node minify.js > dist/u.min.css
 
-# --- FILE 4: Gzipped (u.min.css.gz) ---
-echo "Gzipping u.min.css..."
-gzip -9 -k -f dist/u.min.css
+# Gzip ALL .css files in dist recursively
+echo "Gzipping all .css files in dist..."
+find dist -type f -name "*.css" -exec gzip -9 -k -f {} +
 
 echo "Build complete."
 ls -lh dist/u.css dist/u.min.css dist/u.min.css.gz dist/lib/root.css dist/lib/root.min.css dist/lib/root.min.css.gz
