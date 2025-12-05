@@ -101,7 +101,7 @@ a.btn {
   inline-size: var(--btn-icn-size, 1.25em);
   block-size: var(--btn-icn-size, 1.25em);
   flex-shrink: 0;
-  order: var(--btn-icn-o, -1);
+  order: var(--btn-icn-o);
 
   transition: var(--btn-icn-trans, var(--btn-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out)));
   transition-property: var(--btn-icn-trans-p, fill, stroke);
@@ -369,6 +369,10 @@ a.btn:active:not(:disabled, .is-disabled) {
 
 :where(.btns.e--lg, .btns-e--lg, .btns.e--mdl, .btns-e--mdl) {
   --btns-jc--lg: end;
+}
+
+:where(.btn, .btns):where(.rv) {
+  --btn-icn-o: -1;
 }
 
 /* Fix for Blocksy Theme */
