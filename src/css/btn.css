@@ -25,6 +25,7 @@ a.btn {
   font-weight: var(--btn-font-w, 600);
   line-height: var(--btn-line-h, 1.5);
   text-transform: var(--btn-text-t, none);
+  white-space: var(--btn-ws, nowrap);
 
   /* --- Spacing --- */
   /* 'em'-based padding scales with font-size */
@@ -231,6 +232,15 @@ a.btn:active:not(:disabled, .is-disabled) {
 /* ================================================
   SIZES (These also just set the API variables)
 ================================================ */
+
+:where(.btn[data-size="md"], .btn.md, [data-style="btn"].md) {
+  --btn-font-s: var(--btn-md-font-s, 1rem);
+  /* ~16px */
+  --btn-p: var(--btn-md-p, 0.75em 1.5em);
+  --btn-min-h: var(--btn-md-min-h, 2.75rem);
+  /* ~44px */
+}
+
 :where(.btn[data-size="sm"], .btn.sm, [data-style="btn"].sm) {
   --btn-font-s: var(--btn-sm-font-s, 0.875rem);
   /* ~14px */
