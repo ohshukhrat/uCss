@@ -44,18 +44,14 @@ jobs:
           cp src/css/root.css dist/lib/root.css
           
           # Minify root.css -> root.min.css
-          perl -0777 -pe 's|/\*.*?\*/||gs' dist/lib/root.css | tr '\n' ' ' | sed 's/ \+/ /g' | sed 's/ {/{/g' | sed 's/ }/}/g' | sed 's/; /;/g' > dist/lib/root.min.css
+          npx -y esbuild src/css/root.css --minify --outfile=dist/lib/root.min.css
           
           # Gzip root.min.css -> root.min.css.gz
           gzip -9 -k dist/lib/root.min.css
 
           # --- FILE 3: Minified (u.min.css) ---
-          # Simple minification: remove block comments and collapse whitespace.
-          # 1. Remove /* ... */ comments (non-greedy)
-          # 2. Replace newlines with spaces
-          # 3. Collapse multiple spaces to one
-          # 4. Remove spaces around braces/semicolons (optional but good for size)
-          perl -0777 -pe 's|/\*.*?\*/||gs' dist/u.css | tr '\n' ' ' | sed 's/ \+/ /g' | sed 's/ {/{/g' | sed 's/ }/}/g' | sed 's/; /;/g' > dist/u.min.css
+          # Use esbuild for proper minification
+          npx -y esbuild dist/u.css --minify --outfile=dist/u.min.css
 
           # --- FILE 4: Gzipped (u.min.css.gz) ---
           gzip -9 -k dist/u.min.css
