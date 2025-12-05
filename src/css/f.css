@@ -679,6 +679,126 @@
       clamp(1rem, 0.382vw + 0.924rem, 1.25rem));
 }
 
+:where(.f, .col, .row):where(.gap--xxs, .gap--2xs) {
+  --f-gap: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxs--sm, .gap--xxs--smd, .gap--2xs--sm, .gap--2xs--smd) {
+  --f-gap--sm: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxs--md, .gap--xxs--smd, .gap--xxs--mdl, .gap--2xs--md, .gap--2xs--smd, .gap--2xs--mdl) {
+  --f-gap--md: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxs--lg, .gap--xxs--mdl, .gap--2xs--lg, .gap--2xs--mdl) {
+  --f-gap--lg: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxs, .row-gap--2xs) {
+  --f-row-gap: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxs--sm, .row-gap--xxs--smd, .row-gap--2xs--sm, .row-gap--2xs--smd) {
+  --f-row-gap--sm: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxs--md, .row-gap--xxs--smd, .row-gap--xxs--mdl, .row-gap--2xs--md, .row-gap--2xs--smd, .row-gap--2xs--mdl) {
+  --f-row-gap--md: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxs--lg, .row-gap--xxs--mdl, .row-gap--2xs--lg, .row-gap--2xs--mdl) {
+  --f-row-gap--lg: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxs, .col-gap--2xs) {
+  --f-col-gap: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxs--sm, .col-gap--xxs--smd, .col-gap--2xs--sm, .col-gap--2xs--smd) {
+  --f-col-gap--sm: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxs--md, .col-gap--xxs--smd, .col-gap--xxs--mdl, .col-gap--2xs--md, .col-gap--2xs--smd, .col-gap--2xs--mdl) {
+  --f-col-gap--md: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxs--lg, .col-gap--xxs--mdl, .col-gap--2xs--lg, .col-gap--2xs--mdl) {
+  --f-col-gap--lg: var(--f-gap--xxs,
+      clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxxs, .gap--3xs) {
+  --f-gap: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxxs--sm, .gap--xxxs--smd, .gap--3xs--sm, .gap--3xs--smd) {
+  --f-gap--sm: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxxs--md, .gap--xxxs--smd, .gap--xxxs--mdl, .gap--3xs--md, .gap--3xs--smd, .gap--3xs--mdl) {
+  --f-gap--md: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxxs--lg, .gap--xxxs--mdl, .gap--3xs--lg, .gap--3xs--mdl) {
+  --f-gap--lg: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxxs, .row-gap--3xs) {
+  --f-row-gap: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxxs--sm, .row-gap--xxxs--smd, .row-gap--3xs--sm, .row-gap--3xs--smd) {
+  --f-row-gap--sm: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxxs--md, .row-gap--xxxs--smd, .row-gap--xxxs--mdl, .row-gap--3xs--md, .row-gap--3xs--smd, .row-gap--3xs--mdl) {
+  --f-row-gap--md: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxxs--lg, .row-gap--xxxs--mdl, .row-gap--3xs--lg, .row-gap--3xs--mdl) {
+  --f-row-gap--lg: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxxs) {
+  --f-col-gap: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxxs--sm, .col-gap--xxxs--smd) {
+  --f-col-gap--sm: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxxs--md, .col-gap--xxxs--smd, .col-gap--xxxs--mdl, .col-gap--3xs--md, .col-gap--3xs--smd, .col-gap--3xs--mdl) {
+  --f-col-gap--md: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxxs--lg, .col-gap--xxxs--mdl, .col-gap--3xs--lg, .col-gap--3xs--mdl) {
+  --f-col-gap--lg: var(--f-gap--xxxs,
+      clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+}
+
 :where(.f, .col, .row):where(.gap--l) {
   --f-gap: var(--f-gap--l,
       clamp(1.5rem, 0.765vw + 1.347rem, 2rem));
@@ -797,4 +917,64 @@
 :where(.f, .col, .row):where(.col-gap--xl--lg, .col-gap--xl--mdl) {
   --f-col-gap--lg: var(--f-gap--xl,
       clamp(2rem, 0.765vw + 1.847rem, 2.5rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxl, .gap--2xl) {
+  --f-gap: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxl--sm, .gap--xxl--smd, .gap--2xl--sm, .gap--2xl--smd) {
+  --f-gap--sm: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxl--md, .gap--xxl--smd, .gap--2xl--md, .gap--2xl--smd) {
+  --f-gap--md: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.gap--xxl--lg, .gap--xxl--mdl, .gap--2xl--lg, .gap--2xl--mdl) {
+  --f-gap--lg: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxl) {
+  --f-row-gap: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxl--sm, .row-gap--xxl--smd, .row-gap--2xl--sm, .row-gap--2xl--smd) {
+  --f-row-gap--sm: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxl--md, .row-gap--xxl--smd, .row-gap--2xl--md, .row-gap--2xl--smd) {
+  --f-row-gap--md: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.row-gap--xxl--lg, .row-gap--xxl--mdl, .row-gap--2xl--lg, .row-gap--2xl--mdl) {
+  --f-row-gap--lg: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxl) {
+  --f-col-gap: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxl--sm, .col-gap--xxl--smd, .col-gap--2xl--sm, .col-gap--2xl--smd) {
+  --f-col-gap--sm: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxl--md, .col-gap--xxl--smd, .col-gap--2xl--md, .col-gap--2xl--smd) {
+  --f-col-gap--md: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
+}
+
+:where(.f, .col, .row):where(.col-gap--xxl--lg, .col-gap--xxl--mdl, .col-gap--2xl--lg, .col-gap--2xl--mdl) {
+  --f-col-gap--lg: var(--f-gap--xxl,
+      clamp(2.5rem, 0.765vw + 2.347rem, 3rem));
 }
