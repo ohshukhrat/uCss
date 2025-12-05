@@ -62,12 +62,6 @@ a.btn {
   width: var(--btn-w--sm, var(--btn-w, fit-content));
   min-height: var(--btn-min-h--sm, var(--btn-min-h, 2.75em));
 
-  :not(.g, .sg, .block-library-block__reusable-block-container):has(> &) {
-    container-name: btnp;
-    container-type: inline-size;
-    contain: inline-size;
-  }
-
   &:where([data-size="full"], .full) {
     --btn-w: 100%;
   }
@@ -306,20 +300,26 @@ a.btn:active:not(:disabled, .is-disabled) {
   gap: var(--btns-gap, clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem));
   flex-wrap: var(--btns-fw, wrap);
 
-  inline-size: var(--btns-w--sm, var(--btns-w, auto));
+  inline-size: var(--btns-w--sm, var(--btns-w));
   max-inline-size: var(--btns-max-w);
   align-self: var(--btns-as);
   margin-inline: var(--btns-mi,
       var(--btns-mis) var(--btns-mie));
 
+  :not(.g, .sg, .sgc, .f, .block-library-block__reusable-block-container):has(> &) {
+    container-name: btnsp;
+    container-type: inline-size;
+    contain: inline-size;
+  }
+
   @container (669.99px <=width <=999.99px) {
-    inline-size: var(--btns-w--md, var(--btns-w, 100%));
+    inline-size: var(--btns-w--md, var(--btns-w));
     justify-content: var(--btns-jc--md, var(--btns-jc));
     align-items: var(--btns-ai--md, var(--btns-ai));
   }
 
   @container (width > 999.99px) {
-    inline-size: var(--btns-w--lg, var(--btns-w, 100%));
+    inline-size: var(--btns-w--lg, var(--btns-w));
     justify-content: var(--btns-jc--lg, var(--btns-jc));
     align-items: var(--btns-ai--lg, var(--btns-ai));
   }
