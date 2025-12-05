@@ -25,8 +25,8 @@
   inline-size: var(--crd-w--sm, var(--crd-w));
 
   /* Shell has NO PADDING by default */
-  padding-block: var(--crd-pb--sm, var(--crd-pb, var(--crd-p--sm, var(--crd-p, 1.25rem))));
-  padding-inline: var(--crd-pi--sm, var(--crd-pi, var(--crd-p--sm, var(--crd-p, 1.25rem))));
+  padding-block: var(--crd-pd, var(--crd-pb--sm, var(--crd-pb, var(--crd-p--sm, var(--crd-p, 1.25rem)))));
+  padding-inline: var(--crd-pd, var(--crd-pi--sm, var(--crd-pi, var(--crd-p--sm, var(--crd-p, 1.25rem)))));
 
   &:has(.crd__content),
   &.sg,

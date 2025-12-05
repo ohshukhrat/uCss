@@ -14,13 +14,13 @@
   position: var(--s-pos, relative);
 
   padding-block:
-    var(--s-pbs--sm, var(--s-pbs, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem))))) var(--s-pbe--sm, var(--s-pbe, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem)))));
+    var(--s-pd, var(--s-pbs--sm, var(--s-pbs, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem))))) var(--s-pbe--sm, var(--s-pbe, var(--s-pb--sm, var(--s-pb, clamp(4rem, 3.059vw + 3.388rem, 6rem))))));
   padding-inline:
-    var(--s-pis--sm, var(--s-pis, var(--s-pi--sm, var(--s-pi, 5%)))) var(--s-pie--sm, var(--s-pie, var(--s-pi--sm, var(--s-pi, 5%))));
-  margin-block: var(--s-mb,
-      var(--s-mbs, 0) var(--s-mbe, 0));
-  margin-inline: var(--s-mi,
-      var(--s-mis) var(--s-mie));
+    var(--s-pd, var(--s-pis--sm, var(--s-pis, var(--s-pi--sm, var(--s-pi, 5%)))) var(--s-pie--sm, var(--s-pie, var(--s-pi--sm, var(--s-pi, 5%)))));
+  margin-block: var(--s-md, var(--s-mb,
+        var(--s-mbs, 0) var(--s-mbe, 0)));
+  margin-inline: var(--s-md, var(--s-mi,
+        var(--s-mis) var(--s-mie)));
 
   overflow-x: var(--s-of-x, var(--s-of, clip));
   overflow-y: var(--s-of-y, var(--s-of, clip));
@@ -190,6 +190,22 @@
 
 :where(.s__cn) {
   --scc-max-w: var(--s-cn-max-w, 40rem);
+}
+
+:where(.s.pb--s) {
+  --s-pb: clamp(3rem, 3.059vw + 2.388rem, 5rem);
+}
+
+:where(.s.pb--xs) {
+  --s-pb: clamp(2.5rem, 2.294vw + 2.041rem, 4rem);
+}
+
+:where(.s.gap--s) {
+  --s-gap: clamp(1.75rem, 1.912vw + 1.368rem, 3rem);
+}
+
+:where(.s.gap--xs) {
+  --s-gap: clamp(1.375rem, 0.956vw + 1.184rem, 2rem);
 }
 
 

@@ -28,8 +28,8 @@ a.btn {
 
   /* --- Spacing --- */
   /* 'em'-based padding scales with font-size */
-  padding: var(--btn-p, var(--btn-pb, .75em) var(--btn-pi, 1.5em));
-  margin: var(--btn-m, var(--btn-mb) var(--btn-mi));
+  padding: var(--btn-pd, var(--btn-pb, var(--btn-p, .75em)) var(--btn-pi, var(--btn-p, 1.5em)));
+  margin: var(--btn-md, var(--btn-mb, var(--btn-m)) var(--btn-mi, var(--btn-m)));
 
   /* ~44px */
 
@@ -98,8 +98,8 @@ a.btn {
 :where(.btn > .icn, .btn > svg, [data-style="btn"] > .icn, [data-style="btn"] > svg) {
   fill: var(--btn-icn-fill, currentColor);
   stroke: var(--btn-icn-stroke, currentColor);
-  width: var(--btn-icn-size, 1.25em);
-  height: var(--btn-icn-size, 1.25em);
+  inline-size: var(--btn-icn-size, 1.25em);
+  block-size: var(--btn-icn-size, 1.25em);
   flex-shrink: 0;
   order: var(--btn-icn-o, -1);
 
@@ -239,12 +239,28 @@ a.btn:active:not(:disabled, .is-disabled) {
   /* ~38px */
 }
 
+:where(.btn[data-size="xsm"], .btn.xsm, [data-style="btn"].xsm) {
+  --btn-font-s: var(--btn-xsm-font-s, 0.75rem);
+  /* ~12px */
+  --btn-p: var(--btn-xsm-p, 0.5em 1em);
+  --btn-min-h: var(--btn-xsm-min-h, 2rem);
+  /* ~32px */
+}
+
 :where(.btn[data-size="lg"], .btn.lg, [data-style="btn"].lg) {
   --btn-font-s: var(--btn-lg-font-s, 1.25rem);
   /* ~18px */
   --btn-p: var(--btn-lg-p, 0.8em 1.6em);
   --btn-min-h: var(--btn-lg-min-h, 3.25rem);
   /* ~52px */
+}
+
+:where(.btn[data-size="xlg"], .btn.xlg, [data-style="btn"].xlg) {
+  --btn-font-s: var(--btn-xlg-font-s, 1.375rem);
+  /* ~22px */
+  --btn-p: var(--btn-xlg-p, 0.8em 1.6em);
+  --btn-min-h: var(--btn-xlg-min-h, 3.5rem);
+  /* ~56px */
 }
 
 /* ================================================
@@ -280,23 +296,27 @@ a.btn:active:not(:disabled, .is-disabled) {
   gap: var(--btns-gap, clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem));
   flex-wrap: var(--btns-fw, wrap);
 
-  width: var(--btns-w--sm, var(--btns-w, 100%));
-  max-width: var(--btns-max-w);
+  inline-size: var(--btns-w--sm, var(--btns-w, auto));
+  max-inline-size: var(--btns-max-w);
   align-self: var(--btns-as);
   margin-inline: var(--btns-mi,
       var(--btns-mis) var(--btns-mie));
 
   @container (669.99px <=width <=999.99px) {
-    width: var(--btns-w--md, var(--btns-w, 100%));
+    inline-size: var(--btns-w--md, var(--btns-w, 100%));
     justify-content: var(--btns-jc--md, var(--btns-jc));
     align-items: var(--btns-ai--md, var(--btns-ai));
   }
 
   @container (width > 999.99px) {
-    width: var(--btns-w--lg, var(--btns-w, 100%));
+    inline-size: var(--btns-w--lg, var(--btns-w, 100%));
     justify-content: var(--btns-jc--lg, var(--btns-jc));
     align-items: var(--btns-ai--lg, var(--btns-ai));
   }
+}
+
+:where(.btns.full) {
+  --btns-w: 100%;
 }
 
 :where(.btns.c, .btns-c) {
@@ -358,9 +378,3 @@ a.btn:active:not(:disabled, .is-disabled) {
   --theme-link-initial-color: var(--btn-color, var(--theme-palette-color-3, currentColor));
   --theme-link-hover-color: var(--btn-color-hover, var(--theme-palette-color-4, currentColor));
 }
-
-
-/* Fix for Gutenberg when using reusable blocks */
-/* .is-root-container .block-library-block__reusable-block-container {
-  container-type: unset;
-} */
