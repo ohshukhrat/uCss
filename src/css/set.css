@@ -30,6 +30,11 @@
         color: var(--set-lnk-hover, var(--set-lnk, var(--p, var(--theme-palette-color-2))));
         background-color: var(--set-lnk-bg-hover, var(--set-lnk-bg));
     }
+
+    &:where(.crd) {
+        --crd-bg: var(--set-bg);
+        --crd-bg-hover: var(--set-bg-hover, var(--set-bg));
+    }
 }
 
 .set.primary,
