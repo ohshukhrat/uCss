@@ -40,7 +40,7 @@ figure.med {
   isolation: var(--med-iso);
   z-index: var(--med-z);
 
-  :not(.g, .sg, .f):has(> &) {
+  :not(.g, .sg, .sgc, .f):has(> &) {
     container-name: medp;
     container-type: inline-size;
     contain: inline-size layout;

@@ -79,7 +79,7 @@
   }
 
   /* --- Container Query Setup --- */
-  :not(.g, .sg, .sgc):has(> &) {
+  :not(.g, .sg, .sgc, .f):has(> &) {
     container-name: crdp;
     container-type: inline-size;
     contain: inline-size layout;
