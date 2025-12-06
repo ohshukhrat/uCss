@@ -5,7 +5,7 @@
         outline: var(--lnk-outline-w, .25rem) solid var(--lnk-outline-c,
                 var(--a, var(--theme-palette-color-1, currentColor)));
         outline-offset: var(--lnk-outline-o, var(--crd-outline-o, .25rem));
-        border-radius: var(--lnk-rad, var(--crd-rad));
+        border-radius: var(--lnk-rad, var(--crd-rad, revert));
     }
 
     a:nth-of-type(1)::after {
