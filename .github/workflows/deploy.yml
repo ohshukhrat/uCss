@@ -39,6 +39,10 @@ jobs:
         with:
           node-version: '20'
 
+      # Install dependencies (marked package for render-docs.js)
+      - name: 📦 Install Dependencies
+        run: npm install
+
       # 2. The Build Process (3 Files Generated)
       - name: 🏗️ Build & Optimize
         run: |
