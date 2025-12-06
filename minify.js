@@ -28,13 +28,16 @@ process.stdin.on('end', function () {
 
     minified = minified.replace(/\s+/g, ' ');
 
-    // 3. Optional: Remove spaces around common delimiters to save a bit more space
-    // while still being safe. 
-    // { } ; , : >
-    // This is "dumb" minification, so we might skip this if we want to be 100% sure about "preserving structure".
-    // However, the user said "removing only unnecessary whitespaces (we can keep one whitespace if it helps)".
-    // So collapsing to single space is safe and requested.
-    // Let's just trim the result.
+    // 3. Remove spaces around CSS delimiters for better compression
+    // This is safe and preserves all CSS structure/nesting
+    minified = minified.replace(/\s*{\s*/g, '{');
+    minified = minified.replace(/\s*}\s*/g, '}');
+    minified = minified.replace(/\s*;\s*/g, ';');
+    minified = minified.replace(/\s*:\s*/g, ':');
+    minified = minified.replace(/\s*,\s*/g, ',');
+    minified = minified.replace(/\s*>\s*/g, '>');
+
+    // Trim final result
     minified = minified.trim();
 
     process.stdout.write(minified);
