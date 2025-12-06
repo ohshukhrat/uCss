@@ -207,23 +207,11 @@ cat <<EOF > "$INDEX_FILE"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>uCss Documentation</title>
+    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.css">
+    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css">
-    <style>
-        body {
-            box-sizing: border-box;
-            min-width: 200px;
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 45px;
-        }
-        @media (max-width: 767px) {
-            body {
-                padding: 15px;
-            }
-        }
-    </style>
 </head>
-<body class="markdown-body">
+<body class="s markdown-body">
     <div id="content"></div>
     <script id="raw-markdown" type="text/markdown">
 EOF
