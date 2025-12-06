@@ -200,52 +200,177 @@ done
 # --- FILE 5: Generate index.html (Documentation from README) ---
 echo "Generating index.html from README.md..."
 INDEX_FILE="$OUTPUT_DIR/index.html"
-cat <<EOF > "$INDEX_FILE"
+
+# Pre-render markdown to HTML using our custom renderer
+README_HTML=$(node render-docs.js README.md 2>/dev/null || echo "<p>Error rendering documentation</p>")
+
+cat <<'EOF' > "$INDEX_FILE"
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="uCss - Modern, mobile-first, pure CSS framework with zero dependencies">
     <title>uCss Documentation</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css">
+    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.css">
+    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
     <style>
+        /* Minimal doc-specific styles */
         body {
-            box-sizing: border-box;
-            min-width: 200px;
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 45px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--tx);
         }
-        @media (max-width: 767px) {
-            body {
-                padding: 15px;
-            }
+        
+        /* Code styling */
+        code {
+            background: var(--srf);
+            padding: 0.2em 0.4em;
+            border-radius: 0.375rem;
+            font-family: ui-monospace, "SF Mono", Monaco, "Cascadia Code", monospace;
+            font-size: 0.875em;
+        }
+        
+        pre {
+            background: var(--srf);
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 0.375rem;
+            border: 1px solid var(--out);
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.875rem;
+        }
+        
+        /* Table styling */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            border: 1px solid var(--out);
+            padding: 0.5rem 1rem;
+            text-align: left;
+        }
+        
+        th {
+            background: var(--srf);
+            font-weight: 600;
+        }
+        
+        /* Alert boxes (GitHub-style) */
+        .alert {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid;
+            border-radius: 0.375rem;
+        }
+        
+        .alert strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .alert-note {
+            background: var(--sp-lt);
+            border-color: var(--out);
+        }
+        
+        .alert-tip {
+            background: var(--sp);
+            border-color: var(--out);
+        }
+        
+        .alert-important {
+            background: var(--sp-bd);
+            border-color: var(--out);
+        }
+        
+        .alert-warning {
+            background: var(--alr);
+            border-color: var(--out);
+        }
+        
+        .alert-caution {
+            background: var(--alr);
+            border-color: var(--out);
+        }
+        
+        /* Links */
+        a {
+            color: var(--t);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Horizontal rules */
+        hr {
+            border: none;
+            border-top: 1px solid var(--out);
+            margin: 2rem 0;
         }
     </style>
 </head>
-<body class="markdown-body">
-    <div id="content"></div>
-    <script id="raw-markdown" type="text/markdown">
+<body>
+    <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
+        <div class="sc">
+          <div>
 EOF
 
-# Append README content
-read_source "README.md" >> "$INDEX_FILE"
+# Append the pre-rendered HTML content
+echo "$README_HTML" >> "$INDEX_FILE"
 
-cat <<EOF >> "$INDEX_FILE"
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-        const markdown = document.getElementById('raw-markdown').textContent;
-        document.getElementById('content').innerHTML = marked.parse(markdown);
-    </script>
+cat <<'EOF' >> "$INDEX_FILE"
+          </div>
+        </div>
+    </section>
 </body>
 </html>
 EOF
 
 
+
+# --- BUILD VERIFICATION ---
+echo "Verifying build outputs..."
+
+verify_file() {
+  local file="$1"
+  local min_size="$2"
+  
+  if [ ! -f "$file" ]; then
+    echo "❌ ERROR: $file was not generated"
+    exit 1
+  fi
+  
+  local size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null || echo "0")
+  if [ "$size" -lt "$min_size" ]; then
+    echo "❌ ERROR: $file is suspiciously small (${size} bytes, expected >${min_size})"
+    exit 1
+  fi
+  
+  echo "  ✓ $file (${size} bytes)"
+}
+
+# Verify critical files
+verify_file "$OUTPUT_DIR/u.css" 5000
+verify_file "$OUTPUT_DIR/u.min.css" 3000
+verify_file "$OUTPUT_DIR/index.html" 1000
+verify_file "$OUTPUT_DIR/lib/components.min.css" 500
+verify_file "$OUTPUT_DIR/lib/layout.min.css" 500
+
+echo "✅ Build verification passed"
+
 # Gzip ALL .css files in dist recursively
 echo "Gzipping all .css files in dist..."
 find "$OUTPUT_DIR" -type f -name "*.css" -exec gzip -9 -k -f {} +
 
-echo "Build complete."
+echo "🎉 Build complete!"
 ls -lh "$OUTPUT_DIR/u.css" "$OUTPUT_DIR/lib/"

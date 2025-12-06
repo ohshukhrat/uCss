@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/ohshukhrat/uCss/issues"
   },
-  "homepage": "https://github.com/ohshukhrat/uCss#readme"
+  "homepage": "https://github.com/ohshukhrat/uCss#readme",
+  "devDependencies": {
+    "marked": "^17.0.1"
+  }
 }
