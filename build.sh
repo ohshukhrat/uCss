@@ -25,6 +25,10 @@ fi
 OUTPUT_DIR="dist/$TARGET_DIR"
 echo "Targeting: $OUTPUT_DIR"
 
+# Clean previous build
+echo "Cleaning $OUTPUT_DIR..."
+rm -rf "$OUTPUT_DIR"
+
 # Create output directories
 mkdir -p "$OUTPUT_DIR/lib"
 
