@@ -78,6 +78,14 @@ rm -rf "$OUTPUT_DIR"
 # Create output directories
 mkdir -p "$OUTPUT_DIR/lib"
 
+# Copy server files to dist root (only on first build or if missing)
+DIST_ROOT="dist/"
+if [ ! -f "$DIST_ROOT/.htaccess" ]; then
+  echo "Copying server configuration files to dist root..."
+  cp server/.htaccess.template "$DIST_ROOT/.htaccess"
+  echo "  ✓ Copied .htaccess to dist root"
+fi
+
 # --- HELPER FUNCTION: Recursively Resolve Imports ---
 # Warning: This is a simple implementation. It only handles 2 levels of depth perfectly 
 # as per our project structure (u.css -> lib/foo.css -> foo/bar.css).
@@ -142,7 +150,7 @@ echo "Building $OUTPUT_DIR/u.css..."
 
 # --- FILE 2: Minify u.css ---
 echo "Minifying u.css..."
-cat "$OUTPUT_DIR/u.css" | node minify.js > "$OUTPUT_DIR/u.min.css"
+cat "$OUTPUT_DIR/u.css" | node scripts/minify.js > "$OUTPUT_DIR/u.min.css"
 
 
 # --- FILE 4: Modular Builds from src/lib ---
@@ -174,7 +182,7 @@ for mod_file in $MODULE_FILES; do
     } > "$TARGET_LIB_FILE"
     
     # Minify Bundle
-    cat "$TARGET_LIB_FILE" | node minify.js > "${TARGET_LIB_FILE%.css}.min.css"
+    cat "$TARGET_LIB_FILE" | node scripts/minify.js > "${TARGET_LIB_FILE%.css}.min.css"
     
     # 2. Copy and minify individual files
     # We look into src/lib/$MOD_NAME/ for leaf files
@@ -193,7 +201,7 @@ for mod_file in $MODULE_FILES; do
     for leaf in $INDIVIDUAL_FILES; do
         filename=$(basename "$leaf")
         read_source "$leaf" > "$TARGET_LIB_DIR/$filename"
-        read_source "$leaf" | node minify.js > "$TARGET_LIB_DIR/${filename%.css}.min.css"
+        read_source "$leaf" | node scripts/minify.js > "$TARGET_LIB_DIR/${filename%.css}.min.css"
     done
 done
 
@@ -202,7 +210,7 @@ echo "Generating index.html from README.md..."
 INDEX_FILE="$OUTPUT_DIR/index.html"
 
 # Pre-render markdown to HTML using our custom renderer
-README_HTML=$(node render-docs.js README.md 2>/dev/null || echo "<p>Error rendering documentation</p>")
+README_HTML=$(node scripts/render-docs.js README.md 2>/dev/null || echo "<p>Error rendering documentation</p>")
 
 cat <<'EOF' > "$INDEX_FILE"
 <!DOCTYPE html>
@@ -337,6 +345,146 @@ cat <<'EOF' >> "$INDEX_FILE"
 EOF
 
 
+# --- Generate root index.html (same as variants, README-based) ---
+echo "Generating root index.html from README.md..."
+ROOT_INDEX="dist/index.html"
+
+# Use same README HTML generation
+cat <<'EOF' > "$ROOT_INDEX"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="uCss - Modern, mobile-first, pure CSS framework with zero dependencies">
+    <title>uCss Documentation</title>
+    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.css">
+    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
+    <style>
+        /* Minimal doc-specific styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--tx);
+        }
+        
+        /* Code styling */
+        code {
+            background: var(--srf);
+            padding: 0.2em 0.4em;
+            border-radius: 0.375rem;
+            font-family: ui-monospace, "SF Mono", Monaco, "Cascadia Code", monospace;
+            font-size: 0.875em;
+        }
+        
+        pre {
+            background: var(--srf);
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 0.375rem;
+            border: 1px solid var(--out);
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.875rem;
+        }
+        
+        /* Table styling */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            border: 1px solid var(--out);
+            padding: 0.5rem 1rem;
+            text-align: left;
+        }
+        
+        th {
+            background: var(--srf);
+            font-weight: 600;
+        }
+        
+        /* Alert boxes (GitHub-style) */
+        .alert {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid;
+            border-radius: 0.375rem;
+        }
+        
+        .alert strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .alert-note {
+            background: var(--sp-lt);
+            border-color: var(--out);
+        }
+        
+        .alert-tip {
+            background: var(--sp);
+            border-color: var(--out);
+        }
+        
+        .alert-important {
+            background: var(--sp-bd);
+            border-color: var(--out);
+        }
+        
+        .alert-warning {
+            background: var(--alr);
+            border-color: var(--out);
+        }
+        
+        .alert-caution {
+            background: var(--alr);
+            border-color: var(--out);
+        }
+        
+        /* Links */
+        a {
+            color: var(--t);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Horizontal rules */
+        hr {
+            border: none;
+            border-top: 1px solid var(--out);
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
+        <div class="sc">
+          <div>
+EOF
+
+# Append the pre-rendered HTML content (same as variant)
+echo "$README_HTML" >> "$ROOT_INDEX"
+
+cat <<'EOF' >> "$ROOT_INDEX"
+          </div>
+        </div>
+    </section>
+</body>
+</html>
+EOF
+
+echo "  ✓ Root index.html generated"
+
+
 
 # --- BUILD VERIFICATION ---
 echo "Verifying build outputs..."
@@ -371,6 +519,15 @@ echo "✅ Build verification passed"
 # Gzip ALL .css files in dist recursively
 echo "Gzipping all .css files in dist..."
 find "$OUTPUT_DIR" -type f -name "*.css" -exec gzip -9 -k -f {} +
+
+# Brotli compress ALL .css files (better compression than gzip)
+echo "Brotli compressing all .css files in dist..."
+if command -v brotli &> /dev/null; then
+  find "$OUTPUT_DIR" -type f -name "*.css" -exec brotli -q 11 -k -f {} \;
+  echo "  ✓ Brotli compression complete"
+else
+  echo "  ⚠ Brotli not installed, skipping .br generation"
+fi
 
 echo "🎉 Build complete!"
 ls -lh "$OUTPUT_DIR/u.css" "$OUTPUT_DIR/lib/"

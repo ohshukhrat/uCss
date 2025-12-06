@@ -1,0 +1,105 @@
+# ==============================================================================
+# uCss Server Configuration - Pre-Compressed File Serving with CORS
+# ==============================================================================
+# Serves pre-compressed Brotli (.br) and Gzip (.gz) files for optimal performance
+# Fallback order: Brotli -> Gzip -> Original file
+# Includes URL redirect rules for directory requests
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# CORS Headers - Allow any site to load CSS/Fonts
+# ------------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# URL Redirects
+# ------------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Redirect directory requests without index.html to root documentation
+    # This works for any folder, not just latest/stable
+    # Allows future folders to automatically redirect if they don't have docs
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} /$
+    RewriteRule ^(.*)$ /index.html [L,R=302]
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Serve Pre-Compressed Files (Brotli & Gzip)
+# ------------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    # Brotli Compression (Priority 1 - Best compression)
+    # -----------------------------------------------
+    # Check if browser supports Brotli
+    RewriteCond %{HTTP:Accept-Encoding} br
+    # Check if .br file exists
+    RewriteCond %{REQUEST_FILENAME}.br -f
+    # Only for CSS files
+    RewriteCond %{REQUEST_URI} \.css$
+    # Serve .br file
+    RewriteRule ^(.*)$ $1.br [L]
+    
+    # Gzip Compression (Priority 2 - Fallback)
+    # -----------------------------------------------
+    # Check if browser supports gzip
+    RewriteCond %{HTTP:Accept-Encoding} gzip
+    # Check if .gz file exists
+    RewriteCond %{REQUEST_FILENAME}.gz -f
+    # Only for CSS files
+    RewriteCond %{REQUEST_URI} \.css$
+    # Serve .gz file
+    RewriteRule ^(.*)$ $1.gz [L]
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Set Proper Headers for Compressed Files
+# ------------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Brotli compressed CSS files
+    <FilesMatch "\.css\.br$">
+        Header set Content-Type "text/css"
+        Header set Content-Encoding "br"
+        Header append Vary "Accept-Encoding"
+    </FilesMatch>
+    
+    # Gzip compressed CSS files
+    <FilesMatch "\.css\.gz$">
+        Header set Content-Type "text/css"
+        Header set Content-Encoding "gzip"
+        Header append Vary "Accept-Encoding"
+    </FilesMatch>
+    
+    # Regular CSS files (uncompressed)
+    <FilesMatch "\.css$">
+        Header append Vary "Accept-Encoding"
+    </FilesMatch>
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Cache Control for CSS Files (1 year immutable)
+# ------------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|css\.gz|css\.br)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Prevent Direct Access to Compressed Files from Incompatible Browsers
+# ------------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    # Block direct requests to .br files from browsers without Brotli support
+    RewriteCond %{REQUEST_URI} \.br$
+    RewriteCond %{HTTP:Accept-Encoding} !br
+    RewriteRule .* - [F,L]
+    
+    # Block direct requests to .gz files from browsers without gzip support
+    RewriteCond %{REQUEST_URI} \.gz$
+    RewriteCond %{HTTP:Accept-Encoding} !gzip
+    RewriteRule .* - [F,L]
+</IfModule>
