@@ -197,6 +197,51 @@ for mod_file in $MODULE_FILES; do
     done
 done
 
+# --- FILE 5: Generate index.html (Documentation from README) ---
+echo "Generating index.html from README.md..."
+INDEX_FILE="$OUTPUT_DIR/index.html"
+cat <<EOF > "$INDEX_FILE"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uCss Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css">
+    <style>
+        body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+        @media (max-width: 767px) {
+            body {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="markdown-body">
+    <div id="content"></div>
+    <script id="raw-markdown" type="text/markdown">
+EOF
+
+# Append README content
+read_source "README.md" >> "$INDEX_FILE"
+
+cat <<EOF >> "$INDEX_FILE"
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        const markdown = document.getElementById('raw-markdown').textContent;
+        document.getElementById('content').innerHTML = marked.parse(markdown);
+    </script>
+</body>
+</html>
+EOF
+
 
 # Gzip ALL .css files in dist recursively
 echo "Gzipping all .css files in dist..."
