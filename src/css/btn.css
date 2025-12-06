@@ -25,10 +25,11 @@ a.btn {
   font-weight: var(--btn-font-w, 600);
   line-height: var(--btn-line-h, 1.5);
   text-transform: var(--btn-text-t, none);
+  white-space: var(--btn-ws, nowrap);
 
   /* --- Spacing --- */
   /* 'em'-based padding scales with font-size */
-  padding: var(--btn-pd, var(--btn-pb, var(--btn-p, .75em)) var(--btn-pi, var(--btn-p, 1.5em)));
+  padding: var(--btn-pd, var(--btn-pb, var(--btn-p, .625em)) var(--btn-pi, var(--btn-p, 1.325em)));
   margin: var(--btn-md, var(--btn-mb, var(--btn-m)) var(--btn-mi, var(--btn-m)));
 
   /* ~44px */
@@ -60,12 +61,6 @@ a.btn {
   /* --- Sizing --- */
   width: var(--btn-w--sm, var(--btn-w, fit-content));
   min-height: var(--btn-min-h--sm, var(--btn-min-h, 2.75em));
-
-  :not(.g, .sg, .block-library-block__reusable-block-container):has(> &) {
-    container-name: btnp;
-    container-type: inline-size;
-    contain: inline-size;
-  }
 
   &:where([data-size="full"], .full) {
     --btn-w: 100%;
@@ -101,7 +96,7 @@ a.btn {
   inline-size: var(--btn-icn-size, 1.25em);
   block-size: var(--btn-icn-size, 1.25em);
   flex-shrink: 0;
-  order: var(--btn-icn-o, -1);
+  order: var(--btn-icn-o);
 
   transition: var(--btn-icn-trans, var(--btn-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out)));
   transition-property: var(--btn-icn-trans-p, fill, stroke);
@@ -231,18 +226,28 @@ a.btn:active:not(:disabled, .is-disabled) {
 /* ================================================
   SIZES (These also just set the API variables)
 ================================================ */
+
+:where(.btn[data-size="md"], .btn.md, [data-style="btn"].md) {
+  --btn-font-s: var(--btn-md-font-s, 1rem);
+  /* ~16px */
+  --btn-min-h: var(--btn-md-min-h, 2.75rem);
+  /* ~44px */
+}
+
 :where(.btn[data-size="sm"], .btn.sm, [data-style="btn"].sm) {
   --btn-font-s: var(--btn-sm-font-s, 0.875rem);
+  --btn-line-h: var(--btn-sm-line-h, 1.375);
   /* ~14px */
-  --btn-p: var(--btn-sm-p, 0.5em 1em);
+  --btn-pd: var(--btn-sm-p, 0.5em 1em);
   --btn-min-h: var(--btn-sm-min-h, 2.375rem);
   /* ~38px */
 }
 
 :where(.btn[data-size="xsm"], .btn.xsm, [data-style="btn"].xsm) {
   --btn-font-s: var(--btn-xsm-font-s, 0.75rem);
+  --btn-line-h: var(--btn-xsm-line-h, 1.375);
   /* ~12px */
-  --btn-p: var(--btn-xsm-p, 0.5em 1em);
+  --btn-pd: var(--btn-xsm-p, 0.5em 1em);
   --btn-min-h: var(--btn-xsm-min-h, 2rem);
   /* ~32px */
 }
@@ -250,7 +255,6 @@ a.btn:active:not(:disabled, .is-disabled) {
 :where(.btn[data-size="lg"], .btn.lg, [data-style="btn"].lg) {
   --btn-font-s: var(--btn-lg-font-s, 1.25rem);
   /* ~18px */
-  --btn-p: var(--btn-lg-p, 0.8em 1.6em);
   --btn-min-h: var(--btn-lg-min-h, 3.25rem);
   /* ~52px */
 }
@@ -258,9 +262,17 @@ a.btn:active:not(:disabled, .is-disabled) {
 :where(.btn[data-size="xlg"], .btn.xlg, [data-style="btn"].xlg) {
   --btn-font-s: var(--btn-xlg-font-s, 1.375rem);
   /* ~22px */
-  --btn-p: var(--btn-xlg-p, 0.8em 1.6em);
   --btn-min-h: var(--btn-xlg-min-h, 3.5rem);
   /* ~56px */
+}
+
+:where(.btn[data-size="tiny"], .btn.tiny, [data-style="btn"].tiny) {
+  --btn-font-s: var(--btn-tiny-font-s, 0.625rem);
+  --btn-line-h: var(--btn-tiny-line-h, 1.25);
+  /* ~10px */
+  --btn-pd: var(--btn-tiny-p, 0.25em 0.5em);
+  --btn-min-h: var(--btn-tiny-min-h, 1.125rem);
+  /* ~24px */
 }
 
 /* ================================================
@@ -296,20 +308,26 @@ a.btn:active:not(:disabled, .is-disabled) {
   gap: var(--btns-gap, clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem));
   flex-wrap: var(--btns-fw, wrap);
 
-  inline-size: var(--btns-w--sm, var(--btns-w, auto));
+  inline-size: var(--btns-w--sm, var(--btns-w));
   max-inline-size: var(--btns-max-w);
   align-self: var(--btns-as);
   margin-inline: var(--btns-mi,
       var(--btns-mis) var(--btns-mie));
 
+  :not(.g, .sg, .sgc, .f, .block-library-block__reusable-block-container):has(> &) {
+    container-name: btnsp;
+    container-type: inline-size;
+    contain: inline-size;
+  }
+
   @container (669.99px <=width <=999.99px) {
-    inline-size: var(--btns-w--md, var(--btns-w, 100%));
+    inline-size: var(--btns-w--md, var(--btns-w));
     justify-content: var(--btns-jc--md, var(--btns-jc));
     align-items: var(--btns-ai--md, var(--btns-ai));
   }
 
   @container (width > 999.99px) {
-    inline-size: var(--btns-w--lg, var(--btns-w, 100%));
+    inline-size: var(--btns-w--lg, var(--btns-w));
     justify-content: var(--btns-jc--lg, var(--btns-jc));
     align-items: var(--btns-ai--lg, var(--btns-ai));
   }
@@ -369,6 +387,10 @@ a.btn:active:not(:disabled, .is-disabled) {
 
 :where(.btns.e--lg, .btns-e--lg, .btns.e--mdl, .btns-e--mdl) {
   --btns-jc--lg: end;
+}
+
+:where(.btn, .btns):where(.rv) {
+  --btn-icn-o: -1;
 }
 
 /* Fix for Blocksy Theme */

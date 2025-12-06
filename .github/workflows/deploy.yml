@@ -29,10 +29,15 @@ jobs:
             echo "dir=latest/" >> $GITHUB_OUTPUT
             echo "build_arg=latest" >> $GITHUB_OUTPUT
           else
-            TIMESTAMP=$(date +"%Y-%m-%d-%H-%M")
-            echo "dir=preview/$TIMESTAMP/" >> $GITHUB_OUTPUT
+             TIMESTAMP=$(date +"%Y-%m-%d-%H-%M")
             echo "build_arg=preview/$TIMESTAMP" >> $GITHUB_OUTPUT
+            echo "dir=preview/$TIMESTAMP/" >> $GITHUB_OUTPUT
           fi
+
+      - name: ⬢ Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       # 2. The Build Process (3 Files Generated)
       - name: 🏗️ Build & Optimize
