@@ -62,11 +62,11 @@
     --pdb: clamp(2.5rem, 0.765vw + 2.347rem, 3rem);
 }
 
-:where(.pdb--m, .pd--m) {
+:where(.pdb.m, .pdb--m, .pd.m, .pd--m) {
     --pdb: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
 }
 
-:where(.pdb--s, .pd--s) {
+:where(.pdb.s, .pdb--s, .pd.s, .pd--s) {
     --pdb: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
 }
 
@@ -90,11 +90,11 @@
     --pdi: 3%;
 }
 
-:where(.pdi--m, .pd--m) {
+:where(.pdi.m, .pdi--m, .pd.m, .pd--m) {
     --pdi: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
 }
 
-:where(.pdi--s, .pd--s) {
+:where(.pdi.s, .pdi--s, .pd.s, .pd--s) {
     --pdi: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
 }
 

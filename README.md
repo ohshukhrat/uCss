@@ -13,47 +13,49 @@
 *   **Mobile-First**: All utilities start from mobile defaults and expand upwards.
 
 > [!CAUTION]
-> **Container Query Gotcha**
+> **Container Query Gotcha**:
 > Do not apply `@container` context to an element that is *itself* a grid item or part of a complex layout unless necessary. Setting `container-type` on a grid item can sometimes break implicit grid auto-sizing (`auto-fit`) because the container needs definite dimensions to resolve its queries.
 >
 > **Safety Mechanism**: The framework automatically skips container deployment on critical parents (like `.g`) to prevent layout breakage.
 
 > [!NOTE]
-> **Compatibility**
+> **Compatibility**:
 > uCss is tested and fully compatible with **WordPress**, specifically the **Greenlight Builder** and **Blocksy Theme**.
-
-
 
 ---
 
 ## 📦 Installation & Usage
 
-You can use uCss by including the compiled CSS files in your project.
+### 1. Quick Start (CDN)
+The easiest way to use uCss is via our edge CDN.
 
-### 1. CDN / Remote Access
-We provide always-up-to-date builds hosted on our edge servers:
+#### **Full Framework**
+Includes everything.
+| Env | URL |
+| :--- | :--- |
+| **Stable** | `https://ucss.unqa.dev/stable/u.min.css` |
+| **Latest** | `https://ucss.unqa.dev/latest/u.min.css` |
 
-*   **Production (Stable)**: Use for live applications.
-    ```html
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/root.css">
-    ```
+```html
+<!-- 1. Configuration (Optional) -- copy, configure and enqueue this file to your project for customizing defaults -->
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.css">
 
-*   **Development (Latest)**: Contains the absolute latest changes from the `dev` branch.
-    ```html
-    <link rel="stylesheet" href="https://ucss.unqa.dev/latest/u.min.css">
-    <link rel="stylesheet" href="https://ucss.unqa.dev/latest/lib/root.css">
-    ```
+<!-- 2. Framework -->
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
+```
 
-### 2. Manual / Local
-Clone the repository or download the `dist` folder.
-1.  Copy `root.css` to your project and customize your colors/fonts.
-2.  Import `u.min.css` after your root configuration.
+### 2. Modular Imports
+If you don't need the full framework, you can import specific modules. See the **Documentation** section below for direct links to every module.
+
+### 3. Manual / Local Installation
+1.  Clone the repository or download the `dist` folder.
+2.  Copy `lib/config/root.css` to your project and update with your colors/fonts.
+3.  Import `u.min.css` or specific modules from `dist/lib/` locally.
 
 ---
 
-## 🎨 Configuration (root.css)
-The heart of uCss is `root.css`. This file defines your design tokens. **Do not edit u.css directly.** Instead, override variables in your own CSS or modifying your copy of `root.css`.
+## 🎨 Configuration
+The heart of uCss is `root.css` (found in `src/lib/config/root.css`). This file defines your design tokens. **Do not edit u.css directly.**
 
 ```css
 :root {
@@ -64,8 +66,8 @@ The heart of uCss is `root.css`. This file defines your design tokens. **Do not 
   --l:  hsl(0 0% 96%);    /* Light Base */
 
   /* Typography */
-  --t-font-s: 1.125rem;   /* Base Heading Size */
-  --tx-font-s: 1rem;      /* Base Body Size */
+  --t-fs--m: clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem);   /* Base Title Size */
+  --tx-fs--m: clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem);     /* Base Body Size */
   
   /* Spacing */
   --gap: 1rem;
@@ -74,31 +76,71 @@ The heart of uCss is `root.css`. This file defines your design tokens. **Do not 
 
 > [!IMPORTANT]
 > **Variable Inheritance & BEM Strategy**
-> Since uCss relies heavily on CSS variables, **values cascade down to children**. This is a powerful feature for theming entire sections (e.g., setting `--tx-color` on a container colors all text inside), but it can cause issues if you nest identical components.
->
+> Since uCss relies heavily on CSS variables, **values cascade down to children**.
 > *   **The Risk**: If you set `--btn-bg: blue` on a parent, *every* button inside that parent will inherit blue unless explicitly overridden.
-> *   **The Solution**: When building complex UIs, we strongly recommend combining uCss with **BEM** (Block Element Modifier). Create a specific class for your component and scope your variable overrides within that class using nested selectors.
+> *   **The Solution**: Use **BEM** (Block Element Modifier). Create a specific class for your component and scope your variable overrides within that class.
 
 ```css
 /* Recommended Approach: Component Context */
 .my-card {
-  /* Define variables LOCALLY for this context */
-  --btn-bg: #333;
+  --btn-bg: #333; /* Local override */
   
-  /* Pinpoint children to avoid accidental leaks */
   &__submit-btn {
-    --btn-bg: var(--p);
+    --btn-bg: var(--p); /* Targeted override */
   }
 }
 ```
 
 ---
 
-## 🧩 Components & Utilities
+## 📚 Documentation & Modules
 
-### Layout
+### 1. Base
+Core resets and normalizers.
 
-### Layout components
+| Bundle | Stable | Latest |
+| :--- | :--- | :--- |
+| **`base.min.css`** | [Link](https://ucss.unqa.dev/stable/lib/base.min.css) | [Link](https://ucss.unqa.dev/latest/lib/base.min.css) |
+
+| File | Stable | Latest | Description |
+| :--- | :--- | :--- | :--- |
+| `clear.css` | [Link](https://ucss.unqa.dev/stable/lib/base/clear.min.css) | [Link](https://ucss.unqa.dev/latest/lib/base/clear.min.css) | Content reset and box-sizing normalization. |
+
+---
+
+### 2. Layout
+Structural components for page building.
+
+| Bundle | Stable | Latest |
+| :--- | :--- | :--- |
+| **`layout.min.css`** | [Link](https://ucss.unqa.dev/stable/lib/layout.min.css) | [Link](https://ucss.unqa.dev/latest/lib/layout.min.css) |
+
+| File | Stable | Latest | Description |
+| :--- | :--- | :--- | :--- |
+| `section.css` | [Link](https://ucss.unqa.dev/stable/lib/layout/section.min.css) | [Link](https://ucss.unqa.dev/latest/lib/layout/section.min.css) | Root sections (`.s`) |
+| `grid.css` | [Link](https://ucss.unqa.dev/stable/lib/layout/grid.min.css) | [Link](https://ucss.unqa.dev/latest/lib/layout/grid.min.css) | CSS Grid system (`.g`) |
+| `flex.css` | [Link](https://ucss.unqa.dev/stable/lib/layout/flex.min.css) | [Link](https://ucss.unqa.dev/latest/lib/layout/flex.min.css) | Flexbox utilities (`.f`) |
+
+#### **Section (`.s`)**
+The root structural component for page sections, offering intelligent max-width constraints and padding.
+*   **Structure**: `.s` (Outer Wrapper) -> `.sc` (Constraint Wrapper) -> `.scc` (Content Item).
+    *   *Note*: Direct children of `.s` are automatically treated as `.sc` if standard semantic tags aren't used, same for `.sc` - it treats its direct children as `.scc`.
+*   **Padding**: `--s-pb` controls vertical padding with fluid `clamp()` values. Use `.pb--s` or `.pb--xs` for tighter spacing; `--s-pi` controls horizontal padding with defaults set to 5%. 
+*   **Content Widths**:
+    *   `.s > *` defaults to 1366px for max-width of inner section container with 5% padding on each side.
+    *   `.s__c` (Content: 48rem), `.s__cw` (Content Wide: 56rem).
+    *   `.s__h` (Header: 64rem), `.s__hw` (Header Wide: 72rem).
+    *   `.s__f` (Full Width).
+*   **Backgrounds**: `--s-bg` handles section background color.
+
+```html
+<section class="s set primary">
+  <!-- Constrained Content -->
+  <div class="s_c ta-c">
+     <h2>Header</h2>
+  </div>
+</section>
+```
 
 #### **Grid (`.g`)**
 A robust, auto-responsive grid system powered by `display: grid`.
@@ -128,8 +170,8 @@ A robust, auto-responsive grid system powered by `display: grid`.
 
 #### **Flex (`.f` / `.col` / `.row`)**
 Flexible box layout with gap intelligence.
-*   **Direction**: `.row` (default, use for explicit child flex-direction statement), `.col` (column).
-*   **Gap Clamps**: `--f-gap` scales responsively.
+*   **Direction**: `.row` (default, can be used for explicit nested child flex-direction reset), `.col` (column).
+*   **Gap with Clamps**: `--f-gap` scales responsively.
 *   **Wrapping**: `.wrap`, `.nowrap`.
 *   **Alignment Helpers**:
     *   `.ai-c` (align-items: center), `.jc-sb` (justify-content: space-between), `.jc-c` (center).
@@ -138,40 +180,34 @@ Flexible box layout with gap intelligence.
     *   `.mi-a` (margin-inline: auto) for pushing items (like `margin-left: auto`).
 *   **Responsive**: Suffixes supported (e.g., `.col--md` switches to column on medium screens).
 
-#### **Section (`.s`)**
-The root structural component for page sections, offering intelligent max-width constraints and padding.
-*   **Structure**: `.s` (Outer Wrapper) -> `.sc` (Constraint Wrapper) -> `.scc` (Content Item).
-    *   *Note*: Direct children of `.s` are automatically treated as `.sc` if standard semantic tags aren't used, but explicit `.sc` is recommended for complex constraints.
-*   **Padding**: `--s-pb` controls vertical padding with fluid `clamp()` values. Use `.pb--s` or `.pb--xs` for tighter spacing.
-*   **Content Widths**:
-    *   `.s__c` (Content: 48rem), `.s__cw` (Content Wide: 56rem).
-    *   `.s__h` (Header: 64rem), `.s__hw` (Header Wide: 72rem).
-    *   `.s__f` (Full Width).
-*   **Backgrounds**: `--s-bg` handles section background color.
+---
 
-```html
-<section class="s set primary">
-  <!-- Constrained Content -->
-  <div class="s_c ta-c">
-     <h2>Header</h2>
-  </div>
-</section>
-```
+### 3. Typography
+Title, text, and alignment.
 
-### Typography
+| Bundle | Stable | Latest |
+| :--- | :--- | :--- |
+| **`typography.min.css`** | [Link](https://ucss.unqa.dev/stable/lib/typography.min.css) | [Link](https://ucss.unqa.dev/latest/lib/typography.min.css) |
 
-#### **Headings (`.t`)**
+| File | Stable | Latest | Description |
+| :--- | :--- | :--- | :--- |
+| `title.css` | [Link](https://ucss.unqa.dev/stable/lib/typography/title.min.css) | [Link](https://ucss.unqa.dev/latest/lib/typography/title.min.css) | Title (`.t`) |
+| `text.css` | [Link](https://ucss.unqa.dev/stable/lib/typography/text.min.css) | [Link](https://ucss.unqa.dev/latest/lib/typography/text.min.css) | Text (`.tx`) |
+| `text-align.css` | [Link](https://ucss.unqa.dev/stable/lib/typography/text-align.min.css) | [Link](https://ucss.unqa.dev/latest/lib/typography/text-align.min.css) | Text alignment utilities (`.ta`) |
+
+#### **Title (`.t`)**
 Semantic-agnostic typography customization.
-*   **Usage**: Applied to `h1`-`h6` or any element meant to look like a heading.
+*   **Usage**: Applied to `h1`-`h6` or any element meant to look like a heading / title.
 *   **Auto-Scale**: Uses massive `clamp()` ranges to scale typography smoothly from mobile to desktop (e.g., `3.5rem` down to `2.5rem` for `.t--m`).
 *   **Vars**:
-    *   `--t-font-s`: Font size.
-    *   `--t-font-w`: Font weight (800 default).
-    *   `--t-lh`: Line height.
+    *   `--t-font-s / --t-fs`: Font size.
+    *   `--t-font-w / --t-fw`: Font weight (800 default).
+    *   `--t-line-h / --t-lh`: Line height.
 *   **Classes**:
-    *   Sizes: `.xxxl` ... `.xxxs`.
+    *   Sizes: `.xxxl` ... `.xxxs`. (also `.t--xxxl` ... `.t--xxxs`)
     *   Weights: `.ub` (900), `.bd` (700), `.rg` (400), `.lt` (300).
     *   Line-Height: `.lh--s`, `.lh--xl`.
+    *   Styles: `.up` (uppercase), `.hl` (Ultra-bold + Uppercase for Headlines).
 
 #### **Text (`.tx`)**
 Body text utilities with intelligent defaults.
@@ -185,13 +221,21 @@ Responsive text alignment.
 *   **Classes**: `.ta-c` (center), `.ta-s` (start), `.ta-e` (end).
 *   **Responsive**: `.ta-c--md` (center only on medium screens).
 
-#### **Content Reset (`.cs`)**
-The "Content Section" wrapper.
-*   **Goal**: Wraps raw HTML content (like from a CMS) to enforce rhythm.
-*   **Spacing**: Adds `margin-block` to direct children `h*`, `p`, `ul` to create consistent vertical flow.
-*   **Helper**: `.csc` (Content Slot Context) enables deeper nesting rhythm control.
+---
 
-### UI Components
+### 4. Components
+UI Elements and interactive patterns.
+
+| Bundle | Stable | Latest |
+| :--- | :--- | :--- |
+| **`components.min.css`** | [Link](https://ucss.unqa.dev/stable/lib/components.min.css) | [Link](https://ucss.unqa.dev/latest/lib/components.min.css) |
+
+| File | Stable | Latest | Description |
+| :--- | :--- | :--- | :--- |
+| `button.css` | [Link](https://ucss.unqa.dev/stable/lib/components/button.min.css) | [Link](https://ucss.unqa.dev/latest/lib/components/button.min.css) | `.btn` |
+| `card.css` | [Link](https://ucss.unqa.dev/stable/lib/components/card.min.css) | [Link](https://ucss.unqa.dev/latest/lib/components/card.min.css) | `.crd` |
+| `media.css` | [Link](https://ucss.unqa.dev/stable/lib/components/media.min.css) | [Link](https://ucss.unqa.dev/latest/lib/components/media.min.css) | `.med` |
+| `link.css` | [Link](https://ucss.unqa.dev/stable/lib/components/link.min.css) | [Link](https://ucss.unqa.dev/latest/lib/components/link.min.css) | `.lnk` |
 
 #### **Buttons (`.btn`)**
 A complete button system with built-in states and variants.
@@ -211,7 +255,7 @@ The ultimate composable container for nested layouts.
     *   **Shell (`.crd`)**: The structural wrapper. Handles background, border, shadow, and **padding**.
     *   **Media (`.crd__media`)**: Full-bleed media area (ignores padding).
     *   **Content (`.crd__content`)**: The padded inner wrapper for text/body.
-*   **Container Query Powered**: A `.crd` can be set to change its layout (`row` vs `column`) and padding based on *its* width, not the screen.
+*   **Container Query Powered**: A `.crd` could be configured to change its layout (`row` vs `column`) and padding based on *its* width, not the screen.
 *   **Subgrid integration**: Use `.crd.sg` to opt-into subgrid. The card formatting context will respect the parent grid's rows/tracks.
 *   **Slots**: `.crd__header`, `.crd__body`, `.crd__footer` for semantic spacing structure inside content.
 *   **Interactive**: Ready properties to handle card transform applied on hover (`--crd-tf`).
@@ -228,7 +272,45 @@ Clickable area expansion.
 *   **Behavior**: Takes the first `<a>` tag inside it and expands its clickable area (using pseudo-elements) to cover the entire `.lnk` container.
 *   **Use Case**: Making entire Cards or list items clickable without wrapping them in an `<a>` tag (which is invalid HTML for block content).
 
-### Spacing & Decor
+---
+
+### 5. Theming
+Themes, overlays, and contextual settings.
+
+| Bundle | Stable | Latest |
+| :--- | :--- | :--- |
+| **`theming.min.css`** | [Link](https://ucss.unqa.dev/stable/lib/theming.min.css) | [Link](https://ucss.unqa.dev/latest/lib/theming.min.css) |
+
+| File | Stable | Latest | Description |
+| :--- | :--- | :--- | :--- |
+| `set.css` | [Link](https://ucss.unqa.dev/stable/lib/theming/set.min.css) | [Link](https://ucss.unqa.dev/latest/lib/theming/set.min.css) | Contextual themes |
+| `overlay.css` | [Link](https://ucss.unqa.dev/stable/lib/theming/overlay.min.css) | [Link](https://ucss.unqa.dev/latest/lib/theming/overlay.min.css) | Absolute overlays |
+
+#### **Settings / Theme (`.set`)**
+Contextual theming wrapper.
+*   **Behavior**: Scopes colors and typography for a specific section (e.g., a dark sidebar).
+*   **Classes**: `.set.dark` (dark bg, light text), `.set.primary` (brand bg).
+*   **Auto-Adapt**: Automatically adjusts headings (`h1`-`h6`), links, and text colors inside.
+
+#### **Overlay (`.o`)**
+Absolute positioning overlays.
+*   **Classes**: `.o.d` (dark color), `.o.l` (light color), `.o.lt` (lite .24 opacity), `.o.bd` (bold .64 opacity).
+*   **Z-Index**: Manages stacking context automatically (`-1` to `-3` depending on depth).
+
+---
+
+### 6. Utilities
+Helper classes for spacing and decoration.
+
+| Bundle | Stable | Latest |
+| :--- | :--- | :--- |
+| **`utilities.min.css`** | [Link](https://ucss.unqa.dev/stable/lib/utilities.min.css) | [Link](https://ucss.unqa.dev/latest/lib/utilities.min.css) |
+
+| File | Stable | Latest | Description |
+| :--- | :--- | :--- | :--- |
+| `margin.css` | [Link](https://ucss.unqa.dev/stable/lib/utilities/margin.min.css) | [Link](https://ucss.unqa.dev/latest/lib/utilities/margin.min.css) | `.mg` |
+| `padding.css` | [Link](https://ucss.unqa.dev/stable/lib/utilities/padding.min.css) | [Link](https://ucss.unqa.dev/latest/lib/utilities/padding.min.css) | `.pd` |
+| `radius.css` | [Link](https://ucss.unqa.dev/stable/lib/utilities/radius.min.css) | [Link](https://ucss.unqa.dev/latest/lib/utilities/radius.min.css) | `.rad` |
 
 #### **Margin (`.mg`)**
 Responsive direction-aware spacing.
@@ -246,26 +328,15 @@ Responsive internal spacing with massive clamp ranges.
 *   **Directions**: Same as margin (`.pdb`, `.pdi`, etc.).
 *   **Fluidity**: Padding scales with the viewport width automatically, maintaining perfect "breathing room" at any device size.
 
-#### **Overlay (`.o`)**
-Absolute positioning overlays.
-*   **Classes**: `.o.d` (dark color), `.o.l` (light color), `.o.lt` (lite .24 opacity), `.o.bd` (bold .64 opacity).
-*   **Z-Index**: Manages stacking context automatically (`-1` to `-3` depending on depth).
-
 #### **Radius (`.rad`)**
 Border radius utilities.
 *   **Vars**: `--rad` (base radius).
 *   **Classes**: `.rad.sq` (square), `.rad.rd` (round/pill), `.rad.lg` (large).
 *   **Directions**: `.rad-t` (top only), `.rad-bl` (bottom-left only).
 
-#### **Settings / Theme (`.set`)**
-Contextual theming wrapper.
-*   **Behavior**: Scopes colors and typography for a specific section (e.g., a dark sidebar).
-*   **Classes**: `.set.dark` (dark bg, light text), `.set.primary` (brand bg).
-*   **Auto-Adapt**: Automatically adjusts headings (`h1`-`h6`), links, and text colors inside.
-
 ---
 
-### Real World Example
+## 🏛️ Real World Example
 Below is a semantic HTML example of a "Blog" section, demonstrating the use of `.s` (Section), `.g` (Grid), `.crd` (Card), and responsive utilities.
 
 ```html
@@ -392,39 +463,33 @@ Here is how you would manage the layout above using a single BEM parent class (`
 ---
 
 ## 🛠️ Development & Workflow
-
 If you are contributing to uCss or modifying the core framework, here is how the system works.
 
 ### Directory Structure
-*   **`src/css/`**: The source modules. Each component (e.g., `btn.css`) is a separate file.
-*   **`dist/`**: The compiled output. **Do not edit files here.**
-    *   `u.css`: Concatenated full build.
-    *   `u.min.css`: Minified production build.
-    *   `lib/root.css`: The configuration file.
+*   **`src/lib/`**: The source modules.
+    *   **Modules**: `src/lib/components.css` defines the module bundle.
+    *   **Source Files**: `src/lib/components/button.css` contains the actual code.
+*   **`src/u.css`**: Main framework entry point.
+*   **`dist/`**: Compiled output. **Do not edit.**
 
 ### Build System
-The project is built using a custom Bash script and Node.js custom minifier.
+The project is built using a custom Bash script (`build.sh`) that reads `src/u.css` and recursively resolves imports to create flat bundles.
+
 ```bash
-npm run build
-# OR
 ./build.sh
 ```
 
 ### Deployment Strategy
-Our CI/CD pipeline (GitHub Actions) automatically handles deployments based on branches:
+Our CI/CD pipeline (GitHub Actions) automatically deploys:
 
 | Branch | Output URL | Purpose |
 | :--- | :--- | :--- |
 | **`main`** | `.../stable/` | **Production**. Stable releases. |
 | **`dev`** | `.../latest/` | **Development**. Latest bleeding-edge code. |
-| **Other** | `.../preview/TIMESTAMP/` | **Preview**. Feature branches/PRs. |
-
-**Local Development**:
-We have a git `pre-push` hook installed. When you push to any branch, your local environment will automatically run `./build.sh` to ensure your `dist/` folder matches what you are pushing.
 
 ---
 
 ## 🤝 Contributing
-1.  Make changes in `src/css`.
-2.  Run `npm run build` to verify standard compliance.
+1.  Make changes in `src/lib`.
+2.  Run `./build.sh test_build` to verify imports and builds.
 3.  Push to `dev` branch.

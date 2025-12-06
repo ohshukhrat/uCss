@@ -74,11 +74,11 @@
         --tx-font-s: var(--tx-fs--l, clamp(1.25rem, 0.191vw + 1.212rem, 1.375rem));
     }
 
-    &:where(.tx--m) {
+    &:where(.tx--m, .m) {
         --tx-font-s: var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem));
     }
 
-    &:where(.tx--s) {
+    &:where(.tx--s, .s) {
         --tx-font-s: var(--tx-fs--s, clamp(1rem, 0.191vw + 0.962rem, 1.125rem));
     }
 

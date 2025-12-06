@@ -22,11 +22,11 @@
     --rad: var(--rad-xs, 0.25em);
 }
 
-:where(.rad--s) {
+:where(.rad.s, .rad--s) {
     --rad: var(--rad-s, 0.375em);
 }
 
-:where(.rad--m) {
+:where(.rad.m, .rad--m) {
     --rad: var(--rad-m, 0.625em);
 }
 

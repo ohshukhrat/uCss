@@ -1,4 +1,4 @@
-:where(.s) {
+:where(.s):not(.t, .tx, .ta, .pd, .mg, .rad) {
   display: var(--s-d, flex);
   flex-direction: var(--s-fd, column);
   align-items: var(--s-ai, center);
