@@ -1,6 +1,7 @@
 # uCss Framework
 
-**Navigation**: [uCss](./) | [Source](./src/) | [Modules](./src/lib/)
+**Navigation**: [uCss](./) > [Source](./src/) > [Modules](./src/lib/) 
+
 **Modules**: [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Theming](./src/lib/theming/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Utilities](./src/lib/utilities/)
 
 > **The Modern, Classless-ish CSS Framework**. uCss is a lightweight, property-driven framework designed for the modern web. It leverages Container Queries, Logical Properties, and CSS Variables to create resilient, portable UI components that work anywhere.

@@ -41,7 +41,7 @@
     "container-queries"
   ],
   "author": "Shukhrat @ UNQA",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ohshukhrat/uCss/issues"
   },

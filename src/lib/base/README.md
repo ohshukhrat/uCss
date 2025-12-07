@@ -1,6 +1,7 @@
 # Base Module
 
-**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Base](./)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Base](./) 
+
 **Modules**: [Config](../config/) | [Base](./) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
 
 > **The Foundation**. Provides a surgical reset and tools for managing the "Content vs App" dichotomy.

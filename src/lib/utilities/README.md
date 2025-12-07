@@ -1,6 +1,7 @@
 # Utilities Module
 
-**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Utilities](./)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Utilities](./) 
+
 **Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](./)
 
 > **The Helpers**. Low-level, high-impact utility classes for one-off adjustments to spacing, visibility, and radius.

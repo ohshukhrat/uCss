@@ -1,6 +1,7 @@
 # Source Code
 
-**Navigation**: [uCss](../README.md) > [Source](./) | [Modules](./lib/)
+**Navigation**: [uCss](../README.md) > [Source](./) > [Modules](./lib/) 
+
 **Modules**: [Config](./lib/config/) | [Base](./lib/base/) | [Layout](./lib/layout/) | [Theming](./lib/theming/) | [Typography](./lib/typography/) | [Components](./lib/components/) | [Utilities](./lib/utilities/)
 
 > **The Framework Core**. The `src` directory contains the uncompiled, commented source code for uCss. This is where you work if you are contributing to the framework or building a custom bundle.
