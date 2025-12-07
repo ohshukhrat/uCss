@@ -16,7 +16,8 @@ const pipe = promisify(pipeline);
  * Kept low to avoid 'EMFILE' (too many open files) errors on some systems.
  * @type {number}
  */
-const MAX_CONCURRENCY = 8;
+const os = require('os');
+const MAX_CONCURRENCY = os.cpus().length;
 
 /**
  * File extensions to process.

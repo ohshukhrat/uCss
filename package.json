@@ -8,20 +8,36 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./build.sh"
+    "security": "npm audit",
+    "build": "node scripts/build.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ohshukhrat/uCss.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "css",
+    "framework",
+    "mobile-first",
+    "css-variables",
+    "container-queries"
+  ],
+  "author": "Shukhrat @ UNQA",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ohshukhrat/uCss/issues"
   },
   "homepage": "https://github.com/ohshukhrat/uCss#readme",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
   "devDependencies": {
-    "marked": "^17.0.1"
+    "marked": "17.0.1"
   }
 }
