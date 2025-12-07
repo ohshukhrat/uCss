@@ -1,3 +1,19 @@
+/**
+ * @file Overlay Utilities
+ * @description Absolute positioning utility for covers, backgrounds, and overlays.
+ * Handles z-index, aspect-ratio, and responsive sizing.
+ * 
+ * @usage
+ * classes: .o (base), .o.l (light overlay), .o.grd (gradient), .o > img (child fit)
+ * variables: --o-bg, --o-op, --o-z, --o-size
+ * structure: figure.o > img (overlay with background image), figure.o > video (overlay with background video)
+ */
+
+/**
+ * @group Base Overlay
+ * Absolute positioning with full width/height by default.
+ * Supports responsive min/max sizing limits.
+ */
 :where(.o),
 figure.o {
   display: var(--o-d, block);
@@ -37,6 +53,7 @@ figure.o {
     max-block-size: var(--o-max-h--lg, var(--o-max-h));
   }
 
+  /* Child Image/Video Fit */
   >img,
   >video {
     display: var(--o-img-d, block);
@@ -47,6 +64,7 @@ figure.o {
     margin: var(--o-img-margin, 0);
   }
 
+  /* Pseudo-element Overlay Layer */
   &::after {
     content: "";
     position: absolute;
@@ -56,6 +74,7 @@ figure.o {
     opacity: var(--o-l-op, .32);
   }
 
+  /* Gradient Variation */
   &.grd::after {
     background: var(--o-l-grd, linear-gradient(135deg,
           var(--gradient-color-1, var(--overlay-darker, rgba(6, 27, 35, 0.92))) 23%,
@@ -63,28 +82,37 @@ figure.o {
   }
 }
 
+/**
+ * @group Overlay Presets
+ * Variations for overlay color and opacity.
+ */
+
+/* Light Overlay */
 :where(.o.l) {
   --o-l-bg: var(--l, var(--theme-palette-color-7, #fff));
 }
 
+/* Dark Overlay */
 :where(.o.d) {
   --o-l-bg: var(--d, var(--theme-palette-color-4, #000));
 }
 
+/* Light Opacity (.24) */
 :where(.o.lt) {
   --o-l-op: .24;
 }
 
+/* Bold/Darker Opacity (.64) */
 :where(.o.bd) {
   --o-l-op: .64;
 }
 
+/* No Opacity/Invisible */
 :where(.o.no) {
   --o-l-op: 0;
 }
 
-/* Gutenberg Block */
-
+/* Gutenberg Compatibility */
 .block-editor-block-list__block .o {
   position: var(--o-pos, absolute);
 }

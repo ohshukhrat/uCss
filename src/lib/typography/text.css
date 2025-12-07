@@ -1,6 +1,22 @@
+/**
+ * @file Text Utilities
+ * @description Body text system for paragraphs, spans, and generic content.
+ * Handles font properties, responsive sizing, and alignment.
+ * 
+ * @usage
+ * classes: .tx (base), .bd (bold), .xl (size), .lh--m (line-height)
+ * variables: --tx-color, --tx-font-s, --tx-line-h
+ */
+
+/**
+ * @group Base Text
+ * Applies standard font properties to generic text elements.
+ * Includes responsive container queries for font-size and line-height.
+ */
+:is(.tx, [class^="tx--"], .shl, .st),
 :is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption),
 :is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
-    color: var(--tx-color, var(--set-tx, var(--set-color, var(--theme-palette-color-4, currentColor))));
+    color: var(--tx-color, var(--tx-c, var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-4, currentColor))))));
 
     font-family: var(--tx-font-f, var(--tx-font-fam, var(--theme-font-family)));
 
@@ -38,78 +54,127 @@
         line-height: var(--tx-line-h--lg, var(--tx-line-h, var(--tx-lh, 1.5)));
     }
 
+    /* Font Weights */
+
+    /** @group Weight: Bold (700) */
     &:where(.bd) {
         --tx-font-w: 700;
     }
 
+    /** @group Weight: Semi-Bold (600) */
     &:where(.sb) {
         --tx-font-w: 600;
     }
 
+    /** @group Weight: Medium (500) */
     &:where(.md) {
         --tx-font-w: 500;
     }
 
+    /** @group Weight: Regular (400) */
     &:where(.rg) {
         --tx-font-w: 400;
     }
 
+    /** @group Weight: Light (300) */
     &:where(.lt, .shl, .st) {
         --tx-font-w: 300;
     }
 
+    /** @group Transform: Uppercase */
     &:where(.up) {
         --tx-text-tf: uppercase;
     }
 
+    /* Font Sizes */
+
+    /** 
+     * @group Size: XXL 
+     * clamp(1.5rem ... 1.75rem)
+     */
     &:where(.tx--xxl, .xxl, .tx--2xl, .shl) {
         --tx-font-s: var(--tx-fs--xxl, clamp(1.5rem, 0.382vw + 1.424rem, 1.75rem));
     }
 
+    /** 
+     * @group Size: XL 
+     * clamp(1.375rem ... 1.5rem)
+     */
     &:where(.tx--xl, .xl, .st) {
         --tx-font-s: var(--tx-fs--xl, clamp(1.375rem, 0.191vw + 1.337rem, 1.5rem));
     }
 
+    /** 
+     * @group Size: Large
+     * clamp(1.25rem ... 1.375rem)
+     */
     &:where(.tx--l, .l) {
         --tx-font-s: var(--tx-fs--l, clamp(1.25rem, 0.191vw + 1.212rem, 1.375rem));
     }
 
+    /** 
+     * @group Size: Medium (Default)
+     * clamp(1.125rem ... 1.25rem)
+     */
     &:where(.tx--m, .m) {
         --tx-font-s: var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem));
     }
 
+    /** 
+     * @group Size: Small
+     * clamp(1rem ... 1.125rem)
+     */
     &:where(.tx--s, .s) {
         --tx-font-s: var(--tx-fs--s, clamp(1rem, 0.191vw + 0.962rem, 1.125rem));
     }
 
+    /** 
+     * @group Size: XS
+     * clamp(0.875rem ... 1rem)
+     */
     &:where(.tx--xs, .xs) {
         --tx-font-s: var(--tx-fs--xs, clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
     }
 
+    /** 
+     * @group Size: XXS
+     * clamp(0.75rem ... 0.875rem)
+     */
     &:where(.tx--xxs, .xxs, .tx--2xs) {
         --tx-font-s: var(--tx-fs--xxs, clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
     }
 
+    /** 
+     * @group Size: XXXS
+     * clamp(0.625rem ... 0.75rem)
+     */
     &:where(.tx--xxxs, .xxxs, .tx--3xs) {
         --tx-font-s: var(--tx-fs--xxxs, clamp(0.625rem, 0.191vw + 0.587rem, 0.75rem));
     }
 
+    /* Line Heights */
+
+    /** @group Line-Height: XL (1.5) */
     &:where(.lh--xl) {
         --tx-line-h: var(--tx-lh-xl, 1.5);
     }
 
+    /** @group Line-Height: Large (1.375) */
     &:where(.lh--l, .shl, .st) {
         --tx-line-h: var(--tx-lh-l, 1.375);
     }
 
+    /** @group Line-Height: Medium (1.25) */
     &:where(.lh--m) {
         --tx-line-h: var(--tx-lh-m, 1.25);
     }
 
+    /** @group Line-Height: Small (1.125) */
     &:where(.lh--s) {
         --tx-line-h: var(--tx-lh-s, 1.125);
     }
 
+    /** @group Line-Height: XS (1) */
     &:where(.lh--xs) {
         --tx-line-h: var(--tx-lh-xs, 1);
     }
@@ -117,12 +182,15 @@
 }
 
 
-/* For Blocksy */
-
+/**
+ * @group Blocksy Compatibility
+ * Maps uCss variables to Blocksy theme properties if present.
+ */
+:is(.tx, [class^="tx--"], .shl, .st),
 :is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption),
 :is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
-    --theme-heading-color: var(--tx-color, var(--set-tx, var(--set-color, var(--theme-palette-color-4, currentColor))));
-    --theme-text-color: var(--tx-color, var(--set-tx, var(--set-color, var(--theme-palette-color-4, currentColor))));
+    --theme-heading-color: var(--tx-color, var(--tx-c, var(--set-tx, var(--set-color, var(--tx-c, var(--theme-palette-color-4, currentColor))))));
+    --theme-text-color: var(--tx-color, var(--tx-c, var(--set-tx, var(--set-color, var(--tx-c, var(--theme-palette-color-4, currentColor))))));
     --theme-font-size: var(--tx-font-s, var(--tx-fs, var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem))));
     --theme-font-weight: var(--tx-font-w, var(--tx-fw, 400));
     --theme-font-style: var(--tx-font-s, var(--tx-fst));

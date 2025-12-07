@@ -1,3 +1,18 @@
+/**
+ * @file Media Component
+ * @description Wrapper for media (figure > img, figure > video) that handles clearing default styles, setting aspect ratios and responsive sizing.
+ * Ensures consistent media display across containers.
+ * 
+ * @usage
+ * classes: .med, .med.ar-16-9, .med.rd (rounded)
+ * variables: --med-ar, --med-bg, --med-obj-f (object-fit)
+ */
+
+/**
+ * @group Base Media
+ * Sets up display, positioning, and responsive sizing variables.
+ * Contains defaults for nested img/video elements.
+ */
 :where(.med),
 figure.med {
   display: var(--med-d, block);
@@ -87,6 +102,10 @@ figure.med {
   }
 }
 
+/**
+ * @group Aspect Ratios
+ * Presets for common aspect ratios.
+ */
 :where(.med.ar-1) {
   --med-ar: 1 / 1;
 }
@@ -123,6 +142,10 @@ figure.med {
   --med-ar: 9 / 16;
 }
 
+/**
+ * @group Radius Modifiers
+ * SQ (Square), LT (Light), BD (Bold), RD (Rounded/Circle).
+ */
 :where(.med.sq) {
   --med-border-r: var(--med-border-r-sq, 0);
 }

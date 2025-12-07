@@ -1,3 +1,18 @@
+/**
+ * @file Text Align Utilities
+ * @description Responsive text alignment classes.
+ * Supports container query breakpoints (sm, md, lg).
+ * 
+ * @usage
+ * classes: .ta (base), .ta-s (start), .ta-c (center), .ta-e (end)
+ * responsive: .ta-s--md, .ta-c--lg, etc.
+ * variables: --ta, --ta--sm, --ta--md, --ta--lg
+ */
+
+/**
+ * @group Base Alignment
+ * Applies reactive alignment using --ta* variables.
+ */
 :where(.ta, .ta > [class*="ta-"], [class*="ta-"]) {
     text-align: var(--ta--sm, var(--ta, left));
 
@@ -10,6 +25,11 @@
     }
 }
 
+/**
+ * @group Start Alignment
+ * text-align: start (left in LTR).
+ * responsive modifiers: --lg, --md, --sm
+ */
 :where(.ta.ta-s, .ta.s, .ta-s) {
     --ta: start;
 }
@@ -26,6 +46,11 @@
     --ta--sm: start;
 }
 
+/**
+ * @group Center Alignment
+ * text-align: center.
+ * responsive modifiers: --lg, --md, --sm
+ */
 :where(.ta.ta-c, .ta.c, .ta-c) {
     --ta: center;
 }
@@ -42,6 +67,11 @@
     --ta--sm: center;
 }
 
+/**
+ * @group End Alignment
+ * text-align: end (right in LTR).
+ * responsive modifiers: --lg, --md, --sm
+ */
 :where(.ta.ta-e, .ta.e, .ta-e) {
     --ta: end;
 }

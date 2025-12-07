@@ -1,3 +1,18 @@
+/**
+ * @file Grid Layout
+ * @description Robust grid utility with auto-placement and explicit control.
+ * Features Smart Grid (subgrid) support and responsive column presets.
+ * 
+ * @usage
+ * classes: .g (grid), .g-1 (1 col), .g-1-2 (1/3 2/3 ratio), .sg (smart grid)
+ * variables: --g-cols, --g-gap, --g-min, --gi-col
+ */
+
+/**
+ * @group Base Grid
+ * Sets display: grid and default behaviors.
+ * Defines auto-column/row sizing and gap variables.
+ */
 :where(.g) {
   display: var(--g-d, grid);
   position: var(--g-pos, relative);
@@ -129,6 +144,10 @@
                 var(--g-max--xsm, 1fr))))));
   }
 
+  /**
+   * @group Child Placement
+   * Handles placement of grid items (areas, cols, rows).
+   */
   :where(& > *, .gi, .sg > *, .sgc > *) {
     grid-area: var(--g-area--sm, var(--gi-area));
     grid-column: var(--gi-col--sm, var(--gi-col));
@@ -163,6 +182,12 @@
   }
 }
 
+
+/**
+ * @group Smart Grid (Subgrid)
+ * .sg (row subgrid) and .sgc (column subgrid).
+ * Allows nested grids to align with the parent track.
+ */
 :where(.sg, .sgc) {
   display: var(--sg-d--fallback, var(--sg-d, grid));
 
@@ -303,6 +328,11 @@
   }
 }
 
+
+/**
+ * @group Column Presets
+ * .g-1 to .g-4 and specialized ratios (.g-1-2, etc).
+ */
 :where(.g.g-1) {
   --g-cols: 1;
 }
@@ -457,6 +487,11 @@
   }
 }
 
+
+/**
+ * @group Alignment Modifiers
+ * .ai-* (align-items), .jc-* (justify-content), etc.
+ */
 :where(.g.ai-c) {
   --g-ai: center;
 }
@@ -698,6 +733,11 @@
 }
 
 
+
+/**
+ * @group Child Alignment
+ * .as-* (align-self), .js-* (justify-self) for grid items.
+ */
 :where(.g > .as-c) {
   --gi-as: center;
 }
@@ -730,6 +770,11 @@
   --gi-js--sm: center;
 }
 
+
+/**
+ * @group Order Modifiers
+ * Control visual order of grid items.
+ */
 :where(.g > .o-1, .gi.o-1, .sg.o-1, .sgc.o-1) {
   --gi-o: -3;
 }
@@ -810,6 +855,11 @@
   --gi-o--sm: 9;
 }
 
+
+/**
+ * @group Gap Modifiers
+ * Responsive gap presets (S, M, L, XL, etc).
+ */
 :where(.gap) {
   --g-gap: var(--g-gap--m,
       clamp(1.75rem, 1.912vw + 1.368rem, 3rem));
@@ -1290,6 +1340,11 @@
       clamp(3rem, 4.589vw + 2.082rem, 6rem));
 }
 
+
+/**
+ * @group Span Modifiers
+ * Utilities to make items span multiple columns/rows (.sp-*, .rsp-*).
+ */
 :where(.sp-1) {
   --gi-col: span 1;
 }

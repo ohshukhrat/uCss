@@ -1,3 +1,17 @@
+/**
+ * @file Section Component
+ * @description Major layout block with managed spacing, width, and semantic containers.
+ * 
+ * @usage
+ * classes: .s (section), .sc (section container, .s > *), .s__w (section wide inner container), .s.pb--s (small padding-block/vertical), etc.
+ * variables: --s-bg (section background), --s-pb (section padding-block/vertical), --sc-max-w (section container max-width), etc.
+ */
+
+/**
+ * @group Base Section
+ * The outer shell (.s). Handles background, full-bleed behavior, and vertical spacing (padding-block).
+ * Configured as a flex container by default.
+ */
 :where(.s):not(.t, .tx, .ta, .pd, .mg, .rad) {
   display: var(--s-d, flex);
   flex-direction: var(--s-fd, column);
@@ -59,6 +73,10 @@
   }
 }
 
+/**
+ * @group Content Container
+ * The inner wrapper (.sc or direct child of .s). Handles max-inline-size (max-width) and centering.
+ */
 :where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc) {
   display: var(--sc-d, flex);
   flex-direction: var(--sc-fd, column);
@@ -112,6 +130,10 @@
   }
 }
 
+/**
+ * @group Inner Container Width Modifiers
+ * Presets for inner container max-inline-size (max-width) (.s__w, .s__uw, etc).
+ */
 :where(.s__w) {
   --sc-max-w: var(--sc-w-max-w, 1440px);
 }
@@ -128,6 +150,10 @@
   --sc-max-w: var(--sc-f-max-w, 100%);
 }
 
+/**
+ * @group Inner Container Child Items (.scc)
+ * API for third-level items (Section > Container > Child).
+ */
 :where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc)>:where(*, .scc) {
   inline-size: var(--scc-w--sm, var(--scc-w, 100%));
   max-inline-size: var(--scc-max-w--sm, var(--scc-max-w));
@@ -192,6 +218,10 @@
   --scc-max-w: var(--s-cn-max-w, 40rem);
 }
 
+/**
+ * @group Spacing Modifiers
+ * Overrides for padding (pb) and gap values.
+ */
 :where(.s.pb--s) {
   --s-pb: clamp(3rem, 3.059vw + 2.388rem, 5rem);
 }

@@ -1,3 +1,18 @@
+/**
+ * @file Margin Utilities
+ * @description Responsive margin system using CSS logical properties.
+ * Supports fluid scaling via container queries using --mg* variables.
+ * 
+ * @usage
+ * classes: .mg (all), .mgb (block), .mgi (inline), .mgbs (block-start), .mgie (inline-end). etc.
+ * variables: --mg, --mgb, --mgbs, --mgi, --mgie, --mg--sm, --mg--md, --mg--lg, etc.
+ */
+
+/**
+ * @group Block Start
+ * Controls margin-block-start (top).
+ * Fallback chain: mgbs -> mgb -> mg
+ */
 :where(.mg, .mgb, .mgbs) {
     margin-block-start: var(--mgbs--sm, var(--mgbs, var(--mgb--sm, var(--mgb, var(--mg--sm, var(--mg))))));
 
@@ -10,6 +25,11 @@
     }
 }
 
+/**
+ * @group Block End
+ * Controls margin-block-end (bottom).
+ * Fallback chain: mgbe -> mgb -> mg
+ */
 :where(.mg, .mgb, .mgbe) {
     margin-block-end: var(--mgbe--sm, var(--mgbe, var(--mgb--sm, var(--mgb, var(--mg--sm, var(--mg))))));
 
@@ -22,6 +42,11 @@
     }
 }
 
+/**
+ * @group Inline Start
+ * Controls margin-inline-start (left in LTR).
+ * Fallback chain: mgis -> mgi -> mg
+ */
 :where(.mg, .mgi, .mgis) {
     margin-inline-start: var(--mgis--sm, var(--mgis, var(--mgi--sm, var(--mgi, var(--mg--sm, var(--mg))))));
 
@@ -34,6 +59,11 @@
     }
 }
 
+/**
+ * @group Inline End
+ * Controls margin-inline-end (right in LTR).
+ * Fallback chain: mgie -> mgi -> mg
+ */
 :where(.mg, .mgi, .mgie) {
     margin-inline-end: var(--mgie--sm, var(--mgie, var(--mgi--sm, var(--mgi, var(--mg--sm, var(--mg))))));
 
@@ -46,6 +76,11 @@
     }
 }
 
+/**
+ * @group Auto Margins
+ * Sets margin to 'auto' for centering or alignment.
+ * Use .auto modifier on any directional class.
+ */
 :where(.mg.auto) {
     --mg: auto;
 }
