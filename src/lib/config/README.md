@@ -1,6 +1,9 @@
-# [uCss](../../../) / [Hub](../../) / [Config](./)
+# Config Module
 
-**Documentation**: [Overview](../../../) | [Hub](../../) | [Config](./) | [Base](../base/) | [Layout](../layout/) | [Typography](../typography/) | [Components](../components/) | [Theming](../theming/) | [Utilities](../utilities/)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Config](./)
+**Modules**: [Config](./) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
+
+> **The Central Nervous System**. Defines the CSS Variables for the entire system: colors, typography scales, spacing tokens, and layout presets.
 
 ---
 

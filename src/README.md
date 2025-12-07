@@ -1,6 +1,20 @@
-# uCss Documentation
+# Source Code
 
-[← Back to Overview](../) | **Documentation Hub** | [Base](./lib/base/) | [Layout](./lib/layout/) | [Typography](./lib/typography/) | [Components](./lib/components/) | [Theming](./lib/theming/) | [Utilities](./lib/utilities/) | [Config](./lib/config/)
+**Navigation**: [uCss](../README.md) > [Source](./) | [Modules](./lib/)
+**Modules**: [Config](./lib/config/) | [Base](./lib/base/) | [Layout](./lib/layout/) | [Theming](./lib/theming/) | [Typography](./lib/typography/) | [Components](./lib/components/) | [Utilities](./lib/utilities/)
+
+> **The Framework Core**. The `src` directory contains the uncompiled, commented source code for uCss. This is where you work if you are contributing to the framework or building a custom bundle.
+
+---
+
+## 📑 Page Contents
+*   [Architecture & Developer Guide](#-architecture--developer-guide)
+*   [Core Pillars](#️-core-pillars)
+*   [Source Map](#-source-map)
+*   [The Manifest](#the-manifest-ucss)
+*   [Module Reference](#-module-reference)
+*   [Maintainer Workflow](#️-maintainer-workflow)
+*   [Integration Snippets](#-integration-snippets)
 
 ---
 

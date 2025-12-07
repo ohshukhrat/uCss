@@ -1,6 +1,9 @@
-# [uCss](../../../) / [Hub](../../) / [Layout](./)
+# Layout Module
 
-**Documentation**: [Overview](../../../) | [Hub](../../) | [Config](../config/) | [Base](../base/) | [Layout](./) | [Typography](../typography/) | [Components](../components/) | [Theming](../theming/) | [Utilities](../utilities/)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Layout](./)
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](./) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
+
+> **The Structure**. A purely container-driven layout engine featuring smart Grids, variable Flex utilities, and self-spacing Sections.
 
 ---
 

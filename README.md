@@ -1,9 +1,20 @@
 # uCss Framework
 
-**Documentation**: [Central Hub](./src/) | [Modules](./src/lib/) | [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Theming](./src/lib/theming/) | [Utilities](./src/lib/utilities/)
+**Navigation**: [uCss](./) | [Source](./src/) | [Modules](./src/lib/)
+**Modules**: [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Theming](./src/lib/theming/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Utilities](./src/lib/utilities/)
+
+> **The Modern, Classless-ish CSS Framework**. uCss is a lightweight, property-driven framework designed for the modern web. It leverages Container Queries, Logical Properties, and CSS Variables to create resilient, portable UI components that work anywhere.
 
 ---
 
+## 📑 Page Contents
+*   [Key Features](#-key-features)
+*   [Thinking in uCss](#-thinking-in-ucss)
+*   [Installation & Usage](#-installation--usage)
+*   [Configuration](#-configuration-optional)
+*   [Documentation & Modules](#-documentation--modules)
+
+---
 
 **uCss** is a modern, mobile-first, **pure CSS framework** designed for granular control, responsiveness, and flexibility. It leverages **CSS Variables** and **Container Queries** to provide a highly adaptable styling API without the need for complex build steps, JavaScript runtimes, or utility-class bloat.
 
@@ -113,8 +124,12 @@ We provide three variations for every file:
 
 ---
 
-## 🎨 Configuration
-The heart of uCss is `root.css` (found in `src/lib/config/root.css`). This file defines your design tokens and is organized by project structure (General, Typography, Layout, Components). **Do not edit u.css directly.**
+## 🎨 Configuration (Optional)
+uCss is built to work out-of-the-box. Every component has a "graceful fallback".
+*   **Default Behavior**: If you don't define any variables, uCss uses its internal defaults (e.g., sensible greys, system fonts).
+*   **Customization**: You *can* include `root.css` (found in `src/lib/config/root.css`) to override these defaults globally. This file is **not required**, but it is the recommended way to manage your design tokens.
+
+**Example `root.css`:**
 
 ```css
 :root {

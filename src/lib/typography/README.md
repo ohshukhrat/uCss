@@ -1,6 +1,9 @@
-# [uCss](../../../) / [Hub](../../) / [Typography](./)
+# Typography Module
 
-**Documentation**: [Overview](../../../) | [Hub](../../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](./) | [Components](../components/) | [Theming](../theming/) | [Utilities](../utilities/)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Typography](./)
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](./) | [Components](../components/) | [Utilities](../utilities/)
+
+> **The Type System**. Fluid, clamp-based typography that decouples semantics (`h1`) from visual style (`.t`) for perfect responsive scaling.
 
 ---
 

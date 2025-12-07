@@ -332,18 +332,24 @@ async function main() {
             // marked is sync
             // Custom renderer for heading IDs
             const renderer = {
-                heading(text, depth) {
+                heading({ tokens, depth, raw, text }) {
                     try {
-                        const escapedText = String(text).replace(/<[^>]*>/g, '').toLowerCase().replace(/[^\w]+/g, '-');
-                        return `<h${depth} id="${escapedText}">${text}</h${depth}>`;
+                        // console.log('Heading args:', arguments[0]); // Debug
+                        // Handle object-based arguments (marked v12+)
+                        const actualText = this.parser.parseInline(tokens);
+                        const escapedText = actualText.toLowerCase().replace(/[^\w]+/g, '-');
+                        return `<h${depth} id="${escapedText}">${actualText}</h${depth}>`;
                     } catch (e) {
-                        console.error('Heading Error:', e.message, 'Text:', text);
-                        return `<h${depth}>${text}</h${depth}>`;
+                        // Fallback for older marked or if fails
+                        return `<h${depth}>${text || raw}</h${depth}>`;
                     }
                 },
-                link(href, title, text) {
+                link({ href, title, tokens }) {
                     try {
+                        const path = require('path'); // Ensure path is available in closure scope if needed, or rely on outer scope
+                        const text = this.parser.parseInline(tokens);
                         const hrefStr = String(href);
+
                         // Fix Root -> src/ links to point to the correct output dir (e.g. "stable/")
                         if (mdPath === path.join(PROJECT_ROOT, 'README.md')) {
                             if (hrefStr.startsWith('./src/') || hrefStr.startsWith('src/')) {
@@ -353,7 +359,7 @@ async function main() {
                         }
                         return `<a href="${hrefStr}"${title ? ` title="${title}"` : ''}>${text}</a>`;
                     } catch (e) {
-                        return `<a href="${href}">${text}</a>`;
+                        return `<a href="${href}">${tokens}</a>`; // Fallback
                     }
                 }
             };

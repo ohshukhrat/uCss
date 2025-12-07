@@ -1,6 +1,9 @@
-# [uCss](../../../) / [Hub](../../) / [Theming](./)
+# Theming Module
 
-**Documentation**: [Overview](../../../) | [Hub](../../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](../typography/) | [Components](../components/) | [Theming](./) | [Utilities](../utilities/)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Theming](./)
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](./) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
+
+> **The Paint**. Manages color palettes, dark/light modes, and contextual overrides using CSS Custom Properties and Intercepted cascades.
 
 ---
 

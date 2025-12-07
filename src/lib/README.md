@@ -1,6 +1,9 @@
-# [uCss](../) / [Modules](./)
+# Modules Library
 
-**Documentation**: [Get Started](../) | [Modules](./) | [Config](./config/) | [Base](./base/) | [Layout](./layout/) | [Typography](./typography/) | [Components](./components/) | [Theming](./theming/) | [Utilities](./utilities/)
+**Navigation**: [uCss](../../README.md) > [Source](../README.md) > [Modules](./)
+**Modules**: [Config](./config/) | [Base](./base/) | [Layout](./layout/) | [Theming](./theming/) | [Typography](./typography/) | [Components](./components/) | [Utilities](./utilities/)
+
+> **The Building Blocks**. The `lib` directory contains the independent modules that make up uCss. Each folder is loosely coupled and can be used on its own or as part of the full framework.
 
 ---
 
@@ -31,7 +34,7 @@ We enforce a strict dependency graph:
 
 | Module | Directory | Description | Connections |
 | :--- | :--- | :--- | :--- |
-| **Config** | [`/config`](./config/) | **(Optional :root declarations)**: CSS Variables, design tokens, and global settings. When enqueued, it behaves as the "Brain" of the framework. | General, Typography, Layout, Components, Theming |
+| **Config** | [`/config`](./config/) | **(Optional)**: CSS Variables, design tokens, and global settings. Provides the defaults, but components will work without it using internal fallbacks. | General, Typography, Layout, Components, Theming |
 | **Base** | [`/base`](./base/) | Resets and normalizations. Handles clearing default content spacing (`.cs`) and clear lists (`.cl`). | None |
 | **Typography** | [`/typography`](./typography/) | Fluid type scales for Headings (`.t`) and Body text (`.tx`), plus alignment (`.ta`). | Base, Config |
 | **Layout** | [`/layout`](./layout/) | Structural engines: Grid (`.g`), Flex (`.f`), and Section (`.s`). | Config, Components |

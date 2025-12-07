@@ -1,6 +1,9 @@
-# [uCss](../../../) / [Hub](../../) / [Components](./)
+# Components Module
 
-**Documentation**: [Overview](../../../) | [Hub](../../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](../typography/) | [Components](./) | [Theming](../theming/) | [Utilities](../utilities/)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Components](./)
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](./) | [Utilities](../utilities/)
+
+> **The UI Toolkit**. A set of un-opinionated, composite building blocks (Cards, Buttons, Media) designed for maximum reusability.
 
 ---
 
