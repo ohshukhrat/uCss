@@ -86,71 +86,22 @@ if [ ! -f "$DIST_ROOT/.htaccess" ]; then
   echo "  ✓ Copied .htaccess to dist root"
 fi
 
-# --- HELPER FUNCTION: Recursively Resolve Imports ---
-# Warning: This is a simple implementation. It only handles 2 levels of depth perfectly 
-# as per our project structure (u.css -> lib/foo.css -> foo/bar.css).
-# For fully generic recursive flattening, a more complex script (Node.js) would be better.
-# But bash is requested/preferred in current context. Let's make it work for our specific structure.
 
-resolve_imports() {
-    local parent_file="$1"
-    local base_dir="$2" # Base directory relative to project root to look for imports, if relative
-    
-    # Get imports
-    if [ -n "$SOURCE_REF" ]; then
-         if ! git show "$SOURCE_REF:$parent_file" >/dev/null 2>&1; then return; fi
-         local imports=$(git show "$SOURCE_REF:$parent_file" | grep '@import' | sed -E 's/@import "([^"]+)";/\1/')
-    else
-         if [ ! -f "$parent_file" ]; then return; fi
-         local imports=$(grep '@import' "$parent_file" | sed -E 's/@import "([^"]+)";/\1/')
-    fi
-
-    for import in $imports; do
-        # If imports start with "lib/", it is from root (src/lib)
-        # If imports are relative (e.g. "button.css"), it is from base_dir/
-        
-        local full_path=""
-        if [[ "$import" == lib/* ]]; then
-             full_path="src/$import"
-        else
-             full_path="$base_dir/$import"
-        fi
-        
-        # Recurse? 
-        # For our structure, we just need to check if THIS file has imports.
-        # If it has imports, we resolve them. If not, we print the file content.
-        
-        # Check for imports in this child file
-        local has_imports="false"
-        if [ -n "$SOURCE_REF" ]; then
-             if git show "$SOURCE_REF:$full_path" | grep -q '@import'; then has_imports="true"; fi
-        else
-             if grep -q '@import' "$full_path"; then has_imports="true"; fi
-        fi
-        
-        if [ "$has_imports" == "true" ]; then
-             # It's a module file (like lib/components.css), recurse
-             # New base dir is dir of full_path
-             local new_base=$(dirname "$full_path")
-             resolve_imports "$full_path" "$new_base"
-        else
-             # It's a leaf file (like components/button.css), print it
-             read_source "$full_path"
-             echo ""
-        fi
-    done
-}
 
 
 # --- FILE 1: Full Recursive Bundle (u.css) ---
 echo "Building $OUTPUT_DIR/u.css..."
 {
-  resolve_imports "src/u.css" "src"
+  node scripts/bundle.js "src/u.css"
 } > "$OUTPUT_DIR/u.css"
 
-# --- FILE 2: Minify u.css ---
+# --- FILE 2: Clean u.css (No Comments, Preserved Formatting) ---
+echo "Cleaning u.css..."
+cat "$OUTPUT_DIR/u.css" | node scripts/clean.js > "$OUTPUT_DIR/u.clean.css"
+
+# --- FILE 3: Minify u.css ---
 echo "Minifying u.css..."
-cat "$OUTPUT_DIR/u.css" | node scripts/minify.js > "$OUTPUT_DIR/u.min.css"
+cat "$OUTPUT_DIR/u.clean.css" | node scripts/minify.js > "$OUTPUT_DIR/u.min.css"
 
 
 # --- FILE 4: Modular Builds from src/lib ---
@@ -178,11 +129,14 @@ for mod_file in $MODULE_FILES; do
     # 1. Build Bundle (resolve imports from this module file)
     echo "  - Bundle: $MOD_NAME.css"
     {
-       resolve_imports "$mod_file" "src/lib"
+       node scripts/bundle.js "$mod_file"
     } > "$TARGET_LIB_FILE"
     
-    # Minify Bundle
-    cat "$TARGET_LIB_FILE" | node scripts/minify.js > "${TARGET_LIB_FILE%.css}.min.css"
+    # Clean Bundle
+    cat "$TARGET_LIB_FILE" | node scripts/clean.js > "${TARGET_LIB_FILE%.css}.clean.css"
+    
+    # Minify Bundle (from clean source)
+    cat "${TARGET_LIB_FILE%.css}.clean.css" | node scripts/minify.js > "${TARGET_LIB_FILE%.css}.min.css"
     
     # 2. Copy and minify individual files
     # We look into src/lib/$MOD_NAME/ for leaf files
@@ -201,7 +155,8 @@ for mod_file in $MODULE_FILES; do
     for leaf in $INDIVIDUAL_FILES; do
         filename=$(basename "$leaf")
         read_source "$leaf" > "$TARGET_LIB_DIR/$filename"
-        read_source "$leaf" | node scripts/minify.js > "$TARGET_LIB_DIR/${filename%.css}.min.css"
+        read_source "$leaf" | node scripts/clean.js > "$TARGET_LIB_DIR/${filename%.css}.clean.css"
+        read_source "$leaf" | node scripts/clean.js | node scripts/minify.js > "$TARGET_LIB_DIR/${filename%.css}.min.css"
     done
 done
 
