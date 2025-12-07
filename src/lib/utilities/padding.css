@@ -1,3 +1,19 @@
+/**
+ * @file Padding Utilities
+ * @description Responsive padding system using CSS logical properties.
+ * Supports fluid scaling via container queries using --pd* variables.
+ * Includes predefined size presets (clamp and percentage based).
+ * 
+ * @usage
+ * classes: .pd (all), .pdb (block), .pdi (inline), .pdbs (block-start), etc.
+ * variables: --pd, --pdb, --pdi, --pdbs, --pdbe, --pdie, --pd--sm, --pd--md, --pd--lg, etc.
+ */
+
+/**
+ * @group Block Start
+ * Controls padding-block-start (top).
+ * Fallback chain: pdbs -> pdb -> pd
+ */
 :where(.pd, .pdb, .pdbs) {
     padding-block-start: var(--pdbs--sm, var(--pdbs, var(--pdb--sm, var(--pdb, var(--pd--sm, var(--pd))))));
 
@@ -10,6 +26,11 @@
     }
 }
 
+/**
+ * @group Block End
+ * Controls padding-block-end (bottom).
+ * Fallback chain: pdbe -> pdb -> pd
+ */
 :where(.pd, .pdb, .pdbe) {
     padding-block-end: var(--pdbe--sm, var(--pdbe, var(--pdb--sm, var(--pdb, var(--pd--sm, var(--pd))))));
 
@@ -22,6 +43,11 @@
     }
 }
 
+/**
+ * @group Inline Start
+ * Controls padding-inline-start (left in LTR).
+ * Fallback chain: pdis -> pdi -> pd
+ */
 :where(.pd, .pdi, .pdis) {
     padding-inline-start: var(--pdis--sm, var(--pdis, var(--pdi--sm, var(--pdi, var(--pd--sm, var(--pd))))));
 
@@ -34,6 +60,11 @@
     }
 }
 
+/**
+ * @group Inline End
+ * Controls padding-inline-end (right in LTR).
+ * Fallback chain: pdie -> pdi -> pd
+ */
 :where(.pd, .pdi, .pdie) {
     padding-inline-end: var(--pdie--sm, var(--pdie, var(--pdi--sm, var(--pdi, var(--pd--sm, var(--pd))))));
 
@@ -46,6 +77,18 @@
     }
 }
 
+/**
+ * @group Block Padding Presets
+ * Fluid padding sizes using clamp() for responsiveness.
+ * xxxl/3xl: 6rem-8rem
+ * xxl/2xl: 4rem-6rem
+ * xl:  3rem-4rem
+ * l:   2.5rem-3rem
+ * m:   2rem-2.5rem (default)
+ * s:   1.5rem-2rem
+ * xs:  1.25rem-1.5rem
+ * xxs/2xs: 1rem-1.25rem
+ */
 :where(.pdb.xxxl, .pdb--xxxl, .pdb--3xl) {
     --pdb: clamp(6rem, 3.059vw + 5.388rem, 8rem);
 }
@@ -78,6 +121,14 @@
     --pdb: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
 }
 
+/**
+ * @group Inline Padding Presets
+ * Percentage based sizes for main containers, fluid for details.
+ * xxl/2xl: 7%
+ * xl:  5%
+ * l:   3%
+ * m/s/xs/xxs(2xs): uses clamps similar to block padding
+ */
 :where(.pdi.xxl, .pdi--xxl, .pdi--2xl) {
     --pdi: 7%;
 }
@@ -106,6 +157,10 @@
     --pdi: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
 }
 
+/**
+ * @group Overall Padding Presets (pd)
+ * Affects both block and inline padding.
+ */
 :where(.pd.l, .pd--l) {
     --pd: clamp(2.5rem, 0.765vw + 2.347rem, 3rem);
 }

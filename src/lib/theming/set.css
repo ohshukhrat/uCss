@@ -1,3 +1,18 @@
+/**
+ * @file Set Utilities (Theming Scopes)
+ * @description Defines local theme scopes (.set) that override colors and backgrounds.
+ * Enables nested theming (e.g., dark section within light page).
+ * 
+ * @usage
+ * classes: .set, .set-primary, .set-dark, .set.light, etc.
+ * variables: --set-bg, --set-color, --set-h (headings), --set-lnk (links), --set-tx (text), --set-t (titles), --set-st (subtitles)
+ */
+
+/**
+ * @group Base Set
+ * Establishes a new stacking context and applies theme variables.
+ * Overrides headings and links to match the local theme.
+ */
 .set,
 [class*="set--"] {
     color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
@@ -8,6 +23,7 @@
     border-color: var(--set-border-c, currentColor);
     --theme-text-color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
 
+    /* Heading Overrides */
     :where(h1, h2) {
         color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
         --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
@@ -18,6 +34,7 @@
         --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
     }
 
+    /* Link Overrides */
     :is(a):not(.btn, [data-style="btn"]) {
         color: var(--set-lnk, var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))));
         background-color: var(--set-lnk-bg);
@@ -31,12 +48,19 @@
         background-color: var(--set-lnk-bg-hover, var(--set-lnk-bg));
     }
 
+    /* Card Context */
     &:where(.crd) {
         --crd-bg: var(--set-bg);
         --crd-bg-hover: var(--set-bg-hover, var(--set-bg));
     }
 }
 
+/**
+ * @group Theme Presets
+ * Predefined color schemes.
+ */
+
+/* Primary Theme */
 .set.primary,
 .set-primary {
     --set-h: var(--theme-palette-color-4, hsl(0 0% 4%));
@@ -44,6 +68,7 @@
     --set-bg: var(--sp, var(--theme-palette-color-8, hsl(43 83% 62% / .64)))
 }
 
+/* Secondary Theme */
 .set.secondary,
 .set-secondary {
     --set-h: var(--theme-palette-color-4, hsl(0 0% 4%));
@@ -51,6 +76,7 @@
     --set-bg: var(--sa, var(--theme-palette-color-6, hsl(44 100% 50% / .64)))
 }
 
+/* Dark Theme (Inverted) */
 .set.dark,
 .set-dark {
     --set-t: var(--l-bd, var(--theme-palette-color-7, hsl(0 0% 100%)));
@@ -59,6 +85,7 @@
     --set-bg: var(--d-bd, var(--theme-palette-color-4, hsl(0 0% 4%)));
 }
 
+/* Light Theme */
 .set.light,
 .set-light {
     --set-t: var(--d-bd, var(--theme-palette-color-4, hsl(0 0% 4%)));

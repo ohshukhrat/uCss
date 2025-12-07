@@ -43,9 +43,7 @@ jobs:
       - name: 📦 Install Dependencies
         run: npm install
 
-      # Install Brotli compression tool
-      - name: 🗜️ Install Brotli
-        run: sudo apt-get update && sudo apt-get install -y brotli
+
 
       # 2. The Build Process (3 Files Generated)
       - name: 🏗️ Build & Optimize

@@ -1,6 +1,21 @@
+/**
+ * @file Title Utilities
+ * @description Heading text system for h1-h6 and other titles.
+ * Handles font properties, responsive sizing, and alignment for headings.
+ * 
+ * @usage
+ * classes: .t (base), .xb (extra bold), .xxl (size), .lh--s (line-height)
+ * variables: --t-color, --t-font-s, --t-line-h
+ */
+
+/**
+ * @group Base Title
+ * Applies standard font properties to heading elements.
+ * Includes responsive container queries for font-size and alignment.
+ */
 :is(.t, [class^="t--"]):is(h1, h2, h3, h4),
 :is(.t, [class^="t--"]):where(p, span, div) {
-    color: var(--t-color, var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
+    color: var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))))));
 
     font-family: var(--t-font-f, var(--t-font-fam, var(--theme-font-family)));
 
@@ -34,100 +49,158 @@
         text-align: var(--t-text-a--lg, var(--t-text-a, var(--ta--lg, var(--ta))));
     }
 
+    /* Font Weights */
+
+    /** @group Weight: Ultra Bold (900) */
     &:where(.ub, .hl) {
         --t-font-w: 900;
     }
 
+    /** @group Weight: Extra Bold (800) */
     &:where(.xb) {
         --t-font-w: 800;
     }
 
+    /** @group Weight: Bold (700) */
     &:where(.bd) {
         --t-font-w: 700;
     }
 
+    /** @group Weight: Semi-Bold (600) */
     &:where(.sb) {
         --t-font-w: 600;
     }
 
+    /** @group Weight: Medium (500) */
     &:where(.md) {
         --t-font-w: 500;
     }
 
+    /** @group Weight: Regular (400) */
     &:where(.rg) {
         --t-font-w: 400;
     }
 
+    /** @group Weight: Light (300) */
     &:where(.lt) {
         --t-font-w: 300;
     }
 
+    /** @group Transform: Uppercase */
     &:where(.up, .hl) {
         --t-text-tf: uppercase;
     }
 
+    /* Font Sizes */
+
+    /** 
+     * @group Size: XXXL (Display)
+     * clamp(3.5rem ... 5rem) 
+     */
     &:where(.t--xxxl, .xxxl, .t--3xl) {
         --t-font-s: var(--t-fs--xxxl, clamp(3.5rem, 2.294vw + 3.041rem, 5rem));
     }
 
+    /** 
+     * @group Size: XXL (Display)
+     * clamp(3.25rem ... 4.5rem) 
+     */
     &:where(.t--xxl, .xxl, .t--2xl) {
         --t-font-s: var(--t-fs--xxl, clamp(3.25rem, 1.912vw + 2.868rem, 4.5rem));
     }
 
+    /** 
+     * @group Size: XL
+     * clamp(3rem ... 4rem) 
+     */
     &:where(.t--xl, .xl) {
         --t-font-s: var(--t-fs--xl, clamp(3rem, 1.53vw + 2.694rem, 4rem));
     }
 
+    /** 
+     * @group Size: Large
+     * clamp(2.75rem ... 3.75rem) 
+     */
     &:where(.t--l, .l) {
         --t-font-s: var(--t-fs--l, clamp(2.75rem, 1.53vw + 2.444rem, 3.75rem));
     }
 
+    /** 
+     * @group Size: Medium (Default)
+     * clamp(2.5rem ... 3.5rem) 
+     */
     &:where(.t--m, .m) {
         --t-font-s: var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem));
     }
 
+    /** 
+     * @group Size: Small
+     * clamp(2.25rem ... 3rem) 
+     */
     &:where(.t--s, .s) {
         --t-font-s: var(--t-fs--s, clamp(2.25rem, 1.147vw + 2.021rem, 3rem));
     }
 
+    /** 
+     * @group Size: XS
+     * clamp(2rem ... 2.5rem) 
+     */
     &:where(.t--xs, .xs) {
         --t-font-s: var(--t-fs--xs, clamp(2rem, 0.765vw + 1.847rem, 2.5rem));
     }
 
+    /** 
+     * @group Size: XXS
+     * clamp(1.75rem ... 2.25rem) 
+     */
     &:where(.t--xxs, .xxs, .t--2xs) {
         --t-font-s: var(--t-fs--xxs, clamp(1.75rem, 0.765vw + 1.597rem, 2.25rem));
     }
 
+    /** 
+     * @group Size: XXXS
+     * clamp(1.5rem ... 2rem) 
+     */
     &:where(.t--xxxs, .xxxs, .t--3xs) {
         --t-font-s: var(--t-fs--xxxs, clamp(1.5rem, 0.765vw + 1.347rem, 2rem));
     }
 
+    /* Line Heights */
+
+    /** @group Line-Height: XL (1.5) */
     &:where(.lh--xl) {
         --t-line-h: var(--t-lh-xl, 1.5);
     }
 
+    /** @group Line-Height: Large (1.375) */
     &:where(.lh--l) {
         --t-line-h: var(--t-lh-l, 1.375);
     }
 
+    /** @group Line-Height: Medium (1.25) */
     &:where(.lh--m) {
         --t-line-h: var(--t-lh-m, 1.25);
     }
 
+    /** @group Line-Height: Small (1.125) */
     &:where(.lh--s) {
         --t-line-h: var(--t-lh-s, 1.125);
     }
 
+    /** @group Line-Height: XS (1) */
     &:where(.lh--xs) {
         --t-line-h: var(--t-lh-xs, 1);
     }
 
 }
 
-/* For Blocksy */
+/**
+ * @group Blocksy Compatibility
+ * Maps uCss variables to Blocksy theme properties if present.
+ */
 :is(.t, [class^="t-"]):is(h1, h2, h3, h4),
 :is(.t, [class^="t-"]):where(p, span, div) {
-    --theme-heading-color: var(--t-color, var(--set-t, var(--set-h, var(--set-color, var(--theme-palette-color-4, currentColor)))));
+    --theme-heading-color: var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))))));
     --theme-font-size: var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem))));
     --theme-font-weight: var(--t-font-w, var(--t-fw, 800));
     --theme-font-style: var(--t-font-s, var(--t-fst));

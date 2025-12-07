@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Minifies CSS content by removing unnecessary whitespace and comments.
+ * Reads from stdin and writes to stdout.
+ */
+
 const fs = require('fs');
 
 // Read from stdin
@@ -13,32 +18,26 @@ process.stdin.on('end', function () {
         return;
     }
 
-    // 1. Remove CSS comments /* ... */
-    // Be careful with strings, but for a simple "dumb" minifier, 
-    // we can assume standard CSS comment structure.
-    // This regex matches /* ... */ lazily.
-    let minified = data.replace(/\/\*[\s\S]*?\*\//g, '');
-
-    // 2. Collapse whitespace
-    // We want to replace sequences of whitespace with a single space,
-    // BUT we must be careful not to break strings or specific CSS syntax that might rely on newlines 
-    // (though standard CSS is mostly whitespace-insensitive).
-    // A safer approach for "preserving everything" is just to replace newlines with spaces 
-    // and then collapse multiple spaces to one.
-
-    minified = minified.replace(/\s+/g, ' ');
-
-    // 3. Remove spaces around CSS delimiters for better compression
-    // This is safe and preserves all CSS structure/nesting
-    minified = minified.replace(/\s*{\s*/g, '{');
-    minified = minified.replace(/\s*}\s*/g, '}');
-    minified = minified.replace(/\s*;\s*/g, ';');
-    minified = minified.replace(/\s*:\s*/g, ':');
-    minified = minified.replace(/\s*,\s*/g, ',');
-    minified = minified.replace(/\s*>\s*/g, '>');
-
-    // Trim final result
-    minified = minified.trim();
+    /**
+     * Minified CSS content.
+     * 1. Removes comments.
+     * 2. Collapses whitespace.
+     * 3. Removes spaces around delimiters.
+     */
+    let minified = data
+        // 1. Remove CSS comments
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        // 2. Collapse whitespace to single space
+        .replace(/\s+/g, ' ')
+        // 3. Remove spaces around delimiters
+        .replace(/\s*{\s*/g, '{')
+        .replace(/\s*}\s*/g, '}')
+        .replace(/\s*;\s*/g, ';')
+        .replace(/\s*:\s*/g, ':')
+        .replace(/\s*,\s*/g, ',')
+        .replace(/\s*>\s*/g, '>')
+        // 4. Trim final result
+        .trim();
 
     process.stdout.write(minified);
 });

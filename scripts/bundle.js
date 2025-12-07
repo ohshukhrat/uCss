@@ -1,13 +1,12 @@
+/**
+ * @fileoverview Recursively bundles CSS files by resolving @import statements.
+ * Prevents circular dependencies and ensures checks for missing files.
+ */
+
 const fs = require('fs');
 const path = require('path');
 
-// Arguments: node bundle.js <entryFile> [sourceRef]
-// sourceRef is optional, used for git show if needed (but we will focus on fs for now as per build.sh changes)
-// Note: The original build.sh handled 'git show' for historical versions. 
-// To keep it simple and consistent with the request "Move the 'resolve imports' logic out of Bash",
-// we should probably support reading from FS. 
-// If the user needs git support in the future, we can add it, but for now `build.sh` passed file paths.
-
+// Arguments: node bundle.js <entryFile>
 const entryFile = process.argv[2];
 
 if (!entryFile) {
@@ -18,96 +17,51 @@ if (!entryFile) {
 // Helper to determine actual path
 const projectRoot = path.resolve(__dirname, '..');
 
-// We need a function to read content. 
-// If we want to support the "source ref" logic from build.sh (reading from git),
-// we might need to pass that or just rely on file system if the user only runs this locally.
-// The previous bash script did: `read_source` which checked `$SOURCE_REF`.
-// If we want to fully replace the logic, we should probably just stick to FS for simplicity first 
-// unless the user strictly relies on the git-reading capability in this specific refactor.
-// Given the user instruction "Move the 'resolve imports' logic out of Bash", 
-// and the context of "Automate Local Dist Rebuild", local FS is the priority.
-// However, `build.sh` logic for `read_source` was smart.
-// For this step, I will implement FS reading. 
-
+/**
+ * Resolves an import path relative to the current file or project root.
+ * Enforces that resolved paths must be within the project root.
+ * @param {string} importPath - The path found in @import "..."
+ * @param {string} currentDir - The directory of the file currently being processed
+ * @returns {string} The absolute resolved file path
+ * @throws {Error} If path is outside project root
+ */
 function resolvePath(importPath, currentDir) {
+    let resolved;
     if (importPath.startsWith('lib/')) {
         // "lib/" -> "src/lib/" relative to project root
-        return path.join(projectRoot, 'src', importPath);
+        resolved = path.join(projectRoot, 'src', importPath);
     } else {
         // relative to current file
-        return path.resolve(currentDir, importPath);
+        resolved = path.resolve(currentDir, importPath);
     }
+
+    if (!resolved.startsWith(projectRoot)) {
+        throw new Error(`Security Exception: Access denied for path outside project root: ${resolved}`);
+    }
+
+    return resolved;
 }
 
-const processedFiles = new Set();
-
-function bundle(filePath) {
-    // Avoid circular dependency loops
-    if (processedFiles.has(filePath)) {
-        return `/* Loop detected: ${path.relative(projectRoot, filePath)} */`;
-    }
-    processedFiles.add(filePath);
-
-    let content;
-    try {
-        content = fs.readFileSync(filePath, 'utf8');
-    } catch (e) {
-        console.error(`Error reading ${filePath}: ${e.message}`);
-        return `/* Error reading ${path.relative(projectRoot, filePath)} */`;
-    }
-
-    const currentDir = path.dirname(filePath);
-
-    // Regex to match @import "path";
-    // Supporting both single and double quotes
-    const importRegex = /@import\s+['"]([^'"]+)['"];/g;
-
-    return content.replace(importRegex, (match, importPath) => {
-        const resolvedPath = resolvePath(importPath, currentDir);
-
-        // Check if file exists to be safe
-        if (!fs.existsSync(resolvedPath)) {
-            console.error(`Warning: Import not found: ${importPath} (resolved: ${resolvedPath})`);
-            return `/* Missing import: ${importPath} */`;
-        }
-
-        // Recursively bundle
-        // We temporarily remove from processedFiles to allow diamond dependencies? 
-        // No, CSS doesn't really do diamond deps the same way, but usually you don't want to double-include.
-        // If file A imports B and C, and B imports C, C should probably only be included once?
-        // In standard CSS, it would be included twice. 
-        // But for a utility framework, maybe we want deduplication?
-        // The previous bash script didn't deduplicate at all across the tree, only strictly tree-walked.
-        // It processed each file. If A imports B, and C imports B, B appears twice if A and C are both entered.
-        // Wait, the bash script was:
-        // iterate matches. if module (has imports), recurse. if leaf, print.
-        // It basically inlined everything.
-        // Standard CSS @import inlining behavior: Include it where it is. 
-        // So we will NOT deduplicate to preserve behavior. 
-        // We only track `processedFiles` to prevent infinite recursion (A -> B -> A).
-
-        const result = bundle(resolvedPath);
-
-        // After finishing a branch, we should perhaps remove it from processedFiles 
-        // if we want to allow it to be imported again elsewhere?
-        // "Cycles" are bad, but "Multiple inclusions" are valid in CSS (though inefficient).
-        // Let's stick to preventing cycles.
-        // To allow re-inclusion, we need to remove from Set after return?
-        // Actually, if we want to allow A->B and C->B, we MUST remove B from Set after A finishes?
-        // No, `processedFiles` tracks the *current recursion stack*.
-
-        return result;
-    });
-}
-
-// Wrapper to manage recursion stack correctly
+/**
+ * Main bundling function.
+ * @param {string} filePath - Absolute path to the entry file
+ * @returns {string} Bundled CSS content
+ */
 function bundleEntry(filePath) {
     const stack = new Set();
+    const visited = new Set();
 
+    /**
+     * Internal recursive bundler.
+     * @param {string} currentPath - Current file path being processed
+     * @returns {string} Processed content
+     */
     function _innerBundle(currentPath) {
         if (stack.has(currentPath)) {
             return `/* Cycle detected: ${path.relative(projectRoot, currentPath)} */`;
         }
+
+        // Circular dependency check (stack)
         stack.add(currentPath);
 
         let content;
@@ -119,10 +73,18 @@ function bundleEntry(filePath) {
         }
 
         const currentDir = path.dirname(currentPath);
+        // Regex to match @import "path"; or @import 'path';
         const importRegex = /@import\s+['"]([^'"]+)['"];/g;
 
         const replaced = content.replace(importRegex, (match, importPath) => {
-            const resolvedPath = resolvePath(importPath, currentDir);
+            let resolvedPath;
+            try {
+                resolvedPath = resolvePath(importPath, currentDir);
+            } catch (err) {
+                process.stderr.write(`Security Warning: ${err.message}\n`);
+                return `/* Invalid import: ${importPath} */`;
+            }
+
             if (!fs.existsSync(resolvedPath)) {
                 process.stderr.write(`Warning: Import not found: ${importPath} (resolved: ${resolvedPath})\n`);
                 return `/* Missing import: ${importPath} */`;
@@ -138,7 +100,8 @@ function bundleEntry(filePath) {
 }
 
 try {
-    const output = bundleEntry(path.resolve(process.cwd(), entryFile));
+    const absPath = path.resolve(process.cwd(), entryFile);
+    const output = bundleEntry(absPath);
     process.stdout.write(output);
 } catch (err) {
     console.error("Bundling failed:", err);

@@ -1,3 +1,18 @@
+/**
+ * @file Button Component
+ * @description Enhanced button styling with robust API for sizing, colors, and behaviors.
+ * Supports flex layout, icon integration, and responsive width control.
+ * 
+ * @usage
+ * classes: .btn, .btn.primary, .btn.sm, .btn.outlined
+ * variables: --btn-bg, --btn-color, --btn-pd, --btn-rad, --btn-border-c, --btn-bg-hover, etc.
+ */
+
+/**
+ * @group Base Button
+ * Core structural styles: inline-flex, centered content, cursor pointer.
+ * Sets up basic font properties and transitions.
+ */
 :where(.btn, [data-style="btn"]),
 button.btn,
 a.btn {
@@ -89,7 +104,11 @@ a.btn {
   }
 }
 
-/* --- Icon Support --- */
+/**
+ * @group Icon Integration
+ * Styles for SVG icons inside buttons.
+ * Handles transitions and inherits colors.
+ */
 :where(.btn > .icn, .btn > svg, [data-style="btn"] > .icn, [data-style="btn"] > svg) {
   fill: var(--btn-icn-fill, currentColor);
   stroke: var(--btn-icn-stroke, currentColor);
@@ -102,7 +121,10 @@ a.btn {
   transition-property: var(--btn-icn-trans-p, fill, stroke);
 }
 
-/* --- STATES --- */
+/**
+ * @group States
+ * Hover, Focus, Active, Disabled, Loading styles.
+ */
 :where(.btn:hover:not(:disabled, .is-disabled), [data-style="btn"]:hover:not(:disabled, .is-disabled)),
 button.btn:hover:not(:disabled, .is-disabled),
 a.btn:hover:not(:disabled, .is-disabled) {
@@ -155,9 +177,10 @@ a.btn:active:not(:disabled, .is-disabled) {
   cursor: wait;
 }
 
-/* ================================================
-  VARIANTS (These just set the API variables)
-================================================ */
+/**
+ * @group Variants
+ * Predefined styles: Primary, Secondary, Plain, Outlined, Dark, Light.
+ */
 
 /* --- Primary (Default) --- */
 :where(.btn, [data-style="btn"], [data-variant="primary"], .btn.primary, [data-style="btn"].primary) {
@@ -170,6 +193,7 @@ a.btn:active:not(:disabled, .is-disabled) {
   --btn-border-c-hover: var(--btn-primary-border-c-hover, var(--a, var(--theme-button-border-hover-color, var(--theme-palette-color-2, #FFB900))));
 }
 
+/* --- Secondary --- */
 :where(.btn.secondary, [data-variant="secondary"], [data-style="btn"].secondary) {
   --btn-color: var(--btn-secondary-color, var(--b, var(--theme-palette-color-3, #131313)));
   --btn-bg: var(--btn-secondary-bg, var(--sp-lt, hsl(43 83% 62% / .32)));
@@ -180,6 +204,7 @@ a.btn:active:not(:disabled, .is-disabled) {
   --btn-border-c-hover: var(--btn-secondary-border-c-hover, var(--btn-secondary-bg-hover, var(--sa, hsl(44 100% 50% / .64))));
 }
 
+/* --- Plain --- */
 :where(.btn.plain, [data-variant="plain"], [data-style="btn"].plain) {
   --btn-color: var(--btn-plain-color, var(--b, var(--theme-palette-color-3, #131313)));
   --btn-bg: var(--btn-plain-bg, transparent);
@@ -223,9 +248,11 @@ a.btn:active:not(:disabled, .is-disabled) {
   --btn-border-c-hover: var(--btn-light-border-c-hover, var(--btn-light-bg-hover, var(--l, #fff)));
 }
 
-/* ================================================
-  SIZES (These also just set the API variables)
-================================================ */
+/**
+ * @group Sizes
+ * MD (default), SM, XSM, LG, XLG, Tiny.
+ * Controls font-size, line-height, padding, and min-height.
+ */
 
 :where(.btn[data-size="md"], .btn.md, [data-style="btn"].md) {
   --btn-font-s: var(--btn-md-font-s, 1rem);
@@ -275,9 +302,10 @@ a.btn:active:not(:disabled, .is-disabled) {
   /* ~24px */
 }
 
-/* ================================================
-  Radius
-================================================ */
+/**
+ * @group Radius Modifiers
+ * SQ (Square), LT (Light), BD (Bold), RD (Rounded/Pill).
+ */
 
 :where(.btn[data-radius="sq"], .btn.sq, [data-style="btn"].sq) {
   --btn-rad: var(--btn-rad-sq, 0);
@@ -295,9 +323,11 @@ a.btn:active:not(:disabled, .is-disabled) {
   --btn-rad: var(--btn-rad-rd, 8em);
 }
 
-/* ================================================
-  GROUPS
-================================================ */
+/**
+ * @group Button Groups
+ * Container for arranging multiple buttons (.btns).
+ * Supports alignment, spacing, and wrapping.
+ */
 
 :where(.btns) {
   display: var(--btns-d, flex);
@@ -393,8 +423,9 @@ a.btn:active:not(:disabled, .is-disabled) {
   --btn-icn-o: -1;
 }
 
-/* Fix for Blocksy Theme */
-
+/**
+ * @group Blocksy Compatibility
+ */
 :where(a.btn, a[data-style="btn"]),
 :where(.btn>a, [data-style="btn"] > a) {
   --theme-link-initial-color: var(--btn-color, var(--theme-palette-color-3, currentColor));

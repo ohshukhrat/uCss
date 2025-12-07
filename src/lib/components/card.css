@@ -1,5 +1,19 @@
+/**
+ * @file Card Component
+ * @description Flexible container component with slots for media, content, header, body, and footer.
+ * Heavily relies on container queries for responsive layouts.
+ * 
+ * @usage
+ * classes: .crd, .crd.sg (smart subgrid), .crd__media, .crd__content
+ * variables: --crd-bg, --crd-gap, --crd-p (padding), --crd-rad (radius), --crd-shadow (box-shadow)
+ */
+
 :where(.crd) {
-  /* --- 1. The Shell (Default 'sm' Styles) --- */
+  /**
+   * @group Shell (Base Container)
+   * The outer wrapper. Configured as a flex container by default.
+   * Handles positioning, dimensions, background, and borders.
+   */
   display: var(--crd-d, flex);
   flex-direction: var(--crd-fd--sm, var(--crd-fd, column));
 
@@ -125,7 +139,11 @@
     text-align: var(--crd-ta--lg, var(--crd-ta));
   }
 
-  /* --- 2. Child API (for Flex mode) --- */
+  /**
+   * @group Child API
+   * Controls layout properties of direct children using variables.
+   * Useful when Card is a flex container.
+   */
   :where(& > *) {
     /* 'sm' defaults */
     order: var(--cc-o--sm, var(--cc-o));
@@ -162,6 +180,10 @@
     }
   }
 
+  /**
+   * @group Content Typography
+   * Default styles for text elements inside the card.
+   */
   :not(.btn, [data-style="btn"])> :where(p) {
     color: var(--crd-tx-color, var(--set-tx, var(--theme-palette-color-3, currentColor)));
     font-size: var(--crd-tx-font-s, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)));
@@ -169,7 +191,10 @@
     text-transform: var(--crd-tx-text-t, var(--crd-tt, none));
   }
 
-  /* --- 3. The Slots --- */
+  /**
+   * @group Slots
+   * Semantic containers: Media, Content, Header, Body, Footer.
+   */
 
   /* .crd__media (has NO PADDING) */
   :where(.crd__media) {
@@ -378,6 +403,11 @@
   }
 }
 
+/**
+ * @group Smart Grid
+ * .sg (Smart Grid) and .sgc (Smart Grid Container) modifiers.
+ * Enables grid layout overrides for card content.
+ */
 .crd.sg,
 .crd.sgc {
   display: var(--crd-d, grid);

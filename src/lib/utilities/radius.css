@@ -1,19 +1,58 @@
+/**
+ * @file Radius Utilities
+ * @description Border-radius utility classes.
+ * Supports individual corners, sides, and global radius application.
+ * 
+ * @usage
+ * classes: .rad (all), .rad-t (top), .rad-tl (top-left), etc.
+ * variables: --rad, --rad-tl, --rad-tr, etc.
+ */
+
+/**
+ * @group Top Left Radius
+ * Applies to .rad, .rad-t, .rad-tl
+ */
 :where(.rad, .rad-t, .rad-tl, [class^="rad--"]) {
     border-top-left-radius: var(--rad-tl, var(--rad-t, var(--rad)));
 }
 
+/**
+ * @group Top Right Radius
+ * Applies to .rad, .rad-t, .rad-tr
+ */
 :where(.rad, .rad-t, .rad-tr, [class^="rad--"]) {
     border-top-right-radius: var(--rad-tr, var(--rad-t, var(--rad)));
 }
 
+/**
+ * @group Bottom Right Radius
+ * Applies to .rad, .rad-b, .rad-br
+ */
 :where(.rad, .rad-b, .rad-br, [class^="rad--"]) {
     border-bottom-right-radius: var(--rad-br, var(--rad-b, var(--rad)));
 }
 
+/**
+ * @group Bottom Left Radius
+ * Applies to .rad, .rad-b, .rad-bl
+ */
 :where(.rad, .rad-b, .rad-bl, [class^="rad--"]) {
     border-bottom-left-radius: var(--rad-bl, var(--rad-b, var(--rad)));
 }
 
+/**
+ * @group Radius Presets
+ * Standard radius sizes (ems).
+ * sq: 0
+ * xs: 0.25em
+ * s:  0.375em
+ * m:  0.625em
+ * l:  1em
+ * xl: 1.5em
+ * xxl: 2em
+ * xxxl: 3em
+ * rd/full: 640em (pill shape)
+ */
 :where(.rad.sq, .rad--sq) {
     --rad: var(--rad-sq, 0);
 }

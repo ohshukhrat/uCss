@@ -79,12 +79,158 @@ rm -rf "$OUTPUT_DIR"
 mkdir -p "$OUTPUT_DIR/lib"
 
 # Copy server files to dist root (only on first build or if missing)
+# Copy server files to dist root (Always overwrite to ensure freshness)
 DIST_ROOT="dist/"
-if [ ! -f "$DIST_ROOT/.htaccess" ]; then
-  echo "Copying server configuration files to dist root..."
-  cp server/.htaccess.template "$DIST_ROOT/.htaccess"
-  echo "  ✓ Copied .htaccess to dist root"
+echo "Copying server configuration files to dist root..."
+if [ -f "server/.htaccess.template" ]; then
+    cp server/.htaccess.template "$DIST_ROOT/.htaccess"
+    echo "  ✓ updated .htaccess"
+else
+    echo "  ⚠ server/.htaccess.template not found"
 fi
+
+# --- HELPER FUNCTION: Generate HTML from Markdown ---
+generate_html() {
+    local markdown_file="$1"
+    local output_file="$2"
+    local title="$3"
+    
+    # Pre-render markdown to HTML
+    local content
+    if [ -f "$markdown_file" ]; then
+         content=$(node scripts/render-docs.js "$markdown_file" 2>/dev/null || echo "<p>Error rendering documentation</p>")
+    else
+         echo "  ⚠ Markdown file not found: $markdown_file"
+         return
+    fi
+    
+    cat <<EOF > "$output_file"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="uCss - Modern, mobile-first, pure CSS framework with zero dependencies">
+    <title>$title</title>
+    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.css">
+    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
+    <style>
+        /* Minimal doc-specific styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--tx);
+        }
+        
+        /* Code styling */
+        code {
+            background: var(--srf);
+            padding: 0.2em 0.4em;
+            border-radius: 0.375rem;
+            font-family: ui-monospace, "SF Mono", Monaco, "Cascadia Code", monospace;
+            font-size: 0.875em;
+        }
+        
+        pre {
+            background: var(--srf);
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 0.375rem;
+            border: 1px solid var(--out);
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.875rem;
+        }
+        
+        /* Table styling */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            border: 1px solid var(--out);
+            padding: 0.5rem 1rem;
+            text-align: left;
+        }
+        
+        th {
+            background: var(--srf);
+            font-weight: 600;
+        }
+        
+        /* Alert boxes (GitHub-style) */
+        .alert {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid;
+            border-radius: 0.375rem;
+        }
+        
+        .alert strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .alert-note {
+            background: var(--sp-lt);
+            border-color: var(--out);
+        }
+        
+        .alert-tip {
+            background: var(--sp);
+            border-color: var(--out);
+        }
+        
+        .alert-important {
+            background: var(--sp-bd);
+            border-color: var(--out);
+        }
+        
+        .alert-warning {
+            background: var(--alr);
+            border-color: var(--out);
+        }
+        
+        .alert-caution {
+            background: var(--alr);
+            border-color: var(--out);
+        }
+        
+        /* Links */
+        a {
+            color: var(--t);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Horizontal rules */
+        hr {
+            border: none;
+            border-top: 1px solid var(--out);
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
+        <div class="sc">
+          <div>
+$content
+          </div>
+        </div>
+    </section>
+</body>
+</html>
+EOF
+}
 
 
 
@@ -155,287 +301,57 @@ for mod_file in $MODULE_FILES; do
     for leaf in $INDIVIDUAL_FILES; do
         filename=$(basename "$leaf")
         read_source "$leaf" > "$TARGET_LIB_DIR/$filename"
+        # Generate clean version
         read_source "$leaf" | node scripts/clean.js > "$TARGET_LIB_DIR/${filename%.css}.clean.css"
-        read_source "$leaf" | node scripts/clean.js | node scripts/minify.js > "$TARGET_LIB_DIR/${filename%.css}.min.css"
+        # Generate minified version from clean version (Optimization)
+        cat "$TARGET_LIB_DIR/${filename%.css}.clean.css" | node scripts/minify.js > "$TARGET_LIB_DIR/${filename%.css}.min.css"
     done
 done
 
-# --- FILE 5: Generate index.html (Documentation from README) ---
-echo "Generating index.html from README.md..."
-INDEX_FILE="$OUTPUT_DIR/index.html"
+# --- FILE 5: Generate Recursive Documentation ---
+echo "Generating documentation..."
 
-# Pre-render markdown to HTML using our custom renderer
-README_HTML=$(node scripts/render-docs.js README.md 2>/dev/null || echo "<p>Error rendering documentation</p>")
-
-cat <<'EOF' > "$INDEX_FILE"
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="uCss - Modern, mobile-first, pure CSS framework with zero dependencies">
-    <title>uCss Documentation</title>
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.css">
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
-    <style>
-        /* Minimal doc-specific styles */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            line-height: 1.5;
-            color: var(--tx);
-        }
-        
-        /* Code styling */
-        code {
-            background: var(--srf);
-            padding: 0.2em 0.4em;
-            border-radius: 0.375rem;
-            font-family: ui-monospace, "SF Mono", Monaco, "Cascadia Code", monospace;
-            font-size: 0.875em;
-        }
-        
-        pre {
-            background: var(--srf);
-            padding: 1rem;
-            overflow-x: auto;
-            border-radius: 0.375rem;
-            border: 1px solid var(--out);
-        }
-        
-        pre code {
-            background: none;
-            padding: 0;
-            font-size: 0.875rem;
-        }
-        
-        /* Table styling */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 1rem 0;
-        }
-        
-        th, td {
-            border: 1px solid var(--out);
-            padding: 0.5rem 1rem;
-            text-align: left;
-        }
-        
-        th {
-            background: var(--srf);
-            font-weight: 600;
-        }
-        
-        /* Alert boxes (GitHub-style) */
-        .alert {
-            padding: 1rem;
-            margin: 1rem 0;
-            border-left: 4px solid;
-            border-radius: 0.375rem;
-        }
-        
-        .alert strong {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-        
-        .alert-note {
-            background: var(--sp-lt);
-            border-color: var(--out);
-        }
-        
-        .alert-tip {
-            background: var(--sp);
-            border-color: var(--out);
-        }
-        
-        .alert-important {
-            background: var(--sp-bd);
-            border-color: var(--out);
-        }
-        
-        .alert-warning {
-            background: var(--alr);
-            border-color: var(--out);
-        }
-        
-        .alert-caution {
-            background: var(--alr);
-            border-color: var(--out);
-        }
-        
-        /* Links */
-        a {
-            color: var(--t);
-            text-decoration: none;
-        }
-        
-        a:hover {
-            text-decoration: underline;
-        }
-        
-        /* Horizontal rules */
-        hr {
-            border: none;
-            border-top: 1px solid var(--out);
-            margin: 2rem 0;
-        }
-    </style>
-</head>
-<body>
-    <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
-        <div class="sc">
-          <div>
-EOF
-
-# Append the pre-rendered HTML content
-echo "$README_HTML" >> "$INDEX_FILE"
-
-cat <<'EOF' >> "$INDEX_FILE"
-          </div>
-        </div>
-    </section>
-</body>
-</html>
-EOF
-
-
-# --- Generate root index.html (same as variants, README-based) ---
-echo "Generating root index.html from README.md..."
+# 5.1 Root Project Documentation (dist/index.html)
 ROOT_INDEX="dist/index.html"
+echo "  - Project Root: README.md -> $ROOT_INDEX"
+generate_html "README.md" "$ROOT_INDEX" "uCss Documentation"
 
-# Use same README HTML generation
-cat <<'EOF' > "$ROOT_INDEX"
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="uCss - Modern, mobile-first, pure CSS framework with zero dependencies">
-    <title>uCss Documentation</title>
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.css">
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
-    <style>
-        /* Minimal doc-specific styles */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            line-height: 1.5;
-            color: var(--tx);
-        }
-        
-        /* Code styling */
-        code {
-            background: var(--srf);
-            padding: 0.2em 0.4em;
-            border-radius: 0.375rem;
-            font-family: ui-monospace, "SF Mono", Monaco, "Cascadia Code", monospace;
-            font-size: 0.875em;
-        }
-        
-        pre {
-            background: var(--srf);
-            padding: 1rem;
-            overflow-x: auto;
-            border-radius: 0.375rem;
-            border: 1px solid var(--out);
-        }
-        
-        pre code {
-            background: none;
-            padding: 0;
-            font-size: 0.875rem;
-        }
-        
-        /* Table styling */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 1rem 0;
-        }
-        
-        th, td {
-            border: 1px solid var(--out);
-            padding: 0.5rem 1rem;
-            text-align: left;
-        }
-        
-        th {
-            background: var(--srf);
-            font-weight: 600;
-        }
-        
-        /* Alert boxes (GitHub-style) */
-        .alert {
-            padding: 1rem;
-            margin: 1rem 0;
-            border-left: 4px solid;
-            border-radius: 0.375rem;
-        }
-        
-        .alert strong {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-        
-        .alert-note {
-            background: var(--sp-lt);
-            border-color: var(--out);
-        }
-        
-        .alert-tip {
-            background: var(--sp);
-            border-color: var(--out);
-        }
-        
-        .alert-important {
-            background: var(--sp-bd);
-            border-color: var(--out);
-        }
-        
-        .alert-warning {
-            background: var(--alr);
-            border-color: var(--out);
-        }
-        
-        .alert-caution {
-            background: var(--alr);
-            border-color: var(--out);
-        }
-        
-        /* Links */
-        a {
-            color: var(--t);
-            text-decoration: none;
-        }
-        
-        a:hover {
-            text-decoration: underline;
-        }
-        
-        /* Horizontal rules */
-        hr {
-            border: none;
-            border-top: 1px solid var(--out);
-            margin: 2rem 0;
-        }
-    </style>
-</head>
-<body>
-    <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
-        <div class="sc">
-          <div>
-EOF
+# 5.2 Build Artifact Documentation (dist/$TARGET/.../index.html)
+# Find all README.md files in src/
+# - src/README.md -> dist/$TARGET/index.html
+# - src/lib/README.md -> dist/$TARGET/lib/index.html
+# - src/lib/components/README.md -> dist/$TARGET/lib/components/index.html
 
-# Append the pre-rendered HTML content (same as variant)
-echo "$README_HTML" >> "$ROOT_INDEX"
+# We use find to locate READMEs
+# Note: output of find might be empty if no READMEs exist in src
+find src -name "README.md" 2>/dev/null | while read -r readme; do
+    # Get directory of readme
+    dir=$(dirname "$readme")
+    
+    # Calculate relative path from src (e.g. "src/lib" -> "lib")
+    # If dir is just "src", relative is empty
+    if [ "$dir" == "src" ]; then
+        rel_dir=""
+    else
+        rel_dir="${dir#src/}"
+    fi
+    
+    # Determine target directory
+    if [ -z "$rel_dir" ]; then
+        target_dir="$OUTPUT_DIR"
+    else
+        target_dir="$OUTPUT_DIR/$rel_dir"
+    fi
+    
+    mkdir -p "$target_dir"
+    target_file="$target_dir/index.html"
+    
+    echo "  - Recursive: $readme -> $target_file"
+    generate_html "$readme" "$target_file" "uCss Documentation - $rel_dir"
+done
 
-cat <<'EOF' >> "$ROOT_INDEX"
-          </div>
-        </div>
-    </section>
-</body>
-</html>
-EOF
+
+
 
 echo "  ✓ Root index.html generated"
 
@@ -465,24 +381,16 @@ verify_file() {
 # Verify critical files
 verify_file "$OUTPUT_DIR/u.css" 5000
 verify_file "$OUTPUT_DIR/u.min.css" 3000
-verify_file "$OUTPUT_DIR/index.html" 1000
+verify_file "dist/index.html" 1000
 verify_file "$OUTPUT_DIR/lib/components.min.css" 500
 verify_file "$OUTPUT_DIR/lib/layout.min.css" 500
 
 echo "✅ Build verification passed"
 
-# Gzip ALL .css files in dist recursively
-echo "Gzipping all .css files in dist..."
-find "$OUTPUT_DIR" -type f -name "*.css" -exec gzip -9 -k -f {} +
-
-# Brotli compress ALL .css files (better compression than gzip)
-echo "Brotli compressing all .css files in dist..."
-if command -v brotli &> /dev/null; then
-  find "$OUTPUT_DIR" -type f -name "*.css" -exec brotli -q 11 -k -f {} \;
-  echo "  ✓ Brotli compression complete"
-else
-  echo "  ⚠ Brotli not installed, skipping .br generation"
-fi
+# Compress artifacts (Gzip + Brotli) using Node.js
+# This ensures cross-platform compatibility without external dependencies
+echo "Compressing build artifacts..."
+node scripts/compress.js "$OUTPUT_DIR"
 
 echo "🎉 Build complete!"
 ls -lh "$OUTPUT_DIR/u.css" "$OUTPUT_DIR/lib/"

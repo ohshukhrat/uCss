@@ -1,3 +1,18 @@
+/**
+ * @file Flex Layout
+ * @description Comprehensive flexbox utility.
+ * Handles direction, alignment, wrapping, and responsive behavior.
+ * 
+ * @usage
+ * classes: .f (flex), .col (column), .row (row), .ai-c (align-items: center), etc.
+ * variables: --f-gap (gap), --f-ai (align-items), --f-jc (justify-content), --fc-grow (flex child grow), etc.
+ */
+
+/**
+ * @group Base Flex
+ * Sets display: flex and default behaviors.
+ * Manages responsive gaps and direction.
+ */
 :where(.f, .col, .row) {
   display: var(--f-d, flex);
   flex-direction:
@@ -105,6 +120,10 @@
         var(--f-fw));
   }
 
+  /**
+   * @group Child API
+   * Controls flex child properties (grow, shrink, basis, order).
+   */
   :where(& > *, & > .fc) {
     flex-grow: var(--fc-grow--sm, var(--fc-grow));
     flex-shrink: var(--fc-shrink--sm, var(--fc-shrink));
@@ -144,6 +163,11 @@
 
 }
 
+
+/**
+ * @group Direction Modifiers
+ * .col, .row (and responsive variants).
+ */
 :where(.f.col, .col) {
   --f-fd: column;
 }
@@ -177,6 +201,11 @@
 }
 
 
+
+/**
+ * @group Alignment Modifiers
+ * .ai-* (align-items), .jc-* (justify-content), .ac-* (align-content).
+ */
 :where(.f.ai-s) {
   --f-ai: flex-start;
 }
@@ -290,6 +319,11 @@
 }
 
 
+
+/**
+ * @group Child Alignment
+ * .as-* (align-self) for direct children.
+ */
 :where(.f > .as-s) {
   --fc-as: flex-start;
 }
@@ -386,6 +420,11 @@
   --fc-mi--sm: 0 auto;
 }
 
+
+/**
+ * @group Wrap Modifiers
+ * .nowrap, .wrap.
+ */
 :where(.f.nowrap) {
   --f-fw: nowrap;
 }
@@ -419,6 +458,11 @@
 }
 
 
+
+/**
+ * @group Order Modifiers
+ * Control visual order of flex children.
+ */
 :where(.fc.o-1, .f > .o-1) {
   --fc-o: -3;
 }
@@ -499,6 +543,11 @@
   --fc-o--sm: 9;
 }
 
+
+/**
+ * @group Gap Modifiers
+ * Responsive gap presets (S, M, L, XL, etc).
+ */
 :where(.f, .col, .row):where(.gap) {
   --f-gap: var(--f-gap--m,
       clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem));

@@ -1,3 +1,18 @@
+/**
+ * @file Base Reset
+ * @description Global (WP content styles) reset and normalization.
+ * Handles content spacing, list styles, and standard element display.
+ * 
+ * @usage
+ * Apply: .cs to sections of design content to get rid of default spacing.
+ * Apply: .csc to nested content contexts to bring spacing back for content parts.
+ * Apply: .cl to lists to remove default list styling and margins.
+ */
+
+/**
+ * @group Content Spacing (.cs)
+ * Manages vertical rhythm for typography elements (h1-h6, p, ul, etc).
+ */
 .cs {
     :is(h1, h2, h3, h4, h5) {
         margin-block: var(--cs-mb, var(--content-mb,
@@ -15,6 +30,10 @@
 
 }
 
+/**
+ * @group Content Spacing Child (.csc)
+ * Adjusts spacing for nested content contexts.
+ */
 .cs .csc {
     *+ :is(h1, h2, h3, h4, h5) {
         --content-mbs: .75em;
@@ -38,12 +57,20 @@
     --cs-mb: 0;
 }
 
+/**
+ * @group Clear List (.cl)
+ * Removes default list styling and margins.
+ */
 .cl {
     list-style: var(--cl-list-style, none);
     padding-inline: var(--cl-pi, 0);
     margin-block: var(--cl-mb, 0);
 }
 
+/**
+ * @group Reset Defaults
+ * Normalizes blockquotes, figures, and figcaptions.
+ */
 .cs blockquote.cq {
     margin: 0;
     padding: 0;
@@ -67,6 +94,10 @@
     text-align: var(--figcaption-ta);
 }
 
+/**
+ * @group Utilities
+ * Helper classes for display control.
+ */
 .cnt {
     display: contents
 }

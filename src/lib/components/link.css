@@ -1,6 +1,17 @@
+/**
+ * @file Link Component
+ * @description Wrapper for enhanced link styling (.lnk).
+ * Provides focus outlines and a full-size click overlay mechanism for cards.
+ * 
+ * @usage
+ * classes: .lnk
+ * variables: --lnk-outline-c, --lnk-outline-o
+ */
+
 :where(.lnk) {
     position: var(--lnk-position, relative);
 
+    /* Accessible focus indicator */
     &:focus-within {
         outline: var(--lnk-outline-w, .25rem) solid var(--lnk-outline-c,
                 var(--a, var(--theme-palette-color-1, currentColor)));
@@ -8,6 +19,10 @@
         border-radius: var(--lnk-rad, var(--crd-rad, revert));
     }
 
+    /**
+     * Creates a clickable overlay from the first link.
+     * Useful for making entire cards clickable while maintaining semantic HTML.
+     */
     a:nth-of-type(1)::after {
         content: "";
         position: var(--lnk-af-position, absolute);
@@ -15,6 +30,7 @@
         z-index: var(--lnk-af-index, 3);
     }
 
+    /* Remove default focus from the stretched link to avoid double focus indicators */
     &:focus-within a:nth-of-type(1):focus {
         outline: none;
     }
