@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Script to compress static assets using Gzip and Brotli.
+ * Scans a directory recursively and compresses matching files in parallel.
+ */
+
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
@@ -6,6 +11,20 @@ const { promisify } = require('util');
 
 const pipe = promisify(pipeline);
 
+/**
+ * Maximum number of concurrent compression operations.
+ * Kept low to avoid 'EMFILE' (too many open files) errors on some systems.
+ * @type {number}
+ */
+const MAX_CONCURRENCY = 8;
+
+/**
+ * File extensions to process.
+ * @type {string[]}
+ */
+const EXTENSIONS = ['.css', '.js', '.html', '.svg', '.json', '.xml'];
+
+// Get target directory from command line arguments
 const targetDir = process.argv[2];
 
 if (!targetDir) {
@@ -13,11 +32,20 @@ if (!targetDir) {
     process.exit(1);
 }
 
-// File extensions to compress
-const EXTENSIONS = ['.css', '.js', '.html', '.svg', '.json', '.xml'];
-
+/**
+ * Recursively gets all files in a directory that match specific extensions.
+ * @param {string} dirPath - The directory to search.
+ * @param {string[]} [arrayOfFiles] - accumulator.
+ * @returns {string[]} List of absolute file paths.
+ */
 function getAllFiles(dirPath, arrayOfFiles) {
-    const files = fs.readdirSync(dirPath);
+    let files = [];
+    try {
+        files = fs.readdirSync(dirPath);
+    } catch (e) {
+        console.error(`Error reading directory ${dirPath}:`, e.message);
+        return arrayOfFiles || [];
+    }
 
     arrayOfFiles = arrayOfFiles || [];
 
@@ -26,7 +54,6 @@ function getAllFiles(dirPath, arrayOfFiles) {
         if (fs.statSync(fullPath).isDirectory()) {
             arrayOfFiles = getAllFiles(fullPath, arrayOfFiles);
         } else {
-            // Check extension
             if (EXTENSIONS.includes(path.extname(fullPath))) {
                 arrayOfFiles.push(fullPath);
             }
@@ -36,46 +63,89 @@ function getAllFiles(dirPath, arrayOfFiles) {
     return arrayOfFiles;
 }
 
+/**
+ * Compresses a single file using Gzip and Brotli.
+ * @param {string} filePath - Path to the file to compress.
+ * @returns {Promise<void>}
+ */
 async function compressFile(filePath) {
-    const source = fs.createReadStream(filePath);
-
-    // 1. Gzip
-    const gzip = zlib.createGzip({ level: zlib.constants.Z_BEST_COMPRESSION });
-    const gzDest = fs.createWriteStream(filePath + '.gz');
-    await pipe(source, gzip, gzDest);
-
-    // 2. Brotli
-    const sourceBr = fs.createReadStream(filePath); // Need fresh stream
-    const brotli = zlib.createBrotliCompress({
-        params: {
-            [zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_MODE_TEXT,
-            [zlib.constants.BROTLI_PARAM_QUALITY]: zlib.constants.BROTLI_MAX_QUALITY,
-        }
-    });
-    const brDest = fs.createWriteStream(filePath + '.br');
-    await pipe(sourceBr, brotli, brDest);
-
-    // Calculate stats for logging
     const originalSize = fs.statSync(filePath).size;
+
+    // 1. Gzip Compression
+    try {
+        const source = fs.createReadStream(filePath);
+        const gzip = zlib.createGzip({ level: zlib.constants.Z_BEST_COMPRESSION });
+        const gzDest = fs.createWriteStream(filePath + '.gz');
+        await pipe(source, gzip, gzDest);
+    } catch (err) {
+        throw new Error(`Gzip failed for ${filePath}: ${err.message}`);
+    }
+
+    // 2. Brotli Compression
+    try {
+        const sourceBr = fs.createReadStream(filePath);
+        const brotli = zlib.createBrotliCompress({
+            params: {
+                [zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_MODE_TEXT,
+                [zlib.constants.BROTLI_PARAM_QUALITY]: zlib.constants.BROTLI_MAX_QUALITY,
+            }
+        });
+        const brDest = fs.createWriteStream(filePath + '.br');
+        await pipe(sourceBr, brotli, brDest);
+    } catch (err) {
+        throw new Error(`Brotli failed for ${filePath}: ${err.message}`);
+    }
+
+    // Stats
     const gzSize = fs.statSync(filePath + '.gz').size;
     const brSize = fs.statSync(filePath + '.br').size;
-
     const fileName = path.relative(targetDir, filePath);
-    console.log(`  ✓ ${fileName}: ${originalSize} -> gz:${gzSize} br:${brSize}`);
+
+    console.log(`  ✓ ${fileName}: ${originalSize}b -> gz:${gzSize}b br:${brSize}b`);
 }
 
+/**
+ * Main execution function.
+ * Manages the worker queue for concurrency.
+ */
 async function main() {
     console.log(`Compressing files in: ${targetDir}`);
     const files = getAllFiles(targetDir);
 
-    for (const file of files) {
+    // Concurrency control
+    let active = 0;
+    let index = 0;
+
+    const results = [];
+
+    // Worker function
+    const next = async () => {
+        if (index >= files.length) return;
+
+        const i = index++;
+        const file = files[i];
+
         try {
             await compressFile(file);
         } catch (err) {
-            console.error(`  ❌ Error compressing ${file}:`, err);
+            console.error(`  ❌ Error compressing ${file}:`, err.message);
         }
+
+        // Process next
+        await next();
+    };
+
+    // Start initial workers
+    const workers = [];
+    for (let i = 0; i < Math.min(MAX_CONCURRENCY, files.length); i++) {
+        workers.push(next());
     }
+
+    await Promise.all(workers);
     console.log('Compression complete.');
 }
 
-main();
+main().catch(err => {
+    console.error('Fatal error:', err);
+    process.exit(1);
+});
