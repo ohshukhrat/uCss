@@ -9,9 +9,7 @@ const markdown = fs.readFileSync(readmePath, 'utf8');
 // Configure marked options
 marked.setOptions({
     breaks: false,
-    gfm: true,
-    headerIds: true,
-    mangle: false
+    gfm: true
 });
 
 // Parse and output HTML
