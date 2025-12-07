@@ -270,9 +270,19 @@ async function main() {
             // marked is sync
             // Custom renderer for heading IDs
             const renderer = {
-                heading({ text, depth }) {
-                    const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+                heading(text, depth) {
+                    const escapedText = text.replace(/<[^>]*>/g, '').toLowerCase().replace(/[^\w]+/g, '-');
                     return `<h${depth} id="${escapedText}">${text}</h${depth}>`;
+                },
+                link(href, title, text) {
+                    // Fix Root -> src/ links to point to the correct output dir (e.g. "stable/")
+                    if (mdPath === path.join(PROJECT_ROOT, 'README.md')) {
+                        if (href.startsWith('./src/') || href.startsWith('src/')) {
+                            const newHref = href.replace(/^(\.\/)?src\//, `./${outputDirName}/`);
+                            return `<a href="${newHref}"${title ? ` title="${title}"` : ''}>${text}</a>`;
+                        }
+                    }
+                    return `<a href="${href}"${title ? ` title="${title}"` : ''}>${text}</a>`;
                 }
             };
             marked.use({ renderer });

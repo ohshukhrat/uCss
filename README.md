@@ -1,6 +1,6 @@
 # uCss Framework
 
-**Documentation**: [Read the Full Documentation](https://ucss.unqa.dev/stable/)
+**Documentation**: [Central Hub](./src/) | [Modules](./src/#module-documentation) | [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Theming](./src/lib/theming/) | [Utilities](./src/lib/utilities/)
 
 ---
 

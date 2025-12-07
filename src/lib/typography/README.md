@@ -1,6 +1,6 @@
-# [uCss](../../) / [Modules](../) / [Typography](./)
+# [uCss](../../../) / [Hub](../../) / [Typography](./)
 
-**Documentation**: [Get Started](../../) | [Modules](../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](./) | [Components](../components/) | [Theming](../theming/) | [Utilities](../utilities/)
+**Documentation**: [Overview](../../../) | [Hub](../../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](./) | [Components](../components/) | [Theming](../theming/) | [Utilities](../utilities/)
 
 ---
 
