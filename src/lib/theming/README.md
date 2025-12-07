@@ -1,4 +1,17 @@
-# Theming Module
+# [uCss](../../) / [Modules](../) / [Theming](./)
+
+**Documentation**: [Get Started](../../) | [Modules](../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](../typography/) | [Components](../components/) | [Theming](./) | [Utilities](../utilities/)
+
+---
+
+## 📑 Page Contents
+*   [Installation](#-installation)
+*   [Set (`.set`)](#1-set-set)
+*   [Overlay (`.o`)](#2-overlay-o)
+
+---
+
+## Theming Module
 
 The **Theming Module** manages the visual layer of the framework. It handles color scopes, contextual theming, and overlays. It allows you to nest themes (e.g., a dark section inside a light page) just by applying a single class, with all children inheriting the correct colors automatically.
 

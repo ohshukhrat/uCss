@@ -1,4 +1,18 @@
-# Typography Module
+# [uCss](../../) / [Modules](../) / [Typography](./)
+
+**Documentation**: [Get Started](../../) | [Modules](../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](./) | [Components](../components/) | [Theming](../theming/) | [Utilities](../utilities/)
+
+---
+
+## 📑 Page Contents
+*   [Installation](#-installation)
+*   [Title (`.t`)](#1-title-t)
+*   [Text (`.tx`)](#2-text-tx)
+*   [Text Align (`.ta`)](#3-text-align-ta)
+
+---
+
+## Typography Module
 
 The **Typography Module** provides a comprehensive, responsive type system. It separates "semantic HTML tags" from "visual styles", allowing any element to look like a heading or body text. It relies heavily on **fluid typography** (`clamp()`) to ensure text scales perfectly from mobile to ultra-wide displays without requiring a dozen breakpoints.
 

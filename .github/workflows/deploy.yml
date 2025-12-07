@@ -20,18 +20,26 @@ jobs:
         id: target
         run: |
           if [[ "${{ github.event_name }}" == "release" ]]; then
-            echo "dir=${{ github.ref_name }}/" >> $GITHUB_OUTPUT
             echo "build_arg=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+            # Release: Upload everything
+            echo "local_dir=./dist/" >> $GITHUB_OUTPUT
+            echo "server_dir=./" >> $GITHUB_OUTPUT
           elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            echo "dir=stable/" >> $GITHUB_OUTPUT
             echo "build_arg=stable" >> $GITHUB_OUTPUT
+            # Main: Upload Root (index.html) + Stable folder
+            echo "local_dir=./dist/" >> $GITHUB_OUTPUT
+            echo "server_dir=./" >> $GITHUB_OUTPUT
           elif [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
-            echo "dir=latest/" >> $GITHUB_OUTPUT
             echo "build_arg=latest" >> $GITHUB_OUTPUT
+            # Dev: Upload ONLY latest folder (Protect production index.html)
+            # We assume build.sh creates dist/latest/. We upload just that content to /latest/
+            echo "local_dir=./dist/latest/" >> $GITHUB_OUTPUT
+            echo "server_dir=./latest/" >> $GITHUB_OUTPUT
           else
              TIMESTAMP=$(date +"%Y-%m-%d-%H-%M")
             echo "build_arg=preview/$TIMESTAMP" >> $GITHUB_OUTPUT
-            echo "dir=preview/$TIMESTAMP/" >> $GITHUB_OUTPUT
+            echo "local_dir=./dist/" >> $GITHUB_OUTPUT
+            echo "server_dir=./preview/$TIMESTAMP/" >> $GITHUB_OUTPUT
           fi
 
       - name: ⬢ Setup Node
@@ -59,5 +67,5 @@ jobs:
           server: "${{ secrets.FTP_SERVER }}"
           username: "${{ secrets.FTP_USERNAME }}"
           password: "${{ secrets.FTP_PASSWORD }}"
-          local-dir: ./dist/                          # Upload entire dist folder
-          server-dir: ./                               # To server root
+          local-dir: "${{ steps.target.outputs.local_dir }}"
+          server-dir: "${{ steps.target.outputs.server_dir }}"

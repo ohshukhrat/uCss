@@ -1,4 +1,17 @@
-# Configuration Module
+# [uCss](../../) / [Modules](../) / [Config](./)
+
+**Documentation**: [Get Started](../../) | [Modules](../) | [Config](./) | [Base](../base/) | [Layout](../layout/) | [Typography](../typography/) | [Components](../components/) | [Theming](../theming/) | [Utilities](../utilities/)
+
+---
+
+## 📑 Page Contents
+*   [Installation](#-installation)
+*   [Structure](#structure)
+*   [Customization](#customization)
+
+---
+
+## Configuration Module
 
 The **Configuration Module** contains the central nervous system of the framework: **CSS Variables**. This is where all design tokens (colors, typography scales, spacing presets, layout defaults) are defined.
 
