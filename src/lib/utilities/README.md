@@ -1,6 +1,10 @@
-# [uCss](../../) / [Modules](../) / [Utilities](./)
+# Utilities Module
 
-**Documentation**: [Get Started](../../) | [Modules](../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](../typography/) | [Components](../components/) | [Theming](../theming/) | [Utilities](./)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Utilities](./) 
+
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](./)
+
+> **The Helpers**. Low-level, high-impact utility classes for one-off adjustments to spacing, visibility, and radius.
 
 ---
 
@@ -15,6 +19,19 @@
 ## Utilities Module
 
 The **Utilities Module** provides low-level, high-impact helper classes for spacing (margin/padding) and border radius. These utilities are designed with responsiveness at their core, leveraging **Container Queries** and **CSS Logical Properties** to ensure your layout adapts fluidly to any context.
+
+### Philosophy: Logical vs Physical
+We mostly use **Logical Properties** (start/end) instead of **Physical Properties** (left/right).
+*   **Why?**: To support internationalization (i18n) and RTL (Right-to-Left) languages like Arabic or Hebrew out of the box.
+*   **The Translation**:
+    *   `margin-left` -> `margin-inline-start` (`.mgis`)
+    *   `margin-right` -> `margin-inline-end` (`.mgie`)
+    *   `margin-top` -> `margin-block-start` (`.mgbs`)
+    *   `margin-bottom` -> `margin-block-end` (`.mgbe`)
+
+### Best Practices: When to use Utilities?
+*   **Use `.mg-` / `.pd-`** for one-off adjustments (e.g., "This specific button needs to be pushed away from the text").
+*   **Do NOT use them** for building core component structures. If every card in your app needs `padding: 2rem`, put that in your CSS class (`.crd { padding: 2rem }`), don't add `.pd-m` to every HTML element.
 
 ## 📦 Installation
 

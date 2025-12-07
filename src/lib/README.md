@@ -1,6 +1,10 @@
-# [uCss](../) / [Modules](./)
+# Modules Library
 
-**Documentation**: [Get Started](../) | [Modules](./) | [Config](./config/) | [Base](./base/) | [Layout](./layout/) | [Typography](./typography/) | [Components](./components/) | [Theming](./theming/) | [Utilities](./utilities/)
+**Navigation**: [uCss](../../README.md) > [Source](../README.md) > [Modules](./) 
+
+**Modules**: [Config](./config/) | [Base](./base/) | [Layout](./layout/) | [Theming](./theming/) | [Typography](./typography/) | [Components](./components/) | [Utilities](./utilities/)
+
+> **The Building Blocks**. The `lib` directory contains the independent modules that make up uCss. Each folder is loosely coupled and can be used on its own or as part of the full framework.
 
 ---
 
@@ -21,11 +25,17 @@ This architecture allows you to:
 2.  **Compose** your own lighter builds by cherry-picking only what you need.
 3.  **Maintain** your project easier by using semantic folders.
 
+### Philosophy: Strict Independence
+We enforce a strict dependency graph:
+*   **Upward Dependency**: `components` depend on `layout`, `layout` takes values from `config`.
+*   **No Circularity**: `base` never knows about `components`. `layout` never imports `utilities`.
+*   **Self-Contained**: Each folder in `src/lib` is effectively its own mini-package. This is why you can safely import `@unqa/ucss/layout` without dragging in button styles.
+
 ## The Modules
 
 | Module | Directory | Description | Connections |
 | :--- | :--- | :--- | :--- |
-| **Config** | [`/config`](./config/) | **(Optional :root declarations)**: CSS Variables, design tokens, and global settings. When enqueued, it behaves as the "Brain" of the framework. | General, Typography, Layout, Components, Theming |
+| **Config** | [`/config`](./config/) | **(Optional)**: CSS Variables, design tokens, and global settings. Provides the defaults, but components will work without it using internal fallbacks. | General, Typography, Layout, Components, Theming |
 | **Base** | [`/base`](./base/) | Resets and normalizations. Handles clearing default content spacing (`.cs`) and clear lists (`.cl`). | None |
 | **Typography** | [`/typography`](./typography/) | Fluid type scales for Headings (`.t`) and Body text (`.tx`), plus alignment (`.ta`). | Base, Config |
 | **Layout** | [`/layout`](./layout/) | Structural engines: Grid (`.g`), Flex (`.f`), and Section (`.s`). | Config, Components |

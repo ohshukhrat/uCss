@@ -1,6 +1,10 @@
-# [uCss](../../) / [Modules](../) / [Theming](./)
+# Theming Module
 
-**Documentation**: [Get Started](../../) | [Modules](../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](../typography/) | [Components](../components/) | [Theming](./) | [Utilities](../utilities/)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Theming](./) 
+
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](./) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
+
+> **The Paint**. Manages color palettes, dark/light modes, and contextual overrides using CSS Custom Properties and Intercepted cascades.
 
 ---
 
@@ -14,6 +18,12 @@
 ## Theming Module
 
 The **Theming Module** manages the visual layer of the framework. It handles color scopes, contextual theming, and overlays. It allows you to nest themes (e.g., a dark section inside a light page) just by applying a single class, with all children inheriting the correct colors automatically.
+
+### Philosophy: The Cascade as a Feature
+In modern web dev, "Cascading" is often treated as a bug to be avoided (hence Styled Components). In uCss, we embrace it.
+*   **How it works**: We define high-level variables like `--t` (Title color) and `--bg` (Background).
+*   **The Interception**: When you add `.set.dark`, we interrupt the cascade and redefine those variables for that specific DOM branch.
+*   **The Result**: You write generic components (Cards, Buttons) that just read `var(--t)`. They don't care if they are in Dark Mode, Light Mode, or "Christmas Mode". They just render the current truth.
 
 ## 📦 Installation
 
@@ -45,6 +55,15 @@ Contextual theming engine. Defines local scopes that override global color varia
 *   **Scoped inheritance**: Changes `--tx` (text), `--t` (headings), and `--bg` (background) for the element and all its children.
 *   **Nestable**: You can put a `primary` button inside a `dark` card inside a `light` section, and everything just works.
 *   **Link Handling**: Automatically adjusts link colors (`.lnk`) to be visible against the new background.
+
+### Deep Dive: Infinite Nesting
+Because we use variables, you can nest themes infinitely.
+1.  **Level 1**: `<body class="set light">` (Global is Light)
+2.  **Level 2**: `<section class="set dark">` (This stripe is Dark)
+3.  **Level 3**: `<div class="card set light">` (This card inside the dark stripe is Light again)
+4.  **Level 4**: `<button class="btn primary">` (This button uses the Primary brand color)
+
+At every level, the text colors, link colors, and background colors resolve correctly without you writing complex selectors like `.dark .light .card`.
 
 ### Presets
 

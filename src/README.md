@@ -1,78 +1,190 @@
-# [uCss](./)
+# Source Code
 
-**Documentation**: [Get Started](./) | [Modules](./lib/) | [Config](./lib/config/) | [Base](./lib/base/) | [Layout](./lib/layout/) | [Typography](./lib/typography/) | [Components](./lib/components/) | [Theming](./lib/theming/) | [Utilities](./lib/utilities/)
+**Navigation**: [uCss](../README.md) > [Source](./) > [Modules](./lib/) 
+
+**Modules**: [Config](./lib/config/) | [Base](./lib/base/) | [Layout](./lib/layout/) | [Theming](./lib/theming/) | [Typography](./lib/typography/) | [Components](./lib/components/) | [Utilities](./lib/utilities/)
+
+> **The Framework Core**. The `src` directory contains the uncompiled, commented source code for uCss. This is where you work if you are contributing to the framework or building a custom bundle.
 
 ---
 
 ## 📑 Page Contents
-*   [Introduction](#introduction)
-*   [Source Architecture](#source-architecture)
-*   [The Manifesto](#the-manifesto-ucss)
-*   [Development Philosophy](#development-philosophy)
-*   [How to use](#how-to-use-the-source)
+*   [Architecture & Developer Guide](#-architecture--developer-guide)
+*   [Core Pillars](#️-core-pillars)
+*   [Source Map](#-source-map)
+*   [The Manifest](#the-manifest-ucss)
+*   [Module Reference](#-module-reference)
+*   [Maintainer Workflow](#️-maintainer-workflow)
+*   [Integration Snippets](#-integration-snippets)
 
 ---
 
-## Introduction
+## 📖 Architecture & Developer Guide
 
-Welcome to the **uCss** documentation. This section covers the source code architecture and development philosophy.
+Welcome to the **uCss Technical Hub**. While the [Overview](../) introduces *what* uCss is, this document explains *how* it works and *why* it is built this way. This guide is intended for developers who want to understand the framework's internal logic, customize it deeply, or contribute to its source.
 
+### The Philosophy: "Context is Everything"
+Most CSS frameworks rely on **Media Queries** (screen size) to determine layout. uCss relies on **Container Queries** (context size).
+*   **Old Way**: "If the screen is 768px wide, make this card 50% width."
+*   **uCss Way**: "If I am inside a sidebar (small container), stack vertical. If I am in a main content area (wide container), go horizontal."
 
-The `src` directory contains the raw, uncompiled code of uCss. This is where the development happens.
+This shift makes components **truly portable**. You can place a Card, a Form, or a Grid anywhere—in a modal, a sidebar, or a hero section—and it will adapt to its *immediate parent* without you writing a single extra line of CSS.
 
-## Structure Overview
+---
 
-```text
-.../
-├── u.css           # The main entry point (Manifest)
-└── lib/            # The core library modules
-    ├── config/     # Global variables (The Brain)
-    ├── base/       # Resets & Normalization
-    ├── layout/     # Grid, Flex, Section engines
-    ├── typography/ # Fluid Type Scales
-    ├── components/ # UI Elements (Cards, Buttons, etc.)
-    ├── theming/    # Theme Sets & Visual Layers
-    └── utilities/  # Helper classes
-```
+## 🏗️ Core Pillars
 
-## The Manifesto (`u.css`)
+### 1. Variables as the Public API
+In uCss, CSS Variables (Custom Properties) are not just for colors; they are the **primary interface** for controlling the framework.
 
-The `u.css` file is the **root manifest**. It doesn't contain CSS logic itself; instead, it orchestrates the `import` order of all modules to ensure correct cascading layers.
+*   **Global Scope (`root.css`)**: Defines the defaults.
+    ```css
+    :root { --p: hsl(43 100% 50%); /* Global Primary */ }
+    ```
+*   **Component Scope**: Components read these globals but can be overridden locally.
+    ```css
+    .btn { background: var(--btn-bg, var(--p)); }
+    ```
+*   **Cascade Injection**: You can theme a specific section by redefining variables on a parent.
+    ```html
+    <div style="--p: blue;">
+       <button class="btn primary">I am Blue</button>
+    </div>
+    ```
 
-1.  **Configuration** comes first (variables).
-2.  **Base** styles set the ground rules.
-3.  **Layout** & **Typography** build the structure.
-4.  **Components** introduce complex UI patterns.
-5.  **Utilities** provide granular control overrides.
-
-## Development Philosophy
-
-### 1. Variables as the Source of Truth
-We don't hardcode values in `components` or `layout`. Everything has fallbacks and references a CSS Variable defined in `lib/config/root.css`. This makes the framework entirely themeable at runtime.
-
-### 2. Container Queries First
-We avoid `@media (min-width: ...)` wherever possible.
-*   **Cards** adapt to their *container* width.
-*   **Grids** use `minmax()` logic.
-*   **Typography** uses `clamp()` for fluid scaling.
-This ensures components are truly portable—drop a Card in a sidebar or a main hero section, and it "just works."
+### 2. The "Smart" Cascade
+We organize our CSS to leverage the natural cascade rather than fighting it with `!important` or high specificity.
+1.  **Config**: Sets the baseline.
+2.  **Base**: Resets browser/cms quirks.
+3.  **Layout**: Establishes the flow (Grid/Flex).
+4.  **Components**: Adds visual style.
+5.  **Utilities**: Overrides specific properties (highest specificity in practice due to proximity/class chaining).
 
 ### 3. Logical Properties
-We use `margin-inline-start` instead of `margin-left` and `block-size` instead of `height`. This prepares uCss for RTL (Right-to-Left) languages and writing modes out of the box.
+uCss is **Internationalization-Ready** out of the box. We strictly use [CSS Logical Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties).
+*   Left/Right → `inline-start` / `inline-end`
+*   Top/Bottom → `block-start` / `block-end`
+*   Width/Height → `inline-size` / `block-size`
 
-## How to use the source?
+This means if you switch `dir="rtl"` on the `<html>` tag, the entire layout (margins, paddings, text-aligns, borders) flips automatically.
 
-If you want to modify uCss or build it yourself:
+---
 
-1.  **Direct Import**: You can `@import` files directly from `src/` in your own build process if you use PostCSS/LightningCSS.
-2.  **Modify Variables**: Edit `src/lib/config/root.css` to change the entire look and feel (radius, primary colors, spacing scales).
-3.  **Build**: Run `npm run build` (or `./build.sh`) to generate the production-ready files in `dist/`.
+## 📂 Source Map
 
-### CDN Reference
+The `src/` directory represents the **Development Environment**.
 
-If you just want to link to the source files as they are compiled:
+```text
+src/
+├── README.md           # This Architecture Guide
+├── u.css               # The Manifest (orchestrates imports)
+└── lib/                # The Modular Source Code
+    ├── config/         # THE BRAIN: Design tokens, colors, scales
+    ├── base/           # THE FOUNDATION: Resets & Normalizers
+    ├── layout/         # THE SKELETON: Grid, Flex, Section
+    ├── typography/     # THE VOICE: Fluid type scales
+    ├── components/     # THE BODY: UI Elements (Cards, Buttons)
+    ├── theming/        # THE SKIN: Contextual themes, overlays
+    └── utilities/      # THE TOOLS: Spacing helpers
+```
 
-| File | HTML Snippet (Stable) |
-| :--- | :--- |
-| **u.css** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">` |
-| **Config** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">` |
+### `src` vs `dist`
+*   **`src/`**: Contains raw source files with heavy comments and individual `@import` statements.
+*   **`dist/`**: Generated by the build system.
+    *   **Bundle**: All imports resolved into flat files.
+    *   **Clean**: Comments removed, nesting flattened (optional).
+    *   **Min**: Compressed for production.
+### `src` vs `dist`
+*   **`src/`**: Contains raw source files with heavy comments and individual `@import` statements.
+*   **`dist/`**: Generated by the build system.
+    *   **Bundle**: All imports resolved into flat files.
+    *   **Clean**: Comments removed, nesting flattened (optional).
+    *   **Min**: Compressed for production.
+    *   **Gzip/Brotli**: Pre-compressed versions for high-performance serving.
+
+## The Manifest (`u.css`)
+The file `src/u.css` is the framework's entry point. It contains **zero** actual CSS. Its only job is to orchestrate the loading order of the modules.
+*   **Order Matters**: We load `config` first (variables), then `base` (resets), then `layout` (structure), then `components`, then `utilities` (overrides).
+*   **Validation**: If you try to remove `base`, the components might look weird because they assume a certain reset baseline. If you remove `config`, everything keeps working based on fallback values.
+
+
+---
+
+## 📦 Module Reference
+
+### [Config](./lib/config/) (`root.css`)
+The single source of truth. Contains **Design Tokens** for:
+*   **Palette**: `--p` (Primary), `--a` (Accent), `--bg`, `--srf`.
+*   **Typography**: `--t-fs-*` (Heading sizes), `--tx-fs-*` (Body sizes).
+*   **Layout**: `--sc-max-w` (Max width), `--gap`.
+
+### [Base](./lib/base/)
+*   **`clear.css`**: Surgical reset. Removes default margins but creates the `.cs` (Content Spacing) class to re-introduce them for blog/article content.
+
+### [Layout](./lib/layout/)
+*   **`section.css` (`.s`)**: The root container. Handles responsive padding and max-width constraints (`1366px` default).
+*   **`grid.css` (`.g`)**: Auto-fit grids using `minmax()`. No "12 column" mental overhead unless you strictly need it.
+*   **`flex.css` (`.f`)**: Modern flexbox utilities with variable-based keys.
+
+### [Typography](./lib/typography/)
+*   **`title.css` (`.t`)**: Fluid headings. Scales from mobile to desktop using `clamp()`.
+*   **`text.css` (`.tx`)**: Body copy with optimal line-heights.
+
+### [Components](./lib/components/)
+*   **`card.css` (`.crd`)**: The "do everything" box. Composite architecture (`media`, `content`, `header`, `body`, `footer`).
+*   **`button.css` (`.btn`)**: Interaction elements.
+*   **`media.css` (`.med`)**: Aspect-ratio keepers.
+*   **`link.css` (`.lnk`)**: The "Clickable Card" pattern solver.
+
+### [Theming](./lib/theming/)
+*   **`set.css` (`.set`)**: Contextual scopes. `.set.dark` inverts colors for that section and all its children.
+*   **`overlay.css` (`.o`)**: Absolute positioning for background images/gradients.
+
+### [Utilities](./lib/utilities/)
+*   **`margin` (`.mg`)** / **`padding` (`.pd`)**: Spacing helpers using logical properties.
+*   **`radius` (`.rad`)**: Consistent corner rounding.
+
+---
+
+## 🛠️ Maintainer Workflow
+
+If you are contributing to uCss, here is how the magic happens.
+
+### 1. The Build System
+We use a **Node.js-based build system** (`scripts/build.js`) instead of a complex bundler like Webpack or Vite. Why? Because we only output CSS.
+*   **Bundling**: Recursively resolves `@import` matching `src/lib`.
+*   **Minification**: Regex-based optimized stripper. simpler and faster than cssnano for this specific architecture.
+*   **Documentation**: Generates this static site from the Markdown files.
+
+### 2. Commands
+*   **`npm run build`**: Builds `src/` -> `dist/stable/` (or `latest` depending on branch).
+*   **`./build.sh`**: Legacy shell wrapper (optional).
+
+### 3. Release Channels
+*   **Stable (`/stable/`)**: Production-ready. Use this for live sites. Automatically deployed from `main`.
+*   **Latest (`/latest/`)**: Testing/Beta. Automatically deployed from `dev`.
+
+---
+
+## 🚀 Integration Snippets
+
+For production usage, use the **Stable** channel.
+
+### Full Framework
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
+<!-- Optional: Config Override -->
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">
+```
+
+### Optimization Tip (Preconnect)
+Speed up connection time to our CDN:
+```html
+<link rel="preconnect" href="https://ucss.unqa.dev">
+```
+
+### Module-Only Import
+If you *only* want the Grid system:
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout/grid.min.css">
+```

@@ -1,9 +1,21 @@
 # uCss Framework
 
-**Documentation**: [Read the Full Documentation](https://ucss.unqa.dev/stable/)
+**Navigation**: [uCss](./) > [Source](./src/) > [Modules](./src/lib/) 
+
+**Modules**: [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Theming](./src/lib/theming/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Utilities](./src/lib/utilities/)
+
+> **The Modern, Classless-ish CSS Framework**. uCss is a lightweight, property-driven framework designed for the modern web. It leverages Container Queries, Logical Properties, and CSS Variables to create resilient, portable UI components that work anywhere.
 
 ---
 
+## 📑 Page Contents
+*   [Key Features](#-key-features)
+*   [Thinking in uCss](#-thinking-in-ucss)
+*   [Installation & Usage](#-installation--usage)
+*   [Configuration](#-configuration-optional)
+*   [Documentation & Modules](#-documentation--modules)
+
+---
 
 **uCss** is a modern, mobile-first, **pure CSS framework** designed for granular control, responsiveness, and flexibility. It leverages **CSS Variables** and **Container Queries** to provide a highly adaptable styling API without the need for complex build steps, JavaScript runtimes, or utility-class bloat.
 
@@ -29,6 +41,26 @@
 
 ---
 
+## 🧠 Thinking in uCss
+uCss is not just a collection of classes; it is a system for building resilient user interfaces.
+
+### 1. Context Over Media
+Most CSS frameworks use **Media Queries** (screen size) to determine layout. uCss relies heavily on **Container Queries**.
+*   **Traditional**: "If the screen is 768px wide, make this card 50% width."
+*   **uCss**: "If I am inside a small sidebar, stack vertically. If I am in a main content area, go horizontal."
+Measurements are intrinsic to the component, not the device. This makes components **truly portable**.
+
+### 2. Variables are the API
+We don't hide values in SASS maps. We expose them as CSS Variables (`--p`, `--gap`, `--bg`).
+*   **Inheritance**: Define `--p: blue;` on a section, and every button inside becomes blue.
+*   **Runtime Control**: Change variables with JS or inline styles for instant theming.
+*   **No Build Step**: Works natively in the browser.
+
+### 3. Modularity
+You don't have to use the whole thing. The framework is split into independent modules (`layout`, `components`, `typography`, etc.) that can be mixed and matched.
+
+---
+
 ## 📦 Installation & Usage
 
 ### 1. Quick Start (CDN)
@@ -36,10 +68,10 @@ The easiest way to use uCss is via our edge CDN.
 
 #### **Full Framework**
 Includes everything.
-| Env | URL |
-| :--- | :--- |
-| **Stable** | `https://ucss.unqa.dev/stable/u.min.css` |
-| **Latest** | `https://ucss.unqa.dev/latest/u.min.css` |
+| Env | URL | Size (Min / Gz / Br) |
+| :--- | :--- | :--- |
+| **Stable** | `https://ucss.unqa.dev/stable/u.min.css` | 101KB / 14.8KB / 11.4KB |
+| **Latest** | `https://ucss.unqa.dev/latest/u.min.css` | 101KB / 14.8KB / 11.4KB |
 
 ```html
 <!-- 1. Configuration (Optional) -- copy, configure and enqueue this file to your project for customizing defaults -->
@@ -49,10 +81,33 @@ Includes everything.
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
 ```
 
-### 2. Modular Imports
+### 2. Installation (NPM)
+You can install uCss via npm for use in build systems or JavaScript projects.
+
+```bash
+npm install @unqa/ucss
+```
+
+**Usage in CSS:**
+```css
+/* Imports the full stable framework */
+@import '@unqa/ucss';
+
+/* Or import specific modules */
+@import '@unqa/ucss/base';
+@import '@unqa/ucss/layout';
+@import '@unqa/ucss/components';
+```
+
+**Usage in JavaScript/Bundlers (Vite, Webpack, etc):**
+```javascript
+import '@unqa/ucss'; // Imports dist/stable/u.min.css
+```
+
+### 3. Modular Imports
 If you don't need the full framework, you can import specific modules. See the **Documentation** section below for direct links to every module.
 
-### 3. Manual / Local Installation
+### 4. Manual / Local Installation
 1.  Clone the repository or download the `dist` folder.
 2.  Copy `lib/config/root.css` to your project and update with your colors/fonts.
 3.  Import `u.min.css` or specific modules from `dist/lib/` locally.
@@ -61,17 +116,21 @@ If you don't need the full framework, you can import specific modules. See the *
 > **Server Configuration**:
 > If you are hosting uCss yourself, we provide an optimized `.htaccess` template in the `dist/` folder. This ensures your server serves the pre-compressed `.gz` (Gzip) and `.br` (Brotli) files with the correct headers for maximum performance.
 
-### 4. File Types Explanation
+### 5. File Types Explanation
 We provide three variations for every file:
 
-*   **`*.css`**: Full source with extensive JSDoc-like comments. Best for debugging or learning the codebase.
-*   **`*.clean.css`**: Cleaned source. Comments removed but formatting preserved. Ideal for local development if you don't need minification.
-*   **`*.min.css`**: Minified and optimized for production. Use this for live sites.
+*   **`*.css`** (138KB): Full source with extensive JSDoc-like comments. Best for debugging or learning the codebase.
+*   **`*.clean.css`** (120KB): Cleaned source. Comments removed but formatting preserved. Ideal for local development if you don't need minification.
+*   **`*.min.css`** (101KB / 15KB Gzip / 11KB Brotli): Minified and optimized for production. Use this for live sites.
 
 ---
 
-## 🎨 Configuration
-The heart of uCss is `root.css` (found in `src/lib/config/root.css`). This file defines your design tokens and is organized by project structure (General, Typography, Layout, Components). **Do not edit u.css directly.**
+## 🎨 Configuration (Optional)
+uCss is built to work out-of-the-box. Every component has a "graceful fallback".
+*   **Default Behavior**: If you don't define any variables, uCss uses its internal defaults (e.g., sensible greys, system fonts).
+*   **Customization**: You *can* include `root.css` (found in `src/lib/config/root.css`) to override these defaults globally. This file is **not required**, but it is the recommended way to manage your design tokens.
+
+**Example `root.css`:**
 
 ```css
 :root {
@@ -141,36 +200,36 @@ The heart of uCss is `root.css` (found in `src/lib/config/root.css`). This file 
 ### 1. Base
 Core resets and normalizers.
 
-| Bundle | Stable | Latest |
-| :--- | :--- | :--- |
-| **`base`** | [src](https://ucss.unqa.dev/stable/lib/base.css) • [clean](https://ucss.unqa.dev/stable/lib/base.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base.min.css) | [src](https://ucss.unqa.dev/latest/lib/base.css) • [clean](https://ucss.unqa.dev/latest/lib/base.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base.min.css) |
+| Bundle | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) |
+| :--- | :--- | :--- | :--- |
+| **`base`** | [src](https://ucss.unqa.dev/stable/lib/base.css) • [clean](https://ucss.unqa.dev/stable/lib/base.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base.min.css) | [src](https://ucss.unqa.dev/latest/lib/base.css) • [clean](https://ucss.unqa.dev/latest/lib/base.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base.min.css) | 2.1KB / 1.3KB / 0.9KB / 0.3KB / 0.3KB |
 
 | Bundle | HTML Snippet (Stable) |
 | :--- | :--- |
 | **`base`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/base.min.css">` |
 
-| File | Stable | Latest | Description |
-| :--- | :--- | :--- | :--- |
-| `clear.css` | [src](https://ucss.unqa.dev/stable/lib/base/clear.css) • [clean](https://ucss.unqa.dev/stable/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/clear.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/clear.css) • [clean](https://ucss.unqa.dev/latest/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/clear.min.css) | **Global Reset**. Removes default spacing from headings/lists (`.cl`) and normalizes content spacing (`.cs`). |
+| File | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `clear.css` | [src](https://ucss.unqa.dev/stable/lib/base/clear.css) • [clean](https://ucss.unqa.dev/stable/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/clear.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/clear.css) • [clean](https://ucss.unqa.dev/latest/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/clear.min.css) | 2.1KB / 1.3KB / 0.9KB / 0.3KB / 0.3KB | **Global Reset**. Removes default spacing from headings/lists (`.cl`) and normalizes content spacing (`.cs`). |
 
 ---
 
 ### 2. Layout
 Structural components for page building.
 
-| Bundle | Stable | Latest |
-| :--- | :--- | :--- |
-| **`layout`** | [src](https://ucss.unqa.dev/stable/lib/layout.css) • [clean](https://ucss.unqa.dev/stable/lib/layout.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout.css) • [clean](https://ucss.unqa.dev/latest/lib/layout.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout.min.css) |
+| Bundle | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) |
+| :--- | :--- | :--- | :--- |
+| **`layout`** | [src](https://ucss.unqa.dev/stable/lib/layout.css) • [clean](https://ucss.unqa.dev/stable/lib/layout.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout.css) • [clean](https://ucss.unqa.dev/latest/lib/layout.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout.min.css) | 69KB / 65KB / 55KB / 6.9KB / 5.0KB |
 
 | Bundle | HTML Snippet (Stable) |
 | :--- | :--- |
 | **`layout`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout.min.css">` |
 
-| File | Stable | Latest | Description |
-| :--- | :--- | :--- | :--- |
-| `section.css` | [src](https://ucss.unqa.dev/stable/lib/layout/section.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/section.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/section.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout/section.css) • [clean](https://ucss.unqa.dev/latest/lib/layout/section.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout/section.min.css) | Root sections (`.s`) |
-| `grid.css` | [src](https://ucss.unqa.dev/stable/lib/layout/grid.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/grid.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/grid.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout/grid.css) • [clean](https://ucss.unqa.dev/latest/lib/layout/grid.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout/grid.min.css) | CSS Grid system (`.g`) |
-| `flex.css` | [src](https://ucss.unqa.dev/stable/lib/layout/flex.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/flex.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/flex.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout/flex.css) • [clean](https://ucss.unqa.dev/latest/lib/layout/flex.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout/flex.min.css) | Flexbox utilities (`.f`) |
+| File | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `section.css` | [src](https://ucss.unqa.dev/stable/lib/layout/section.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/section.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/section.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout/section.css) • [clean](https://ucss.unqa.dev/latest/lib/layout/section.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout/section.min.css) | 7.8KB / 6.7KB / 5.9KB / 1.3KB / 1.1KB | Root sections (`.s`) |
+| `grid.css` | [src](https://ucss.unqa.dev/stable/lib/layout/grid.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/grid.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/grid.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout/grid.css) • [clean](https://ucss.unqa.dev/latest/lib/layout/grid.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout/grid.min.css) | 35KB / 34KB / 29KB / 3.7KB / 2.7KB | CSS Grid system (`.g`) |
+| `flex.css` | [src](https://ucss.unqa.dev/stable/lib/layout/flex.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/flex.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/flex.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout/flex.css) • [clean](https://ucss.unqa.dev/latest/lib/layout/flex.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout/flex.min.css) | 26KB / 24KB / 21KB / 2.4KB / 1.9KB | Flexbox utilities (`.f`) |
 
 #### **Section (`.s`)**
 The root structural component for page sections, offering intelligent max-width constraints and padding.
@@ -237,19 +296,19 @@ Flexible box layout with gap intelligence.
 ### 3. Typography
 Title, text, and alignment.
 
-| Bundle | Stable | Latest |
-| :--- | :--- | :--- |
-| **`typography`** | [src](https://ucss.unqa.dev/stable/lib/typography.css) • [clean](https://ucss.unqa.dev/stable/lib/typography.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography.css) • [clean](https://ucss.unqa.dev/latest/lib/typography.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography.min.css) |
+| Bundle | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) |
+| :--- | :--- | :--- | :--- |
+| **`typography`** | [src](https://ucss.unqa.dev/stable/lib/typography.css) • [clean](https://ucss.unqa.dev/stable/lib/typography.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography.css) • [clean](https://ucss.unqa.dev/latest/lib/typography.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography.min.css) | 15KB / 10KB / 8.4KB / 1.6KB / 1.3KB |
 
 | Bundle | HTML Snippet (Stable) |
 | :--- | :--- |
 | **`typography`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography.min.css">` |
 
-| File | Stable | Latest | Description |
-| :--- | :--- | :--- | :--- |
-| `title.css` | [src](https://ucss.unqa.dev/stable/lib/typography/title.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/title.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/title.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/title.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/title.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/title.min.css) | Title (`.t`) |
-| `text.css` | [src](https://ucss.unqa.dev/stable/lib/typography/text.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text.min.css) | Text (`.tx`) |
-| `text-align.css` | [src](https://ucss.unqa.dev/stable/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text-align.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text-align.min.css) | Text alignment utilities (`.ta`) |
+| File | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `title.css` | [src](https://ucss.unqa.dev/stable/lib/typography/title.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/title.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/title.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/title.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/title.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/title.min.css) | 6.1KB / 4.2KB / 3.4KB / 0.8KB / 0.7KB | Title (`.t`) |
+| `text.css` | [src](https://ucss.unqa.dev/stable/lib/typography/text.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text.min.css) | 6.4KB / 4.6KB / 3.8KB / 0.8KB / 0.7KB | Text (`.tx`) |
+| `text-align.css` | [src](https://ucss.unqa.dev/stable/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text-align.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text-align.min.css) | 2.1KB / 1.4KB / 1.2KB / 0.3KB / 0.3KB | Text alignment utilities (`.ta`) |
 
 #### **Title (`.t`)**
 Semantic-agnostic typography customization.
@@ -282,20 +341,20 @@ Responsive text alignment.
 ### 4. Components
 UI Elements and interactive patterns.
 
-| Bundle | Stable | Latest |
-| :--- | :--- | :--- |
-| **`components`** | [src](https://ucss.unqa.dev/stable/lib/components.css) • [clean](https://ucss.unqa.dev/stable/lib/components.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components.min.css) | [src](https://ucss.unqa.dev/latest/lib/components.css) • [clean](https://ucss.unqa.dev/latest/lib/components.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components.min.css) |
+| Bundle | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) |
+| :--- | :--- | :--- | :--- |
+| **`components`** | [src](https://ucss.unqa.dev/stable/lib/components.css) • [clean](https://ucss.unqa.dev/stable/lib/components.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components.min.css) | [src](https://ucss.unqa.dev/latest/lib/components.css) • [clean](https://ucss.unqa.dev/latest/lib/components.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components.min.css) | 36KB / 32KB / 27KB / 4.8KB / 4.1KB |
 
 | Bundle | HTML Snippet (Stable) |
 | :--- | :--- |
 | **`components`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components.min.css">` |
 
-| File | Stable | Latest | Description |
-| :--- | :--- | :--- | :--- |
-| `button.css` | [src](https://ucss.unqa.dev/stable/lib/components/button.css) • [clean](https://ucss.unqa.dev/stable/lib/components/button.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/button.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/button.css) • [clean](https://ucss.unqa.dev/latest/lib/components/button.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/button.min.css) | `.btn` |
-| `card.css` | [src](https://ucss.unqa.dev/stable/lib/components/card.css) • [clean](https://ucss.unqa.dev/stable/lib/components/card.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/card.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/card.css) • [clean](https://ucss.unqa.dev/latest/lib/components/card.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/card.min.css) | `.crd` |
-| `media.css` | [src](https://ucss.unqa.dev/stable/lib/components/media.css) • [clean](https://ucss.unqa.dev/stable/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/media.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/media.css) • [clean](https://ucss.unqa.dev/latest/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/media.min.css) | `.med` |
-| `link.css` | [src](https://ucss.unqa.dev/stable/lib/components/link.css) • [clean](https://ucss.unqa.dev/stable/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/link.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/link.css) • [clean](https://ucss.unqa.dev/latest/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/link.min.css) | `.lnk` |
+| File | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `button.css` | [src](https://ucss.unqa.dev/stable/lib/components/button.css) • [clean](https://ucss.unqa.dev/stable/lib/components/button.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/button.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/button.css) • [clean](https://ucss.unqa.dev/latest/lib/components/button.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/button.min.css) | 15KB / 13KB / 11KB / 2.3KB / 2.0KB | `.btn` |
+| `card.css` | [src](https://ucss.unqa.dev/stable/lib/components/card.css) • [clean](https://ucss.unqa.dev/stable/lib/components/card.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/card.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/card.css) • [clean](https://ucss.unqa.dev/latest/lib/components/card.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/card.min.css) | 17KB / 15KB / 13KB / 2.3KB / 2.0KB | `.crd` |
+| `media.css` | [src](https://ucss.unqa.dev/stable/lib/components/media.css) • [clean](https://ucss.unqa.dev/stable/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/media.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/media.css) • [clean](https://ucss.unqa.dev/latest/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/media.min.css) | 3.6KB / 3.0KB / 2.4KB / 0.7KB / 0.6KB | `.med` |
+| `link.css` | [src](https://ucss.unqa.dev/stable/lib/components/link.css) • [clean](https://ucss.unqa.dev/stable/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/link.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/link.css) • [clean](https://ucss.unqa.dev/latest/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/link.min.css) | 1.1KB / 0.6KB / 0.5KB / 0.3KB / 0.2KB | `.lnk` |
 
 #### **Buttons (`.btn`)**
 A complete button system with built-in states and variants.
@@ -337,18 +396,18 @@ Clickable area expansion.
 ### 5. Theming
 Themes, overlays, and contextual settings.
 
-| Bundle | Stable | Latest |
-| :--- | :--- | :--- |
-| **`theming`** | [src](https://ucss.unqa.dev/stable/lib/theming.css) • [clean](https://ucss.unqa.dev/stable/lib/theming.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming.css) • [clean](https://ucss.unqa.dev/latest/lib/theming.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming.min.css) |
+| Bundle | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) |
+| :--- | :--- | :--- | :--- |
+| **`theming`** | [src](https://ucss.unqa.dev/stable/lib/theming.css) • [clean](https://ucss.unqa.dev/stable/lib/theming.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming.css) • [clean](https://ucss.unqa.dev/latest/lib/theming.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming.min.css) | 6.8KB / 5.2KB / 4.4KB / 1.0KB / 0.9KB |
 
 | Bundle | HTML Snippet (Stable) |
 | :--- | :--- |
 | **`theming`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/theming.min.css">` |
 
-| File | Stable | Latest | Description |
-| :--- | :--- | :--- | :--- |
-| `set.css` | [src](https://ucss.unqa.dev/stable/lib/theming/set.css) • [clean](https://ucss.unqa.dev/stable/lib/theming/set.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming/set.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming/set.css) • [clean](https://ucss.unqa.dev/latest/lib/theming/set.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming/set.min.css) | Contextual themes |
-| `overlay.css` | [src](https://ucss.unqa.dev/stable/lib/theming/overlay.css) • [clean](https://ucss.unqa.dev/stable/lib/theming/overlay.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming/overlay.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming/overlay.css) • [clean](https://ucss.unqa.dev/latest/lib/theming/overlay.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming/overlay.min.css) | Absolute overlays |
+| File | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `set.css` | [src](https://ucss.unqa.dev/stable/lib/theming/set.css) • [clean](https://ucss.unqa.dev/stable/lib/theming/set.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming/set.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming/set.css) • [clean](https://ucss.unqa.dev/latest/lib/theming/set.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming/set.min.css) | 3.7KB / 2.9KB / 2.5KB / 0.5KB / 0.5KB | Contextual themes |
+| `overlay.css` | [src](https://ucss.unqa.dev/stable/lib/theming/overlay.css) • [clean](https://ucss.unqa.dev/stable/lib/theming/overlay.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming/overlay.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming/overlay.css) • [clean](https://ucss.unqa.dev/latest/lib/theming/overlay.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming/overlay.min.css) | 3.1KB / 2.2KB / 1.9KB / 0.6KB / 0.5KB | Absolute overlays |
 
 #### **Settings / Theme (`.set`)**
 Contextual theming wrapper.
@@ -366,19 +425,19 @@ Absolute positioning overlays.
 ### 6. Utilities
 Helper classes for spacing and decoration.
 
-| Bundle | Stable | Latest |
-| :--- | :--- | :--- |
-| **`utilities`** | [src](https://ucss.unqa.dev/stable/lib/utilities.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities.min.css) |
+| Bundle | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) |
+| :--- | :--- | :--- | :--- |
+| **`utilities`** | [src](https://ucss.unqa.dev/stable/lib/utilities.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities.min.css) | 9.5KB / 6.4KB / 5.4KB / 0.9KB / 0.7KB |
 
 | Bundle | HTML Snippet (Stable) |
 | :--- | :--- |
 | **`utilities`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/utilities.min.css">` |
 
-| File | Stable | Latest | Description |
-| :--- | :--- | :--- | :--- |
-| `margin.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/margin.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/margin.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/margin.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/margin.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/margin.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/margin.min.css) | `.mg` |
-| `padding.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/padding.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/padding.min.css) | `.pd` |
-| `radius.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/radius.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/radius.min.css) | `.rad` |
+| File | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `margin.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/margin.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/margin.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/margin.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/margin.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/margin.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/margin.min.css) | 2.9KB / 2.0KB / 1.7KB / 0.3KB / 0.2KB | `.mg` |
+| `padding.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/padding.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/padding.min.css) | 4.8KB / 3.4KB / 2.8KB / 0.5KB / 0.4KB | `.pd` |
+| `radius.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/radius.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/radius.min.css) | 1.8KB / 1.1KB / 0.9KB / 0.3KB / 0.2KB | `.rad` |
 
 #### **Margin (`.mg`)**
 Responsive direction-aware spacing.
@@ -539,21 +598,24 @@ If you are contributing to uCss or modifying the core framework, here is an in-d
 *   **`scripts/`**: Node.js build scripts.
 *   **`dist/`**: Compiled output (Stable/Latest). **Do not edit.**
 
-### Build Processes (`build.sh`)
-The project uses a robust Bash script (`build.sh`) that orchestrates the entire process:
+### Build Processes (`build.sh` / `scripts/build.js`)
+The project uses a consolidated Node.js build system (`scripts/build.js`) which orchestrates the entire process:
 
-1.  **Bundling** (`scripts/bundle.js`): Recursively resolves `@import` statements to create flat files, removing build-time dependencies.
-2.  **Cleaning** (`scripts/clean.js`): Removes comments and redundant whitespace while preserving CSS nesting and structure.
-3.  **Minifying** (`scripts/minify.js`): Compresses CSS logic for production.
+1.  **Bundling**: Recursively resolves `@import` statements to create flat files, removing build-time dependencies.
+2.  **Cleaning**: Removes comments and redundant whitespace while preserving CSS nesting and structure.
+3.  **Minifying**: Compresses CSS logic for production.
 4.  **Verification**: The build script strictly verifies output file sizes to prevent "empty builds" or broken releases.
-5.  **Compression**: Automatically generates `.gz` (Gzip) and `.br` (Brotli) versions of all CSS files for maximum performance on CDN.
-6.  **Documentation**: Statically renders this `README.md` into `dist/index.html` using `scripts/render-docs.js`, creating a self-hosted documentation site.
+5.  **Compression**: Automatically generates `.gz` (Gzip) and `.br` (Brotli) versions of all CSS files (`scripts/compress.js`) for maximum performance on CDN.
+6.  **Documentation**: Statically renders this `README.md` into `dist/index.html`, creating a self-hosted documentation site.
 
 ```bash
 # Standard Build (Detects branch)
-./build.sh
+npm run build
 
-# Force specific target
+# Watch Mode (Rebuilds on change)
+npm run watch
+
+# Force specific target via script
 ./build.sh --source main
 ```
 

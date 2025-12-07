@@ -1,6 +1,10 @@
-# [uCss](../../) / [Modules](../) / [Components](./)
+# Components Module
 
-**Documentation**: [Get Started](../../) | [Modules](../) | [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Typography](../typography/) | [Components](./) | [Theming](../theming/) | [Utilities](../utilities/)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Components](./) 
+
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](./) | [Utilities](../utilities/)
+
+> **The UI Toolkit**. A set of un-opinionated, composite building blocks (Cards, Buttons, Media) designed for maximum reusability.
 
 ---
 
@@ -16,6 +20,15 @@
 ## Components Module
 
 The **Components Module** contains the core UI building blocks of the framework. These components are designed to be composite, flexible, and heavily reliant on **Container Queries** to ensure they look perfect in any context (e.g., a Card in a sidebar vs. a Card in a main grid).
+
+### Philosophy: Composition Over Configuration
+We don't provide a "Profile Card Component" or a "Product Card Component". We provide a **Card Shell** and **Utility Blocks**.
+*   **The Old Way**: You search the docs for `.card-profile-horizontal`.
+*   **The uCss Way**: You build it. `<article class="crd f row">`.
+    *   Want it horizontal? Add `f row`.
+    *   Want a round picture? Add `.rad.rd` to the image.
+    *   Want the text centered? Add `.ta-c`.
+This makes the framework infinitely scalable without bloating the codebase with specific variations.
 
 ## 📦 Installation
 
@@ -47,12 +60,12 @@ The **Components Module** contains the core UI building blocks of the framework.
 ## 1. Card (`.crd`)
 The flagship component. A flexible, composite shell that serves as the foundation for posts, profiles, product listings, and more.
 
-### Structure
-The Card is composed of "slots". All slots are optional.
-*   **`.crd`**: The outer shell. Handles background, border, radius, and shadows.
-*   **`.crd__media`**: Container for images/video. **Edge-to-edge** by default (no padding).
-*   **`.crd__content`**: The padded container for text/data.
-*   **`.crd__header`**, **`.crd__body`**, **`.crd__footer`**: Semantic subdivisions within content.
+### Slot Theory (BEM Structure)
+The Card is not just a div (or li, or article inside li); it is a grid-ready shell. We use BEM-like naming (`__`) to define **Slots**.
+*   **`.crd` (The Shell)**: The parent. It handles the "Box Model" stuff: Background, Border, Shadow, Radius. It does *not* handle internal padding, if there is .crd__content inside it.
+*   **`.crd__media` (The Edge)**: A full-bleed slot. It ignores padding. Use this for cover images or videos.
+*   **`.crd__content` (The Body)**: The padded interface. This is where your heading, link, text, and meta lives.
+    *   **`.crd__header`**, **`.crd__body`**, **`.crd__footer`**: These aren't just semantic decorations. When you use `.crd.sg` (Subgrid), these slots allow you to align headers across *multiple different cards* in a grid.
 
 ### Modifiers
 *   **Smart Grid**: `.crd.sg`, `.crd.sgc` allows content to align to a subgrid.

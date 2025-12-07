@@ -1,6 +1,10 @@
-# [uCss](../../) / [Modules](../) / [Base](./)
+# Base Module
 
-**Documentation**: [Get Started](../../) | [Modules](../) | [Config](../config/) | [Base](./) | [Layout](../layout/) | [Typography](../typography/) | [Components](../components/) | [Theming](../theming/) | [Utilities](../utilities/)
+**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Base](./) 
+
+**Modules**: [Config](../config/) | [Base](./) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
+
+> **The Foundation**. Provides a surgical reset and tools for managing the "Content vs App" dichotomy.
 
 ---
 
@@ -14,6 +18,12 @@
 ## Base Module
 
 The **Base Module** provides the foundational resets and normalizations. Unlike aggressive resets that strip everything (like traditional Eric Meyer resets), this module is surgical—it normalizes behavior while offering tools to manage "Content vs. App" spacing logic.
+
+### Philosophy of Reset
+We believe that `<h1>` tags should look like headings by default, and `<ul>` tags should have bullets by default.
+*   **The Problem with "Nuke" Resets**: If you do `* { margin: 0; padding: 0 }`, you forcing yourself to write extra CSS just to make a blog post look readable.
+*   **The uCss Approach**: We leave browser defaults alone where they make sense (typography scale, list styles). We only "reset" things that cause layout headaches (like `H1-H6` and `P` margins, and only if you apply .cs to a parent element).
+*   **Opt-In Resets**: If you *do* want a stripped list (for a nav menu, or a grid of articles), you apply `.cl` (Clear List). You opt-in to the reset, rather than opting-out of the defaults.
 
 ## 📦 Installation
 
@@ -37,43 +47,53 @@ The **Base Module** provides the foundational resets and normalizations. Unlike 
 ---
 
 ## 1. Content Spacing (`.cs` / `.csc`)
-One of the hardest parts of CSS is managing margins on typography.
-*   **App Mode**: In a web app/UI, you usually want `margin: 0` on everything (`h1`, `p`, etc) so you can control spacing explicitly with utility classes.
-*   **Content Mode**: In a blog post or CMS content, you want default vertical rhythm between paragraphs and lists.
+One of the hardest parts of CSS is managing margins on typography. You often end up with "double margins" or fighting specificity.
 
-The Base module handles this with the `.cs` (Content Spacing) class.
+### App vs Content Mode
+*   **Default Browser Behavior**: By default, browsers, CMSs (like WordPress), and standard resets *apply* margins to `h1`, `p`, `ul`, etc. This creates the "white space" you see in a raw HTML page.
+*   **The Problem**: In a custom web app (like a dashboard), these default margins fight against your layout.
+*   **The Solution (`.cs`)**: The `.cs` class **REMOVES** all default margins from its children. It creates a blank canvas.
+*   **The Re-Application (`.csc`)**: The `.csc` class **RE-APPLIES** those margins.
+
+### Logic Summary
+1.  **Wrapper**: `<section class=".cs">` -> Margins are GONE. Use this for your layout shell.
+2.  **Inner Content**: `<div class=".csc">` -> Margins are BACK. Use this for the inner blog post text.
 
 ### Classes
 
 | Class | Name | Behavior |
 | :--- | :--- | :--- |
-| `.cs` | **Content Spacing** | Surrounds a block of raw HTML content (like from WordPress). It **adds** default top/bottom margins to children (`p`, `h1-h6`, `ul`, `li`). |
-| `.csc` | **Content Spacing Child** | A helper to re-apply spacing spacing if it was lost in a nested context, or to adjust spacing for specific nested elements. |
-| `.cnt` | **Contents** | `display: contents` utility to remove a wrapper from the accessibility tree/layout. |
+| `.cs` | **Content Spacing (Reset)** | **Removes** default top/bottom margins from children (`p`, `h1-h6`, `ul`, `li`). Use this on the container to strip browser/CMS styles. |
+| `.csc` | **Content Spacing Child (Restore)** | **Re-applies** standard vertical rhythm. Use this inside a `.cs` container to wrap text content. |
+| `.cnt` | **Contents** | `display: contents` utility. |
 
 ### Usage Examples
 
-#### Template Content
-Without `.cs`, in WordPress all paragraphs and headings would have default margin (framework default). Adding `.cs` gives design elements zero margin, and padding so we can style them exactly how we want. We can use `.csc` to reapply spacing if it was lost in a nested context, or to adjust spacing for specific nested elements.
+#### WordPress / CMS Integration
+In a WordPress template, you often can't control the HTML output of `the_content()`. It spits out paragraphs with margins.
+*   We wrap the *whole section* in `.cs` to ensure our outer layout (grids, gaps) controls the spacing.
+*   We wrap the *content div* in `.csc` to give the text back its readability.
+
 ```html
-<!-- App Mode -->
-<article class="s cs">
-  <header>
-    <div class="col gap-s">
-        <h1>My Story</h1>
-        <p>Excerpt...</p>
+<!-- 1. Outer Shell: .cs STRIPS margins so we can control layout with .gap-xl -->
+<section class="cs f col gap-xl">
+    
+    <!-- Header: No random margins interfering here -->
+    <header>
+        <h1>Custom Page Title</h1>
+    </header>
+
+    <!-- 2. Inner Content: .csc RESTORES margins for readability -->
+    <div class="csc">
+        <!-- Everything here will have nice vertical rhythm again -->
+        <p>This is paragraph text from the CMS.</p>
+        <ul>
+            <li>List item</li>
+        </ul>
+        <p>More text.</p>
     </div>
-  </header>
-<!-- Content Mode -->
-  <div class="csc">
-    <h2>Here we go</h2>
-    <p>Paragraph one.</p>
-    <ul>
-       <li>List item</li>
-    </ul>
-    <p>Paragraph two.</p>
-  </div>
-</article>
+    
+</section>
 ```
 
 ---
