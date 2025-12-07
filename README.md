@@ -52,25 +52,63 @@ If you don't need the full framework, you can import specific modules. See the *
 2.  Copy `lib/config/root.css` to your project and update with your colors/fonts.
 3.  Import `u.min.css` or specific modules from `dist/lib/` locally.
 
+> [!TIP]
+> **Server Configuration**:
+> If you are hosting uCss yourself, we provide an optimized `.htaccess` template in the `dist/` folder. This ensures your server serves the pre-compressed `.gz` (Gzip) and `.br` (Brotli) files with the correct headers for maximum performance.
+
+### 4. File Types Explanation
+We provide three variations for every file:
+
+*   **`*.css`**: Full source with extensive JSDoc-like comments. Best for debugging or learning the codebase.
+*   **`*.clean.css`**: Cleaned source. Comments removed but formatting preserved. Ideal for local development if you don't need minification.
+*   **`*.min.css`**: Minified and optimized for production. Use this for live sites.
+
 ---
 
 ## 🎨 Configuration
-The heart of uCss is `root.css` (found in `src/lib/config/root.css`). This file defines your design tokens. **Do not edit u.css directly.**
+The heart of uCss is `root.css` (found in `src/lib/config/root.css`). This file defines your design tokens and is organized by project structure (General, Typography, Layout, Components). **Do not edit u.css directly.**
 
 ```css
 :root {
-  /* Brand Colors */
+  /* ==========================================================================
+     SECTION: GENERAL / CONFIGURATION
+     ========================================================================== */
+
+  /**
+   * @group Theming: Palette
+   */
   --p:  hsl(43 83% 62%);  /* Primary */
   --a:  hsl(44 100% 50%); /* Accent */
-  --d:  hsl(0 0% 8%);     /* Dark Base */
-  --l:  hsl(0 0% 96%);    /* Light Base */
-
-  /* Typography */
-  --t-fs--m: clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem);   /* Base Title Size */
-  --tx-fs--m: clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem);     /* Base Body Size */
   
-  /* Spacing */
-  --gap: 1rem;
+  /**
+   * @group Theming: Backgrounds
+   */
+  --bg:  hsl(0 0% 96%);   /* Main Background */
+  --srf: hsl(0 0% 92%);   /* Surface (Cards) */
+
+  /* ==========================================================================
+     SECTION: TYPOGRAPHY
+     ========================================================================== */
+
+  /**
+   * @group Typography: Headings (title.css)
+   */
+  --t-fs--m: clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem);
+
+  /**
+   * @group Typography: Body (text.css)
+   */
+  --tx-fs--m: clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem);
+  
+  /* ==========================================================================
+     SECTION: LAYOUT
+     ========================================================================== */
+  
+  /**
+   * @group Layout: Section
+   */
+  --sc-max-w: 1366px; /* Scaffold Max Width */
+  --s-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
 }
 ```
 
@@ -104,7 +142,7 @@ Core resets and normalizers.
 
 | File | Stable | Latest | Description |
 | :--- | :--- | :--- | :--- |
-| `clear.css` | [Link](https://ucss.unqa.dev/stable/lib/base/clear.min.css) | [Link](https://ucss.unqa.dev/latest/lib/base/clear.min.css) | Content reset and box-sizing normalization. |
+| `clear.css` | [Link](https://ucss.unqa.dev/stable/lib/base/clear.min.css) | [Link](https://ucss.unqa.dev/latest/lib/base/clear.min.css) | **Global Reset**. Removes default spacing from headings/lists (`.cl`) and normalizes content spacing (`.cs`). |
 
 ---
 
@@ -130,7 +168,8 @@ The root structural component for page sections, offering intelligent max-width 
     *   `.s > *` defaults to 1366px for max-width of inner section container with 5% padding on each side.
     *   `.s__c` (Content: 48rem), `.s__cw` (Content Wide: 56rem).
     *   `.s__h` (Header: 64rem), `.s__hw` (Header Wide: 72rem).
-    *   `.s__f` (Full Width).
+    *   `.s__f` (Full Width), `.s__cn` (Narrow: 40rem).
+    *   `.s__w` (Wide: 1440px), `.s__xw` (Extra Wide: 1600px), `.s__uw` (Ultra Wide: 1920px).
 *   **Backgrounds**: `--s-bg` handles section background color.
 
 ```html
@@ -463,33 +502,44 @@ Here is how you would manage the layout above using a single BEM parent class (`
 ---
 
 ## 🛠️ Development & Workflow
-If you are contributing to uCss or modifying the core framework, here is how the system works.
+If you are contributing to uCss or modifying the core framework, here is an in-depth look at the build system.
 
 ### Directory Structure
-*   **`src/lib/`**: The source modules.
-    *   **Modules**: `src/lib/components.css` defines the module bundle.
-    *   **Source Files**: `src/lib/components/button.css` contains the actual code.
+*   **`src/lib/`**: The source modules (base, components, config, layout, theming, typography, utilities).
 *   **`src/u.css`**: Main framework entry point.
-*   **`dist/`**: Compiled output. **Do not edit.**
+*   **`scripts/`**: Node.js build scripts.
+*   **`dist/`**: Compiled output (Stable/Latest). **Do not edit.**
 
-### Build System
-The project is built using a custom Bash script (`build.sh`) that reads `src/u.css` and recursively resolves imports to create flat bundles.
+### Build Processes (`build.sh`)
+The project uses a robust Bash script (`build.sh`) that orchestrates the entire process:
+
+1.  **Bundling** (`scripts/bundle.js`): Recursively resolves `@import` statements to create flat files, removing build-time dependencies.
+2.  **Cleaning** (`scripts/clean.js`): Removes comments and redundant whitespace while preserving CSS nesting and structure.
+3.  **Minifying** (`scripts/minify.js`): Compresses CSS logic for production.
+4.  **Verification**: The build script strictly verifies output file sizes to prevent "empty builds" or broken releases.
+5.  **Compression**: Automatically generates `.gz` (Gzip) and `.br` (Brotli) versions of all CSS files for maximum performance on CDN.
+6.  **Documentation**: Statically renders this `README.md` into `dist/index.html` using `scripts/render-docs.js`, creating a self-hosted documentation site.
 
 ```bash
+# Standard Build (Detects branch)
 ./build.sh
+
+# Force specific target
+./build.sh --source main
 ```
 
 ### Deployment Strategy
-Our CI/CD pipeline (GitHub Actions) automatically deploys:
+Our CI/CD pipeline (GitHub Actions) automatically deploys based on branch push:
 
-| Branch | Output URL | Purpose |
+| Branch | Output URL | Configuration |
 | :--- | :--- | :--- |
-| **`main`** | `.../stable/` | **Production**. Stable releases. |
-| **`dev`** | `.../latest/` | **Development**. Latest bleeding-edge code. |
+| **`main`** | `.../stable/` | **Production**. Stable releases. Verified builds. |
+| **`dev`** | `.../latest/` | **Development**. Bleeding-edge code. |
 
 ---
 
 ## 🤝 Contributing
 1.  Make changes in `src/lib`.
-2.  Run `./build.sh test_build` to verify imports and builds.
-3.  Push to `dev` branch.
+2.  Run `./build.sh` locally to verify imports, bundling, and header generation.
+3.  Check `dist/stable/u.min.css` to confirm your changes are present and correct.
+4.  Push to `dev` branch.
