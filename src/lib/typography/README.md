@@ -16,6 +16,15 @@ The **Typography Module** provides a comprehensive, responsive type system. It s
 | `text.css` | Body Text (`.tx`) | [src](https://ucss.unqa.dev/stable/lib/typography/text.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text.min.css) |
 | `text-align.css` | Alignment (`.ta`) | [src](https://ucss.unqa.dev/stable/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text-align.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text-align.min.css) |
 
+### HTML Copy & Paste
+
+| File | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`typography`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography.min.css">` |
+| `title.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography/title.min.css">` |
+| `text.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography/text.min.css">` |
+| `text-align.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography/text-align.min.css">` |
+
 ---
 
 ## 1. Title (`.t`)

@@ -16,6 +16,15 @@ The **Layout Module** provides the structural foundation for your application. I
 | `grid.css` | Grid System (`.g`) | [src](https://ucss.unqa.dev/stable/lib/layout/grid.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/grid.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/grid.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout/grid.css) • [clean](https://ucss.unqa.dev/latest/lib/layout/grid.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout/grid.min.css) |
 | `flex.css` | Flex Utilities (`.f`) | [src](https://ucss.unqa.dev/stable/lib/layout/flex.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/flex.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/flex.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout/flex.css) • [clean](https://ucss.unqa.dev/latest/lib/layout/flex.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout/flex.min.css) |
 
+### HTML Copy & Paste
+
+| File | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`layout`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout.min.css">` |
+| `section.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout/section.min.css">` |
+| `grid.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout/grid.min.css">` |
+| `flex.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout/flex.min.css">` |
+
 ---
 
 ## 1. Section (`.s`)

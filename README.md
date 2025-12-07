@@ -38,7 +38,7 @@ Includes everything.
 
 ```html
 <!-- 1. Configuration (Optional) -- copy, configure and enqueue this file to your project for customizing defaults -->
-<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.css">
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">
 
 <!-- 2. Framework -->
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
@@ -140,6 +140,10 @@ Core resets and normalizers.
 | :--- | :--- | :--- |
 | **`base`** | [src](https://ucss.unqa.dev/stable/lib/base.css) • [clean](https://ucss.unqa.dev/stable/lib/base.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base.min.css) | [src](https://ucss.unqa.dev/latest/lib/base.css) • [clean](https://ucss.unqa.dev/latest/lib/base.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base.min.css) |
 
+| Bundle | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`base`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/base.min.css">` |
+
 | File | Stable | Latest | Description |
 | :--- | :--- | :--- | :--- |
 | `clear.css` | [src](https://ucss.unqa.dev/stable/lib/base/clear.css) • [clean](https://ucss.unqa.dev/stable/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/clear.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/clear.css) • [clean](https://ucss.unqa.dev/latest/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/clear.min.css) | **Global Reset**. Removes default spacing from headings/lists (`.cl`) and normalizes content spacing (`.cs`). |
@@ -152,6 +156,10 @@ Structural components for page building.
 | Bundle | Stable | Latest |
 | :--- | :--- | :--- |
 | **`layout`** | [src](https://ucss.unqa.dev/stable/lib/layout.css) • [clean](https://ucss.unqa.dev/stable/lib/layout.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout.min.css) | [src](https://ucss.unqa.dev/latest/lib/layout.css) • [clean](https://ucss.unqa.dev/latest/lib/layout.clean.css) • [min](https://ucss.unqa.dev/latest/lib/layout.min.css) |
+
+| Bundle | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`layout`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout.min.css">` |
 
 | File | Stable | Latest | Description |
 | :--- | :--- | :--- | :--- |
@@ -228,6 +236,10 @@ Title, text, and alignment.
 | :--- | :--- | :--- |
 | **`typography`** | [src](https://ucss.unqa.dev/stable/lib/typography.css) • [clean](https://ucss.unqa.dev/stable/lib/typography.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography.css) • [clean](https://ucss.unqa.dev/latest/lib/typography.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography.min.css) |
 
+| Bundle | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`typography`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography.min.css">` |
+
 | File | Stable | Latest | Description |
 | :--- | :--- | :--- | :--- |
 | `title.css` | [src](https://ucss.unqa.dev/stable/lib/typography/title.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/title.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/title.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/title.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/title.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/title.min.css) | Title (`.t`) |
@@ -268,6 +280,10 @@ UI Elements and interactive patterns.
 | Bundle | Stable | Latest |
 | :--- | :--- | :--- |
 | **`components`** | [src](https://ucss.unqa.dev/stable/lib/components.css) • [clean](https://ucss.unqa.dev/stable/lib/components.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components.min.css) | [src](https://ucss.unqa.dev/latest/lib/components.css) • [clean](https://ucss.unqa.dev/latest/lib/components.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components.min.css) |
+
+| Bundle | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`components`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components.min.css">` |
 
 | File | Stable | Latest | Description |
 | :--- | :--- | :--- | :--- |
@@ -320,6 +336,10 @@ Themes, overlays, and contextual settings.
 | :--- | :--- | :--- |
 | **`theming`** | [src](https://ucss.unqa.dev/stable/lib/theming.css) • [clean](https://ucss.unqa.dev/stable/lib/theming.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming.css) • [clean](https://ucss.unqa.dev/latest/lib/theming.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming.min.css) |
 
+| Bundle | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`theming`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/theming.min.css">` |
+
 | File | Stable | Latest | Description |
 | :--- | :--- | :--- | :--- |
 | `set.css` | [src](https://ucss.unqa.dev/stable/lib/theming/set.css) • [clean](https://ucss.unqa.dev/stable/lib/theming/set.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming/set.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming/set.css) • [clean](https://ucss.unqa.dev/latest/lib/theming/set.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming/set.min.css) | Contextual themes |
@@ -344,6 +364,10 @@ Helper classes for spacing and decoration.
 | Bundle | Stable | Latest |
 | :--- | :--- | :--- |
 | **`utilities`** | [src](https://ucss.unqa.dev/stable/lib/utilities.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities.min.css) |
+
+| Bundle | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`utilities`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/utilities.min.css">` |
 
 | File | Stable | Latest | Description |
 | :--- | :--- | :--- | :--- |

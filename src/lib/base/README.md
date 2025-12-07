@@ -14,6 +14,13 @@ The **Base Module** provides the foundational resets and normalizations. Unlike 
 | :--- | :--- | :--- | :--- |
 | `clear.css` | Resets & Spacing Logic | [src](https://ucss.unqa.dev/stable/lib/base/clear.css) • [clean](https://ucss.unqa.dev/stable/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/clear.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/clear.css) • [clean](https://ucss.unqa.dev/latest/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/clear.min.css) |
 
+### HTML Copy & Paste
+
+| File | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`base`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/base.min.css">` |
+| `clear.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/base/clear.min.css">` |
+
 ---
 
 ## 1. Content Spacing (`.cs` / `.csc`)

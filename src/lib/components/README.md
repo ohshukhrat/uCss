@@ -17,6 +17,16 @@ The **Components Module** contains the core UI building blocks of the framework.
 | `media.css` | Media (`.med`) | [src](https://ucss.unqa.dev/stable/lib/components/media.css) • [clean](https://ucss.unqa.dev/stable/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/media.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/media.css) • [clean](https://ucss.unqa.dev/latest/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/media.min.css) |
 | `link.css` | Link Wrapper (`.lnk`) | [src](https://ucss.unqa.dev/stable/lib/components/link.css) • [clean](https://ucss.unqa.dev/stable/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/link.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/link.css) • [clean](https://ucss.unqa.dev/latest/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/link.min.css) |
 
+### HTML Copy & Paste
+
+| File | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`all components`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components.min.css">` |
+| `button.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components/button.min.css">` |
+| `card.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components/card.min.css">` |
+| `media.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components/media.min.css">` |
+| `link.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components/link.min.css">` |
+
 ---
 
 ## 1. Card (`.crd`)

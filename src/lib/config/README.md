@@ -8,6 +8,12 @@ The **Configuration Module** contains the central nervous system of the framewor
 | :--- | :--- | :--- |
 | **`root.css`** | [src](https://ucss.unqa.dev/stable/lib/config/root.css) | [src](https://ucss.unqa.dev/latest/lib/config/root.css) |
 
+### HTML Copy & Paste
+
+| File | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`root.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">` |
+
 > **Note**: This file is typically not included automatically if you just use the main `u.min.css` bundle. If you are building a custom bundle, you can use this file to override default tokens. Although it is **not required** as all other modules already have fallbacks built-in.
 
 > **Tip**: You can copy only specific parts of this file to override default tokens in your own CSS :root declaration. You do not need to copy the entire file.

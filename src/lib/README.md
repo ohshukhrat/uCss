@@ -19,6 +19,18 @@ This architecture allows you to:
 | **Theming** | [`/theming`](./theming/) | Visual layers: Contextual themes (`.set`), Overlays (`.o`). | Config |
 | **Utilities** | [`/utilities`](./utilities/) | Helper classes: Margin (`.mg`), Padding (`.pd`), Radius (`.rad`). | None |
 
+### Quick Import Snippets
+
+| Module | HTML Snippet (Stable) |
+| :--- | :--- |
+| **Full Bundle** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">` |
+| **Base** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/base.min.css">` |
+| **Layout** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout.min.css">` |
+| **Typography** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography.min.css">` |
+| **Components** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components.min.css">` |
+| **Theming** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/theming.min.css">` |
+| **Utilities** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/utilities.min.css">` |
+
 ## How to use parts?
 
 If you want to build a super-lightweight version of uCss without components (e.g., for a pure content site), you can import only the specific modules you need.

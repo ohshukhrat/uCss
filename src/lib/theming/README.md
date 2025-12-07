@@ -15,6 +15,14 @@ The **Theming Module** manages the visual layer of the framework. It handles col
 | `set.css` | Contextual Themes (`.set`) | [src](https://ucss.unqa.dev/stable/lib/theming/set.css) • [clean](https://ucss.unqa.dev/stable/lib/theming/set.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming/set.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming/set.css) • [clean](https://ucss.unqa.dev/latest/lib/theming/set.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming/set.min.css) |
 | `overlay.css` | Absolute Overlays (`.o`) | [src](https://ucss.unqa.dev/stable/lib/theming/overlay.css) • [clean](https://ucss.unqa.dev/stable/lib/theming/overlay.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming/overlay.min.css) | [src](https://ucss.unqa.dev/latest/lib/theming/overlay.css) • [clean](https://ucss.unqa.dev/latest/lib/theming/overlay.clean.css) • [min](https://ucss.unqa.dev/latest/lib/theming/overlay.min.css) |
 
+### HTML Copy & Paste
+
+| File | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`theming`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/theming.min.css">` |
+| `set.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/theming/set.min.css">` |
+| `overlay.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/theming/overlay.min.css">` |
+
 ---
 
 ## 1. Set (`.set`)

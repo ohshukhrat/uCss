@@ -49,3 +49,12 @@ If you want to modify uCss or build it yourself:
 1.  **Direct Import**: You can `@import` files directly from `src/` in your own build process if you use PostCSS/LightningCSS.
 2.  **Modify Variables**: Edit `src/lib/config/root.css` to change the entire look and feel (radius, primary colors, spacing scales).
 3.  **Build**: Run `npm run build` (or `./build.sh`) to generate the production-ready files in `dist/`.
+
+### CDN Reference
+
+If you just want to link to the source files as they are compiled:
+
+| File | HTML Snippet (Stable) |
+| :--- | :--- |
+| **u.css** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">` |
+| **Config** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">` |

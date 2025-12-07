@@ -16,6 +16,15 @@ The **Utilities Module** provides low-level, high-impact helper classes for spac
 | `padding.css` | Internal spacing (`.pd`) | [src](https://ucss.unqa.dev/stable/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/padding.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/padding.min.css) |
 | `radius.css` | Border radius (`.rad`) | [src](https://ucss.unqa.dev/stable/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/radius.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/radius.min.css) |
 
+### HTML Copy & Paste
+
+| File | HTML Snippet (Stable) |
+| :--- | :--- |
+| **`utilities`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/utilities.min.css">` |
+| `margin.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/utilities/margin.min.css">` |
+| `padding.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/utilities/padding.min.css">` |
+| `radius.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/utilities/radius.min.css">` |
+
 ---
 
 ## 1. Margin (`.mg`)
