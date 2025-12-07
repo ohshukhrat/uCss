@@ -16,6 +16,16 @@
 
 The **Layout Module** provides the structural foundation for your application. It includes a robust **Grid** system, a comprehensive **Flexbox** utility, and a powerful **Section** component that handles container widths and spacing automatically. All layouts are fully responsive, leveraging container queries to adapt to their parent context rather than just the viewport.
 
+### Philosophy: The Container is King
+We heavily suppress the use of `@media` queries in favor of `@container` queries.
+*   **Why?**: Media queries make assumptions about the "Fold". They assume if the screen is 1200px, you have 1200px of space. But what if your component is in a sidebar split?
+*   **The Result**: A `.g-3` (3-column grid) will naturally collapse to 2 or 1 column *if the container it is in gets too small*, regardless of the window width. You don't have to manage this manually.
+
+### Choosing the Right Tool
+*   **Use Grid (`.g`) when**: You want a 2D layout (rows AND columns). You want strict alignment. You want items to wrap onto new lines automatically with equal width.
+*   **Use Flex (`.f`) when**: You want a 1D layout (a row OR a column). You have content of varying sizes (like a navbar with a logo and links).
+*   **Use Section (`.s`) when**: You are defining the root wrapper of a page stripe.
+
 ## 📦 Installation
 
 | Bundle | Stable | Latest |

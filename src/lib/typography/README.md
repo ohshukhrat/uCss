@@ -16,6 +16,12 @@
 
 The **Typography Module** provides a comprehensive, responsive type system. It separates "semantic HTML tags" from "visual styles", allowing any element to look like a heading or body text. It relies heavily on **fluid typography** (`clamp()`) to ensure text scales perfectly from mobile to ultra-wide displays without requiring a dozen breakpoints.
 
+### Philosophy: Semantic Decoupling
+In traditional CSS, `<h1>` means "Big Text". In uCss, `<h1>` means "Top Level Heading".
+*   **The visual style** is controlled by the `.t` (Title) class.
+*   **The semantics** are controlled by the HTML tag.
+This means you can have a visually small `<h1>` (for a minor page) or a visually huge `<p>` (for a marketing slogan) without hurting SEO or Accessibility.
+
 ## 📦 Installation
 
 | Bundle | Stable | Latest |
@@ -48,6 +54,13 @@ Structural headings and display text.
 *   **Fluid Scaling**: All sizes use `clamp()` logic. A `.t` heading is smaller on mobile and automatically grows on desktop.
 *   **Tag Agnostic**: Use `.t` on `<div>`, `<span>`, or `p` to give them heading styling without affecting SEO semantics.
 *   **Smart Defaults**: Default weight is **800** (Extra Bold) for strong visual hierarchy.
+
+### The Mathematics of Clamp
+We use `clamp(min, val, max)` to generate fluid sizes.
+*   **Min**: The size on a narrow mobile phone (e.g., `2.5rem` for Medium).
+*   **Max**: The size on a wide desktop monitor (e.g., `3.5rem`).
+*   **Val**: A calculated slope (e.g., `1.5vh + 1rem`) that scales linearly between them.
+This removes the "step effect" where font size jumps suddenly at a breakpoint. It is always the perfect size for the container width.
 
 ### Sizes
 

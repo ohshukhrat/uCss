@@ -1,6 +1,6 @@
 # uCss Framework
 
-**Documentation**: [Central Hub](./src/) | [Modules](./src/#module-documentation) | [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Theming](./src/lib/theming/) | [Utilities](./src/lib/utilities/)
+**Documentation**: [Central Hub](./src/) | [Modules](./src/lib/) | [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Theming](./src/lib/theming/) | [Utilities](./src/lib/utilities/)
 
 ---
 
@@ -29,9 +29,47 @@
 
 ---
 
+## 🧠 Thinking in uCss
+uCss is not just a collection of classes; it is a system for building resilient user interfaces.
+
+### 1. Context Over Media
+Most CSS frameworks use **Media Queries** (screen size) to determine layout. uCss relies heavily on **Container Queries**.
+*   **Traditional**: "If the screen is 768px wide, make this card 50% width."
+*   **uCss**: "If I am inside a small sidebar, stack vertically. If I am in a main content area, go horizontal."
+Measurements are intrinsic to the component, not the device. This makes components **truly portable**.
+
+### 2. Variables are the API
+We don't hide values in SASS maps. We expose them as CSS Variables (`--p`, `--gap`, `--bg`).
+*   **Inheritance**: Define `--p: blue;` on a section, and every button inside becomes blue.
+*   **Runtime Control**: Change variables with JS or inline styles for instant theming.
+*   **No Build Step**: Works natively in the browser.
+
+### 3. Modularity
+You don't have to use the whole thing. The framework is split into independent modules (`layout`, `components`, `typography`, etc.) that can be mixed and matched.
+
+---
+
 ## 📦 Installation & Usage
 
-### 1. Installation (NPM)
+### 1. Quick Start (CDN)
+The easiest way to use uCss is via our edge CDN.
+
+#### **Full Framework**
+Includes everything.
+| Env | URL | Size (Min / Gz / Br) |
+| :--- | :--- | :--- |
+| **Stable** | `https://ucss.unqa.dev/stable/u.min.css` | 101KB / 14.8KB / 11.4KB |
+| **Latest** | `https://ucss.unqa.dev/latest/u.min.css` | 101KB / 14.8KB / 11.4KB |
+
+```html
+<!-- 1. Configuration (Optional) -- copy, configure and enqueue this file to your project for customizing defaults -->
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">
+
+<!-- 2. Framework -->
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
+```
+
+### 2. Installation (NPM)
 You can install uCss via npm for use in build systems or JavaScript projects.
 
 ```bash
@@ -52,24 +90,6 @@ npm install @unqa/ucss
 **Usage in JavaScript/Bundlers (Vite, Webpack, etc):**
 ```javascript
 import '@unqa/ucss'; // Imports dist/stable/u.min.css
-```
-
-### 2. Quick Start (CDN)
-The easiest way to use uCss is via our edge CDN.
-
-#### **Full Framework**
-Includes everything.
-| Env | URL | Size (Min / Gz / Br) |
-| :--- | :--- | :--- |
-| **Stable** | `https://ucss.unqa.dev/stable/u.min.css` | 101KB / 14.8KB / 11.4KB |
-| **Latest** | `https://ucss.unqa.dev/latest/u.min.css` | 101KB / 14.8KB / 11.4KB |
-
-```html
-<!-- 1. Configuration (Optional) -- copy, configure and enqueue this file to your project for customizing defaults -->
-<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">
-
-<!-- 2. Framework -->
-<link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
 ```
 
 ### 3. Modular Imports

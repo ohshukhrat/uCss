@@ -21,6 +21,12 @@ This architecture allows you to:
 2.  **Compose** your own lighter builds by cherry-picking only what you need.
 3.  **Maintain** your project easier by using semantic folders.
 
+### Philosophy: Strict Independence
+We enforce a strict dependency graph:
+*   **Upward Dependency**: `components` depend on `layout`, `layout` takes values from `config`.
+*   **No Circularity**: `base` never knows about `components`. `layout` never imports `utilities`.
+*   **Self-Contained**: Each folder in `src/lib` is effectively its own mini-package. This is why you can safely import `@unqa/ucss/layout` without dragging in button styles.
+
 ## The Modules
 
 | Module | Directory | Description | Connections |
