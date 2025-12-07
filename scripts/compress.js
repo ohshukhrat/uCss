@@ -1,6 +1,13 @@
 /**
  * @fileoverview Script to compress static assets using Gzip and Brotli.
  * Scans a directory recursively and compresses matching files in parallel.
+ * 
+ * @description Compresses CSS, JS, HTML, SVG, JSON, and XML files using both
+ * Gzip (maximum compression level) and Brotli (maximum quality) algorithms.
+ * Uses a worker pool pattern to control concurrency and avoid file descriptor limits.
+ * 
+ * @usage node scripts/compress.js <directory>
+ * @example node scripts/compress.js dist/latest
  */
 
 const fs = require('fs');
@@ -35,9 +42,12 @@ if (!targetDir) {
 
 /**
  * Recursively gets all files in a directory that match specific extensions.
- * @param {string} dirPath - The directory to search.
- * @param {string[]} [arrayOfFiles] - accumulator.
- * @returns {string[]} List of absolute file paths.
+ * @param {string} dirPath - The directory to search
+ * @param {string[]} [arrayOfFiles=[]] - Internal accumulator for recursion
+ * @returns {string[]} Array of absolute file paths that match EXTENSIONS
+ * @example
+ * const files = getAllFiles('./dist/latest');
+ * // Returns: ['/abs/path/dist/latest/u.css', '/abs/path/dist/latest/u.min.css', ...]
  */
 function getAllFiles(dirPath, arrayOfFiles) {
     let files = [];
@@ -65,9 +75,14 @@ function getAllFiles(dirPath, arrayOfFiles) {
 }
 
 /**
- * Compresses a single file using Gzip and Brotli.
- * @param {string} filePath - Path to the file to compress.
+ * Compresses a single file using Gzip and Brotli compression algorithms.
+ * Creates two output files: filename.gz and filename.br
+ * @param {string} filePath - Absolute path to the file to compress
  * @returns {Promise<void>}
+ * @throws {Error} If compression fails for either algorithm
+ * @example
+ * await compressFile('/path/to/dist/u.min.css');
+ * // Creates: /path/to/dist/u.min.css.gz and /path/to/dist/u.min.css.br
  */
 async function compressFile(filePath) {
     const originalSize = fs.statSync(filePath).size;
@@ -106,8 +121,11 @@ async function compressFile(filePath) {
 }
 
 /**
- * Main execution function.
- * Manages the worker queue for concurrency.
+ * Main execution function. Manages concurrent compression operations
+ * using a worker pool pattern to avoid EMFILE (too many open files) errors.
+ * @async
+ * @returns {Promise<void>}
+ * @throws {Error} Logs errors but continues processing remaining files
  */
 async function main() {
     console.log(`Compressing files in: ${targetDir}`);

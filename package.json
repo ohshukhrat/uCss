@@ -1,15 +1,33 @@
 {
-  "name": "ucss",
+  "name": "@unqa/ucss",
+  "description": "uCss is a modern, mobile-first, pure CSS framework designed for granular control, responsiveness, and flexibility. It leverages CSS Variables and Container Queries to provide a highly adaptable styling API without the need for complex build steps or JavaScript.",
   "version": "0.0.1",
-  "description": "uCss is a modern, mobile-first, pure CSS framework designed for granular control, responsiveness, and flexibility. It leverages **CSS Variables** and **Container Queries** to provide a highly adaptable styling API without the need for complex build steps or JavaScript.",
-  "main": "index.js",
+  "main": "dist/stable/u.min.css",
+  "style": "dist/stable/u.min.css",
+  "exports": {
+    ".": {
+      "style": "./dist/stable/u.min.css",
+      "default": "./dist/stable/u.min.css"
+    },
+    "./full": "./dist/stable/u.css",
+    "./clean": "./dist/stable/u.clean.css",
+    "./config": "./dist/stable/lib/config.css",
+    "./base": "./dist/stable/lib/base.min.css",
+    "./layout": "./dist/stable/lib/layout.min.css",
+    "./typography": "./dist/stable/lib/typography.min.css",
+    "./components": "./dist/stable/lib/components.min.css",
+    "./theming": "./dist/stable/lib/theming.min.css",
+    "./utilities": "./dist/stable/lib/utilities.min.css"
+  },
   "directories": {
     "example": "examples"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "security": "npm audit",
-    "build": "node scripts/build.js"
+    "build": "node scripts/build.js",
+    "watch": "node scripts/watch.js",
+    "prepublishOnly": "node scripts/build.js stable"
   },
   "repository": {
     "type": "git",
@@ -27,9 +45,13 @@
   "bugs": {
     "url": "https://github.com/ohshukhrat/uCss/issues"
   },
-  "homepage": "https://github.com/ohshukhrat/uCss#readme",
+  "homepage": "https://ucss.unqa.dev",
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "files": [
     "dist",

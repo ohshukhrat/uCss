@@ -1,6 +1,24 @@
 /**
  * @fileoverview Main build script for uCss. Replaces build.sh.
  * Handles bundling, minification, documentation generation, and verification.
+ * 
+ * @description This script orchestrates the complete build process:
+ * 1. Parses command-line arguments for source ref and target directory
+ * 2. Bundles CSS files by resolving @import statements recursively
+ * 3. Generates cleaned and minified versions of all CSS
+ * 4. Creates modular builds for each lib/ module
+ * 5. Renders README.md files to static HTML documentation
+ * 6. Verifies build outputs meet minimum size requirements
+ * 7. Compresses all outputs with Gzip and Brotli
+ * 8. Runs security audit
+ * 
+ * @example
+ * // Build from current working directory to 'latest' folder
+ * node scripts/build.js latest
+ * 
+ * @example
+ * // Build from specific git ref to custom output
+ * node scripts/build.js --source main stable
  */
 
 const fs = require('fs');
@@ -13,10 +31,16 @@ const PROJECT_ROOT = path.resolve(__dirname, '..');
 const SRC_DIR = path.join(PROJECT_ROOT, 'src');
 const DIST_ROOT = path.join(PROJECT_ROOT, 'dist');
 
+
 // --- Helper Functions ---
 
 /**
  * Execute a shell command and return stdout as string.
+ * @param {string} cmd - Shell command to execute
+ * @param {object} [options={}] - Options to pass to execSync
+ * @returns {string} Trimmed stdout from command, or empty string on error
+ * @example
+ * const branch = exec('git rev-parse --abbrev-ref HEAD');
  */
 function exec(cmd, options = {}) {
     try {
@@ -28,6 +52,16 @@ function exec(cmd, options = {}) {
 
 /**
  * Read file content, either from local FS or via git show if a source ref is provided.
+ * @param {string} filePath - Absolute path to the file to read
+ * @param {string} [sourceRef] - Optional git reference (branch, tag, commit) to read from
+ * @returns {string} File contents, or empty string if file doesn't exist or read fails
+ * @example
+ * // Read from local filesystem
+ * const css = readFile('/path/to/file.css');
+ * 
+ * @example
+ * // Read from git ref
+ * const css = readFile('/path/to/file.css', 'main');
  */
 function readFile(filePath, sourceRef) {
     if (sourceRef) {
@@ -51,7 +85,13 @@ function readFile(filePath, sourceRef) {
 }
 
 /**
- * Minify CSS content (ported from scripts/minify.js and scripts/clean.js)
+ * Minify CSS content by removing comments, collapsing whitespace, and removing
+ * spaces around delimiters. Ported from legacy minify.js and clean.js scripts.
+ * @param {string} css - CSS content to minify
+ * @returns {string} Minified CSS suitable for production
+ * @example
+ * const minified = minifyCss('.btn { padding: 1rem; }');
+ * // Returns: '.btn{padding:1rem;}'
  */
 function minifyCss(css) {
     return css
@@ -70,7 +110,13 @@ function minifyCss(css) {
 }
 
 /**
- * Clean CSS content (ported from scripts/clean.js)
+ * Clean CSS content by removing comments, limiting consecutive empty lines,
+ * and trimming trailing whitespace. Ported from legacy clean.js script.
+ * Preserves formatting and readability unlike minification.
+ * @param {string} css - CSS content to clean
+ * @returns {string} Cleaned CSS with preserved formatting
+ * @example
+ * const cleaned = cleanCss(cssWithComments);
  */
 function cleanCss(css) {
     return css
@@ -81,7 +127,15 @@ function cleanCss(css) {
 }
 
 /**
- * Recursively bundle CSS files (ported from scripts/bundle.js)
+ * Recursively bundle CSS files by resolving @import statements.
+ * Ported from legacy bundle.js script. Handles both lib/ absolute imports
+ * and relative imports. Detects circular dependencies.
+ * @param {string} entryFile - Absolute path to the entry CSS file
+ * @param {string} [sourceRef] - Optional git reference to read files from
+ * @returns {string} Bundled CSS content with all imports resolved
+ * @throws Will not throw, but returns error comments for circular deps or missing files
+ * @example
+ * const bundled = bundleCss('/path/to/src/u.css');
  */
 function bundleCss(entryFile, sourceRef) {
     const stack = new Set();
@@ -120,6 +174,14 @@ function bundleCss(entryFile, sourceRef) {
 
 // --- Main Execution ---
 
+/**
+ * Main build orchestration function.
+ * Parses arguments, determines output directory, builds CSS bundles,
+ * generates documentation, verifies outputs, and triggers compression.
+ * @async
+ * @returns {Promise<void>}
+ * @throws {Error} Exits process with code 1 on verification failure
+ */
 async function main() {
     // 1. Parse Arguments
     const args = process.argv.slice(2);
@@ -271,24 +333,34 @@ async function main() {
             // Custom renderer for heading IDs
             const renderer = {
                 heading(text, depth) {
-                    const escapedText = text.replace(/<[^>]*>/g, '').toLowerCase().replace(/[^\w]+/g, '-');
-                    return `<h${depth} id="${escapedText}">${text}</h${depth}>`;
+                    try {
+                        const escapedText = String(text).replace(/<[^>]*>/g, '').toLowerCase().replace(/[^\w]+/g, '-');
+                        return `<h${depth} id="${escapedText}">${text}</h${depth}>`;
+                    } catch (e) {
+                        console.error('Heading Error:', e.message, 'Text:', text);
+                        return `<h${depth}>${text}</h${depth}>`;
+                    }
                 },
                 link(href, title, text) {
-                    // Fix Root -> src/ links to point to the correct output dir (e.g. "stable/")
-                    if (mdPath === path.join(PROJECT_ROOT, 'README.md')) {
-                        if (href.startsWith('./src/') || href.startsWith('src/')) {
-                            const newHref = href.replace(/^(\.\/)?src\//, `./${outputDirName}/`);
-                            return `<a href="${newHref}"${title ? ` title="${title}"` : ''}>${text}</a>`;
+                    try {
+                        const hrefStr = String(href);
+                        // Fix Root -> src/ links to point to the correct output dir (e.g. "stable/")
+                        if (mdPath === path.join(PROJECT_ROOT, 'README.md')) {
+                            if (hrefStr.startsWith('./src/') || hrefStr.startsWith('src/')) {
+                                const newHref = hrefStr.replace(/^(\.\/)?src\//, `./${outputDirName}/`);
+                                return `<a href="${newHref}"${title ? ` title="${title}"` : ''}>${text}</a>`;
+                            }
                         }
+                        return `<a href="${hrefStr}"${title ? ` title="${title}"` : ''}>${text}</a>`;
+                    } catch (e) {
+                        return `<a href="${href}">${text}</a>`;
                     }
-                    return `<a href="${href}"${title ? ` title="${title}"` : ''}>${text}</a>`;
                 }
             };
             marked.use({ renderer });
             htmlContent = marked.parse(md, { gfm: true, breaks: false });
         } catch (e) {
-            console.error(`Error parsing markdown for ${mdPath}`);
+            console.error(`Error parsing markdown for ${mdPath}: ${e.message}`);
             return;
         }
 
@@ -299,8 +371,8 @@ async function main() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="uCss - Modern, mobile-first, pure CSS framework with zero dependencies">
     <title>${title}</title>
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.css">
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
+    <link rel="stylesheet" href="${path.relative(path.dirname(outPath), path.join(outputDir, 'lib/config.css'))}">
+    <link rel="stylesheet" href="${path.relative(path.dirname(outPath), path.join(outputDir, 'u.min.css'))}">
     <style>
         /* Minimal doc-specific styles */
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.5; color: var(--tx); }
