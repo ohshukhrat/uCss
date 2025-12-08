@@ -1,10 +1,10 @@
 /**
- * @fileoverview Script to compress static assets using Gzip and Brotli.
- * Scans a directory recursively and compresses matching files in parallel.
+ * @fileoverview Static asset compression utility.
  * 
- * @description Compresses CSS, JS, HTML, SVG, JSON, and XML files using both
- * Gzip (maximum compression level) and Brotli (maximum quality) algorithms.
- * Uses a worker pool pattern to control concurrency and avoid file descriptor limits.
+ * @description
+ * - Scans target directory recursively for compressible assets (css, js, html, svg, json, xml).
+ * - Generates side-car compressed files: `.gz` (Gzip Best) and `.br` (Brotli Max).
+ * - Uses a worker-pool pattern to process files in parallel up to CPU limit.
  * 
  * @usage node scripts/compress.js <directory>
  * @example node scripts/compress.js dist/latest

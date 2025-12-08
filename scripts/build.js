@@ -17,6 +17,11 @@
  * node scripts/build.js latest
  * 
  * @example
+ * // Build with explicit preview timestamp (used by npm run build preview)
+ * // Creates: dist/preview-YYYY-MM-DD-HH-mm-ss
+ * node scripts/build.js preview
+ *
+ * @example
  * // Build from specific git ref to custom output
  * node scripts/build.js --source main stable
  */
@@ -231,10 +236,31 @@ async function main() {
             if (branch === 'main') outputDirName = 'stable';
             else if (branch === 'dev') outputDirName = 'latest';
             else {
-                const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 16); // YYYY-MM-DD-THH-MM
-                outputDirName = `preview/${sourceRef ? sourceRef.replace(/\//g, '-') : timestamp}`;
+                // Format: preview-YYYY-MM-DD-HH-mm-ss
+                const now = new Date();
+                const yyyy = now.getFullYear();
+                const mo = String(now.getMonth() + 1).padStart(2, '0');
+                const dd = String(now.getDate()).padStart(2, '0');
+                const hh = String(now.getHours()).padStart(2, '0');
+                const mm = String(now.getMinutes()).padStart(2, '0');
+                const ss = String(now.getSeconds()).padStart(2, '0');
+                const timestamp = `${yyyy}-${mo}-${dd}-${hh}-${mm}-${ss}`;
+
+                outputDirName = `preview-${timestamp}`;
             }
         }
+    } else if (outputDirName === 'preview') {
+        // Explicit "npm run build preview"
+        const now = new Date();
+        const yyyy = now.getFullYear();
+        const mo = String(now.getMonth() + 1).padStart(2, '0');
+        const dd = String(now.getDate()).padStart(2, '0');
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+        const ss = String(now.getSeconds()).padStart(2, '0');
+        const timestamp = `${yyyy}-${mo}-${dd}-${hh}-${mm}-${ss}`;
+
+        outputDirName = `preview-${timestamp}`;
     }
 
     const outputDir = path.join(DIST_ROOT, outputDirName);

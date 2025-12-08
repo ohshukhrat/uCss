@@ -615,8 +615,27 @@ npm run build
 # Watch Mode (Rebuilds on change)
 npm run watch
 
-# Force specific target via script
+# Force specific target
+npm run build stable
+npm run build latest
+npm run build preview # Generates dist/preview-YYYY-MM-DD-HH-mm-ss
+
+# Advanced: force source ref
 ./build.sh --source main
+```
+
+### Maintenance
+You can clean up build artifacts using the `clean` script.
+
+```bash
+# Clean everything (dist/ + logs + temp files)
+npm run clean
+
+# Clean specific targets
+npm run clean dist         # Delete dist/ folder
+npm run clean stable       # Delete only dist/stable
+npm run clean latest       # Delete only dist/latest
+npm run clean preview      # Delete all dist/preview-* folders
 ```
 
 ### Deployment Strategy
@@ -626,6 +645,7 @@ Our CI/CD pipeline (GitHub Actions) automatically deploys based on branch push:
 | :--- | :--- | :--- |
 | **`main`** | `.../stable/` | **Production**. Stable releases. Verified builds. |
 | **`dev`** | `.../latest/` | **Development**. Bleeding-edge code. |
+| **`*`** (Other) | `.../preview-.../` | **Preview**. Timestamped deployments (e.g., `preview-2025-12-08...`). Auto-deleted after 7 days. |
 
 ---
 
