@@ -114,11 +114,13 @@ DirectoryIndex index.html
         ForceType text/css
         Header set Content-Encoding "br"
         Header append Vary "Accept-Encoding"
+        SetEnv no-gzip 1
     </FilesMatch>
     <FilesMatch "\.css\.gz$">
         ForceType text/css
         Header set Content-Encoding "gzip"
         Header append Vary "Accept-Encoding"
+        SetEnv no-gzip 1
     </FilesMatch>
 
     # JS
@@ -126,11 +128,13 @@ DirectoryIndex index.html
         ForceType application/javascript
         Header set Content-Encoding "br"
         Header append Vary "Accept-Encoding"
+        SetEnv no-gzip 1
     </FilesMatch>
     <FilesMatch "\.(js|mjs)\.gz$">
         ForceType application/javascript
         Header set Content-Encoding "gzip"
         Header append Vary "Accept-Encoding"
+        SetEnv no-gzip 1
     </FilesMatch>
 
     # HTML
@@ -138,11 +142,13 @@ DirectoryIndex index.html
         ForceType text/html
         Header set Content-Encoding "br"
         Header append Vary "Accept-Encoding"
+        SetEnv no-gzip 1
     </FilesMatch>
     <FilesMatch "\.html\.gz$">
         ForceType text/html
         Header set Content-Encoding "gzip"
         Header append Vary "Accept-Encoding"
+        SetEnv no-gzip 1
     </FilesMatch>
     
     # SVG
@@ -150,11 +156,13 @@ DirectoryIndex index.html
         ForceType image/svg+xml
         Header set Content-Encoding "br"
         Header append Vary "Accept-Encoding"
+        SetEnv no-gzip 1
     </FilesMatch>
     <FilesMatch "\.svg\.gz$">
         ForceType image/svg+xml
         Header set Content-Encoding "gzip"
         Header append Vary "Accept-Encoding"
+        SetEnv no-gzip 1
     </FilesMatch>
 </IfModule>
 

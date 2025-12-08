@@ -2,7 +2,7 @@ name: uCss Build & Deploy
 
 on:
   push:
-    branches: [ "main", "dev" ] # Runs on updates to main and dev
+    branches: [ "**" ] # Runs on updates to all branches
   release:
     types: [published]   # Runs when you tag a release (v1.0)
 
@@ -36,10 +36,11 @@ jobs:
             echo "local_dir=./dist/latest/" >> $GITHUB_OUTPUT
             echo "server_dir=./latest/" >> $GITHUB_OUTPUT
           else
-             TIMESTAMP=$(date +"%Y-%m-%d-%H-%M")
-            echo "build_arg=preview/$TIMESTAMP" >> $GITHUB_OUTPUT
-            echo "local_dir=./dist/" >> $GITHUB_OUTPUT
-            echo "server_dir=./preview/$TIMESTAMP/" >> $GITHUB_OUTPUT
+             # Use seconds for consistency with build.js
+             TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
+            echo "build_arg=preview-$TIMESTAMP" >> $GITHUB_OUTPUT
+            echo "local_dir=./dist/preview-$TIMESTAMP/" >> $GITHUB_OUTPUT
+            echo "server_dir=./preview-$TIMESTAMP/" >> $GITHUB_OUTPUT
           fi
 
       - name: ⬢ Setup Node
@@ -57,8 +58,15 @@ jobs:
       - name: 🏗️ Build & Optimize
         run: |
           # Run the build script with target arg
-          chmod +x build.sh
-          ./build.sh "${{ steps.target.outputs.build_arg }}"
+          node scripts/build.js "${{ steps.target.outputs.build_arg }}"
+
+      # 3. Cleanup Old Previews (Remote)
+      - name: 🧹 Cleanup Old Previews
+        run: node scripts/cleanup-remote.js
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
 
       # 4. Upload to Server
       - name: ☁️ Upload via FTP

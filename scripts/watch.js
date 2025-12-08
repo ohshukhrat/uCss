@@ -1,14 +1,13 @@
 /**
  * @fileoverview Watch mode for uCss development.
- * Monitors src/ directory for changes and triggers automatic rebuilds.
+ * Monitors source directory for changes and triggers incremental rebuilds.
  * 
- * @description Uses Node's fs.watch with recursive monitoring to detect changes
- * in source files. Implements debouncing to prevent excessive rebuilds during
- * rapid file saves. Rebuilds are triggered via child process spawn to isolate
- * build errors from the watch process.
+ * @description
+ * - Uses `fs.watch` to monitor `src/` recursively.
+ * - Implements a debouncing mechanism (300ms) to ensure atomic builds.
+ * - Spawns `scripts/build.js` in a child process to isolate build context and errors.
  * 
  * @usage npm run watch
- * @example node scripts/watch.js
  */
 
 const fs = require('fs');
