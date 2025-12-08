@@ -158,9 +158,12 @@ function bundleCss(entryFile, sourceRef) {
         }
 
         const currentDir = path.dirname(currentPath);
-        const importRegex = /@import\s+['"]([^'"]+)['"];/g;
+        // Match comments OR imports to avoid processing commented-out imports
+        const tokenRegex = /(\/\*[\s\S]*?\*\/)|(@import\s+['"]([^'"]+)['"];)/g;
 
-        const replaced = content.replace(importRegex, (match, importPath) => {
+        const replaced = content.replace(tokenRegex, (match, comment, fullImport, importPath) => {
+            if (comment) return match; // Preserve comments, do not process imports inside them
+
             let resolvedPath;
             if (importPath.startsWith('lib/')) {
                 resolvedPath = path.join(SRC_DIR, importPath);

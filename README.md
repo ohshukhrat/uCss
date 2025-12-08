@@ -621,7 +621,7 @@ npm run build latest
 npm run build preview # Generates dist/preview-YYYY-MM-DD-HH-mm-ss
 
 # Advanced: force source ref
-./build.sh --source main
+node scripts/build.js --source main
 ```
 
 ### Maintenance
@@ -651,6 +651,6 @@ Our CI/CD pipeline (GitHub Actions) automatically deploys based on branch push:
 
 ## 🤝 Contributing
 1.  Make changes in `src/lib`.
-2.  Run `./build.sh` locally to verify imports, bundling, and header generation.
+2.  Run `npm run build` locally to verify imports, bundling, and header generation.
 3.  Check `dist/stable/u.min.css` to confirm your changes are present and correct.
 4.  Push to `dev` branch.
