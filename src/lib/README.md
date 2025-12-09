@@ -4,7 +4,7 @@
 
 **Modules**: [Config](./config/) | [Base](./base/) | [Layout](./layout/) | [Theming](./theming/) | [Typography](./typography/) | [Components](./components/) | [Utilities](./utilities/)
 
-> **The Building Blocks**. The `lib` directory contains the independent modules that make up uCss. Each folder is loosely coupled and can be used on its own or as part of the full framework.
+> **Modular by Design**. uCss is composed of loosely coupled, independent modules. Use the full framework for maximum power, or cherry-pick individual folders (like `Layout` or `Typography`) to build your own lightweight custom stack.
 
 ---
 

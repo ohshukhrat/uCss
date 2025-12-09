@@ -13,6 +13,7 @@
  * @requires process.env.FTP_PASSWORD
  * 
  * @usage node scripts/cleanup-remote.js
+ * @note This script is typically run by GitHub Actions or other CI runners, not locally.
  */
 
 const ftp = require("basic-ftp");

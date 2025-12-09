@@ -4,7 +4,7 @@
 
 **Modules**: [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Theming](./src/lib/theming/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Utilities](./src/lib/utilities/)
 
-> **The Modern, Classless-ish CSS Framework**. uCss is a lightweight, property-driven framework designed for the modern web. It leverages Container Queries, Logical Properties, and CSS Variables to create resilient, portable UI components that work anywhere.
+> **The Container-First CSS Framework**. uCss is a modern, 10KB lightweight framework designed to solve component portability. It leverages **Container Queries** and **CSS Variables** to create resilient UI components that adapt to their *context*, not just the screen size. No build step required.
 
 ---
 
@@ -677,8 +677,8 @@ If you are contributing to uCss or modifying the core framework, here is an in-d
 *   **`scripts/`**: Node.js build scripts.
 *   **`dist/`**: Compiled output (Stable/Latest). **Do not edit.**
 
-### Build Processes (`build.sh` / `scripts/build.js`)
-The project uses a consolidated Node.js build system (`scripts/build.js`) which orchestrates the entire process:
+### Build Processes (`scripts/build.js`)
+The project uses a consolidated Node.js build system (`scripts/build.js`) which orchestrates the entire process. This script handles bundling, cleaning, minifying, verifying, and generating documentation.
 
 1.  **Bundling**: Recursively resolves `@import` statements to create flat files, removing build-time dependencies.
 2.  **Cleaning**: Removes comments and redundant whitespace while preserving CSS nesting and structure.
@@ -688,19 +688,17 @@ The project uses a consolidated Node.js build system (`scripts/build.js`) which 
 6.  **Documentation**: Statically renders this `README.md` into `dist/index.html`, creating a self-hosted documentation site.
 
 ```bash
-# Standard Build (Detects branch)
+# Standard Build (Auto-detects branch for target)
 npm run build
 
 # Watch Mode (Rebuilds on change)
 npm run watch
 
-# Force specific target
-npm run build stable
-npm run build latest
-npm run build preview # Generates dist/preview-YYYY-MM-DD-HH-mm-ss
-
-# Advanced: force source ref
-node scripts/build.js --source main
+# Force specific targets
+npm run build stable   # Builds to dist/stable
+npm run build latest   # Builds to dist/latest
+npm run build preview  # Builds to dist/preview-YYYY-MM-DD-HH-mm-ss
+npm run build my-test  # Builds to dist/my-test (custom safe names allowed)
 ```
 
 ### Maintenance
@@ -709,6 +707,9 @@ You can clean up build artifacts using the `clean` script.
 ```bash
 # Clean everything (dist/ + logs + temp files)
 npm run clean
+
+# Clean everything EXCEPT stable and latest
+npm run clean safe
 
 # Clean specific targets
 npm run clean dist         # Delete dist/ folder

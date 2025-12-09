@@ -4,7 +4,7 @@
 
 **Modules**: [Config](./lib/config/) | [Base](./lib/base/) | [Layout](./lib/layout/) | [Theming](./lib/theming/) | [Typography](./lib/typography/) | [Components](./lib/components/) | [Utilities](./lib/utilities/)
 
-> **The Framework Core**. The `src` directory contains the uncompiled, commented source code for uCss. This is where you work if you are contributing to the framework or building a custom bundle.
+> **Production vs Development**. For production, use the remote CDN (`ucss.unqa.dev/stable/`) or locally generated `/dist/stable` compiled files. The `/src/` directory is your development workstation for managing the compilation process and understanding the internal architecture.
 
 ---
 

@@ -12,7 +12,10 @@
  * npm run clean dist        # Deletes dist/ only
  * npm run clean stable      # Deletes dist/stable/
  * npm run clean latest      # Deletes dist/latest/
+ * npm run clean latest      # Deletes dist/latest/
+ * npm run clean latest      # Deletes dist/latest/
  * npm run clean preview     # Deletes all dist/preview-* directories
+ * npm run clean safe        # Deletes everything in dist/ EXCEPT stable and latest. Also cleans root logs.
  */
 
 const fs = require('fs');
@@ -104,9 +107,27 @@ function main() {
         return;
     }
 
+    if (mode === 'safe') {
+        // Delete everything in dist/ EXCEPT stable and latest
+        if (fs.existsSync(DIST_DIR)) {
+            const files = fs.readdirSync(DIST_DIR);
+            for (const file of files) {
+                if (file !== 'stable' && file !== 'latest') {
+                    remove(path.join(DIST_DIR, file));
+                }
+            }
+        }
+        // Also clean root artifacts
+        removePattern(PROJECT_ROOT, /\.tgz$/);
+        removePattern(PROJECT_ROOT, /\.log$/);
+        removePattern(PROJECT_ROOT, /^thumbs\.db$/i);
+        removePattern(PROJECT_ROOT, /^\.DS_Store$/);
+        return;
+    }
+
     // Fallback
     console.log(`Unknown clean target: ${mode}`);
-    console.log('Available targets: (empty), dist, stable, latest, preview');
+    console.log('Available targets: (empty), dist, stable, latest, preview, safe');
 }
 
 main();

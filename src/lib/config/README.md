@@ -4,7 +4,7 @@
 
 **Modules**: [Config](./) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
 
-> **The Central Nervous System**. Defines the CSS Variables for the entire system: colors, typography scales, spacing tokens, and layout presets.
+> **The Central Nervous System**. Defines the global design tokens—Colors, Typography, and Spacing. While strictly optional (as all modules have built-in fallbacks), this file mirrors those values, allowing you to define your entire theme from scratch by overriding them.
 
 ---
 

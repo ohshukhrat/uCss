@@ -4,7 +4,7 @@
 
 **Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](./) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
 
-> **The Paint**. Manages color palettes, dark/light modes, and contextual overrides using CSS Custom Properties and Intercepted cascades.
+> **Contextual Theming**. A revolutionary approach to theming that uses **Variable Interception** (`.set`) instead of complex selectors. Nest Dark Mode inside Light Mode inside Brand Mode infinitely—components simply inherit the current truth.
 
 ---
 

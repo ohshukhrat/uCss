@@ -4,7 +4,7 @@
 
 **Modules**: [Config](../config/) | [Base](./) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
 
-> **The Foundation**. Provides a surgical reset and tools for managing the "Content vs App" dichotomy.
+> **The Surgical Reset**. A lightweight foundation that normalizes browser inconsistencies without nuking useful defaults. Features the unique `.cs` (Content Spacing) pattern to seamlessly manage the conflict between "App Layouts" (No Margins) and "Article Content" (Rich Margins).
 
 ---
 

@@ -4,7 +4,7 @@
 
 **Modules**: [Config](../config/) | [Base](../base/) | [Layout](./) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
 
-> **The Structure**. A purely container-driven layout engine featuring smart Grids, variable Flex utilities, and self-spacing Sections.
+> **Context-Aware Layouts**. A powerful engine built on **Container Queries**. Includes a fluid Section (`.s`) wrapper, a variable-based Flexbox (`.f`) toolkit, and an Auto-Fit Grid (`.g`) system. Highly customizable and controllable per container size and property, it adapts layout based on *available space*, not viewport width.
 
 ---
 

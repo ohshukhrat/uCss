@@ -4,7 +4,7 @@
 
 **Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](./)
 
-> **The Helpers**. Low-level, high-impact utility classes for one-off adjustments to spacing, visibility, and radius.
+> **Logical Utilities**. High-impact helper classes including Spacing (`.mg`, `.pd`), Radius (`.rad`), Blur (`.blr`), and Visibility. Built strictly with **Logical Properties** (Start/End) where applicable to ensure RTL-readiness out of the box.
 
 ---
 

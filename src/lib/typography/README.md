@@ -4,7 +4,7 @@
 
 **Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](./) | [Components](../components/) | [Utilities](../utilities/)
 
-> **The Type System**. Fluid, clamp-based typography that decouples semantics (`h1`) from visual style (`.t`) for perfect responsive scaling.
+> **Fluid Typography**. A system where semantics (`h1`) and style (`.t`) are decoupled. Features smooth `clamp()`-based scaling for both Headings (`.t`) and Body Text (`.tx`), covering a massive range (from `xxl` down to `xxs+`) to ensure perfect readability on every device.
 
 ---
 

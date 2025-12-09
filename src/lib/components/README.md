@@ -4,7 +4,7 @@
 
 **Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](./) | [Utilities](../utilities/)
 
-> **The UI Toolkit**. A set of un-opinionated, composite building blocks (Cards, Buttons, Media) designed for maximum reusability.
+> **Composite Primitives**. A collection of robust UI shells. Features **Buttons** (`.btn`) with extensive sizes and variants, and **Cards** (`.crd`) built with BEM-like slots and Subgrid capabilities for deep composition.
 
 ---
 

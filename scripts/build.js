@@ -22,6 +22,11 @@
  * node scripts/build.js preview
  *
  * @example
+ * // Build with custom safe name (e.g. for testing features)
+ * // Creates: dist/my-feature-branch
+ * node scripts/build.js my-feature-branch
+ *
+ * @example
  * // Build from specific git ref to custom output
  * node scripts/build.js --source main stable
  */
@@ -252,18 +257,30 @@ async function main() {
                 outputDirName = `preview-${timestamp}`;
             }
         }
-    } else if (outputDirName === 'preview') {
-        // Explicit "npm run build preview"
-        const now = new Date();
-        const yyyy = now.getFullYear();
-        const mo = String(now.getMonth() + 1).padStart(2, '0');
-        const dd = String(now.getDate()).padStart(2, '0');
-        const hh = String(now.getHours()).padStart(2, '0');
-        const mm = String(now.getMinutes()).padStart(2, '0');
-        const ss = String(now.getSeconds()).padStart(2, '0');
-        const timestamp = `${yyyy}-${mo}-${dd}-${hh}-${mm}-${ss}`;
+    } else {
+        // User provided logic
+        if (outputDirName === 'preview') {
+            // Explicit "npm run build preview"
+            const now = new Date();
+            const yyyy = now.getFullYear();
+            const mo = String(now.getMonth() + 1).padStart(2, '0');
+            const dd = String(now.getDate()).padStart(2, '0');
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            const ss = String(now.getSeconds()).padStart(2, '0');
+            const timestamp = `${yyyy}-${mo}-${dd}-${hh}-${mm}-${ss}`;
 
-        outputDirName = `preview-${timestamp}`;
+            outputDirName = `preview-${timestamp}`;
+        } else if (outputDirName !== 'stable' && outputDirName !== 'latest') {
+            // Custom target validation
+            const validNameRegex = /^[a-zA-Z0-9-_]+$/;
+            if (!validNameRegex.test(outputDirName)) {
+                console.error(`❌ ERROR: Invalid build target name "${outputDirName}".`);
+                console.error('   Allowed characters: a-z, A-Z, 0-9, -, _');
+                process.exit(1);
+            }
+            // Logic: we trust the user's custom name if it passes regex
+        }
     }
 
     const outputDir = path.join(DIST_ROOT, outputDirName);
