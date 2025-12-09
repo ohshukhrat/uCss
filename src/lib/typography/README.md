@@ -45,6 +45,10 @@ This means you can have a visually small `<h1>` (for a minor page) or a visually
 | `text.css` | Body Text (`.tx`) | [src](https://ucss.unqa.dev/stable/lib/typography/text.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text.min.css) |
 | `text-align.css` | Alignment (`.ta`) | [src](https://ucss.unqa.dev/stable/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text-align.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text-align.min.css) |
 
+
+> [!TIP]
+> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
+
 ### HTML Copy & Paste
 
 | File | HTML Snippet (Stable) |

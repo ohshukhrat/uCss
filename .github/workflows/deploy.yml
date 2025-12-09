@@ -48,9 +48,18 @@ jobs:
         with:
           node-version: '20'
 
-      # Install dependencies (marked package for render-docs.js)
+      - name: ♻️ Cache Node Modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-
+
       - name: 📦 Install Dependencies
-        run: npm install
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm ci
 
 
 
@@ -59,6 +68,11 @@ jobs:
         run: |
           # Run the build script with target arg
           node scripts/build.js "${{ steps.target.outputs.build_arg }}"
+
+          # If main branch (stable), also build prefixed version (dist/p)
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            node scripts/build.js p
+          fi
 
       # 3. Cleanup Old Previews (Remote)
       - name: 🧹 Cleanup Old Previews

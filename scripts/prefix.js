@@ -1,0 +1,64 @@
+/**
+ * @fileoverview CSS Prefixing Utility
+ * A robust Regex-based tool to encapsulate CSS by prefixing classes and variables.
+ * 
+ * STRATEGY:
+ * 1. Mask comments and strings to prevent false positives.
+ * 2. Regex replace classes and variables on the "safe" content.
+ * 3. Unmask original comments and strings.
+ */
+
+/**
+ * Prefixes CSS classes and variables.
+ * @param {string} css - The raw CSS content.
+ * @param {'p'|'c'|'v'} mode - Mode: 'p' (all), 'c' (classes), 'v' (variables).
+ * @param {string} prefix - The prefix string (e.g., 'unqa', 'ucss').
+ * @returns {string} The prefixed CSS.
+ */
+function prefixCss(css, mode = 'p', prefix = 'ucss') {
+    // 0. Normalization
+    const p = prefix.endsWith('-') ? prefix : `${prefix}-`;
+    const classPrefix = `.${p}`;
+    const varPrefix = `--${p}`;
+
+    // 1. Masking (preserve strings and comments)
+    const store = [];
+    const maskToken = (content) => {
+        store.push(content);
+        return `___MASK_${store.length - 1}___`;
+    };
+
+    let safeCss = css
+        // Mask Comments /* ... */
+        .replace(/\/\*[\s\S]*?\*\//g, maskToken)
+        // Mask Strings "..." or '...'
+        .replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, maskToken);
+
+    // 2. Variable Prefixing
+    // Matches: --variable-name
+    // Excludes: --theme-*, --u-*, --ucss-* --wp-*, --block-*, --editor-* (and exact matches)
+    if (mode === 'p' || mode === 'v') {
+        safeCss = safeCss.replace(/--(?!(theme|u|ucss|wp|block|editor)(?:-|$))([\w-]+)/g, (match, restricted, varName) => {
+            // If we somehow matched a restricted one incorrectly, safely return (though regex shouldn't)
+            return `${varPrefix}${varName}`;
+        });
+    }
+
+    // 3. Class Prefixing
+    // Matches: .classname
+    // Excludes: .wp-*, .block-*, .editor-* (and exact matches)
+    if (mode === 'p' || mode === 'c') {
+        safeCss = safeCss.replace(/\.([a-zA-Z_][\w-]*)/g, (match, className) => {
+            // Check for exclusions
+            if (/^(wp|block|editor)(?:-|$)/.test(className)) {
+                return match;
+            }
+            return `${classPrefix}${className}`;
+        });
+    }
+
+    // 4. Unmasking
+    return safeCss.replace(/___MASK_(\d+)___/g, (_, id) => store[Number(id)]);
+}
+
+module.exports = { prefixCss };

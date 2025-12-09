@@ -39,6 +39,10 @@ In modern web dev, "Cascading" is often treated as a bug to be avoided (hence St
 | **`set.css`** | ~14KB | ~13KB | ~12KB | ~1.9KB | ~1.6KB | [src](https://ucss.unqa.dev/stable/lib/theming/set.css) • [clean](https://ucss.unqa.dev/stable/lib/theming/set.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming/set.min.css) |
 | **`overlay.css`** | ~3.2KB | ~2.3KB | ~1.9KB | ~0.6KB | ~0.5KB | [src](https://ucss.unqa.dev/stable/lib/theming/overlay.css) • [clean](https://ucss.unqa.dev/stable/lib/theming/overlay.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming/overlay.min.css) |
 
+
+> [!TIP]
+> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
+
 ### HTML Copy & Paste
 | File | HTML Snippet (Stable) |
 | :--- | :--- |

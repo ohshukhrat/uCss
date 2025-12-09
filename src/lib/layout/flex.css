@@ -16,8 +16,9 @@
 :where(.f, .col, .row) {
   display: var(--f-d, flex);
   flex-direction:
-    var(--f-fd--sm,
-      var(--f-fd));
+    var(--flex-direction,
+      var(--f-fd--sm,
+        var(--f-fd)));
 
   column-gap:
     var(--f-col-gap--sm,

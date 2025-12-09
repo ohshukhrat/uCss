@@ -54,6 +54,10 @@ We mostly use **Logical Properties** (start/end) instead of **Physical Propertie
 | `padding.css` | Internal spacing (`.pd`) | [src](https://ucss.unqa.dev/stable/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/padding.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/padding.min.css) |
 | `radius.css` | Border radius (`.rad`) | [src](https://ucss.unqa.dev/stable/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/radius.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/radius.min.css) |
 
+
+> [!TIP]
+> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
+
 ### HTML Copy & Paste
 
 | File | HTML Snippet (Stable) |

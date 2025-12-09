@@ -45,6 +45,10 @@ This makes the framework infinitely scalable without bloating the codebase with 
 | **`media.css`** | ~3.7KB | ~3.0KB | ~2.5KB | ~0.7KB | ~0.6KB | [src](https://ucss.unqa.dev/stable/lib/components/media.css) • [clean](https://ucss.unqa.dev/stable/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/media.min.css) |
 | **`link.css`** | ~1.4KB | ~0.8KB | ~0.7KB | ~0.3KB | ~0.3KB | [src](https://ucss.unqa.dev/stable/lib/components/link.css) • [clean](https://ucss.unqa.dev/stable/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/link.min.css) |
 
+
+> [!TIP]
+> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
+
 ### HTML Copy & Paste
 
 | File | HTML Snippet (Stable) |

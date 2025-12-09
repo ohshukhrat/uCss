@@ -289,7 +289,8 @@ Core resets and normalizers.
 
 | File | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `clear.css` | [src](https://ucss.unqa.dev/stable/lib/base/clear.css) • [clean](https://ucss.unqa.dev/stable/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/clear.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/clear.css) • [clean](https://ucss.unqa.dev/latest/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/clear.min.css) | 2.1KB / 1.3KB / 0.9KB / 0.3KB / 0.3KB | **Global Reset**. Removes default spacing from headings/lists (`.cl`) and normalizes content spacing (`.cs`). |
+| `content.css` | [src](https://ucss.unqa.dev/stable/lib/base/content.css) • [clean](https://ucss.unqa.dev/stable/lib/base/content.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/content.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/content.css) • [clean](https://ucss.unqa.dev/latest/lib/base/content.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/content.min.css) | 2.1KB / 1.3KB / 0.9KB / 0.3KB / 0.3KB | **Content Controller**. Toggles flow variables ("App Mode" `.cs` vs "Content Mode" `.csc`). |
+| `html.css` | [src](https://ucss.unqa.dev/stable/lib/base/html.css) • [clean](https://ucss.unqa.dev/stable/lib/base/html.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/html.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/html.css) • [clean](https://ucss.unqa.dev/latest/lib/base/html.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/html.min.css) | 8KB / 6KB / 4KB / 1KB / 1KB | **Smart Flow Engine**. Global Reset + Smart vertical rhythm using `* + *` logic. |
 
 ---
 
@@ -699,7 +700,33 @@ npm run build stable   # Builds to dist/stable
 npm run build latest   # Builds to dist/latest
 npm run build preview  # Builds to dist/preview-YYYY-MM-DD-HH-mm-ss
 npm run build my-test  # Builds to dist/my-test (custom safe names allowed)
+
+# Full Release Build (Latest + Prefixed + Stable)
+npm run build full     # Builds /dist/latest/, /dist/p/, and /dist/stable/ in sequence
+
+
+# Encapsulation & Prefixing (New)
+uCss supports automatic prefixing for variables and classes, useful for avoiding conflicts or for branding.
+
+# 1. Prefix All (Classes & Vars)
+npm run build p           # Builds to dist/p/ (Prefix: .u-..., --u-...)
+npm run build p myprefix  # Builds to dist/p/ (Prefix: .myprefix-..., --myprefix-...)
+
+# 2. Prefix Classes Only
+npm run build c           # Builds to dist/c/ (Prefix: .u-...)
+
+# 3. Prefix Variables Only
+npm run build v           # Builds to dist/v/ (Prefix: --u-...)
+
+# 4. Custom Target + Prefix
+npm run build custom-folder p unqa  # Builds to dist/custom-folder/ with "unqa" prefix
 ```
+
+### Encapsulation Logic
+The prefixer uses a robust Regex logic (masking strings/comments first) and intelligently **excludes** core namespaces to prevent breakage:
+- **Excluded Classes**: `.wp-*`, `.block-*`, `.editor-*` (WordPress compatibility).
+- **Excluded Variables**: `--theme-*`, `--wp-*`, `--block-*`.
+
 
 ### Maintenance
 You can clean up build artifacts using the `clean` script.
@@ -723,7 +750,9 @@ Our CI/CD pipeline (GitHub Actions) automatically deploys based on branch push:
 
 | Branch | Output URL | Configuration |
 | :--- | :--- | :--- |
-| **`main`** | `.../stable/` | **Production**. Stable releases. Verified builds. |
+| Branch | Output URL | Configuration |
+| :--- | :--- | :--- |
+| **`main`** | `.../stable/` & `.../p/` | **Production**. Stable release (root) + Encapsulated build (`/p/`). |
 | **`dev`** | `.../latest/` | **Development**. Bleeding-edge code. |
 | **`*`** (Other) | `.../preview-.../` | **Preview**. Timestamped deployments (e.g., `preview-2025-12-08...`). Auto-deleted after 7 days. |
 

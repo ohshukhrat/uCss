@@ -132,7 +132,8 @@ The single source of truth. Contains **Design Tokens** for:
 *   **Layout**: `--sc-max-w` (Max width), `--gap`.
 
 ### [Base](./lib/base/)
-*   **`clear.css`**: Surgical reset. Removes default margins with `.cs` (Clean Spacing) class, with possibility to re-introduce nested content sections with `.csc` (Clean Spacing > Content) class. Use for design / app layouts with content sections that need to be nested in a design container. Removes ul and li default margin/padding/list-style with `.cl` (Clean List) class.
+*   **`html.css`**: The Engine. Resets browser defaults and implements "Smart Flow" logic (`* + *`) to provide natural vertical rhythm for naked HTML elements using CSS variables.
+*   **`content.css`**: The Controller. Provides `.cs` (App Mode) to kill flow variables for layouts, and `.csc` (Content Mode) to restore them for prose. Also includes `.cl` (Clear List).
 
 ### [Layout](./lib/layout/)
 *   **`section.css` (`.s`)**: The root container. Handles responsive padding and max-width constraints (`1366px` default).
@@ -171,6 +172,7 @@ We use a **Node.js-based build system** (`scripts/build.js`) instead of a comple
 
 ### 2. Commands
 *   **`npm run build`**: Builds `src/` -> `dist/stable/` (or `latest` depending on branch).
+*   **`npm run build full`**: Builds all release channels (`latest`, `prefixed`, `stable`) sequentially.
 *   **`./build.sh`**: Legacy shell wrapper (optional).
 
 ### 3. Release Channels

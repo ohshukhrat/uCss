@@ -70,21 +70,21 @@
 }
 
 :where(.rad.l, .rad--l) {
-    --rad: var(--rad-l, 1em);
+    --rad: var(--rad-l, 0.75em);
 }
 
 :where(.rad.xl, .rad--xl) {
-    --rad: var(--rad-xl, 1.5em);
+    --rad: var(--rad-xl, 1em);
 }
 
 :where(.rad.xxl, .rad--xxl, .rad--2xl) {
-    --rad: var(--rad-xxl, 2em);
+    --rad: var(--rad-xxl, 1.5em);
 }
 
 :where(.rad.xxxl, .rad--xxxl, .rad--3xl) {
-    --rad: var(--rad-xxxl, 3em);
+    --rad: var(--rad-xxxl, 2.5em);
 }
 
 :where(.rad.rd, .rad--rd, .rad.full, .rad--full) {
-    --rad: 640em;
+    --rad: var(--rad-rd, var(--rad-full, 100vw));
 }

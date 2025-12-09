@@ -1,14 +1,48 @@
 /**
- * @fileoverview Static asset compression utility.
+ * @fileoverview Static Asset Compression Utility
  * 
  * @description
- * - Scans target directory recursively for compressible assets (css, js, html, svg, json, xml).
- * - Generates side-car compressed files: `.gz` (Gzip Best) and `.br` (Brotli Max).
- * - Uses a worker-pool pattern to process files in parallel up to CPU limit.
+ * This script is responsible for generating the pre-compressed variants of our static assets.
+ * In a modern web stack, serving raw CSS/HTML is inefficient. We want to serve:
+ * - Brotli (.br) for modern browsers (approx 20% smaller than Gzip)
+ * - Gzip (.gz) for older compatible clients
+ * - Raw files as a fallback
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * ⚙️ TECHNICAL IMPLEMENTATION
+ * ---------------------------------------------------------------------------------------------
+ * 
+ * 1. SIDE-CAR ASSETS
+ *    We do not modify the original file. We create "side-cars".
+ *    `u.min.css` -> `u.min.css.br` + `u.min.css.gz`
+ *    This allows the web server (Apache/Nginx/Caddy) to pick the best file based on the
+ *    `Accept-Encoding` request header using the `MultiViews` or `gzip_static` modules.
+ * 
+ * 2. PARALLELISM WITH BACKPRESSURE
+ *    Compression is CPU intensive. If we naively fired off 1000 promises for 1000 files,
+ *    we would crash the process or run out of file descriptors (EMFILE error).
+ * 
+ *    SOLUTION: A "Worker Pool" pattern.
+ *    - We default to `os.cpus().length` concurrency.
+ *    - We only start a new compression job when one finishes.
+ * 
+ * 3. ALGORITHMS
+ *    - Brotli: We use `BROTLI_MAX_QUALITY` (Level 11). It's slow to compress but max decompression speed.
+ *      Since we compress at build time (once), we can afford the CPU cycle cost.
+ *    - Gzip: We use `Z_BEST_COMPRESSION` (Level 9).
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * 🚀 USAGE
+ * ---------------------------------------------------------------------------------------------
  * 
  * @usage node scripts/compress.js <directory>
- * @example node scripts/compress.js dist/latest
- * @note This script is automatically called by build.js but can be run manually to re-compress assets.
+ * 
+ * @example
+ * // Compress everything in dist/latest
+ * node scripts/compress.js dist/latest
+ * 
+ * @note This script is automatically invoked by `scripts/build.js` at the end of the build process.
+ * You rarely need to run it manually unless testing compression ratios.
  */
 
 const fs = require('fs');

@@ -97,6 +97,8 @@
    * @group Theming: Outlines
    * Default border colors.
    */
+
+  /* Outlines */
   --out: var(--alt-lt, var(--theme-palette-color-5, currentColor));
   --out-p: var(--p, var(--theme-palette-color-1, #eec14c));
   --out-a: var(--a, var(--theme-palette-color-2, #ffb900));
@@ -104,6 +106,17 @@
   --out-l: var(--l, var(--theme-palette-color-7, #f5f5f5));
   --out-sec: var(--sec, var(--theme-palette-color-23, hsl(200 19% 18%)));
   --out-ter: var(--ter, var(--theme-palette-color-24, hsl(40 33% 93%)));
+
+  /**
+   * @group Theming: Borders (Widths)
+   * Global border width scale.
+   */
+
+  --bd-w: .0625rem;
+  --bd-w--s: .0625rem;
+  --bd-w--m: .125rem;
+  --bd-w--l: .25rem;
+  --border-width: var(--bd-w--m, .125rem);
 
   /**
    * @group Theming: Alphas
@@ -344,11 +357,45 @@
   --tx-fw: 400;
 
   /* Text Line-heights */
+  /* Text Line-heights */
   --tx-lh-xl: 1.5;
   --tx-lh-l: 1.375;
   --tx-lh-m: 1.25;
   --tx-lh-s: 1.125;
   --tx-lh-xs: 1;
+
+  /**
+   * @group Configuration: Elements (html.css)
+   * Specific variable mappings for HTML elements.
+   */
+
+  /* Blockquotes */
+  --bq-bd-w: var(--bd-w--l, 4px);
+  --bq-bd-c: var(--p, currentColor);
+  --bq-pd: 1.5em;
+
+  /* Code / KBD */
+  --code-bg: var(--srf, #eee);
+  --code-tx: var(--t, #000);
+  --code-rad: var(--rad-xs, 0.25em);
+
+  /* Preformatted */
+  --pre-bg: var(--d, #222);
+  --pre-tx: var(--l, #fff);
+  --pre-pd: var(--gap, 1.5rem);
+
+  /* Tables */
+  --tbl-bd-w: var(--bd-w, 1px);
+  --tbl-bd-c: var(--out, #ccc);
+  --tbl-pd: .75em;
+  --tbl-bg-head: var(--srf, #eee);
+  --tbl-bg-hover: var(--srf, #fafafa);
+
+  /* Horizontal Rule */
+  --hr-h: 1px;
+  --hr-c: var(--out, #ccc);
+  --hr-m: 2.5rem;
+
 
 
   /* ==========================================================================
@@ -371,7 +418,7 @@
 
   --s-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
   --s-pb: clamp(4rem, 3.059vw + 3.388rem, 6rem);
-  --s-pi: 5%;
+  --s-pi: var(--pdw--m, 5%);
   --sc-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
 
   /* Section Container Header Max Widths (.s > * > (.s_h, .s_hw, .s_hn)) Variants */
@@ -526,12 +573,69 @@
      ========================================================================== */
 
   /**
+   * @group Utilities: Spacing / Presets
+   * Shared spacing scale for padding and margin.
+   * --sp-*: Standard fluid spacing (clamp).
+   * --spe-*: Edge/Inline spacing (percentages).
+   */
+
+  /* Fluid Spacing Scale */
+  --sp--xxxl: clamp(6rem, 3.059vw + 5.388rem, 8rem);
+  --sp--xxl: clamp(4rem, 3.059vw + 3.388rem, 6rem);
+  --sp--xl: clamp(3rem, 1.53vw + 2.694rem, 4rem);
+  --sp--l: clamp(2.5rem, 0.765vw + 2.347rem, 3rem);
+  --sp--m: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
+  --sp--s: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
+  --sp--xs: clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem);
+  --sp--xxs: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
+
+  /* Percentage Spacing Scale (Edges) */
+  --spe--l: 7%;
+  --spe--m: 5%;
+  --spe--s: 3%;
+
+  /**
    * @group Utilities: Base
    * General spacing and radius defaults.
    */
   --gap: 1.5rem;
-  --rad: 0.5em;
 
+  --rad: 0.5em;
+  --rad-xs: 0.25em;
+  --rad-s: 0.375em;
+  --rad-m: 0.625em;
+  --rad-l: 0.75em;
+  --rad-xl: 1em;
+  --rad-xxl: 1.5em;
+  --rad-xxxl: 2.5em;
+  --rad-full: 100vw;
+
+  /**
+   * @group Configuration: Flow Spacing (Vertical Rhythm)
+   * Spacing grades for vertical rhythm between content elements.
+   */
+  --flow-s: 1em;
+  /* Standard flow (p, ul, ol) */
+  --flow-xs: 0.5em;
+  /* Tight flow (li, small headers) */
+  --flow-l: 1.5em;
+  /* Loose flow (section breaks, large headers) */
+
+  /**
+   * @group Configuration: Element Flow Mapping
+   * Mapping specific elements to flow grades.
+   */
+  --p-flow: var(--flow-s, 1em);
+  /* Paragraphs */
+  --list-flow: var(--flow-s, 1em);
+  /* Lists (ul, ol) */
+  --li-flow: var(--flow-xs, 0.5em);
+  /* List Items */
+
+  --t-flow-s: var(--flow-l, 1.5em);
+  /* Heading Block Start */
+  --t-flow-e: var(--flow-xs, 0.5em);
+  /* Heading Block End */
 }
 
 /* ==========================================================================

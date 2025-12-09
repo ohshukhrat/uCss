@@ -73,17 +73,27 @@ The `root.css` file is not a random list of variables. It is generated from the 
 *   **Groups** (e.g., `Palette`, `Typography`): Correspond to individual CSS files within those directories.
 *   **Benefit**: This makes `root.css` "Self-Documenting". If you are looking for card variables, you scroll to the "Components" section.
 
-### 2. The Color System & Naming
-uCss uses **Short Variables** mapped to **Bridge Variables** mapped to **Fallbacks**.
+> [!TIP]
+> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
+
+### 2. Deep Dive: How it Works
+uCss uses **Short Variables** mapped to **Bridge Variables** mapped to **Fallbacks**. We also split colors into H/S/L channels to support alpha transparency.
 
 #### Variable Logic
 ```css
-/* --[Short Name]: var(--[Bridge Name], [Fallback Value]); */
---p: var(--theme-palette-color-1, hsl(43 83% 62%));
+/* 1. Define Channels for Alpha Support */
+--p-h: 43;
+--p-s: 83%;
+--p-l: 62%;
+
+/* 2. Define the Variable (Short -> Bridge -> Fallback) */
+/* --[Short]: var(--[Bridge], hsl(var(--[H]) var(--[S]) var(--[L]))); */
+--p: var(--theme-palette-color-1, hsl(var(--p-h) var(--p-s) var(--p-l)));
 ```
+
 *   **`--p` (Primary)**: The variable you use in your app. Short, easy to type.
 *   **`--theme-palette-color-1`**: The "Bridge". This is the variable name used by the **Blocksy** WordPress theme. If Blocksy is present, uCss automagically adopts its Primary color.
-*   **`hsl(...)`**: The default fallback if no theme is present.
+*   **`hsl(...)`**: The default fallback if no theme is present. We use the split H/S/L channels so we can also generate `--op` (Overlay Primary) with opacity: `hsl(... / .64)`.
 
 #### Naming Convention
 We favor concise, logical abbreviations over verbose names to keep CSS payloads small and developer typing speed high.
@@ -191,7 +201,20 @@ Grid and Section defaults.
 
 ---
 
-### 5. Components & Utilities
+### 5. Flow Spacing (Vertical Rhythm)
+Variables that control the "Smart Flow" logic defined in `html.css`.
+
+| Variable | Description | Value |
+| :--- | :--- | :--- |
+| **`--flow-s`** | **Standard** Flow | `1em` (Paragraphs, List containers) |
+| **`--flow-xs`** | **Tight** Flow | `0.5em` (List items, Text-Heading connection) |
+| **`--flow-l`** | **Loose** Flow | `1.5em` (Heading top margin) |
+| **`--p-flow`** | Paragraph Gap | `var(--flow-s)` |
+| **`--list-flow`** | List Gap | `var(--flow-s)` |
+
+---
+
+### 6. Components & Utilities
 Component-specific defaults.
 
 | Component | Variable | Description |
