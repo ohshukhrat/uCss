@@ -2,9 +2,11 @@
  * @file HTML Reset & Defaults
  * @description Global element normalization. 
  * Connects "naked" HTML tags to the design system variables defined in config.css.
- * * @usage
+ * Now powered by "Smart Flow" variables for perfect vertical rhythm.
+ * 
+ * @usage
  * Load after config.css.
- * All selectors use :where() to maintain 0 specificity, allowing u.css classes to override easily.
+ * All selectors use :where() to maintain 0 specificity.
  */
 
 /* ==========================================================================
@@ -16,12 +18,10 @@
 :where(*::after) {
     box-sizing: border-box;
     background-repeat: no-repeat;
-    /* Fix for flexbox/grid overflow issues */
     min-width: 0;
 }
 
 :where(html) {
-    /* Respect user system preference for motion */
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     -moz-tab-size: 4;
@@ -39,27 +39,23 @@
    ========================================================================== */
 
 :where(body) {
-    /* Mapping: Uses --bg (Background) and --tx (Text) from config.css */
     background-color: var(--bg, #ffffff);
     color: var(--tx, #000000);
 
-    /* Typography Defaults via config.css variables */
     font-family: var(--tx-font-fam, system-ui, -apple-system, sans-serif);
     font-size: var(--body-font-size, var(--body-fs, var(--tx-fs, var(--tx-fs--s, 1rem))));
-    /* Default to medium fluid scale */
     line-height: var(--tx-lh, 1.5);
     font-weight: var(--tx-fw, 400);
 
     margin: 0;
     padding: 0;
 
-    /* Smooth font rendering */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 /* ==========================================================================
-   3. TYPOGRAPHY
+   3. TYPOGRAPHY & SMART FLOW
    ========================================================================== */
 
 /* Headings: Map to --t (Title) variables */
@@ -68,13 +64,13 @@
     font-family: var(--t-font-fam, inherit);
     font-weight: var(--t-fw--m, 700);
     line-height: var(--t-lh, 1.1);
-    margin-block-start: 1.5em;
-    margin-block-end: 0.5em;
-    /* Modern nicer wrapping */
     text-wrap: balance;
+
+    /* Remove default margins, handled by flow */
+    margin-block: 0;
 }
 
-/* Specific Sizes mapping to your fluid scale in config.css */
+/* Specific Sizes */
 :where(h1) {
     font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--m, var(--t-fs, var(--t-fs--m, 3rem)))));
 }
@@ -101,10 +97,8 @@
 
 /* Paragraphs & Text */
 :where(p) {
-    margin-block-start: 0;
-    margin-block-end: var(--flow-spacing, 1em);
+    margin-block: 0;
     max-width: var(--flow-max-width, 65ch);
-    /* Optimal reading length */
 }
 
 :where(small) {
@@ -114,13 +108,39 @@
 :where(b, strong) {
     font-weight: 700;
     color: var(--t, currentColor);
-    /* Bold text subtly darker/bolder color */
 }
 
-/* Links: Map to --p (Primary) and --a (Accent) */
+/* --- SMART FLOW LOGIC (The Engine) --- */
+
+/* 1. Standard Flow (Paragraphs, Lists) */
+:where(p, ul, ol, blockquote, figure, pre, table)+ :where(p, ul, ol, blockquote, figure, pre, table) {
+    margin-block-start: var(--p-flow, 1em);
+}
+
+/* 2. Heading Flow */
+/* Space BEFORE headings (if not first child) */
+:where(*:not(h1, h2, h3, h4, h5, h6))+ :where(h1, h2, h3, h4, h5, h6) {
+    margin-block-start: var(--t-flow-s, 1.5em);
+}
+
+/* Space AFTER headings (connecting to text) */
+:where(h1, h2, h3, h4, h5, h6)+ :where(p, ul, ol, blockquote, figure, pre, table) {
+    margin-block-start: var(--t-flow-e, 0.5em);
+}
+
+/* 3. List Item Flow */
+:where(li)+ :where(li) {
+    margin-block-start: var(--li-flow, 0.5em);
+}
+
+/* 4. Button/Link After Flow */
+:where(p)+ :where(a, button, .btn) {
+    margin-block-start: var(--p-flow, 1em);
+}
+
+/* Links */
 :where(a) {
     color: var(--alt--bd, var(--p, #eec14c));
-    text-decoration-skip-ink: auto;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
@@ -133,33 +153,30 @@
 
 /* Inline Code */
 :where(code, kbd, samp) {
-    font-family: var(--mono-font, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace);
+    font-family: var(--mono-font, monospace);
     font-size: 0.9em;
     padding: 0.1em 0.3em;
     border-radius: var(--rad-xs, 0.25em);
     background-color: var(--srf, #eee);
-    /* Uses Surface color */
     color: var(--t, #000);
 }
 
 /* Preformatted blocks */
 :where(pre) {
     background-color: var(--d, #222);
-    /* Dark background */
     color: var(--l, #fff);
-    /* Light text */
     padding: var(--gap, 1.5rem);
     border-radius: var(--rad, 0.5rem);
     overflow-x: auto;
-    margin-block: 1.5em;
     font-family: var(--mono-font, monospace);
     font-size: 0.9em;
+    /* Margin handled by Smart Flow */
+    margin-block: 0;
 }
 
 :where(hr) {
     border: none;
     border-block-start: 1px solid var(--out, #ccc);
-    /* Uses Outline color */
     margin-block: 2.5rem;
 }
 
@@ -170,6 +187,8 @@
     padding-block: .5em;
     font-style: italic;
     color: var(--alt-bd, currentColor);
+    /* Margin handled by Smart Flow */
+    margin-block: 0;
 }
 
 /* Selection Color */
@@ -187,11 +206,9 @@
     max-width: 100%;
     height: auto;
     font-style: italic;
-    /* For alt text */
     shape-margin: 1rem;
 }
 
-/* Map specific media background to surface color to prevent jarring loads */
 :where(img) {
     background-color: var(--srf, transparent);
 }
@@ -202,49 +219,42 @@
 
 :where(ul, ol) {
     padding-inline-start: 1.5em;
-    margin-block: 1em;
+    margin-block: 0;
+    /* Handled by Smart Flow */
 }
 
 :where(li) {
-    margin-block-end: 0.5em;
+    margin-block-end: 0;
+    /* Handled by Smart Flow */
 }
 
-/* Make markers inherit brand color */
 :where(li::marker) {
     color: var(--p, currentColor);
     font-weight: bold;
 }
 
 /* ==========================================================================
-   6. FORMS (THE MISSING PIECE)
+   6. FORMS
    ========================================================================== */
 
-/* Normalize inputs to inherit font styles */
 :where(input, button, textarea, select) {
     font: inherit;
     color: inherit;
     letter-spacing: inherit;
 }
 
-/* Standard Input Styling */
 :where(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"]), select, textarea) {
     display: block;
     width: 100%;
     padding: 0.625em 1em;
-
-    /* Use Surface for background, Outline for border */
     background-color: var(--srf, #f5f5f5);
     border: 1px solid var(--out, #ccc);
     border-radius: calc(var(--rad, 0.25rem) / 4);
-
     color: var(--tx, #000);
     caret-color: var(--p, currentColor);
-    /* Brand color cursor */
-
     transition: border-color var(--trans-d, 0.2s), box-shadow var(--trans-d, 0.2s);
 }
 
-/* Focus State using Brand Colors */
 :where(input:focus, select:focus, textarea:focus) {
     outline: none;
     border-color: var(--p, #eec14c);
@@ -263,7 +273,6 @@
     color: var(--t, #000);
 }
 
-/* Checkboxes & Radios (Simple Accent) */
 :where(input[type="checkbox"], input[type="radio"]) {
     accent-color: var(--p, #eec14c);
     width: 1.25em;
@@ -280,8 +289,9 @@
 :where(table) {
     width: 100%;
     border-collapse: collapse;
-    margin-block: 1.5em;
     caption-side: bottom;
+    margin-block: 0;
+    /* Handled by Smart Flow */
 }
 
 :where(th) {
@@ -300,14 +310,12 @@
 
 :where(tr:hover td) {
     background-color: var(--srf, #fafafa);
-    /* Subtle hover effect */
 }
 
 /* ==========================================================================
    8. UTILITIES (A11Y & Scroll)
    ========================================================================== */
 
-/* Visually hidden but accessible */
 :where(.sr-only) {
     position: absolute;
     width: 1px;
@@ -320,7 +328,6 @@
     border: 0;
 }
 
-/* Themed Scrollbar */
 :where(html)::-webkit-scrollbar {
     width: 10px;
 }

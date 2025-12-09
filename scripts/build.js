@@ -249,6 +249,29 @@ async function bundleCss(entryFile, sourceRef) {
 
 async function main() {
     const args = process.argv.slice(2);
+
+    // --- FULL BUILD WORKFLOW ---
+    if (args.includes('full')) {
+        console.log('🚀 Starting FULL build (latest, stable, p)...');
+        // We use spawnSync to run the builds sequentially so they don't race
+        const steps = [
+            { id: 'latest', args: ['latest'] },
+            { id: 'prefixed', args: ['p'] },
+            { id: 'stable', args: ['stable'] }
+        ];
+
+        for (const step of steps) {
+            console.log(`\n👉 Task: ${step.id}`);
+            const res = spawnSync('node', ['scripts/build.js', ...step.args], { stdio: 'inherit', cwd: PROJECT_ROOT });
+            if (res.status !== 0) {
+                console.error(`❌ Sub-build failed: ${step.id}`);
+                process.exit(1);
+            }
+        }
+        console.log('\n✨ All full build tasks completed!');
+        return;
+    }
+
     let sourceRef = '';
     let targetDirArg = '';
 

@@ -201,7 +201,20 @@ Grid and Section defaults.
 
 ---
 
-### 5. Components & Utilities
+### 5. Flow Spacing (Vertical Rhythm)
+Variables that control the "Smart Flow" logic defined in `html.css`.
+
+| Variable | Description | Value |
+| :--- | :--- | :--- |
+| **`--flow-s`** | **Standard** Flow | `1em` (Paragraphs, List containers) |
+| **`--flow-xs`** | **Tight** Flow | `0.5em` (List items, Text-Heading connection) |
+| **`--flow-l`** | **Loose** Flow | `1.5em` (Heading top margin) |
+| **`--p-flow`** | Paragraph Gap | `var(--flow-s)` |
+| **`--list-flow`** | List Gap | `var(--flow-s)` |
+
+---
+
+### 6. Components & Utilities
 Component-specific defaults.
 
 | Component | Variable | Description |
