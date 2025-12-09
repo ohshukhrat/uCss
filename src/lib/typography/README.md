@@ -1,6 +1,6 @@
 # Typography Module
 
-**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Typography](./) 
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Typography](./) 
 
 **Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](./) | [Components](../components/) | [Utilities](../utilities/)
 
@@ -25,6 +25,11 @@ In traditional CSS, `<h1>` means "Big Text". In uCss, `<h1>` means "Top Level He
 *   **The visual style** is controlled by the `.t` (Title) class.
 *   **The semantics** are controlled by the HTML tag.
 This means you can have a visually small `<h1>` (for a minor page) or a visually huge `<p>` (for a marketing slogan) without hurting SEO or Accessibility.
+
+### 🧠 Thinking in Typography
+1.  **Clamp is King**: Stop writing `@media (min-width: 768px) { font-size: ... }`. Our variables use `clamp()`. They are small on mobile and big on desktop *automatically*.
+2.  **Tag Agnosticism**: Never assume an `<h2>` has a size. An `<h2>` is just a semantic node. You must give it a `.t` class to give it a visual hierarchy.
+3.  **Readability**: We default to `1.5` line-height for body text (`.tx`). Don't tight-pack text unless it's a headline (`.t`).
 
 ## 📦 Installation
 

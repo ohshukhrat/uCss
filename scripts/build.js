@@ -366,7 +366,14 @@ async function main() {
                         // console.log('Heading args:', arguments[0]); // Debug
                         // Handle object-based arguments (marked v12+)
                         const actualText = this.parser.parseInline(tokens);
-                        const escapedText = actualText.toLowerCase().replace(/[^\w]+/g, '-');
+                        // GitHub-style slugger:
+                        // 1. Lowercase
+                        // 2. Remove non-word chars (except spaces and hyphens)
+                        // 3. Replace spaces with hyphens
+                        const escapedText = actualText
+                            .toLowerCase()
+                            .replace(/[^\w\s-]/g, '') // Remove punctuation like () .
+                            .replace(/\s+/g, '-');    // Space to dash
                         return `<h${depth} id="${escapedText}">${actualText}</h${depth}>`;
                     } catch (e) {
                         // Fallback for older marked or if fails

@@ -1,6 +1,6 @@
 # Base Module
 
-**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Base](./) 
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Base](./) 
 
 **Modules**: [Config](../config/) | [Base](./) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
 
@@ -24,6 +24,11 @@ We believe that `<h1>` tags should look like headings by default, and `<ul>` tag
 *   **The Problem with "Nuke" Resets**: If you do `* { margin: 0; padding: 0 }`, you forcing yourself to write extra CSS just to make a blog post look readable.
 *   **The uCss Approach**: We leave browser defaults alone where they make sense (typography scale, list styles). We only "reset" things that cause layout headaches (like `H1-H6` and `P` margins, and only if you apply .cs to a parent element).
 *   **Opt-In Resets**: If you *do* want a stripped list (for a nav menu, or a grid of articles), you apply `.cl` (Clear List). You opt-in to the reset, rather than opting-out of the defaults.
+
+### 🧠 Thinking in Resets
+1.  **App vs Content**: Web apps need "Resets" (no margins). Blog posts need "Typography" (margins). uCss handles both.
+2.  **The `.cs` Pattern**: If you are building a layout (columns, cards), wrap it in `.cs`. This strips the "Document Flow Spacing" so your Grid/Flex gaps can take over.
+3.  **The `.csc` Restore**: If you drop a blog post inside that layout, wrap it in `.csc` to bring the "Document Flow Spacing" back. It's a toggle switch for whitespace.
 
 ## 📦 Installation
 

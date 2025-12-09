@@ -2,18 +2,18 @@
     backdrop-filter: blur(var(--blur, var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)))));
 }
 
-:where(.blr--s, .blr.s) {
+:where(.blr--s) {
     --blr: var(--blr--s, calc(var(--blr--m, 0.25rem) / 2));
 }
 
-:where(.blr--l, .blr.l) {
+:where(.blr--l) {
     --blr: var(--blr--l, calc(var(--blr--m, 0.25rem) * 2));
 }
 
-:where(.blr--xl, .blr.xl) {
+:where(.blr--xl) {
     --blr: var(--blr--xl, calc(var(--blr--m, 0.25rem) * 4));
 }
 
-:where(.blr--xxl, .blr.xxl, .blr--2xl) {
+:where(.blr--xxl, .blr--2xl) {
     --blr: var(--blr--xxl, calc(var(--blr--m, 0.25rem) * 8));
 }
