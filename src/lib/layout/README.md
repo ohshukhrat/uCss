@@ -44,6 +44,10 @@ We heavily suppress the use of `@media` queries in favor of `@container` queries
 | **`flex.css`** | ~26KB | ~25KB | ~21KB | ~2.4KB | ~1.9KB | [src](https://ucss.unqa.dev/stable/lib/layout/flex.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/flex.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/flex.min.css) |
 | **`section.css`** | ~8.1KB | ~7.0KB | ~6.1KB | ~1.4KB | ~1.1KB | [src](https://ucss.unqa.dev/stable/lib/layout/section.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/section.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/section.min.css) |
 
+
+> [!TIP]
+> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
+
 ### HTML Copy & Paste
 
 | File | HTML Snippet (Stable) |

@@ -42,6 +42,10 @@ We believe that `<h1>` tags should look like headings by default, and `<ul>` tag
 | :--- | :--- | :--- | :--- |
 | `clear.css` | Resets & Spacing Logic | [src](https://ucss.unqa.dev/stable/lib/base/clear.css) • [clean](https://ucss.unqa.dev/stable/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/clear.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/clear.css) • [clean](https://ucss.unqa.dev/latest/lib/base/clear.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/clear.min.css) |
 
+
+> [!TIP]
+> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
+
 ### HTML Copy & Paste
 
 | File | HTML Snippet (Stable) |

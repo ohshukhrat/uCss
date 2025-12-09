@@ -85,6 +85,7 @@ const { existsSync, createReadStream, createWriteStream, rmSync, statSync } = re
 const path = require('path');
 const { execSync, spawnSync } = require('child_process');
 const { marked } = require('marked');
+const { prefixCss } = require('./prefix');
 
 // --- Configuration ---
 const PROJECT_ROOT = path.resolve(__dirname, '..');
@@ -251,22 +252,54 @@ async function main() {
     let sourceRef = '';
     let targetDirArg = '';
 
+    // --- Argument Parsing for Prefixing ---
+    let prefixMode = null; // 'p', 'c', 'v'
+    let prefixString = null;
+
+    // Scan for arguments
+    const cleanedArgs = [];
     for (let i = 0; i < args.length; i++) {
-        if (args[i] === '--source') {
+        const arg = args[i];
+        if (arg === '--source') {
             sourceRef = args[i + 1]; i++;
+        } else if (['p', 'c', 'v'].includes(arg)) {
+            prefixMode = arg;
+            // Check if next arg is a custom prefix (not a flag, not a known keyword)
+            const nextArg = args[i + 1];
+            if (nextArg && !nextArg.startsWith('-') && !['preview', 'stable', 'latest', 'p', 'c', 'v'].includes(nextArg)) {
+                prefixString = nextArg;
+                i++;
+            }
         } else {
-            targetDirArg = args[i];
+            cleanedArgs.push(arg);
         }
+    }
+    // Repopulate args for directory logic
+    targetDirArg = cleanedArgs[0] || '';
+
+    // Apply Defaults
+    const modeMap = { p: 'p', c: 'c', v: 'v' };
+    const validMode = modeMap[prefixMode];
+
+    // Default prefixes if mode is active but no string provided
+    if (validMode && !prefixString) {
+        prefixString = 'u';
     }
 
     // 1. Resolve Output Directory
     let outputDirName = targetDirArg;
+
+    // Auto-detect directory from mode if not specified
+    if (!outputDirName && validMode) {
+        outputDirName = validMode;
+    }
+
     if (!outputDirName) {
         let branch = 'unknown';
         if (sourceRef) {
             if (sourceRef.includes('main')) branch = 'main';
             else if (sourceRef.includes('dev')) branch = 'dev';
-            else outputDirName = `preview / ${sourceRef.replace(/[\/]/g, '-')} `;
+            else outputDirName = `preview/${sourceRef.replace(/[\/]/g, '-')}`;
         } else {
             branch = exec('git rev-parse --abbrev-ref HEAD') || 'unknown';
         }
@@ -277,18 +310,21 @@ async function main() {
             else {
                 const now = new Date();
                 const ts = now.toISOString().replace(/[:\.]/g, '-').slice(0, 19);
-                outputDirName = `preview - ${ts} `;
+                outputDirName = `preview-${ts}`;
             }
         }
     } else if (outputDirName === 'preview') {
         const now = new Date();
         const ts = now.toISOString().replace(/[:\.]/g, '-').slice(0, 19);
-        outputDirName = `preview - ${ts} `;
+        outputDirName = `preview-${ts}`;
     }
 
     const outputDir = path.join(DIST_ROOT, outputDirName);
-    console.log(`Targeting: ${outputDir} `);
-    console.log(`Reading source from: ${sourceRef || 'Local filesystem'} `);
+    console.log(`Targeting: ${outputDir}`);
+    console.log(`Reading source from: ${sourceRef || 'Local filesystem'}`);
+    if (validMode) {
+        console.log(`Prefix Mode: ${validMode.toUpperCase()} | Prefix: "${prefixString}"`);
+    }
 
     // 2. Cleanup & Init
     if (existsSync(outputDir)) await fs.rm(outputDir, { recursive: true, force: true });
@@ -304,7 +340,10 @@ async function main() {
     // 4. Core Build (u.css)
     tasks.push(async () => {
         console.log(`Building u.css...`);
-        const content = await bundleCss(path.join(SRC_DIR, 'u.css'), sourceRef);
+        let content = await bundleCss(path.join(SRC_DIR, 'u.css'), sourceRef);
+
+        if (validMode) content = prefixCss(content, validMode, prefixString);
+
         await Promise.all([
             fs.writeFile(path.join(outputDir, 'u.css'), content),
             fs.writeFile(path.join(outputDir, 'u.clean.css'), cleanCss(content)),
@@ -332,7 +371,10 @@ async function main() {
             await fs.mkdir(targetLibDir, { recursive: true });
 
             // Bundle Module Root
-            const content = await bundleCss(libFile, sourceRef);
+            let content = await bundleCss(libFile, sourceRef);
+
+            if (validMode) content = prefixCss(content, validMode, prefixString);
+
             const baseName = path.join(outputDir, 'lib', modName);
             await Promise.all([
                 fs.writeFile(`${baseName}.css`, content),
@@ -357,7 +399,10 @@ async function main() {
 
             await Promise.all(individualFiles.map(async leaf => {
                 const name = path.basename(leaf);
-                const raw = await readFile(leaf, sourceRef);
+                let raw = await readFile(leaf, sourceRef);
+
+                if (validMode) raw = prefixCss(raw, validMode, prefixString);
+
                 const leafTarget = path.join(targetLibDir, name);
                 await fs.writeFile(leafTarget, raw);
                 await fs.writeFile(leafTarget.replace('.css', '.clean.css'), cleanCss(raw));
