@@ -27,8 +27,22 @@
 
     /* Force Reset for stubborn agents */
     /* Note: We rely on variables in html.css, but this ensures hard resets */
-    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, figure) {
+    :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, blockquote, figure, pre, code, kbd, samp, table) {
         margin-block: 0;
+        line-height: inherit;
+    }
+
+    /* Form Elements Reset */
+    :where(fieldset, legend) {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    /* List specific reset in App Mode */
+    :where(ul, ol) {
+        list-style: none;
+        padding: 0;
     }
 
     style {
@@ -71,6 +85,7 @@
 .cl {
     list-style: var(--cl-list-style, none);
     padding-inline: var(--cl-pi, 0);
+    margin-inline: var(--cl-mi, 0);
     margin-block: var(--cl-mb, 0);
     --list-flow: 0;
     /* Integrate with new flow system */

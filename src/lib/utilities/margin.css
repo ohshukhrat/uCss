@@ -100,3 +100,89 @@
 :where(.mgbe.auto) {
     --mgbe: auto;
 }
+
+/**
+ * @group Block Margin Presets
+ * Fluid margin sizes using clamp() for responsiveness.
+ * mapped to --sp--* (spacing) variables from root.css
+ */
+:where(.mgb.xxxl, .mgb--xxxl, .mgb--3xl) {
+    --mgb: var(--mg--xxxl, var(--sp--xxxl, clamp(6rem, 3.059vw + 5.388rem, 8rem)));
+}
+
+:where(.mgb.xxl, .mgb--xxl, .mgb--2xl) {
+    --mgb: var(--mg--xxl, var(--sp--xxl, clamp(4rem, 3.059vw + 3.388rem, 6rem)));
+}
+
+:where(.mgb.xl, .mgb--xl, .mgb--lg) {
+    --mgb: var(--mg--xl, var(--sp--xl, clamp(3rem, 1.53vw + 2.694rem, 4rem)));
+}
+
+:where(.mgb.l, .mgb--l) {
+    --mgb: var(--mg--l, var(--sp--l, clamp(2.5rem, 0.765vw + 2.347rem, 3rem)));
+}
+
+:where(.mgb.m, .mgb--m, .mg.m, .mg--m) {
+    --mgb: var(--mg--m, var(--sp--m, clamp(2rem, 0.765vw + 1.847rem, 2.5rem)));
+}
+
+:where(.mgb.s, .mgb--s, .mg.s, .mg--s) {
+    --mgb: var(--mg--s, var(--sp--s, clamp(1.5rem, 0.765vw + 1.347rem, 2rem)));
+}
+
+:where(.mgb.xs, .mgb--xs, .mg.xs, .mg--xs) {
+    --mgb: var(--mg--xs, var(--sp--xs, clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem)));
+}
+
+:where(.mgb.xxs, .mgb--xxs, .mgb--2xs, .mg.xxs, .mg--xxs, .mg--2xs) {
+    --mgb: var(--mg--xxs, var(--sp--xxs, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)));
+}
+
+/**
+ * @group Inline Margin Presets
+ * Percentage based sizes for main containers, fluid for details.
+ * mapped to --spe--* (spacing edge) variables from root.css
+ */
+:where(.mgi.xxl, .mgi--xxl, .mgi--2xl) {
+    --mgi: var(--mgw--l, var(--spe--l, 7%));
+}
+
+:where(.mgi.xl, .mgi--xl) {
+    --mgi: var(--mgw--m, var(--spe--m, 5%));
+}
+
+:where(.mgi.l, .mgi--l) {
+    --mgi: var(--mgw--s, var(--spe--s, 3%));
+}
+
+:where(.mgi.m, .mgi--m, .mg.m, .mg--m) {
+    --mgi: var(--mg--m, var(--sp--m, clamp(2rem, 0.765vw + 1.847rem, 2.5rem)));
+}
+
+:where(.mgi.s, .mgi--s, .mg.s, .mg--s) {
+    --mgi: var(--mg--s, var(--sp--s, clamp(1.5rem, 0.765vw + 1.347rem, 2rem)));
+}
+
+:where(.mgi.xs, .mgi--xs, .mg.xs, .mg--xs) {
+    --mgi: var(--mg--xs, var(--sp--xs, clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem)));
+}
+
+:where(.mgi.xxs, .mgi--xxs, .mgi--2xs, .mg.xxs, .mg--xxs, .mg--2xs) {
+    --mgi: var(--mg--xxs, var(--sp--xxs, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)));
+}
+
+/**
+ * @group Overall Margin Presets (mg)
+ * Affects both block and inline margin.
+ */
+:where(.mg.l, .mg--l) {
+    --mg: var(--mg--l, var(--sp--l, clamp(2.5rem, 0.765vw + 2.347rem, 3rem)));
+}
+
+:where(.mg.xl, .mg--xl) {
+    --mg: var(--mg--xl, var(--sp--xl, clamp(3rem, 1.53vw + 2.694rem, 4rem)));
+}
+
+:where(.mg.xxl, .mg--xxl, .mg--2xl) {
+    --mg: var(--mg--xxl, var(--sp--xxl, clamp(4rem, 3.059vw + 3.388rem, 6rem)));
+}

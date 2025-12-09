@@ -156,16 +156,16 @@
     font-family: var(--mono-font, monospace);
     font-size: 0.9em;
     padding: 0.1em 0.3em;
-    border-radius: var(--rad-xs, 0.25em);
-    background-color: var(--srf, #eee);
-    color: var(--t, #000);
+    border-radius: var(--code-rad, var(--rad-xs, 0.25em));
+    background-color: var(--code-bg, var(--srf, #eee));
+    color: var(--code-tx, var(--t, #000));
 }
 
 /* Preformatted blocks */
 :where(pre) {
-    background-color: var(--d, #222);
-    color: var(--l, #fff);
-    padding: var(--gap, 1.5rem);
+    background-color: var(--pre-bg, var(--d, #222));
+    color: var(--pre-tx, var(--l, #fff));
+    padding: var(--pre-pd, var(--gap, 1.5rem));
     border-radius: var(--rad, 0.5rem);
     overflow-x: auto;
     font-family: var(--mono-font, monospace);
@@ -176,14 +176,14 @@
 
 :where(hr) {
     border: none;
-    border-block-start: 1px solid var(--out, #ccc);
-    margin-block: 2.5rem;
+    border-block-start: var(--hr-h, 1px) solid var(--hr-c, var(--out, #ccc));
+    margin-block: var(--hr-m, 2.5rem);
 }
 
 :where(blockquote) {
-    border-inline-start: calc(var(--border-width, .125rem) * 2) solid var(--p, currentColor);
+    border-inline-start: var(--bq-bd-w, calc(var(--border-width, .125rem) * 2)) solid var(--bq-bd-c, var(--p, currentColor));
     margin-inline: 0;
-    padding-inline: 1.5em;
+    padding-inline: var(--bq-pd, 1.5em);
     padding-block: .5em;
     font-style: italic;
     color: var(--alt-bd, currentColor);
@@ -298,18 +298,18 @@
     text-align: start;
     font-weight: 700;
     color: var(--t, #000);
-    background-color: var(--srf, #eee);
-    padding: 0.75em;
+    background-color: var(--tbl-bg-head, var(--srf, #eee));
+    padding: var(--tbl-pd, 0.75em);
 }
 
 :where(td) {
-    padding: 0.75em;
-    border-bottom: 1px solid var(--out, #eee);
+    padding: var(--tbl-pd, 0.75em);
+    border-bottom: var(--tbl-bd-w, 1px) solid var(--tbl-bd-c, var(--out, #eee));
     color: var(--tx, #333);
 }
 
 :where(tr:hover td) {
-    background-color: var(--srf, #fafafa);
+    background-color: var(--tbl-bg-hover, var(--srf, #fafafa));
 }
 
 /* ==========================================================================
