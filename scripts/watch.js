@@ -1,13 +1,43 @@
 /**
- * @fileoverview Watch mode for uCss development.
- * Monitors source directory for changes and triggers incremental rebuilds.
+ * @fileoverview Local Development Watcher
  * 
  * @description
- * - Uses `fs.watch` to monitor `src/` recursively.
- * - Implements a debouncing mechanism (300ms) to ensure atomic builds.
- * - Spawns `scripts/build.js` in a child process to isolate build context and errors.
+ * This script turns the passive build system into an active dev environment.
+ * It monitors the `src/` directory for any file changes and triggers a rebuild of `dist/stable`.
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * ⚙️ TECHNICAL IMPLEMENTATION
+ * ---------------------------------------------------------------------------------------------
+ * 
+ * 1. DEBOUNCING (THE 300MS RULE)
+ *    Editors often save files in chunks or trigger multiple OS events for a single "Save".
+ *    Without debouncing, a single `Ctrl+S` could trigger 3 builds in 10ms.
+ *    We wait for 300ms of silence before triggering the build to act as a "buffer".
+ * 
+ * 2. PROCESS ISOLATION (SPAWN vs IMPORT)
+ *    We do NOT import `build.js` directly. Instead, we `spawn` it as a separate child process.
+ *    WHY?
+ *    - Memory Leaks: Requiring and re-running a script in the same Node process can leak memory.
+ *    - Crash Safety: If `build.js` crashes (syntax error), we don't want the watcher to die.
+ *      The child dies, the watcher logs the error, and keeps watching.
+ *    - Clean Environment: Each build starts with a fresh V8 context.
+ * 
+ * 3. ATOMICITY
+ *    We use an `isBuilding` mutex flag. If a build is currently running, new build requests
+ *    are ignored until the current one finishes.
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * 🚀 USAGE
+ * ---------------------------------------------------------------------------------------------
  * 
  * @usage npm run watch
+ * 
+ * @example
+ * // Terminal 1
+ * npm run watch
+ * 
+ * // Terminal 2
+ * npm start (or your http server)
  */
 
 const fs = require('fs');

@@ -205,11 +205,11 @@ a.btn:active:not(:disabled, .is-disabled) {
 :where(.btn, [data-style="btn"], [data-variant="primary"], .btn.primary, [data-style="btn"].primary) {
   --btn-c: var(--btn-primary-color, var(--btn-p-c, var(--on-p, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, currentColor))))));
   --btn-bg: var(--btn-primary-background, var(--btn-p-bg, var(--p, var(--theme-palette-color-1, #eec14c))));
-  --btn-bc: var(--btn-primary-border-c, var(--btn-p-bc, var(--btn-p-bg, var(--out-p, var(--theme-palette-color-1, #eec14c)))));
+  --btn-bc: var(--btn-primary-border-c, var(--btn-p-bc, var(--btn-bg, var(--btn-primary-background, var(--btn-p-bg, var(--out-p, var(--theme-palette-color-1, #eec14c)))))));
 
   --btn-c-hover: var(--btn-primary-color-hover, var(--btn-p-c-hover, var(--on-a, var(--theme-palette-color-11, var(--theme-palette-color-4, var(--d-bd, currentColor))))));
   --btn-bg-hover: var(--btn-primary-background-hover, var(--btn-p-bg-hover, var(--a, var(--theme-palette-color-2, #ffb900))));
-  --btn-bc-hover: var(--btn-primary-border-c-hover, var(--btn-p-bc-hover, var(--btn-primary-background-hover, var(--btn-p-bg-hover, var(--out-a, var(--theme-palette-color-2, #ffb900))))));
+  --btn-bc-hover: var(--btn-primary-border-c-hover, var(--btn-p-bc-hover, var(--btn-bg-hover, var(--btn-primary-background-hover, var(--btn-p-bg-hover, var(--out-a, var(--theme-palette-color-2, #ffb900)))))));
 }
 
 /* --- Outlined --- */

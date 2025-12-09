@@ -23,7 +23,7 @@
 
   flex-wrap: var(--crd-fw--sm, var(--crd-fw));
 
-  order: var(--crd-order);
+  order: var(--card-order, var(--crd-order));
   flex-grow: var(--crd-grow);
   flex-shrink: var(--crd-shrink, 0);
   flex-basis: var(--crd-basis, auto);
@@ -103,6 +103,14 @@
   container: crd / inline-size;
   contain: inline-size layout;
 
+  &:where(.f, .row, .col) {
+    flex-direction: var(--crd-fd--sm, var(--crd-fd, var(--f-fd--sm, var(--f-fd))));
+    align-items: var(--crd-ai--sm, var(--crd-ai, var(--f-ai--sm, var(--f-ai))));
+    justify-content: var(--crd-jc--sm, var(--crd-jc, var(--f-jc--sm, var(--f-jc))));
+    align-content: var(--crd-ac--sm, var(--crd-ac, var(--f-ac--sm, var(--f-ac))));
+    gap: var(--card-gap, var(--crd-gap--sm, var(--crd-gap, var(--f-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
+  }
+
   /* --- 'md' CONTAINER (Ranged) --- */
   @container (669.99px <=width <=999.99px) {
     flex-direction: var(--crd-fd--md, var(--crd-fd, column));
@@ -121,6 +129,13 @@
     padding-inline: var(--crd-pi--md, var(--crd-pi, var(--crd-p--md, var(--crd-p, 1.25em))));
 
     text-align: var(--crd-ta--md, var(--crd-ta));
+
+    &:where(.f, .row, .col) {
+      flex-direction: var(--crd-fd--md, var(--crd-fd, var(--f-fd--md, var(--f-fd))));
+      align-items: var(--crd-ai--md, var(--crd-ai, var(--f-ai--md, var(--f-ai))));
+      justify-content: var(--crd-jc--md, var(--crd-jc, var(--f-jc--md, var(--f-jc))));
+      align-content: var(--crd-ac--md, var(--crd-ac, var(--f-ac--md, var(--f-ac))));
+    }
   }
 
   /* --- 'lg' CONTAINER (Ranged) --- */
@@ -141,6 +156,14 @@
     padding-inline: var(--crd-pi--lg, var(--crd-pi, var(--crd-p--lg, var(--crd-p, 1.25em))));
 
     text-align: var(--crd-ta--lg, var(--crd-ta));
+
+
+    &:where(.f, .row, .col) {
+      flex-direction: var(--crd-fd--lg, var(--crd-fd, var(--f-fd--lg, var(--f-fd))));
+      align-items: var(--crd-ai--lg, var(--crd-ai, var(--f-ai--lg, var(--f-ai))));
+      justify-content: var(--crd-jc--lg, var(--crd-jc, var(--f-jc--lg, var(--f-jc))));
+      align-content: var(--crd-ac--lg, var(--crd-ac, var(--f-ac--lg, var(--f-ac))));
+    }
   }
 
   /**
@@ -292,23 +315,23 @@
     gap: var(--crd-content-gap--sm, var(--crd-content-gap,
           var(--crd-gap--sm, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
 
-    align-items: var(--crd-content-ai--sm, var(--crd-content-ai, var(--crd-ai)));
-    justify-content: var(--crd-content-jc--sm, var(--crd-content-jc, var(--crd-jc)));
-    align-content: var(--crd-content-ac--sm, var(--crd-content-ac, var(--crd-ac)));
+    align-items: var(--crd-content-ai--sm, var(--crd-content-ai, var(--crd-ai--sm, var(--crd-ai))));
+    justify-content: var(--crd-content-jc--sm, var(--crd-content-jc, var(--crd-jc--sm, var(--crd-jc))));
+    align-content: var(--crd-content-ac--sm, var(--crd-content-ac, var(--crd-ac--sm, var(--crd-ac))));
 
-    flex-wrap: var(--crd-content-fw--sm, var(--crd-content-fw));
+    flex-wrap: var(--crd-content-fw--sm, var(--crd-content-fw, var(--crd-fw--sm, var(--crd-fw))));
 
     text-align: var(--crd-content-ta--sm, var(--crd-content-ta, var(--crd-ta--sm, var(--crd-ta))));
 
     /* PADDING lives here! */
-    padding-block: var(--card-content-pdb, var(--crd-content-pb--sm, var(--crd-content-pb, var(--crd-content-p, 1.25rem))));
-    padding-inline: var(--card-content-pdi, var(--crd-content-pi--sm, var(--crd-content-pi, var(--crd-content-p, 1.25rem))));
+    padding-block: var(--card-content-pdb, var(--crd-content-pb--sm, var(--crd-content-pb, var(--crd-content-p--sm, var(--crd-content-p, 1.25rem)))));
+    padding-inline: var(--card-content-pdi, var(--crd-content-pi--sm, var(--crd-content-pi, var(--crd-content-p--sm, var(--crd-content-p, 1.25rem)))));
   }
 
   /* Granular slots (header, body, footer) for semantic structure */
   :where(.crd__header, .crd__body, .crd__footer) {
     display: var(--crd-slot-d, flex);
-    flex-direction: var(--crd-slot-fd, column);
+    flex-direction: var(--crd-slot-fd--sm, var(--crd-slot-fd, column));
     gap: var(--crd-slot-gap--sm, var(--crd-slot-gap, .75rem));
     flex-wrap: var(--crd-slot-fw--sm, var(--crd-slot-fw));
   }
@@ -323,6 +346,14 @@
     margin-inline: var(--crd-slot-f-mi, var(--crd-slot-f-mis) var(--crd-slot-f-mie));
   }
 
+  :where(.f, .row, .col):where(.crd__content) {
+    flex-direction: var(--crd-content-fd--sm, var(--crd-content-fd, var(--f-fd--sm, var(--f-fd))));
+  }
+
+  :where(.f, .row, .col):where(.crd__header, .crd__body, .crd__footer) {
+    flex-direction: var(--crd-slot-fd--sm, var(--crd-slot-fd, var(--f-fd--sm, var(--f-fd))));
+  }
+
   /* --- 'md' Slot Overrides --- */
   @container (669.99px <=width <=999.99px) {
     :where(.crd__media) {
@@ -333,20 +364,28 @@
 
     :where(.crd__content) {
       flex-direction: var(--crd-content-fd--md, var(--crd-content-fd, column));
-      align-items: var(--crd-content-ai--md, var(--crd-content-ai, var(--crd-ai)));
-      justify-content: var(--crd-content-jc--md, var(--crd-content-jc, var(--crd-jc)));
-      align-content: var(--crd-content-ac--md, var(--crd-content-ac, var(--crd-ac)));
+      align-items: var(--crd-content-ai--md, var(--crd-content-ai, var(--crd-ai--md, var(--crd-ai))));
+      justify-content: var(--crd-content-jc--md, var(--crd-content-jc, var(--crd-jc--md, var(--crd-jc))));
+      align-content: var(--crd-content-ac--md, var(--crd-content-ac, var(--crd-ac--md, var(--crd-ac))));
       gap: var(--crd-content-gap--md, var(--crd-content-gap,
             var(--crd-gap--md, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
-      padding-block: var(--crd-content-pb--md, var(--crd-content-pb, var(--crd-content-p, 1.25rem)));
-      padding-inline: var(--crd-content-pi--md, var(--crd-content-pi, var(--crd-content-p, 1.25rem)));
-      flex-wrap: var(--crd-content-fw--md, var(--crd-content-fw));
+      padding-block: var(--crd-content-pb--md, var(--crd-content-pb, var(--crd-content-p--md, var(--crd-content-p, 1.25rem))));
+      padding-inline: var(--crd-content-pi--md, var(--crd-content-pi, var(--crd-content-p--md, var(--crd-content-p, 1.25rem))));
+      flex-wrap: var(--crd-content-fw--md, var(--crd-content-fw, var(--crd-fw--md, var(--crd-fw))));
       text-align: var(--crd-content-ta--md, var(--crd-content-ta, var(--crd-ta--md, var(--crd-ta))));
     }
 
     :where(.crd__header, .crd__body, .crd__footer) {
       gap: var(--crd-slot-gap--md, var(--crd-slot-gap, .75rem));
       flex-wrap: var(--crd-slot-fw--md, var(--crd-slot-fw));
+    }
+
+    :where(.f, .row, .col):where(.crd__content) {
+      flex-direction: var(--crd-content-fd--md, var(--crd-content-fd, var(--f-fd--md, var(--f-fd))));
+    }
+
+    :where(.f, .row, .col):where(.crd__header, .crd__body, .crd__footer) {
+      flex-direction: var(--crd-slot-fd--md, var(--crd-slot-fd, var(--f-fd--md, var(--f-fd))));
     }
   }
 
@@ -360,20 +399,28 @@
 
     :where(.crd__content) {
       flex-direction: var(--crd-content-fd--lg, var(--crd-content-fd, column));
-      align-items: var(--crd-content-ai--lg, var(--crd-content-ai, var(--crd-ai)));
-      justify-content: var(--crd-content-jc--lg, var(--crd-content-jc, var(--crd-jc)));
-      align-content: var(--crd-content-ac--lg, var(--crd-content-ac, var(--crd-ac)));
+      align-items: var(--crd-content-ai--lg, var(--crd-content-ai, var(--crd-ai--lg, var(--crd-ai))));
+      justify-content: var(--crd-content-jc--lg, var(--crd-content-jc, var(--crd-jc--lg, var(--crd-jc))));
+      align-content: var(--crd-content-ac--lg, var(--crd-content-ac, var(--crd-ac--lg, var(--crd-ac))));
       gap: var(--crd-content-gap--lg, var(--crd-content-gap,
             var(--crd-gap--lg, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
-      padding-block: var(--crd-content-pb--lg, var(--crd-content-pb, var(--crd-content-p, 1.25rem)));
-      padding-inline: var(--crd-content-pi--lg, var(--crd-content-pi, var(--crd-content-p, 1.25rem)));
-      flex-wrap: var(--crd-content-fw--lg, var(--crd-content-fw));
+      padding-block: var(--crd-content-pb--lg, var(--crd-content-pb, var(--crd-content-p--lg, var(--crd-content-p, 1.25rem))));
+      padding-inline: var(--crd-content-pi--lg, var(--crd-content-pi, var(--crd-content-p--lg, var(--crd-content-p, 1.25rem))));
+      flex-wrap: var(--crd-content-fw--lg, var(--crd-content-fw, var(--crd-fw--lg, var(--crd-fw))));
       text-align: var(--crd-content-ta--lg, var(--crd-content-ta, var(--crd-ta--lg, var(--crd-ta))));
     }
 
     :where(.crd__header, .crd__body, .crd__footer) {
       gap: var(--crd-slot-gap--lg, var(--crd-slot-gap, .75rem));
       flex-wrap: var(--crd-slot-fw--lg, var(--crd-slot-fw));
+    }
+
+    :where(.f, .row, .col):where(.crd__content) {
+      flex-direction: var(--crd-content-fd--lg, var(--crd-content-fd, var(--f-fd--lg, var(--f-fd))));
+    }
+
+    :where(.f, .row, .col):where(.crd__header, .crd__body, .crd__footer) {
+      flex-direction: var(--crd-slot-fd--lg, var(--crd-slot-fd, var(--f-fd--lg, var(--f-fd))));
     }
   }
 }

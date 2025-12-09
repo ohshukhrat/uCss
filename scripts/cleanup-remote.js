@@ -1,19 +1,46 @@
 /**
- * @fileoverview Remote cleanup script for uCss preview builds.
- * Connects to the FTP server and removes preview directories older than 7 days.
+ * @fileoverview Remote Preview Cleanup Logic
  * 
- * @description This script is intended to be run in a CI/CD environment (GitHub Actions).
- * It uses the 'basic-ftp' library to list directories in the server root, identifies
- * folders matching the 'preview-YYYY-MM-DD-HH-mm-ss' pattern, parses their timestamps,
- * and deletes them if they exceed the retention policy (7 days).
+ * @description
+ * This script is the "Garbage Collector" for our staging server.
+ * When we deploy Pull Requests or Feature Branches, we create timestamped preview folders
+ * (e.g. `preview-2023-10-27-14-00-00`). If left unchecked, these folders accumulate and waste
+ * storage/inodes on the FTP server.
  * 
- * @requires basic-ftp
- * @requires process.env.FTP_SERVER
- * @requires process.env.FTP_USERNAME
- * @requires process.env.FTP_PASSWORD
+ * ---------------------------------------------------------------------------------------------
+ * ⚙️ RETENTION POLICY (7 DAYS)
+ * ---------------------------------------------------------------------------------------------
+ * 
+ * We enforce a strict 7-day Time-To-Live (TTL) for preview builds.
+ * 1. Connect to FTP.
+ * 2. List all directories starting with `preview-`.
+ * 3. Parse the timestamp from the folder name.
+ * 4. Compare with `Date.now()`.
+ * 5. If > 7 days old, DELETE.
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * 🛡️ RESILIENCE STRATEGY
+ * ---------------------------------------------------------------------------------------------
+ * 
+ * FTP is notoriously flaky, especially from CI environments. To prevent transient network
+ * glitches from marking the build as "Failed", we implement:
+ * 
+ * 1. RETRIES: Connection attempts are retried 3 times with a 2-second backoff.
+ * 2. SOFT FAIL: If the script ultimately fails (after retries), we `process.exit(0)` instead of 1.
+ *    WHY? Because cleaning up old previews is a "nice to have", not a critical path.
+ *    We don't want to block a valid deployment just because the cleanup script couldn't connect.
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * 🚀 USAGE
+ * ---------------------------------------------------------------------------------------------
  * 
  * @usage node scripts/cleanup-remote.js
- * @note This script is typically run by GitHub Actions or other CI runners, not locally.
+ * 
+ * @requires ENV.FTP_SERVER
+ * @requires ENV.FTP_USERNAME
+ * @requires ENV.FTP_PASSWORD
+ * 
+ * @note This script is typically run by GitHub Actions in `.github/workflows/deploy.yml`
  */
 
 const ftp = require("basic-ftp");
@@ -38,12 +65,22 @@ async function main() {
     }
 
     try {
-        await client.access({
-            host: SERVER,
-            user: USER,
-            password: PASS,
-            secure: false // Set to true if FTPS is supported/required
-        });
+        const MAX_RETRIES = 3;
+        for (let i = 0; i < MAX_RETRIES; i++) {
+            try {
+                await client.access({
+                    host: SERVER,
+                    user: USER,
+                    password: PASS,
+                    secure: false
+                });
+                break; // Success
+            } catch (err) {
+                if (i === MAX_RETRIES - 1) throw err;
+                console.log(`  ⚠ Connection failed, retrying (${i + 1}/${MAX_RETRIES})...`);
+                await new Promise(r => setTimeout(r, 2000));
+            }
+        }
 
         console.log("📂 Listing directories...");
         const list = await client.list('/'); // Root directory, adjust if needed

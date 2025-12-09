@@ -1,21 +1,53 @@
 /**
- * @fileoverview cleanup utility for uCss project.
- * Handles deletion of build artifacts and temporary files.
+ * @fileoverview uCss Workspace Cleanup Utility
  * 
- * @description Provides granular control over workspace cleanup:
- * - Full clean: Deletes dist/ and project artifacts (logs, tgz)
- * - Target clean: Deletes specific build outputs (dist, stable, latest, preview)
+ * @description
+ * This script is the "Garbage Collector" for the project. It provides granular control over
+ * removing build artifacts without accidentally deleting something important (like your source code).
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * 🛡️ SAFETY MECHANISMS
+ * ---------------------------------------------------------------------------------------------
+ * 
+ * 1. SCOPED DELETION
+ *    This script ONLY operates on specific paths:
+ *    - `dist/` (The build output directory)
+ *    - Root-level log files (`*.log`)
+ *    - Root-level tarballs (`*.tgz`)
+ *    - OS junk (`.DS_Store`, `thumbs.db`)
+ *    It will NEVER touch `src/` or `server/`.
+ * 
+ * 2. THE "SAFE" MODE
+ *    Running `npm run clean safe` is a special mode designed for developers who switch branches often.
+ *    It deletes `dist/` but *PRESERVES* `dist/stable` and `dist/latest`.
+ *    WHY? Because you might have a local valid build of the stable release that you don't want to rebuild
+ *    every time you clean up a feature branch's preview files.
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * 🎯 USAGE & TARGETS
+ * ---------------------------------------------------------------------------------------------
  * 
  * @usage npm run clean [target] [subtarget]
+ * 
  * @example
- * npm run clean             # Deletes dist/, *.tgz, *.log
- * npm run clean dist        # Deletes dist/ only
- * npm run clean stable      # Deletes dist/stable/
- * npm run clean latest      # Deletes dist/latest/
- * npm run clean latest      # Deletes dist/latest/
- * npm run clean latest      # Deletes dist/latest/
- * npm run clean preview     # Deletes all dist/preview-* directories
- * npm run clean safe        # Deletes everything in dist/ EXCEPT stable and latest. Also cleans root logs.
+ * // 1. Full Nuclear Clean (Default)
+ * // Deletes dist/, *.tgz, *.log. Resets repo to "just cloned" state (regarding artifacts).
+ * npm run clean
+ * 
+ * @example
+ * // 2. Clean Specific Release Channel
+ * // Only deletes dist/latest/ (useful if you suspect a corrupt dev build)
+ * npm run clean latest
+ * 
+ * @example
+ * // 3. Clean Preview Builds
+ * // Deletes all dist/preview-* folders from PR builds, keeping stable/latest intact.
+ * npm run clean preview
+ * 
+ * @example
+ * // 4. Safe Clean
+ * // The "Smart" clean. Removes everything EXCEPT your main production builds.
+ * npm run clean safe
  */
 
 const fs = require('fs');
