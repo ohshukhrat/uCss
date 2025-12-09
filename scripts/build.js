@@ -127,10 +127,10 @@ async function readFile(filePath, sourceRef) {
  * Strips comments, collapses whitespace, removes optional syntax (semicolons, units where 0).
  * 
  * STRATEGY:
- * 1. Strip comments `/* ... */` first to avoid matching content inside them.
+ * 1. Strip comments (/ * ... * /) first to avoid matching content inside them.
  * 2. Convert all whitespace series to a single space.
- * 3. Remove space around structural characters `{ }; : , > `.
- *    e.g. `body { color: red; } ` -> `body{ color: red; } `
+ * 3. Remove space around structural characters `{ } ; : , >`.
+ *    e.g. `body { color: red; }` -> `body{color:red;}`
  * 
  * @param {string} css - Raw CSS content
  * @returns {string} Highly compressed CSS
@@ -266,7 +266,7 @@ async function main() {
         if (sourceRef) {
             if (sourceRef.includes('main')) branch = 'main';
             else if (sourceRef.includes('dev')) branch = 'dev';
-            else outputDirName = `preview / ${ sourceRef.replace(/[\/]/g, '-') } `;
+            else outputDirName = `preview / ${sourceRef.replace(/[\/]/g, '-')} `;
         } else {
             branch = exec('git rev-parse --abbrev-ref HEAD') || 'unknown';
         }
@@ -277,18 +277,18 @@ async function main() {
             else {
                 const now = new Date();
                 const ts = now.toISOString().replace(/[:\.]/g, '-').slice(0, 19);
-                outputDirName = `preview - ${ ts } `;
+                outputDirName = `preview - ${ts} `;
             }
         }
     } else if (outputDirName === 'preview') {
         const now = new Date();
         const ts = now.toISOString().replace(/[:\.]/g, '-').slice(0, 19);
-        outputDirName = `preview - ${ ts } `;
+        outputDirName = `preview - ${ts} `;
     }
 
     const outputDir = path.join(DIST_ROOT, outputDirName);
-    console.log(`Targeting: ${ outputDir } `);
-    console.log(`Reading source from: ${ sourceRef || 'Local filesystem' } `);
+    console.log(`Targeting: ${outputDir} `);
+    console.log(`Reading source from: ${sourceRef || 'Local filesystem'} `);
 
     // 2. Cleanup & Init
     if (existsSync(outputDir)) await fs.rm(outputDir, { recursive: true, force: true });
@@ -335,13 +335,13 @@ async function main() {
             const content = await bundleCss(libFile, sourceRef);
             const baseName = path.join(outputDir, 'lib', modName);
             await Promise.all([
-                fs.writeFile(`${ baseName }.css`, content),
-                fs.writeFile(`${ baseName }.clean.css`, cleanCss(content)),
-                fs.writeFile(`${ baseName }.min.css`, minifyCss(content))
+                fs.writeFile(`${baseName}.css`, content),
+                fs.writeFile(`${baseName}.clean.css`, cleanCss(content)),
+                fs.writeFile(`${baseName}.min.css`, minifyCss(content))
             ]);
 
             // Copy Sub-files (Individual component files)
-            const subDirRel = `src / lib / ${ modName } `;
+            const subDirRel = `src / lib / ${modName} `;
             // ... (Logic to copy indiv files same as before) ...
             // Simplified for brevity in JSDoc update task, but retaining logic
             let individualFiles = [];
@@ -363,7 +363,7 @@ async function main() {
                 await fs.writeFile(leafTarget.replace('.css', '.clean.css'), cleanCss(raw));
                 await fs.writeFile(leafTarget.replace('.css', '.min.css'), minifyCss(raw));
             }));
-            console.log(`  ✓ Built module: ${ modName } `);
+            console.log(`  ✓ Built module: ${modName} `);
         }));
     });
 
@@ -395,7 +395,7 @@ async function main() {
                 heading({ tokens, depth }) {
                     const text = this.parser.parseInline(tokens);
                     const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-                    return `< h${ depth } id = "${id}" > ${ text }</h${ depth }> `;
+                    return `< h${depth} id = "${id}" > ${text}</h${depth}> `;
                 },
                 link({ href, title, tokens }) {
                     const text = this.parser.parseInline(tokens);
@@ -410,25 +410,25 @@ async function main() {
                     // e.g. "src/lib/components/" -> "./stable/lib/components/"
                     if (mdPath === path.join(PROJECT_ROOT, 'README.md')) {
                         if (hrefStr.startsWith('./src/') || hrefStr.startsWith('src/')) {
-                            hrefStr = hrefStr.replace(/^(\.\/)?src\//, `./ ${ outputDirName }/`);
+                            hrefStr = hrefStr.replace(/^(\.\/)?src\//, `./ ${outputDirName}/`);
                         }
                     }
 
-return `<a href="${hrefStr}"${title ? ` title="${title}"` : ''}>${text}</a>`;
+                    return `<a href="${hrefStr}"${title ? ` title="${title}"` : ''}>${text}</a>`;
                 }
             };
-marked.use({ renderer });
+            marked.use({ renderer });
 
-let htmlContent;
-try { htmlContent = marked.parse(md, { gfm: true, breaks: false }); } catch (e) { return; }
+            let htmlContent;
+            try { htmlContent = marked.parse(md, { gfm: true, breaks: false }); } catch (e) { return; }
 
-// TEMPLATE: Minimal HTML wrapper
-const relRoot = path.relative(path.dirname(outPath), outputDir);
-// Calculated path to CSS assets
-const configPath = path.join(relRoot, 'lib/config.css');
-const corePath = path.join(relRoot, 'u.min.css');
+            // TEMPLATE: Minimal HTML wrapper
+            const relRoot = path.relative(path.dirname(outPath), outputDir);
+            // Calculated path to CSS assets
+            const configPath = path.join(relRoot, 'lib/config.css');
+            const corePath = path.join(relRoot, 'u.min.css');
 
-const template = `<!DOCTYPE html>
+            const template = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -463,68 +463,68 @@ const template = `<!DOCTYPE html>
     </section>
 </body>
 </html>`;
-await fs.writeFile(outPath, template);
+            await fs.writeFile(outPath, template);
         };
 
-const docTasks = [];
-// Root README -> dist/index.html
-if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) {
-    docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
-}
-
-// Subproject READMEs -> dist/lib/*/index.html
-let readmes = [];
-if (sourceRef) {
-    readmes = exec(`git ls-tree -r --name-only "${sourceRef}:src/"`)
-        .split('\n').filter(f => f.endsWith('README.md')).map(f => path.join(SRC_DIR, f));
-} else {
-    async function getReadmes(dir) {
-        let results = [];
-        const entries = await fs.readdir(dir, { withFileTypes: true });
-        for (const entry of entries) {
-            const f = path.join(dir, entry.name);
-            if (entry.isDirectory()) results = results.concat(await getReadmes(f));
-            else if (entry.name === 'README.md') results.push(f);
+        const docTasks = [];
+        // Root README -> dist/index.html
+        if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) {
+            docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
         }
-        return results;
-    }
-    readmes = await getReadmes(SRC_DIR);
-}
 
-docTasks.push(...readmes.map(async readme => {
-    const relDir = path.relative(SRC_DIR, path.dirname(readme));
-    const targetDir = path.join(outputDir, relDir);
-    await fs.mkdir(targetDir, { recursive: true });
-    await generateHtml(readme, path.join(targetDir, 'index.html'), `uCss Documentation - ${relDir || 'Root'}`);
-}));
+        // Subproject READMEs -> dist/lib/*/index.html
+        let readmes = [];
+        if (sourceRef) {
+            readmes = exec(`git ls-tree -r --name-only "${sourceRef}:src/"`)
+                .split('\n').filter(f => f.endsWith('README.md')).map(f => path.join(SRC_DIR, f));
+        } else {
+            async function getReadmes(dir) {
+                let results = [];
+                const entries = await fs.readdir(dir, { withFileTypes: true });
+                for (const entry of entries) {
+                    const f = path.join(dir, entry.name);
+                    if (entry.isDirectory()) results = results.concat(await getReadmes(f));
+                    else if (entry.name === 'README.md') results.push(f);
+                }
+                return results;
+            }
+            readmes = await getReadmes(SRC_DIR);
+        }
 
-await Promise.all(docTasks);
-console.log('  ✓ Documentation generated');
+        docTasks.push(...readmes.map(async readme => {
+            const relDir = path.relative(SRC_DIR, path.dirname(readme));
+            const targetDir = path.join(outputDir, relDir);
+            await fs.mkdir(targetDir, { recursive: true });
+            await generateHtml(readme, path.join(targetDir, 'index.html'), `uCss Documentation - ${relDir || 'Root'}`);
+        }));
+
+        await Promise.all(docTasks);
+        console.log('  ✓ Documentation generated');
     });
 
-// Run All Tasks
-await Promise.all(tasks.map(t => t()));
+    // Run All Tasks
+    await Promise.all(tasks.map(t => t()));
 
-// 7. Verify & Compress
-console.log('Verifying & Compressing...');
-try {
-    const verify = (f, min) => {
-        if (!existsSync(f)) throw new Error(`Missing ${f}`);
-        if (statSync(f).size < min) throw new Error(`Empty ${f}`);
-        console.log(`  ✓ Checked ${path.relative(outputDir, f)}`);
-    };
-    verify(path.join(outputDir, 'u.css'), 5000);
-    verify(path.join(outputDir, 'u.min.css'), 3000);
-    if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) verify(path.join(DIST_ROOT, 'index.html'), 1000);
-    verify(path.join(outputDir, 'lib/components.min.css'), 500);
-} catch (e) {
-    console.error(`❌ Verification Failed: ${e.message}`);
-    process.exit(1);
-}
+    // 7. Verify & Compress
+    console.log('Verifying & Compressing...');
+    try {
+        const verify = (f, min) => {
+            if (!existsSync(f)) throw new Error(`Missing ${f}`);
+            if (statSync(f).size < min) throw new Error(`Empty ${f}`);
+            console.log(`  ✓ Checked ${path.relative(outputDir, f)}`);
+        };
+        verify(path.join(outputDir, 'u.css'), 5000);
+        verify(path.join(outputDir, 'u.min.css'), 3000);
+        if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) verify(path.join(DIST_ROOT, 'index.html'), 1000);
+        verify(path.join(outputDir, 'lib/components.min.css'), 500);
+    } catch (e) {
+        console.error(`❌ Verification Failed: ${e.message}`);
+        process.exit(1);
+    }
 
-spawnSync('node', ['scripts/compress.js', outputDir], { stdio: 'inherit' });
-console.log('🎉 Build complete!');
-spawnSync('npm', ['audit', '--json'], { stdio: 'ignore' });
+    spawnSync('node', ['scripts/compress.js', outputDir], { stdio: 'inherit' });
+    console.log('🎉 Build complete!');
+    spawnSync('npm', ['audit', '--json'], { stdio: 'ignore' });
 }
 
 main().catch(e => { console.error('Build failed:', e); process.exit(1); });
