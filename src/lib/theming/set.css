@@ -15,43 +15,46 @@
  */
 .set,
 [class*="set--"] {
-    color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
-    background-image: var(--set-img, none);
-    background-color: var(--set-bg, transparent);
-    border-width: var(--set-border-w, 0);
-    border-style: var(--set-border-s, solid);
-    border-color: var(--set-border-c, currentColor);
-    --theme-text-color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
+    color: var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))));
+    background-image: var(--set-image, var(--set-img, none));
+    background-color: var(--set-background, var(--set-bg, transparent));
+    border-width: var(--set-border-w, var(--set-bw, 0));
+    border-style: var(--set-border-s, var(--set-bs, solid));
+    border-color: var(--set-border-c, var(--set-bc, currentColor));
+    backdrop-filter: var(--set-backdrop-filter, var(--set-bf, var(--set-blur, var(--set-blr))));
+
+    :where(p, span, div, ul, ol, li, label) {
+        color: var(--set-text, var(--set-tx, var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))))));
+    }
 
     /* Heading Overrides */
     :where(h1, h2) {
-        color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
-        --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+        color: var(--set-title, var(--set-t, var(--set-heading, var(--set-h, var(--set-color, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
     }
 
     :where(h3, h4, h5, h6) {
-        color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
-        --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+        color: var(--set-subtitle, var(--set-st, var(--set-heading, var(--set-h, var(--set-color, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
     }
 
     /* Link Overrides */
     :is(a):not(.btn, [data-style="btn"]) {
-        color: var(--set-lnk, var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))));
-        background-color: var(--set-lnk-bg);
-        text-decoration: var(--set-lnk-dec, none);
-        --theme-link-initial-color: var(--set-lnk, var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))));
-        --theme-link-hover-color: var(--set-lnk-hover, var(--set-lnk, var(--p, var(--theme-palette-color-2))));
+        color: var(--set-link, var(--set-lnk, var(--set-h, var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor)))))));
+        background-color: var(--set-link-bg, var(--set-lnk-bg));
+        text-decoration: var(--set-link-dec, var(--set-lnk-dec, var(--link-dec, var(--lnk-dec))));
     }
 
     :is(a:hover):not(.btn, [data-style="btn"]) {
-        color: var(--set-lnk-hover, var(--set-lnk, var(--p, var(--theme-palette-color-2))));
-        background-color: var(--set-lnk-bg-hover, var(--set-lnk-bg));
+        color: var(--set-link-hover, var(--set-lnk-hover, var(--set-a, var(--a, var(--theme-palette-color-2)))));
+        background-color: var(--set-link-bg-hover, var(--set-lnk-bg-hover, var(--set-lnk-bg)));
     }
 
     /* Card Context */
     &:where(.crd) {
-        --crd-bg: var(--set-bg);
-        --crd-bg-hover: var(--set-bg-hover, var(--set-bg));
+        --crd-bg: var(--set-card-bg, var(--set-bg));
+        --crd-bg-hover: var(--set-card-bg-hover, var(--set-crd-bg-hover, var(--set-bg-hover, var(--set-bg))));
+        --crd-tx-c: var(--set-card-text-c, var(--set-crd-tx-c, var(--set-tx, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))))));
+
+        --crd-h-c-hover: var(--set-card-link-c, var(--set-crd-lnk-c, var(--set-lnk-hover, var(--set-a, var(--a, var(--theme-palette-color-2, #ffb900))))));
     }
 }
 
@@ -61,35 +64,145 @@
  */
 
 /* Primary Theme */
-.set.primary,
-.set-primary {
-    --set-h: var(--theme-palette-color-4, hsl(0 0% 4%));
-    --set-color: var(--tx, var(--theme-palette-color-3, hsl(0 0% 8%)));
-    --set-bg: var(--sp, var(--theme-palette-color-8, hsl(43 83% 62% / .64)))
+:where(.set.primary, .set-primary) {
+    --set-h: var(--set-primary-heading, var(--set-p-h, var(--theme-palette-color-4, var(--t, hsl(0 0% 4%)))));
+    --set-c: var(--set-primary-color, var(--set-p-c, var(--tx, var(--theme-palette-color-3, var(--tx, hsl(0 0% 8%))))));
+    --set-bg: var(--set-primary-background, var(--set-p-bg, var(--op-lt, var(--theme-palette-color-30, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-lt, .32))))));
+
+    --set-a: var(--alt-bd, var(--theme-palette-color-4, #000));
+}
+
+:where(.set.primary.bd, .set-primary.bd) {
+    --set-bg: var(--set-primary-bold-background, var(--set-pb-bg, var(--op, var(--theme-palette-color-21, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al, .64))))));
+}
+
+/* Accent Theme */
+:where(.set.accent, .set-accent) {
+    --set-h: var(--set-accent-heading, var(--set-a-h, var(--theme-palette-color-4, var(--t, hsl(0 0% 4%)))));
+    --set-c: var(--set-accent-color, var(--set-a-c, var(--tx, var(--theme-palette-color-3, var(--tx, hsl(0 0% 8%))))));
+    --set-bg: var(--set-accent-background, var(--set-a-bg, var(--oa-lt, var(--theme-palette-color-32, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-lt, .32))))));
+
+    --set-a: var(--alt-bd, var(--theme-palette-color-4, #000));
+}
+
+:where(.set.accent.bd, .set-accent.bd) {
+    --set-bg: var(--set-accent-bold-background, var(--set-ab-bg, var(--oa, var(--theme-palette-color-22, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al, .64))))));
 }
 
 /* Secondary Theme */
-.set.secondary,
-.set-secondary {
-    --set-h: var(--theme-palette-color-4, hsl(0 0% 4%));
-    --set-color: var(--tx, var(--theme-palette-color-3, hsl(0 0% 8%)));
-    --set-bg: var(--sa, var(--theme-palette-color-6, hsl(44 100% 50% / .64)))
+:where(.set.secondary, .set-secondary) {
+    --set-h: var(--set-secondary-heading, var(--set-sec-h, var(--on-sec, var(--theme-palette-color-27, var(--l-bd, var(--bg-bd, var(--theme-palette-color-8, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)))))))));
+    --set-c: var(--set-secondary-color, var(--set-sec-c, var(--l, var(--theme-palette-color-12, var(--on-sec, var(--bg, var(--theme-palette-color-7, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)))))))));
+    --set-bg: var(--set-secondary-background, var(--set-sec-bg, var(--sec, var(--theme-palette-color-23, var(--alt-lt, var(--theme-palette-color-5, hsl(var(--sec-h, 200) var(--sec-s, 19%) var(--sec-l, 18%))))))));
+}
+
+/* Tertiary Theme */
+:where(.set.tertiary, .set-tertiary) {
+    --set-h: var(--set-tertiary-heading, var(--set-ter-h, var(--d, var(--theme-palette-color-11, var(--on-ter, var(--t, var(--theme-palette-color-4, hsl(var(--sec-h, 200) var(--sec-s, 19%) var(--sec-l, 18%)))))))));
+    --set-c: var(--set-tertiary-color, var(--set-ter-c, var(--on-ter, var(--sec, var(--theme-palette-color-23, var(--d-lt, var(--theme-palette-color-26, var(--tx, var(--theme-palette-color-3, hsl(var(--sec-h, 200) var(--sec-s, 19%) var(--sec-l, 18%)))))))))));
+    --set-bg: var(--set-tertiary-background, var(--set-ter-bg, var(--ter, var(--theme-palette-color-24, var(--bg-lt, var(--theme-palette-color-6, hsl(var(--ter-h, 200) var(--ter-s, 19%) var(--ter-l, 18%))))))));
 }
 
 /* Dark Theme (Inverted) */
-.set.dark,
-.set-dark {
-    --set-t: var(--l-bd, var(--theme-palette-color-7, hsl(0 0% 100%)));
-    --set-st: var(--l, var(--theme-palette-color-7, hsl(0 0% 96%)));
-    --set-tx: var(--l, var(--theme-palette-color-6, hsl(0 0% 96%)));
-    --set-bg: var(--d-bd, var(--theme-palette-color-4, hsl(0 0% 4%)));
+:where(.set.dark, .set-dark) {
+    --set-h: var(--set-dark-heading, var(--set-d-h, var(--l-bd, var(--theme-palette-color-27, var(--bg-bd, var(--theme-palette-color-8, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%))))))));
+    --set-c: var(--set-dark-color, var(--set-d-c, var(--l, var(--theme-palette-color-12, var(--on-d, var(--bg, var(--theme-palette-color-7, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)))))))));
+    --set-bg: var(--set-dark-background, var(--set-d-bg, var(--d, var(--theme-palette-color-11, var(--alt, var(--theme-palette-color-3, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
 }
 
 /* Light Theme */
-.set.light,
-.set-light {
-    --set-t: var(--d-bd, var(--theme-palette-color-4, hsl(0 0% 4%)));
-    --set-st: var(--d-bd, var(--theme-palette-color-4, hsl(0 0% 4%)));
-    --set-tx: var(--d, var(--theme-palette-color-3, hsl(0 0% 8%)));
-    --set-bg: var(--l-bd, var(--theme-palette-color-7, hsl(0 0% 100%)));
+:where(.set.light, .set-light) {
+    --set-h: var(--set-light-heading, var(--set-l-h, var(--d-bd, var(--theme-palette-color-25, var(--on-l, var(--t, var(--theme-palette-color-4, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))))));
+    --set-c: var(--set-light-color, var(--set-l-c, var(--d, var(--theme-palette-color-11, var(--on-l, var(--tx, var(--theme-palette-color-3, hsl(var(--d-h, 200) var(--d-s, 19%) var(--d-l, 8%)))))))));
+    --set-bg: var(--set-light-background, var(--set-l-bg, var(--l, var(--theme-palette-color-12, var(--bg, var(--theme-palette-color-7, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%))))))));
+}
+
+/* Alt Theme */
+:where(.set.alt, .set-alt) {
+    --set-h: var(--set-alternative-heading, var(--set-alt-h, var(--base-bd, var(--bg-bd, var(--theme-palette-color-8, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%))))))));
+    --set-c: var(--set-alternative-color, var(--set-alt-c, var(--base, var(--bg, var(--theme-palette-color-7, var(--l, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%))))))));
+    --set-bg: var(--set-alternative-background, var(--set-alt-bg, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))));
+}
+
+:where(.set.surface, .set-surface) {
+    --set-h: var(--set-surface-heading, var(--set-srf-h, var(--on-srf, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))))));
+    --set-c: var(--set-surface-color, var(--set-srf-c, var(--tx, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
+    --set-bg: var(--set-surface-background, var(--set-srf-bg, var(--srf, var(--base-lt, var(--bg-lt, var(--theme-palette-color-6, var(--l-lt, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%)))))))));
+}
+
+:where(.set.card, .set-card) {
+    --set-h: var(--set-card-heading, var(--set-crd-h, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%))))))));
+    --set-c: var(--set-card-color, var(--set-crd-c, var(--on-crd, var(--tx, var(--alt-lt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
+    --set-bg: var(--set-card-background, var(--set-crd-bg, var(--crd, var(--base-bd, var(--bg-bd, var(--theme-palette-color-8, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)))))))));
+}
+
+:where(.set.success, .set-success, .set.green, .set-green) {
+    --set-h: var(--set-success-heading, var(--set-scs-h, var(--scs, var(--theme-palette-color-13, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%))))))))));
+    --set-c: var(--set-success-color, var(--set-scs-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
+    --set-bg: var(--set-success-background, var(--set-scs-bg, var(--oscs, var(--theme-palette-color-33, var(--o-lt, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%) / var(--ntf-al, .32)))))));
+
+    --set-bc: var(--set-h, var(--scs));
+    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
+}
+
+:where(.set.alert, .set.error, .set.warning, .set-alert, .set-error, .set-warning, .set.red, .set-red) {
+    --set-h: var(--set-alert-heading, var(--set-alr-h, var(--alr, var(--theme-palette-color-14, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%))))))))));
+    --set-c: var(--set-alert-color, var(--set-alr-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
+    --set-bg: var(--set-alert-background, var(--set-alr-bg, var(--oalr, var(--theme-palette-color-34, var(--o-lt, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%) / var(--ntf-al, .32)))))));
+
+    --set-bc: var(--set-h, var(--alr));
+    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
+}
+
+:where(.set.info, .set-info, .set.blue, .set-blue) {
+    --set-h: var(--set-info-heading, var(--set-inf-h, var(--inf, var(--theme-palette-color-15, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%))))))))));
+    --set-c: var(--set-info-color, var(--set-inf-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
+    --set-bg: var(--set-info-background, var(--set-inf-bg, var(--oinf, var(--theme-palette-color-35, var(--o-lt, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%) / var(--ntf-al, .32)))))));
+
+    --set-bc: var(--set-h, var(--inf));
+    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
+}
+
+:where(.set.tip, .set-tip, .set.purple, .set-purple) {
+    --set-h: var(--set-tip-heading, var(--set-tip-h, var(--tip, var(--theme-palette-color-16, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 51%))))))))));
+    --set-c: var(--set-tip-color, var(--set-tip-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
+    --set-bg: var(--set-tip-background, var(--set-tip-bg, var(--otip, var(--theme-palette-color-36, var(--o-lt, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 51%) / var(--ntf-al, .32)))))));
+
+    --set-bc: var(--set-h, var(--tip));
+    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
+}
+
+:where(.set.notification, .set.note, .set.notice, .set.spotlight, .set-notification, .set-note, .set-notice, .set-spotlight, .set.yellow, .set-yellow) {
+    --set-h: var(--set-notification-heading, var(--set-ntf-h, var(--ntf, var(--theme-palette-color-37, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--ntf-h, 56) var(--ntf-s, 100%) var(--ntf-l, 50%))))))))));
+    --set-c: var(--set-notification-color, var(--set-ntf-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
+    --set-bg: var(--set-notification-background, var(--set-ntf-bg, var(--ontf, var(--theme-palette-color-38, var(--theme-palette-color-21, var(--op, hsl(var(--ntf-h, 56) var(--ntf-s, 100%) var(--ntf-l, 50%) / var(--ntf-al, .32))))))));
+
+    --set-bc: var(--set-h, var(--ntf));
+    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
+
+    --set-a: var(--alt-bd, var(--theme-palette-color-4, #000));
+}
+
+:where(.set.border, .set-border) {
+    --set-bc: var(--set-border-color, var(--sbc, currentColor));
+    --set-bs: var(--set-border-style, var(--sbs, solid));
+    --set-bw: var(--set-border-width, var(--sbw, calc(0.125rem * var(--y, 1))));
+}
+
+.set,
+[class*="set--"] {
+    --theme-text-color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
+
+    :is(h1, h2) {
+        --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+    }
+
+    :is(h3, h4, h5, h6) {
+        --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+    }
+
+    :is(a):not(.btn, [data-style="btn"]) {
+        --theme-link-initial-color: var(--set-link, var(--set-lnk, var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))))));
+        --theme-link-hover-color: var(--set-link-hover, var(--set-lnk-hover, var(--a, var(--theme-palette-color-2))));
+    }
 }

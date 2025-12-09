@@ -8,6 +8,7 @@
  * 
  * @usage node scripts/compress.js <directory>
  * @example node scripts/compress.js dist/latest
+ * @note This script is automatically called by build.js but can be run manually to re-compress assets.
  */
 
 const fs = require('fs');

@@ -30,17 +30,18 @@
   align-self: var(--crd-as);
   justify-self: var(--crd-js);
 
-  gap: var(--crd-gap--sm, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)));
+  gap: var(--card-gap, var(--crd-gap--sm, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem))));
 
   position: var(--crd-pos, relative);
 
   block-size: var(--crd-h--sm, var(--crd-h));
   min-block-size: var(--crd-min-h--sm, var(--crd-min-h));
   inline-size: var(--crd-w--sm, var(--crd-w));
+  max-inline-size: var(--crd-max-w);
 
   /* Shell has NO PADDING by default */
-  padding-block: var(--crd-pd, var(--crd-pb--sm, var(--crd-pb, var(--crd-p--sm, var(--crd-p, 1.25rem)))));
-  padding-inline: var(--crd-pd, var(--crd-pi--sm, var(--crd-pi, var(--crd-p--sm, var(--crd-p, 1.25rem)))));
+  padding-block: var(--card-padding-pb, var(--crd-pdb, var(--crd-pb--sm, var(--crd-pb, var(--crd-p--sm, var(--crd-p, 1.25rem))))));
+  padding-inline: var(--card-padding-pi, var(--crd-pdi, var(--crd-pi--sm, var(--crd-pi, var(--crd-p--sm, var(--crd-p, 1.25rem))))));
 
   &:has(.crd__content),
   &.sg,
@@ -50,46 +51,46 @@
 
   /* --- Appearance --- */
 
-  text-align: var(--crd-ta--sm, var(--crd-ta));
+  text-align: var(--card-text-align, var(--crd-ta--sm, var(--crd-ta)));
 
-  color: var(--crd-color, currentColor);
-  background-color: var(--crd-bg);
+  color: var(--card-color, var(--crd-color, var(--card-text-c, var(--crd-tx-c, var(--set-tx, var(--set-c, var(--on-crd, var(--theme-palette-color-3, currentColor))))))));
+  background-color: var(--card-background, var(--crd-bg));
 
-  border-width: var(--crd-border-w, 0);
-  border-style: var(--crd-border-s, solid);
-  border-color: var(--crd-border-c, currentColor);
+  border-width: var(--card-border-w, var(--crd-border-w, 0));
+  border-style: var(--card-border-s, var(--crd-border-s, solid));
+  border-color: var(--card-border-c, var(--crd-border-c, currentColor));
 
-  border-radius: var(--crd-rad);
+  border-radius: var(--card-border-radius, var(--crd-rad));
 
-  box-shadow: var(--crd-shadow);
+  box-shadow: var(--card-shadow, var(--crd-shadow));
 
-  overflow-x: var(--crd-of-x, var(--crd-of, clip));
-  overflow-y: var(--crd-of-y, var(--crd-of, clip));
+  overflow-x: var(--card-overflow-x, var(--crd-of-x, var(--crd-of, clip)));
+  overflow-y: var(--card-overflow-y, var(--crd-of-y, var(--crd-of, clip)));
 
-  transition: var(--crd-trans,
-    var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
-  transition-property: var(--crd-trans-p,
-    background-color,
-    border-color,
-    box-shadow,
-    outline-color);
+  transition: var(--card-transition, var(--crd-trans,
+      var(--trans-d, 0.32s) var(--trans-t, ease-in-out)));
+  transition-property: var(--card-transition-p, var(--crd-trans-p,
+      background-color,
+      border-color,
+      box-shadow,
+      outline-color));
 
   &:hover {
-    background-color: var(--crd-bg-hover, var(--crd-bg));
-    border-color: var(--crd-border-c-hover, var(--crd-border-c, currentColor));
-    outline-color: var(--crd-outline-c-hover, var(--crd-outline-c, currentColor));
-    box-shadow: var(--crd-shadow-hover, var(--crd-shadow));
+    background-color: var(--card-background-hover, var(--crd-bg-hover, var(--crd-bg)));
+    border-color: var(--card-border-c-hover, var(--crd-border-c-hover, var(--crd-border-c, currentColor)));
+    outline-color: var(--card-outline-c-hover, var(--crd-outline-c-hover, var(--crd-outline-c, currentColor)));
+    box-shadow: var(--card-shadow-hover, var(--crd-shadow-hover, var(--crd-shadow)));
 
-    transition: var(--crd-trans-hover, var(--crd-trans,
-          var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
+    transition: var(--card-trans-hover, var(--crd-trans-hover, var(--crd-trans,
+            var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out)))));
   }
 
   &:focus-visible {
-    outline-width: var(--crd-outline-w, 0);
-    outline-style: var(--crd-outline-s, solid);
-    outline-color: var(--crd-outline-c,
-        var(--p, var(--theme-palette-color-1, currentColor)));
-    outline-offset: var(--crd-outline-o, 0.25rem);
+    outline-width: var(--card-outline-w, var(--crd-outline-w, 0));
+    outline-style: var(--card-outline-s, var(--crd-outline-s, solid));
+    outline-color: var(--card-outline-c, var(--crd-outline-c,
+          var(--p, var(--theme-palette-color-1, currentColor))));
+    outline-offset: var(--card-outline-o, var(--crd-outline-o, 0.25rem));
   }
 
   /* --- Container Query Setup --- */
@@ -98,6 +99,9 @@
     container-type: inline-size;
     contain: inline-size layout;
   }
+
+  container: crd / inline-size;
+  contain: inline-size layout;
 
   /* --- 'md' CONTAINER (Ranged) --- */
   @container (669.99px <=width <=999.99px) {
@@ -184,11 +188,12 @@
    * @group Content Typography
    * Default styles for text elements inside the card.
    */
-  :not(.btn, [data-style="btn"])> :where(p) {
-    color: var(--crd-tx-color, var(--set-tx, var(--theme-palette-color-3, currentColor)));
-    font-size: var(--crd-tx-font-s, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)));
-    line-height: var(--crd-tx-line-h, var(--crd-lh, 1.375));
-    text-transform: var(--crd-tx-text-t, var(--crd-tt, none));
+  :not(.btn, [data-style="btn"])> :where(p, span, div, button, a) {
+    color: var(--card-text-c, var(--crd-tx-c, var(--set-tx, var(--set-c, var(--on-crd, var(--theme-palette-color-3, currentColor))))));
+    font-size: var(--card-text-font-s, var(--crd-tx-fs, var(--crd-tx-fs-m, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)))));
+    font-weight: var(--card-text-font-w, var(--crd-tx-fw, var(--crd-fw, 400)));
+    line-height: var(--card-text-line-h, var(--crd-tx-lh, var(--crd-lh, 1.375)));
+    text-transform: var(--card-text-text-t, var(--crd-tx-tt, var(--crd-tt, none)));
   }
 
   /**
@@ -196,12 +201,12 @@
    * Semantic containers: Media, Content, Header, Body, Footer.
    */
 
-  /* .crd__media (has NO PADDING) */
-  :where(.crd__media) {
+  /* .crd__media /figure (has NO PADDING) */
+  :where(.crd__media, & > figure) {
     margin: var(--crd-med-m, 0);
 
-    object-fit: var(--crd-med-obj, cover);
-    aspect-ratio: var(--crd-med-ar--sm, var(--crd-med-ar, 1.91 / 1));
+    object-fit: var(--card-media-obj, var(--crd-med-obj, cover));
+    aspect-ratio: var(--card-media-ar, var(--crd-med-ar--sm, var(--crd-med-ar, 1.91 / 1)));
 
     overflow-x: var(--crd-med-of-x, var(--crd-of-x, clip));
     overflow-y: var(--crd-med-of-y, var(--crd-of-y, clip));
@@ -210,18 +215,18 @@
     block-size: var(--crd-med-h, var(--crd-med-size, auto));
     min-inline-size: var(--crd-med-min-w);
     min-block-size: var(--crd-med-min-h);
-    max-inline-size: var(--crd-med-max-w--sm, var(--crd-med-max-w));
+    max-inline-size: var(--card-media-max-w, var(--crd-med-max-w--sm, var(--crd-med-max-w)));
     max-block-size: var(--crd-med-max-h);
 
     margin: var(--crd-med-m, 0);
-    padding: var(--crd-med-p);
+    padding: var(--card-media-pd, var(--crd-med-p));
 
-    background-color: var(--crd-med-bg, transparent);
+    background-color: var(--card-media-bg, var(--crd-med-bg, transparent));
     opacity: var(--crd-med-op);
 
     flex-shrink: var(--crd-med-shrink, 0);
 
-    order: var(--crd-med-o--sm, var(--crd-med-o, -1));
+    order: var(--card-media-o, var(--crd-med-o--sm, var(--crd-med-o, -1)));
 
     isolation: var(--crd-med-iso);
     z-index: var(--crd-med-z);
@@ -247,10 +252,19 @@
       display: var(--crd-svg-d, block);
       fill: var(--crd-svg-fill, currentColor);
       stroke: var(--crd-svg-stroke);
-      inline-size: var(--crd-svg-w, var(--crd-svg-size, 3em));
-      block-size: var(--crd-svg-h, var(--crd-svg-size, 3em));
+      inline-size: var(--card-svg-size, var(--crd-svg-w, var(--crd-svg-size, 3em)));
+      block-size: var(--card-svg-size, var(--crd-svg-h, var(--crd-svg-size, 3em)));
       aspect-ratio: var(--crd-svg-ar, var(--crd-ar));
       flex-shrink: var(--crd-svg-shrink, 0);
+    }
+
+    :where(svg.str, .str svg) {
+      fill: var(--crd-svg-fill);
+      stroke: var(--crd-svg-stroke, currentColor);
+    }
+
+    :where(svg.fill, .fill svg) {
+      fill: var(--crd-svg-fill, currentColor);
     }
 
     :where(& > img, & > picture, & > svg) {
@@ -262,16 +276,13 @@
   }
 
   :where(&:hover .crd__media) {
-    transition: var(--crd-med-trans-hover, var(--crd-med-trans,
-          var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
-    opacity: var(--crd-med-op-hover, var(--crd-med-op, 1));
+    transition: var(--card-med-trans-hover, var(--crd-med-trans-hover, var(--crd-med-trans, var(--trans-d--hover, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
+    opacity: var(--card-med-op-hover, var(--crd-med-op-hover, var(--crd-med-op, 1)));
   }
 
   :where(&:hover .crd__media)> :where(img, picture, svg) {
-    transition: var(--crd-med-trans-hover, var(--crd-med-trans,
-          var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
-    transform: var(--crd-med-tf-hover, var(--crd-med-tf,
-          scale(var(--crd-med-tf-scale, var(--tf-scale, 1.125)))));
+    transition: var(--card-med-trans-hover, var(--crd-med-trans-hover, var(--crd-med-trans, var(--trans-d--hover, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
+    transform: var(--card-med-tf-hover, var(--crd-med-tf-hover, scale(var(--crd-med-tf-scale, var(--tf-scale, 1.125)))));
   }
 
   /* .crd__content is the primary PADDED wrapper for flex mode */
@@ -290,8 +301,8 @@
     text-align: var(--crd-content-ta--sm, var(--crd-content-ta, var(--crd-ta--sm, var(--crd-ta))));
 
     /* PADDING lives here! */
-    padding-block: var(--crd-content-pb--sm, var(--crd-content-pb, var(--crd-content-p, 1.25rem)));
-    padding-inline: var(--crd-content-pi--sm, var(--crd-content-pi, var(--crd-content-p, 1.25rem)));
+    padding-block: var(--card-content-pdb, var(--crd-content-pb--sm, var(--crd-content-pb, var(--crd-content-p, 1.25rem))));
+    padding-inline: var(--card-content-pdi, var(--crd-content-pi--sm, var(--crd-content-pi, var(--crd-content-p, 1.25rem))));
   }
 
   /* Granular slots (header, body, footer) for semantic structure */
@@ -369,37 +380,35 @@
 
 .crd {
   :is(h2, h3, h4) {
-    color: var(--crd-t-color, var(--set-st, var(--set-h, var(--theme-palette-color-4, currentColor))));
-    font-size: var(--crd-t-font-s, var(--crd-h-font-s, clamp(1.375rem, 0.417vw + 1.292rem, 1.625rem)));
-    line-height: var(--crd-t-line-h, var(--crd-h-line-h, 1.25));
-    font-weight: var(--crd-t-font-w, var(--crd-h-font-w, 700));
-    text-transform: var(--crd-t-text-t, var(--crd-h-text-t, none));
-
-    --theme-font-size: var(--crd-t-font-s, var(--crd-h-font-s, clamp(1.375rem, 0.417vw + 1.292rem, 1.625rem)));
-    --theme-font-weight: var(--crd-t-font-w, var(--crd-h-font-w, 700));
-    --theme-font-style: var(--crd-t-font-s, var(--crd-h-text-t, none));
-    --theme-line-height: var(--crd-t-line-h, var(--crd-h-line-h, 1.25));
+    color: var(--card-title-c, var(--crd-t-c, var(--crd-h-c, var(--set-st, var(--set-h, var(--set-c, var(--alt-bd, var(--t, var(--theme-palette-color-4, currentColor)))))))));
+    font-size: var(--card-title-font-s, var(--crd-t-fs, var(--crd-h-fs, clamp(1.375rem, 0.417vw + 1.292rem, 1.625rem))));
+    font-weight: var(--card-title-font-w, var(--crd-t-fw, var(--crd-h-fw, 700)));
+    line-height: var(--card-title-line-h, var(--crd-t-lh, var(--crd-h-lh, 1.25)));
+    letter-spacing: var(--card-title-letter-s, var(--crd-t-ls, var(--crd-h-ls)));
+    text-transform: var(--card-title-text-t, var(--crd-t-tt, var(--crd-h-tt, none)));
   }
 
-  :where(h2, h3, h4) a:not(.btn, [data-style="btn"]) {
-    color: var(--crd-t-color, var(--set-st, var(--set-h, var(--theme-palette-color-3, currentColor))));
-    text-decoration: var(--crd-hd-tx-dec, none);
-    opacity: var(--crd-hd-op, 1);
+  a:not(.btn, [data-style="btn"]) {
+    color: var(--card-title-c, var(--crd-t-c, var(--crd-h-c, var(--set-st, var(--set-h, var(--set-c, var(--alt-bd, var(--t, var(--theme-palette-color-4, currentColor)))))))));
+    text-decoration: var(--card-title-text-dec, var(--crd-t-text-d, var(--crd-t-td, var(--crd-h-td, none))));
+    opacity: var(--crd-title-op, var(--crd-t-op, var(--crd-h-op, 1)));
 
     transition: var(--crd-trans,
         var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
     transition-property: var(--crd-trans-p,
         color, opacity);
-
-    --theme-link-initial-color: var(--crd-t-color, var(--set-st, var(--set-h, var(--theme-palette-color-4, currentColor))));
-    --theme-link-hover-color: var(--crd-t-color-hover, var(--crd-t-color, var(--set-st, var(--set-h, var(--theme-palette-color-2, currentColor)))));
   }
 
-  &:hover :where(h2, h3, h4) a:not(.btn, [data-style="btn"]) {
-    color: var(--crd-t-color-hover, var(--crd-t-color, var(--set-st, var(--set-h, var(--theme-palette-color-2, currentColor)))));
-    opacity: var(--crd-hd-op-hover);
-    transition: var(--crd-trans-hover, var(--crd-trans,
-          var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
+  :not(h2, h3, h4)>a:not(.btn, [data-style="btn"]) {
+    text-decoration: var(--card-link-text-dec, var(--crd-lnk-text-d, var(--crd-lnk-td, var(--crd-a-td, var(--link-text-dec, var(--lnk-text-d, var(--lnk-td, var(--a-td, underline))))))));
+  }
+
+  &:hover a:not(.btn, [data-style="btn"]) {
+    color: var(--card-title-c-hover, var(--crd-t-c-hover, var(--crd-h-c-hover, var(--set-a, var(--set-st, var(--set-h, var(--set-c, var(--p, var(--alt-bd, var(--t, var(--theme-palette-color-2, #ffb900)))))))))));
+    opacity: var(--crd-title-op-hover);
+
+    transition: var(--crd-trans-hover,
+        var(--trans-d-hover, 0.16s) var(--trans-t-hover, ease-in-out));
   }
 }
 
@@ -456,4 +465,29 @@ li:where(.crd) {
   &:where(.g, .sg, .sgc):has(> &) {
     display: var(--crd-d, grid);
   }
+}
+
+:is(.crd, [class^="crd-"]) {
+  --theme-heading-color: var(--card-title-c, var(--crd-t-c, var(--crd-h-c, var(--set-st, var(--set-h, var(--set-c, var(--alt-bd, var(--t, var(--theme-palette-color-4, currentColor)))))))));
+  --theme-font-size: var(--card-title-font-s, var(--crd-t-fs, var(--crd-h-fs, clamp(1.375rem, 0.417vw + 1.292rem, 1.625rem))));
+  --theme-font-weight: var(--card-title-font-w, var(--crd-t-fw, var(--crd-h-fw, 700)));
+  --theme-font-style: var(--crd-t-font-s, var(--crd-t-fst));
+  --theme-line-height: var(--card-title-line-h, var(--crd-t-lh, var(--crd-h-lh, 1.25)));
+  --theme-letter-spacing: var(--card-title-letter-s, var(--crd-t-ls, var(--crd-h-ls)));
+  --theme-text-transform: var(--card-title-text-t, var(--crd-t-tt, var(--crd-h-tt, none)));
+
+  --theme-text-decoration: var(--card-title-text-dec, var(--crd-t-text-d, var(--crd-t-td, var(--crd-h-td, none))));
+  --theme-link-initial-color: var(--card-title-c, var(--crd-t-c, var(--crd-h-c, var(--set-st, var(--set-h, var(--set-c, var(--alt-bd, var(--t, var(--theme-palette-color-4, currentColor)))))))));
+}
+
+:is(.crd, [class^="crd-"]):hover a {
+  --theme-link-hover-color: var(--card-title-c-hover, var(--crd-t-c-hover, var(--crd-h-c-hover, var(--set-a, var(--set-st, var(--set-h, var(--set-c, var(--p, var(--alt-bd, var(--t, var(--theme-palette-color-2, #ffb900)))))))))));
+}
+
+:is(.crd, [class^="crd-"]) :is(p, span, div, a, button) {
+  --theme-text-color: var(--card-text-c, var(--crd-tx-c, var(--set-tx, var(--set-c, var(--on-crd, var(--theme-palette-color-3, currentColor))))));
+  --theme-font-size: var(--card-text-font-s, var(--crd-tx-fs, var(--crd-tx-fs-m, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)))));
+  --theme-font-weight: var(--card-text-font-w, var(--crd-tx-fw, var(--crd-fw, 400)));
+  --theme-line-height: var(--crd-tx-line-h, var(--crd-tx-lh, 1.5));
+  --theme-text-transform: var(--card-text-text-t, var(--crd-tx-tt, var(--crd-tt, none)));
 }

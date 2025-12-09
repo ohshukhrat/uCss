@@ -12,7 +12,7 @@
  * The outer shell (.s). Handles background, full-bleed behavior, and vertical spacing (padding-block).
  * Configured as a flex container by default.
  */
-:where(.s):not(.t, .tx, .ta, .pd, .mg, .rad) {
+:where(.s:not(.s .s)) {
   display: var(--s-d, flex);
   flex-direction: var(--s-fd, column);
   align-items: var(--s-ai, center);
@@ -39,7 +39,7 @@
   overflow-x: var(--s-of-x, var(--s-of, clip));
   overflow-y: var(--s-of-y, var(--s-of, clip));
 
-  background-color: var(--s-bg--sm, var(--s-bg));
+  background-color: var(--s-bg--sm, var(--s-bg, var(--set-bg)));
 
   border-width: var(--s-border-w);
   border-style: var(--s-border-s);
@@ -70,6 +70,10 @@
 
   @media (height > 1024px) {
     min-block-size: var(--s-min-h--fh, var(--s-min-h));
+  }
+
+  :where(a:not(.btn, [data-style="btn"])) {
+    text-decoration: var(--link-text-dec, var(--lnk-text-d, var(--lnk-td, var(--a-td, underline))));
   }
 }
 

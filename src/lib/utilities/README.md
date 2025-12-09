@@ -1,10 +1,10 @@
 # Utilities Module
 
-**Navigation**: [uCss](../../../README.md) > [Source](../../README.md) > [Modules](../README.md) > [Utilities](./) 
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Utilities](./) 
 
 **Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](./)
 
-> **The Helpers**. Low-level, high-impact utility classes for one-off adjustments to spacing, visibility, and radius.
+> **Logical Utilities**. High-impact helper classes including Spacing (`.mg`, `.pd`), Radius (`.rad`), Blur (`.blr`), and Visibility. Built strictly with **Logical Properties** (Start/End) where applicable to ensure RTL-readiness out of the box.
 
 ---
 
@@ -13,6 +13,8 @@
 *   [Margin (`.mg`)](#1-margin-mg)
 *   [Padding (`.pd`)](#2-padding-pd)
 *   [Radius (`.rad`)](#3-radius-rad)
+*   [Blur (`.blr`)](#4-blur-blr)
+*   [Visibility](#5-visibility)
 
 ---
 
@@ -28,6 +30,11 @@ We mostly use **Logical Properties** (start/end) instead of **Physical Propertie
     *   `margin-right` -> `margin-inline-end` (`.mgie`)
     *   `margin-top` -> `margin-block-start` (`.mgbs`)
     *   `margin-bottom` -> `margin-block-end` (`.mgbe`)
+
+### 🧠 Thinking in Utilities
+1.  **Utilities are Exceptions**: If you are using `.pd-m` on every single card in your app, you are doing it wrong. You should be customizing the `.crd` class (or `--crd-p` variable). Utilities are for *one-off* adjustments.
+2.  **Logical is Future-Proof**: Train your brain to think in "Start/End" instead of "Left/Right". It makes your layouts resilient to writing mode changes (e.g., vertical text or RTL).
+3.  **Use `.auto` for Layout Power**: `.mgis.auto` isn't just margin; it's a powerful layout tool in Flexbox to push elements apart.
 
 ### Best Practices: When to use Utilities?
 *   **Use `.mg-` / `.pd-`** for one-off adjustments (e.g., "This specific button needs to be pushed away from the text").
@@ -226,3 +233,39 @@ Only rounding the top corners to match the card, leaving bottom square to attach
   </div>
 </div>
 ```
+
+---
+
+## 4. Blur (`.blr`)
+Backdrop blur utilities.
+
+### Preset Scale
+
+| Size | Class | Value |
+| :--- | :--- | :--- |
+| **s** | `.blr--s` | `0.125rem` |
+| **m** | `.blr` | `0.25rem` |
+| **l** | `.blr--l` | `0.5rem` |
+| **xl** | `.blr--xl` | `1rem` |
+| **xxl** | `.blr--xxl` | `2rem` |
+
+### Usage Examples
+
+#### Glassmorphism Card
+```html
+<div class="card s set dark blr--xl" style="--set-bg: hsl(0 0% 10% / 0.5);">
+  Blurred background content.
+</div>
+```
+
+---
+
+## 5. Visibility
+Utilities for hiding elements.
+
+| Class | Description |
+| :--- | :--- |
+| `.hide`, `.hidden` | Hides the element (`display: none`, `opacity: 0`). |
+
+> **Note**: In the editor context, these elements remain strictly visible (reduced opacity) for editing purposes.
+

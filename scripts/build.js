@@ -22,6 +22,11 @@
  * node scripts/build.js preview
  *
  * @example
+ * // Build with custom safe name (e.g. for testing features)
+ * // Creates: dist/my-feature-branch
+ * node scripts/build.js my-feature-branch
+ *
+ * @example
  * // Build from specific git ref to custom output
  * node scripts/build.js --source main stable
  */
@@ -158,9 +163,12 @@ function bundleCss(entryFile, sourceRef) {
         }
 
         const currentDir = path.dirname(currentPath);
-        const importRegex = /@import\s+['"]([^'"]+)['"];/g;
+        // Match comments OR imports to avoid processing commented-out imports
+        const tokenRegex = /(\/\*[\s\S]*?\*\/)|(@import\s+['"]([^'"]+)['"];)/g;
 
-        const replaced = content.replace(importRegex, (match, importPath) => {
+        const replaced = content.replace(tokenRegex, (match, comment, fullImport, importPath) => {
+            if (comment) return match; // Preserve comments, do not process imports inside them
+
             let resolvedPath;
             if (importPath.startsWith('lib/')) {
                 resolvedPath = path.join(SRC_DIR, importPath);
@@ -249,18 +257,30 @@ async function main() {
                 outputDirName = `preview-${timestamp}`;
             }
         }
-    } else if (outputDirName === 'preview') {
-        // Explicit "npm run build preview"
-        const now = new Date();
-        const yyyy = now.getFullYear();
-        const mo = String(now.getMonth() + 1).padStart(2, '0');
-        const dd = String(now.getDate()).padStart(2, '0');
-        const hh = String(now.getHours()).padStart(2, '0');
-        const mm = String(now.getMinutes()).padStart(2, '0');
-        const ss = String(now.getSeconds()).padStart(2, '0');
-        const timestamp = `${yyyy}-${mo}-${dd}-${hh}-${mm}-${ss}`;
+    } else {
+        // User provided logic
+        if (outputDirName === 'preview') {
+            // Explicit "npm run build preview"
+            const now = new Date();
+            const yyyy = now.getFullYear();
+            const mo = String(now.getMonth() + 1).padStart(2, '0');
+            const dd = String(now.getDate()).padStart(2, '0');
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            const ss = String(now.getSeconds()).padStart(2, '0');
+            const timestamp = `${yyyy}-${mo}-${dd}-${hh}-${mm}-${ss}`;
 
-        outputDirName = `preview-${timestamp}`;
+            outputDirName = `preview-${timestamp}`;
+        } else if (outputDirName !== 'stable' && outputDirName !== 'latest') {
+            // Custom target validation
+            const validNameRegex = /^[a-zA-Z0-9-_]+$/;
+            if (!validNameRegex.test(outputDirName)) {
+                console.error(`❌ ERROR: Invalid build target name "${outputDirName}".`);
+                console.error('   Allowed characters: a-z, A-Z, 0-9, -, _');
+                process.exit(1);
+            }
+            // Logic: we trust the user's custom name if it passes regex
+        }
     }
 
     const outputDir = path.join(DIST_ROOT, outputDirName);
@@ -363,7 +383,14 @@ async function main() {
                         // console.log('Heading args:', arguments[0]); // Debug
                         // Handle object-based arguments (marked v12+)
                         const actualText = this.parser.parseInline(tokens);
-                        const escapedText = actualText.toLowerCase().replace(/[^\w]+/g, '-');
+                        // GitHub-style slugger:
+                        // 1. Lowercase
+                        // 2. Remove non-word chars (except spaces and hyphens)
+                        // 3. Replace spaces with hyphens
+                        const escapedText = actualText
+                            .toLowerCase()
+                            .replace(/[^\w\s-]/g, '') // Remove punctuation like () .
+                            .replace(/\s+/g, '-');    // Space to dash
                         return `<h${depth} id="${escapedText}">${actualText}</h${depth}>`;
                     } catch (e) {
                         // Fallback for older marked or if fails

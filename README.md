@@ -4,30 +4,59 @@
 
 **Modules**: [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Theming](./src/lib/theming/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Utilities](./src/lib/utilities/)
 
-> **The Modern, Classless-ish CSS Framework**. uCss is a lightweight, property-driven framework designed for the modern web. It leverages Container Queries, Logical Properties, and CSS Variables to create resilient, portable UI components that work anywhere.
+> **The Container-First CSS Framework**. uCss is a modern, 10KB lightweight framework designed to solve component portability. It leverages **Container Queries** and **CSS Variables** to create resilient UI components that adapt to their *context*, not just the screen size. No build step required.
 
 ---
 
 ## 📑 Page Contents
-*   [Key Features](#-key-features)
-*   [Thinking in uCss](#-thinking-in-ucss)
+*   [Why uCss?](#-why-ucss)
+*   [Thinking in uCss](#-thinking-in-ucss-philosophy)
+*   [The Ecosystem](#-the-ecosystem)
 *   [Installation & Usage](#-installation--usage)
 *   [Configuration](#-configuration-optional)
 *   [Documentation & Modules](#-documentation--modules)
+*   [See it in Action](#-see-it-in-action)
 
 ---
 
 **uCss** is a modern, mobile-first, **pure CSS framework** designed for granular control, responsiveness, and flexibility. It leverages **CSS Variables** and **Container Queries** to provide a highly adaptable styling API without the need for complex build steps, JavaScript runtimes, or utility-class bloat.
 
-## 🚀 Key Features
+## 🌟 Why uCss?
 
-*   **Variable-Driven API**: Every component exposes CSS variables (e.g., `--btn-bg`, `--g-cols`) for instant overrides inline or in CSS.
-*   **Container Queries Layouts**: Components like cards or grids adapt based on their *parent container size*, not the viewport, making them truly portable and modular.
-*   **Zero JavaScript**: strict pure CSS implementation, no build steps required for usage.
+**uCss** is not just another CSS framework. It is a **system** designed to solve the "Component Portability" crisis.
+
+### 1. The "Component Portability" Crisis (vs Tailwind)
+*   **Problem**: In frameworks like **Tailwind**, you write `w-1/2 md:w-1/4`. If you move that component to a sidebar, it breaks because `md` refers to the *screen*, not the sidebar.
+*   **Solution**: **uCss** uses **Container Queries**. You write `.g` (Grid). It automatically detects if it's in a sidebar or a main area and adjusts itself. No modifiers needed.
+
+### 2. The "Classless-ish" API
+We hate class bloat. Instead of `text-lg font-bold text-center text-blue-500 p-4 rounded-xl shadow-lg`, uCss relies on **HTML Semantics** and **CSS Variables**.
+*   **Tailwind**: `<button class="bg-blue-500 text-white px-4 py-2 rounded">`
+*   **uCss**: `<button class="btn primary">` (Then customize with `--btn-bg: blue` if needed).
+
+### 3. Zero Build Step Required
+uCss is written in pure, highly-optimized CSS. You can drop the CDN link in your `<head>` and start building. No `npm install`, no `postcss.config.js`, no 5-minute compile times.
+*   **Dev**: Use `/src/` for debugging.
+*   **Prod**: Use `/dist/u.min.css` (~100KB Minified, ~15KB Gzipped).
+
+### 4. Variable-First Architecture
+We expose **CSS Variables** as our public API.
+*   Want a different primary color? `:root { --p: #ff0000; }`
+*   Want tighter spacing in just one section? `.my-section { --s-gap: 1rem; }`
+*   The entire framework cascades these values instantly.
+
+---
+
+### 🚀 More Features
+
 *   **Granular Control**: Modify specific properties for specific breakpoints using structured variable suffixes (e.g., `--gap--md`).
 *   **Advanced Fallbacks**: All variables resolve to "Pretty Out-of-the-Box" defaults (using `clamp()` for responsiveness) if undefined, ensuring layouts look great immediately.
-*   **Themeable defaults**: `root.css` holds the global fallback values. Change one variable there (e.g., `--p`) to instantly re-theme the entire application.
+*   **Themeable defaults**: We developed and included a `root.css` file that already holds all properties with their global fallback values. Change one variable there (e.g., `--p`) to instantly re-theme the entire application, comment what you don't need to reduce the bundle size.
 *   **Mobile-First**: All utilities start from mobile defaults and expand upwards.
+*   **Responsive**: All components and layouts are responsive by default.
+*   **Logical Properties**: All styles use logical properties (e.g., `margin-inline` instead of `margin-left` and `margin-right`).
+*   **Compatibility**: uCss is tested and fully compatible with **WordPress**, specifically the **Greenlight Builder** and **Blocksy Theme**.
+
 
 > [!CAUTION]
 > **Container Query Gotcha**:
@@ -41,23 +70,54 @@
 
 ---
 
-## 🧠 Thinking in uCss
-uCss is not just a collection of classes; it is a system for building resilient user interfaces.
+## 🧠 Thinking in uCss (Philosophy)
+uCss is not just a collection of classes; it is a system that demands a slight shift in mindset. If you fight it, it will feel restrictive. If you embrace it, it feels like a superpower.
 
-### 1. Context Over Media
-Most CSS frameworks use **Media Queries** (screen size) to determine layout. uCss relies heavily on **Container Queries**.
-*   **Traditional**: "If the screen is 768px wide, make this card 50% width."
-*   **uCss**: "If I am inside a small sidebar, stack vertically. If I am in a main content area, go horizontal."
-Measurements are intrinsic to the component, not the device. This makes components **truly portable**.
+### 1. The Container is King (Context > Viewport)
+Stop thinking about "Mobile Screen" vs "Desktop Screen". Think about **Available Space**.
+*   **The Old Way**: "At 768px screen width, make this card horizontal."
+*   **The uCss Way**: "If this card has > 600px of space, make it horizontal."
+This means you can drop the *same* card component into a narrow sidebar or a wide main area, and it fits perfectly in both. You don't write overrides for the sidebar; the component effectively "self-heals" based on its container.
 
-### 2. Variables are the API
-We don't hide values in SASS maps. We expose them as CSS Variables (`--p`, `--gap`, `--bg`).
-*   **Inheritance**: Define `--p: blue;` on a section, and every button inside becomes blue.
-*   **Runtime Control**: Change variables with JS or inline styles for instant theming.
-*   **No Build Step**: Works natively in the browser.
+### 2. Semantics ≠ Visuals (Decoupling)
+In standard CSS, `<h1>` usually means "Big Text". In uCss, `<h1>` means "Top Level Heading". The two are unrelated.
+*   **HTML controls Meaning**: Use `<button>`, `<nav>`, `<h1>` for accessibility and SEO.
+*   **Classes control Look**: Use `.btn`, `.f`, `.t` for style.
+This allows you to have a marketing tagline that looks like a massive headline (`<p class="t xxxl">`) without ruining your document outline, or a sidebar heading that is semantically important but visually tiny (`<h2 class="t xxs">`).
 
-### 3. Modularity
-You don't have to use the whole thing. The framework is split into independent modules (`layout`, `components`, `typography`, etc.) that can be mixed and matched.
+### 3. Composition (LEGOs > Monoliths)
+We don't provide a "Profile Card" component. We provide primitives (`Card Shell`, `Media Wrapper`, `Flexbox`, `Radius`) that you compose.
+*   **Don't Search**: "Do they have a horizontal profile card class?"
+*   **Do Build**: `<article class="crd f row ai-c gap-m">`
+    *   `.crd`: The box.
+    *   `.f.row`: The layout.
+    *   `.ai-c`: The alignment.
+    *   `.gap-m`: The spacing.
+You are constructing UI from atoms. This reduces the need to memorize thousands of specific component names.
+
+### 4. Variables are the API
+If you find yourself writing `!important` or complex CSS selectors to override a color, you are fighting the framework.
+*   **The Wrong Way**: `.my-card h3 { color: red; }`
+*   **The Right Way**: `.my-card { --t: red; }`
+uCss components are "listening" for variables. If you change the signal (`--t` for title color), the component updates itself. This is how theming (`.set.dark`) works—it just changes the signals.
+
+
+---
+
+## 🌍 The Ecosystem
+
+uCss is modular by design. You can use the full framework or just the parts you need.
+
+| Module | What it does |
+| :--- | :--- |
+| **[Layout](./src/lib/layout/)** | **The Core Engine**. Grid (`.g`), Flex (`.f`), and Section (`.s`). Powered by Container Queries. |
+| **[Components](./src/lib/components/)** | **Interaction**. Cards (`.crd`), Buttons (`.btn`), and Media (`.med`). |
+| **[Typography](./src/lib/typography/)** | **Fluid Text**. Headings (`.t`) and body text (`.tx`) that scale automatically. |
+| **[Theming](./src/lib/theming/)** | **Context**. Dark mode, brand themes (`.set`), and overlays (`.o`). |
+| **[Utilities](./src/lib/utilities/)** | **Polish**. Margins (`.mg`) and Padding (`.pd`) with logical properties. |
+| **[Config](./src/lib/config/)** | **Control Center**. The CSS variables that drive the system. |
+
+> 👉 **Explore the source**: Check out the [Source Map](./src/).
 
 ---
 
@@ -136,6 +196,7 @@ uCss is built to work out-of-the-box. Every component has a "graceful fallback".
 :root {
   /* ==========================================================================
      SECTION: GENERAL / CONFIGURATION
+     Mapping: src/lib/config & src/lib/theming
      ========================================================================== */
 
   /**
@@ -150,8 +211,14 @@ uCss is built to work out-of-the-box. Every component has a "graceful fallback".
   --bg:  hsl(0 0% 96%);   /* Main Background */
   --srf: hsl(0 0% 92%);   /* Surface (Cards) */
 
+  /**
+   * @group Configuration: Animation
+   */
+  --trans-d: 0.32s;
+
   /* ==========================================================================
      SECTION: TYPOGRAPHY
+     Mapping: src/lib/typography
      ========================================================================== */
 
   /**
@@ -166,6 +233,7 @@ uCss is built to work out-of-the-box. Every component has a "graceful fallback".
   
   /* ==========================================================================
      SECTION: LAYOUT
+     Mapping: src/lib/layout
      ========================================================================== */
   
   /**
@@ -173,6 +241,17 @@ uCss is built to work out-of-the-box. Every component has a "graceful fallback".
    */
   --sc-max-w: 1366px; /* Scaffold Max Width */
   --s-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
+
+  /* ==========================================================================
+     SECTION: COMPONENTS
+     Mapping: src/lib/components
+     ========================================================================== */
+
+  /**
+   * @group Components: Button (button.css)
+   */
+   --btn-fs: 1.125rem;
+   --btn-rad: 4em;
 }
 ```
 
@@ -463,8 +542,8 @@ Border radius utilities.
 
 ---
 
-## 🏛️ Real World Example
-Below is a semantic HTML example of a "Blog" section, demonstrating the use of `.s` (Section), `.g` (Grid), `.crd` (Card), and responsive utilities.
+## 🏛️ See it in Action
+Below is real, semantic HTML example of a "Blog" section. Notice how we use `.s` for structure, `.g` for layout, and `.crd` for content, all controlled by CSS variables.
 
 ```html
 <!-- Main Section: Section wrapper, Center content, Primary Theme -->
@@ -598,8 +677,8 @@ If you are contributing to uCss or modifying the core framework, here is an in-d
 *   **`scripts/`**: Node.js build scripts.
 *   **`dist/`**: Compiled output (Stable/Latest). **Do not edit.**
 
-### Build Processes (`build.sh` / `scripts/build.js`)
-The project uses a consolidated Node.js build system (`scripts/build.js`) which orchestrates the entire process:
+### Build Processes (`scripts/build.js`)
+The project uses a consolidated Node.js build system (`scripts/build.js`) which orchestrates the entire process. This script handles bundling, cleaning, minifying, verifying, and generating documentation.
 
 1.  **Bundling**: Recursively resolves `@import` statements to create flat files, removing build-time dependencies.
 2.  **Cleaning**: Removes comments and redundant whitespace while preserving CSS nesting and structure.
@@ -609,19 +688,17 @@ The project uses a consolidated Node.js build system (`scripts/build.js`) which 
 6.  **Documentation**: Statically renders this `README.md` into `dist/index.html`, creating a self-hosted documentation site.
 
 ```bash
-# Standard Build (Detects branch)
+# Standard Build (Auto-detects branch for target)
 npm run build
 
 # Watch Mode (Rebuilds on change)
 npm run watch
 
-# Force specific target
-npm run build stable
-npm run build latest
-npm run build preview # Generates dist/preview-YYYY-MM-DD-HH-mm-ss
-
-# Advanced: force source ref
-./build.sh --source main
+# Force specific targets
+npm run build stable   # Builds to dist/stable
+npm run build latest   # Builds to dist/latest
+npm run build preview  # Builds to dist/preview-YYYY-MM-DD-HH-mm-ss
+npm run build my-test  # Builds to dist/my-test (custom safe names allowed)
 ```
 
 ### Maintenance
@@ -630,6 +707,9 @@ You can clean up build artifacts using the `clean` script.
 ```bash
 # Clean everything (dist/ + logs + temp files)
 npm run clean
+
+# Clean everything EXCEPT stable and latest
+npm run clean safe
 
 # Clean specific targets
 npm run clean dist         # Delete dist/ folder
@@ -651,6 +731,6 @@ Our CI/CD pipeline (GitHub Actions) automatically deploys based on branch push:
 
 ## 🤝 Contributing
 1.  Make changes in `src/lib`.
-2.  Run `./build.sh` locally to verify imports, bundling, and header generation.
+2.  Run `npm run build` locally to verify imports, bundling, and header generation.
 3.  Check `dist/stable/u.min.css` to confirm your changes are present and correct.
 4.  Push to `dev` branch.
