@@ -36,3 +36,11 @@
     }
 
 }
+
+.txd :where(a:not(.btn, [data-style="btn"])) {
+    text-decoration: var(--link-text-dec, var(--lnk-text-d, var(--lnk-td, var(--a-td, underline))));
+}
+
+:where(.txd.none, .txd-none) {
+    --a-td: none;
+}
