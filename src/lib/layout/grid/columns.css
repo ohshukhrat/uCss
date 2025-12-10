@@ -1,0 +1,158 @@
+/**
+ * @file Grid Columns
+ * @description Column presets and responsive ratios.
+ */
+
+:where(.g.g-1) {
+    --g-cols: 1;
+}
+
+:where(.g.g-1--lg, .g.g-1--mdl) {
+    --g-cols--lg: 1;
+}
+
+:where(.g.g-1--md, .g.g-1--smd, .g.g-1--mdl) {
+    --g-cols--md: 1;
+}
+
+:where(.g.g-1--sm, .g.g-1--smd) {
+    --g-cols--sm: 1;
+}
+
+:where(.g.g-2) {
+    --g-cols--lg: 2;
+    --g-cols--sm: 1;
+    --g-cols--md: 1;
+}
+
+:where(.g.g-2--lg, .g.g-2--mdl) {
+    --g-cols--lg: 2;
+}
+
+:where(.g.g-2--md, .g.g-2--smd, .g.g-2--mdl) {
+    --g-cols--md: 2;
+}
+
+:where(.g.g-2--sm, .g.g-2--smd) {
+    --g-cols--sm: 2;
+}
+
+:where(.g.g-3--lg, .g.g-3--mdl) {
+    --g-cols--lg: 3;
+    --g-min--lg: 2rem;
+}
+
+:where(.g.g-3--md, .g.g-3--mdl) {
+    --g-cols--md: 3;
+    --g-min--md: 2rem;
+}
+
+:where(.g.g-4--lg, .g.g-4--mdl) {
+    --g-cols--lg: 4;
+    --g-min--lg: 2rem;
+}
+
+:where(.g.g-4--md, .g.g-4--mdl) {
+    --g-cols--md: 4;
+    --g-min--md: 2rem;
+}
+
+:where(.g.g-1-2--lg, .g.g-2-1--lg, .g.g-1-2--mdl, .g.g-2-1--mdl) {
+    --g-cols--lg: 3;
+    --g-min--lg: 2rem;
+}
+
+:where(.g.g-1-2--md, .g.g-2-1--md, .g.g-1-2--mdl, .g.g-2-1--mdl) {
+    --g-cols--md: 3;
+    --g-min--md: 2rem;
+}
+
+:where(.g.g-1-2--lg, .g.g-1-2--mdl) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--lg: span 1;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--lg: span 2;
+    }
+}
+
+:where(.g.g-1-2--md, .g.g-1-2--mdl) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--md: span 1;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--md: span 2;
+    }
+}
+
+:where(.g.g-2-1--lg, .g.g-2-1--mdl) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--lg: span 2;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--lg: span 1;
+    }
+}
+
+:where(.g.g-2-1--md, .g.g-2-1--mdl) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--md: span 2;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--md: span 1;
+    }
+}
+
+:where(.g.g-2-3--lg, .g.g-3-2--lg, .g.g-2-3--mdl, .g.g-3-2--mdl) {
+    --g-cols--lg: 5;
+    --g-min--lg: 2rem;
+}
+
+:where(.g.g-2-3--md, .g.g-3-2--md, .g.g-2-3--mdl, .g.g-3-2--mdl) {
+    --g-cols--md: 5;
+    --g-min--md: 2rem;
+}
+
+:where(.g.g-2-3--lg, .g.g-2-3--mdl) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--lg: span 2;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--lg: span 3;
+    }
+}
+
+:where(.g.g-2-3--md, .g.g-2-3--mdl) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--md: span 2;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--md: span 3;
+    }
+}
+
+:where(.g.g-3-2--lg, .g.g-3-2--mdl) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--lg: span 3;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--lg: span 2;
+    }
+}
+
+:where(.g.g-3-2--md, .g.g-3-2--mdl) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--md: span 3;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--md: span 2;
+    }
+}

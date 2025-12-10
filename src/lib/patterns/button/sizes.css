@@ -1,0 +1,77 @@
+/**
+ * @file Button Sizes & Geometry
+ * @description Size scales (MD, SM, XSM, LG, XLG, Tiny), Pill options, and Radius/Shadow modifiers.
+ */
+
+/* --- Size Scales --- */
+
+:where(.btn[data-size="md"], .btn.md, [data-style="btn"].md) {
+    --btn-fs: var(--btn-md-fs, 1rem);
+}
+
+:where(.btn[data-size="sm"], .btn.sm, [data-style="btn"].sm) {
+    --btn-fs: var(--btn-sm-font-s, 0.875rem);
+    --btn-lh: var(--btn-sm-line-h, 1.375);
+    /* ~14px */
+    --btn-pd: var(--btn-sm-p, 0.5em 1em);
+    --btn-min-h: var(--btn-sm-min-h, 2.375rem);
+    /* ~38px */
+}
+
+:where(.btn[data-size="xsm"], .btn.xsm, [data-style="btn"].xsm) {
+    --btn-fs: var(--btn-xsm-font-s, 0.75rem);
+    --btn-lh: var(--btn-xsm-line-h, 1.375);
+    /* ~12px */
+    --btn-pd: var(--btn-xsm-p, 0.5em 1em);
+    --btn-min-h: var(--btn-xsm-min-h, 2rem);
+    /* ~32px */
+}
+
+:where(.btn[data-size="lg"], .btn.lg, [data-style="btn"].lg) {
+    --btn-fs: var(--btn-lg-font-s, 1.25rem);
+}
+
+:where(.btn[data-size="xlg"], .btn.xlg, [data-style="btn"].xlg) {
+    --btn-fs: var(--btn-xlg-font-s, 1.375rem);
+}
+
+:where(.btn[data-size="tiny"], .btn.tiny, [data-style="btn"].tiny) {
+    --btn-fs: var(--btn-tiny-font-s, 0.625rem);
+}
+
+:where(.btn[data-size="pill"], .btn.pill, [data-style="btn"].pill) {
+    --btn-pd: var(--btn-pill-pd, var(--btn-pill-p, 0.125em 0.25em));
+}
+
+/**
+ * @group Radius Modifiers
+ * SQ (Square), LT (Light), BD (Bold), RD (Rounded/Pill).
+ */
+
+:where(.btn[data-radius="sq"], .btn.sq, [data-style="btn"].sq) {
+    --btn-rad: var(--btn-rad-sq, 0);
+}
+
+:where(.btn[data-radius="lt"], .btn.lt, [data-style="btn"].lt) {
+    --btn-rad: var(--btn-rad-lt, 0.375em);
+}
+
+:where(.btn[data-radius="bd"], .btn.bd, [data-style="btn"].bd) {
+    --btn-rad: var(--btn-rad-bd, 0.625em);
+}
+
+:where(.btn[data-radius="rd"], .btn.rd, [data-style="btn"].rd) {
+    --btn-rad: var(--btn-rad-rd, 8em);
+}
+
+/**
+ * @group Shadow Modifiers
+ * Shd (Shadow).
+ */
+:where(.btn.shd) {
+    --btn-shadow: var(--btn-shd, var(--shd, 0 0.25em 2em -0.5em var(--shd-c, hsl(0 0% 8% / .32))));
+}
+
+:where(.btn.shd-hover) {
+    --btn-shadow-hover: var(--btn-shd-hover, var(--shd-hover, 0 0.25em 2em -0.5em var(--shd-c-hover, hsl(0 0% 8% / .32))));
+}

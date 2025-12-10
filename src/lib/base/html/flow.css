@@ -1,0 +1,70 @@
+/**
+ * @file HTML Smart Flow
+ * @description The vertical rhythm engine that manages spacing between flow elements.
+ */
+
+/* 1. Standard Flow (Paragraphs, Lists) */
+:where(p, ul, ol, blockquote, figure, pre, table)+ :where(p, ul, ol, blockquote, figure, pre, table) {
+    margin-block-start: var(--p-flow, 0.75em);
+}
+
+/* 2. Heading Flow */
+/* Space BEFORE headings (if not first child) */
+:where(*:not(h1, h2, h3, h4, h5, h6))+ :where(h1, h2, h3, h4, h5, h6) {
+    margin-block-start: var(--t-flow-s, 1em);
+}
+
+/* Space AFTER headings (connecting to text, or subtitle) */
+:where(h1, h2, h3, h4, h5, h6):not(:last-child) {
+    margin-block-end: var(--t-flow-e, 0.375em);
+}
+
+/* 3. List Item Flow */
+:where(li)+ :where(li) {
+    margin-block-start: var(--li-flow, 0.5em);
+}
+
+/* 4. Button/Link After Flow */
+:where(p)+ :where(a, button, .btn) {
+    margin-block-start: var(--p-flow, 0.75em);
+}
+
+/**
+ * @group Flow Control
+ * Logic to stop and restore flow.
+ */
+
+/* .s (Stop Flow / Section): Kills flow variables */
+:where(.s) {
+    /* Primitives */
+    --flow--xl: 0;
+    --flow--l: 0;
+    --flow--m: 0;
+    --flow--s: 0;
+    --flow--xs: 0;
+
+    /* Mappings */
+    --p-flow: 0;
+    --list-flow: 0;
+    --li-flow: 0;
+    --t-flow-s: 0;
+    --t-flow-e: 0;
+}
+
+/* .sf (Smart Flow): Restores flow variables */
+:where(.sf) {
+    /* Primitives (from root.css) */
+    --flow--xl: 1.25em;
+    --flow--l: 1em;
+    --flow--m: 0.75em;
+    --flow--s: 0.5em;
+    --flow--xs: 0.375em;
+
+    /* Mappings */
+    --p-flow: var(--flow--m, 0.75em);
+    --list-flow: var(--flow--s, 0.5em);
+    --li-flow: var(--flow--s, 0.5em);
+
+    --t-flow-s: var(--flow--l, 1em);
+    --t-flow-e: var(--flow--xs, 0.375em);
+}

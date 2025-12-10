@@ -15,7 +15,7 @@
  */
 :where(.t, [class^="t--"]):is(h1, h2, h3, h4),
 :where(.t, [class^="t--"]):is(p, span, div) {
-    color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))))));
+    color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
 
     font-family: var(--title-font-family, var(--t-font-f, var(--theme-font-family, var(--t-font-fam, inherit))));
 
@@ -197,22 +197,4 @@
         --t-lh: var(--t-lh-xs, 1);
     }
 
-}
-
-/**
- * @group Blocksy Compatibility
- * Maps uCss variables to Blocksy theme properties if present.
- */
-:is(.t, [class^="t-"]):is(h1, h2, h3, h4),
-:is(.t, [class^="t-"]):where(p, span, div) {
-    --theme-font-family: var(--title-font-family, var(--t-font-f, var(--theme-font-family, var(--t-font-fam, inherit))));
-    --theme-heading-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))))));
-    --theme-text-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))))));
-    --theme-font-size: var(--title-font-size, var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));
-    --theme-font-weight: var(--title-font-weight, var(--t-font-w, var(--t-fw, 800)));
-    --theme-font-style: var(--title-font-style, var(--t-font-s, var(--t-fst)));
-    --theme-line-height: var(--title-line-height, var(--t-line-h, var(--t-lh, 1.25)));
-    --theme-letter-spacing: var(--title-letter-spacing, var(--t-letter-s, var(--t-ls, calc(var(--t-ls-base, 1em) / var(--t-ls-ratio, 64)))));
-    --theme-text-transform: var(--title-text-transform, var(--t-text-tf, var(--t-tt)));
-    --theme-text-decoration: var(--title-text-decoration, var(--t-text-dec, var(--t-dec)));
 }

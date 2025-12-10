@@ -16,7 +16,7 @@
 :is(.tx, [class^="tx--"], .shl, .st),
 :is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption),
 :is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
-    color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-4, currentColor)))))));
+    color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-c, var(--tx, var(--theme-palette-color-4, currentColor)))))));
 
     font-family: var(--text-font-family, var(--tx-font-f, var(--theme-font-family, var(--tx-font-fam, system-ui, -apple-system, sans-serif))));
 
@@ -179,24 +179,4 @@
         --tx-lh: var(--tx-lh-xs, 1);
     }
 
-}
-
-
-/**
- * @group Blocksy Compatibility
- * Maps uCss variables to Blocksy theme properties if present.
- */
-:is(.tx, [class^="tx--"], .shl, .st),
-:is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption),
-:is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
-    --theme-font-family: var(--text-font-family, var(--tx-font-f, var(--theme-font-family, var(--tx-font-fam, system-ui, -apple-system, sans-serif))));
-    --theme-heading-color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-color, var(--tx-c, var(--theme-palette-color-4, currentColor)))))));
-    --theme-text-color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-color, var(--tx-c, var(--theme-palette-color-4, currentColor)))))));
-    --theme-font-size: var(--text-font-size, var(--tx-font-s, var(--tx-fs, var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem)))));
-    --theme-font-weight: var(--text-font-weight, var(--tx-font-w, var(--tx-fw, 400)));
-    --theme-font-style: var(--text-font-style, var(--tx-font-s, var(--tx-fst)));
-    --theme-line-height: var(--text-line-height, var(--tx-line-h, var(--tx-lh, 1.5)));
-    --theme-letter-spacing: var(--text-letter-spacing, var(--tx-letter-s, var(--tx-ls)));
-    --theme-text-transform: var(--text-transform, var(--tx-text-t, var(--tx-tt)));
-    --theme-text-decoration: var(--text-decoration, var(--tx-text-dec, var(--tx-dec)));
 }

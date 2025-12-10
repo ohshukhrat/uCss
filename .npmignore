@@ -64,3 +64,6 @@ local/
 !README.md
 .editorconfig
 build.sh
+
+# Private Notes
+notes/private/

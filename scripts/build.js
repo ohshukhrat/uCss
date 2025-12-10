@@ -410,24 +410,48 @@ async function main() {
             const subDirRel = `src/lib/${modName}`;
             // ... (Logic to copy indiv files same as before) ...
             // Simplified for brevity in JSDoc update task, but retaining logic
+            // Helper: Recursive file walker
+            async function getFiles(dir) {
+                const dirents = await fs.readdir(dir, { withFileTypes: true });
+                const files = await Promise.all(dirents.map((dirent) => {
+                    const res = path.resolve(dir, dirent.name);
+                    return dirent.isDirectory() ? getFiles(res) : res;
+                }));
+                return Array.prototype.concat(...files).filter(f => f.endsWith('.css') && path.basename(f) !== 'index.css');
+            }
+
             let individualFiles = [];
             if (sourceRef) {
-                individualFiles = exec(`git ls - tree - r--name - only "${sourceRef}"`)
-                    .split('\n').filter(l => l.startsWith(subDirRel) && l.endsWith('.css')).map(l => path.join(PROJECT_ROOT, l));
+                individualFiles = exec(`git ls-tree -r --name-only "${sourceRef}"`)
+                    .split('\n')
+                    .filter(l => l.startsWith(subDirRel) && l.endsWith('.css'))
+                    .map(l => path.join(PROJECT_ROOT, l));
             } else {
                 const subDirPath = path.join(PROJECT_ROOT, subDirRel);
                 if (existsSync(subDirPath)) {
-                    individualFiles = (await fs.readdir(subDirPath)).filter(f => f.endsWith('.css')).map(f => path.join(subDirPath, f));
+                    individualFiles = await getFiles(subDirPath);
                 }
             }
 
             await Promise.all(individualFiles.map(async leaf => {
-                const name = path.basename(leaf);
-                let raw = await readFile(leaf, sourceRef);
+                // Calculate relative path from module root to leaf to preserve structure
+                // e.g. leaf = .../src/lib/patterns/button/skins.css
+                // subDirRel = src/lib/patterns
+                // rel = button/skins.css
+                const subDirPath = path.join(PROJECT_ROOT, subDirRel);
+                const rel = path.relative(subDirPath, leaf);
+
+                const leafTarget = path.join(targetLibDir, rel);
+                const leafDir = path.dirname(leafTarget);
+
+                if (!existsSync(leafDir)) {
+                    await fs.mkdir(leafDir, { recursive: true });
+                }
+
+                let raw = await bundleCss(leaf, sourceRef);
 
                 if (validMode) raw = prefixCss(raw, validMode, prefixString);
 
-                const leafTarget = path.join(targetLibDir, name);
                 await fs.writeFile(leafTarget, raw);
                 await fs.writeFile(leafTarget.replace('.css', '.clean.css'), cleanCss(raw));
                 await fs.writeFile(leafTarget.replace('.css', '.min.css'), minifyCss(raw));
@@ -583,7 +607,7 @@ async function main() {
             verify(path.join(outputDir, 'index.html'), 1000);
             if (outputDirName === 'stable') verify(path.join(DIST_ROOT, 'index.html'), 1000);
         }
-        verify(path.join(outputDir, 'lib/components.min.css'), 500);
+        verify(path.join(outputDir, 'lib/patterns.min.css'), 500);
     } catch (e) {
         console.error(`❌ Verification Failed: ${e.message}`);
         process.exit(1);

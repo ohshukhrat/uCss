@@ -1,0 +1,7 @@
+/**
+ * @file Grid Item Aggregator
+ * @description Imports the grid item utilities.
+ */
+
+@import "grid/item/order.css";
+@import "grid/item/placement.css";

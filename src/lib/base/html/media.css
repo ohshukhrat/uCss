@@ -1,0 +1,20 @@
+/**
+ * @file HTML Media
+ * @description Images, videos, canvas, and SVG defaults.
+ */
+
+:where(img, picture, video, canvas, svg) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    font-style: var(--med-font-style, italic);
+    shape-margin: var(--shape-m, 1rem);
+
+    /* SVG Specifics */
+    fill: var(--svg-fill, initial);
+    stroke: var(--svg-stroke, initial);
+}
+
+:where(img) {
+    background-color: var(--srf, transparent);
+}

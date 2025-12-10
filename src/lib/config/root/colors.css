@@ -1,0 +1,183 @@
+/**
+ * @file Theming Configuration
+ * @description Core palette, alphas, overlays, and semantic colors.
+ */
+
+:where(:root) {
+    /**
+   * @group Base: Core Palette & Colors
+   */
+
+    /* Primary Color (#eec14c, hsl(43 83% 62%)) */
+    --p-h: 43;
+    --p-s: 83%;
+    --p-l: 62%;
+    --p: var(--theme-palette-color-1, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%)));
+
+    /* Accent Color (#ffb900, hsl(44 100% 50%)) */
+    --a-h: 44;
+    --a-s: 100%;
+    --a-l: 50%;
+    --a: var(--theme-palette-color-2, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%)));
+
+    /* Dark Color Constants */
+    --d-h: 0;
+    --d-s: 0%;
+    --d-l: 8%;
+    --d-l-bd: 4%;
+    --d-l-lt: 12%;
+
+    /* Dark Color (#141414, hsl(0 0% 8%)) / #0a0a0a, hsl(0 0% 4%) / #1f1f1f, hsl(0 0% 12%) */
+    --d: var(--theme-palette-color-11, var(--theme-palette-color-3, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))));
+    --d-bd: var(--theme-palette-color-25, var(--theme-palette-color-4, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%))));
+    --d-lt: var(--theme-palette-color-26, var(--theme-palette-color-5, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-lt, 12%))));
+
+    /* Light Color Constants */
+    --l-h: 0;
+    --l-s: 0%;
+    --l-l: 96%;
+    --l-l-bd: 100%;
+    --l-l-lt: 93%;
+
+    /* Light Color (#f5f5f5, hsl(0 0% 96%)) / #ffffff, hsl(0 0% 100%) / #ececec, hsl(0 0% 93%) */
+    --l: var(--theme-palette-color-12, var(--theme-palette-color-7, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%))));
+    --l-bd: var(--theme-palette-color-27, var(--theme-palette-color-8, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%))));
+    --l-lt: var(--theme-palette-color-28, var(--theme-palette-color-6, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%))));
+
+    /* Backgrounds: Base Contexts */
+    --bg: var(--theme-palette-color-7, var(--l, hsl(0 0% 96%)));
+    --bg-bd: var(--theme-palette-color-8, var(--l-bd, hsl(0 0% 100%)));
+    --bg-lt: var(--theme-palette-color-6, var(--l-lt, hsl(0 0% 93%)));
+
+    /* Base Colors (For those who prefer this naming convention instead of --bg) */
+    /* --base: var(--theme-palette-color-7, var(--l, hsl(0 0% 96%)));
+   --base-bd: var(--theme-palette-color-8, var(--l-bd, hsl(0 0% 100%)));
+   --base-lt: var(--theme-palette-color-6, var(--l-lt, hsl(0 0% 93%))); */
+
+    /* Alternative: Contrast Contexts */
+    --alt: var(--theme-palette-color-3, var(--d, hsl(0 0% 8%)));
+    --alt-bd: var(--theme-palette-color-4, var(--d-bd, hsl(0 0% 4%)));
+    --alt-lt: var(--theme-palette-color-5, var(--d-lt, hsl(0 0% 12%)));
+
+    /* Surface & Card context */
+    --srf: var(--base-lt, var(--bg-lt, var(--theme-palette-color-6, hsl(0 0% 93%))));
+    --crd: var(--base-bd, var(--bg-bd, var(--theme-palette-color-8, hsl(0 0% 100%))));
+
+    /* Main Typography Colors */
+    --tx: var(--theme-palette-color-3, var(--alt, hsl(0 0% 8%)));
+    --t: var(--theme-palette-color-4, var(--alt-bd, hsl(0 0% 4%)));
+
+    /* Outlines & Borders */
+    --out: var(--alt-lt, var(--theme-palette-color-5, currentColor));
+    --out-p: var(--p, var(--theme-palette-color-1, #eec14c));
+    --out-a: var(--a, var(--theme-palette-color-2, #ffb900));
+    --out-d: var(--d, var(--theme-palette-color-3, #141414));
+    --out-l: var(--l, var(--theme-palette-color-7, #f5f5f5));
+
+    /**
+   * @group Advanced: Semantic & Extended Palette
+   */
+
+    /* Notification: Success Green (#1E8E3E, hsl(137 65% 34%)) */
+    --ntf-al: var(--al-lt, .32);
+    --scs-h: 137;
+    --scs-s: 65%;
+    --scs-l: 34%;
+    --scs: var(--theme-palette-color-13, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%)));
+    --oscs: var(--theme-palette-color-33, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%) / var(--ntf-al, .32)));
+
+    /* Notification: Alert Red (#D93025, hsl(4 71% 50%)) */
+    --alr-h: 4;
+    --alr-s: 71%;
+    --alr-l: 50%;
+    --alr: var(--theme-palette-color-14, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%)));
+    --oalr: var(--theme-palette-color-34, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%) / var(--ntf-al, .32)));
+
+    /* Notification: Info Blue (#1A73E8, hsl(214 82% 51%)) */
+    --inf-h: 214;
+    --inf-s: 82%;
+    --inf-l: 51%;
+    --inf: var(--theme-palette-color-15, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%)));
+    --oinf: var(--theme-palette-color-35, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%) / var(--ntf-al, .32)));
+
+    /* Notification: Tip Purple (#8E24AA, hsl(287 65% 40%)) */
+    --tip-h: 287;
+    --tip-s: 65%;
+    --tip-l: 40%;
+    --tip: var(--theme-palette-color-16, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 40%)));
+    --otip: var(--theme-palette-color-36, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 40%) / var(--ntf-al, .32)));
+
+    /* Notification: Spotlight Yellow (#eec14c, hsl(43 83% 62%)) */
+    --ntf-h: var(--p-h, 43);
+    --ntf-s: var(--p-s, 83%);
+    --ntf-l: var(--p-l, 62%);
+    --ntf: var(--theme-palette-color-37, var(--theme-palette-color-1, var(--p, hsl(var(--ntf-h, 43) var(--ntf-s, 83%) var(--ntf-l, 62%)))));
+    --ontf: var(--theme-palette-color-38, var(--theme-palette-color-21, hsl(var(--ntf-h, 43) var(--ntf-s, 83%) var(--ntf-l, 62%) / var(--ntf-al, .32))));
+
+    /* Secondary Gunmetal (#263238, hsl(200 19% 18%)) & Tertiary Sand (#F5F0E6, hsl(40 33% 93%)) */
+    --st-al: var(--al-lt, .32);
+
+    --sec-h: 200;
+    --sec-s: 19%;
+    --sec-l: 18%;
+    --sec: var(--theme-palette-color-23, hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%))));
+    --osec: var(--theme-palette-color-39, hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%) / var(--st-al, .32))));
+
+    --ter-h: 40;
+    --ter-s: 33%;
+    --ter-l: 93%;
+    --ter: var(--theme-palette-color-24, hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%))));
+    --oter: var(--theme-palette-color-40, hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%) / var(--st-al, .32))));
+
+    /* Alphas Constants */
+    --al: .64;
+    --al-bd: .8;
+    --al-lt: .32;
+
+    /* Overlays (overlay.css) */
+    --ol-h: 0;
+    --ol-s: 0%;
+    --ol-l: 96%;
+    --ol: var(--theme-palette-color-9, hsl(var(--ol-h, 0) var(--ol-s, 0%) var(--ol-l, 96% / var(--al, .64))));
+    --ol-bd: var(--theme-palette-color-17, hsl(var(--ol-h, 0) var(--ol-s, 0%) var(--ol-l, 96% / var(--al-bd, .8))));
+    --ol-lt: var(--theme-palette-color-18, hsl(var(--ol-h, 0) var(--ol-s, 0%) var(--ol-l, 96% / var(--al-lt, .32))));
+
+    --od-h: 0;
+    --od-s: 0%;
+    --od-l: 8%;
+    --od: var(--theme-palette-color-10, hsl(var(--od-h, 0) var(--od-s, 0%) var(--od-l, 8% / var(--al, .64))));
+    --od-bd: var(--theme-palette-color-19, hsl(var(--od-h, 0) var(--od-s, 0%) var(--od-l, 8% / var(--al-bd, .8))));
+    --od-lt: var(--theme-palette-color-20, hsl(var(--od-h, 0) var(--od-s, 0%) var(--od-l, 8% / var(--al-lt, .32))));
+
+    /**
+   * @group Pro: Detailed Contextual Colors
+   */
+
+    /* Contextual Variants of overlays (set.css) */
+    --op: var(--theme-palette-color-21, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al, .64)));
+    --op-bd: var(--theme-palette-color-29, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-bd, .8)));
+    --op-lt: var(--theme-palette-color-30, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-lt, .32)));
+
+    --oa: var(--theme-palette-color-22, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al, .64)));
+    --oa-bd: var(--theme-palette-color-31, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-bd, .8)));
+    --oa-lt: var(--theme-palette-color-32, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-lt, .32)));
+
+    /* Text on Colors */
+    --on-p: var(--sec, var(--d, hsl(0 0% 8%)));
+    --on-a: var(--d-bd, hsl(0 0% 4%));
+    --on-d: var(--l, hsl(0 0% 96%));
+    --on-l: var(--d, hsl(0 0% 8%));
+
+    --on-bg: var(--tx, var(--theme-palette-color-3, hsl(0 0% 8%)));
+    --on-alt: var(--base, var(--bg, var(--theme-palette-color-7, hsl(0 0% 96%))));
+    --on-srf: var(--t, var(--theme-palette-color-4, hsl(0 0% 4%)));
+    --on-crd: var(--tx, var(--theme-palette-color-3, hsl(0 0% 8%)));
+
+    --on-ntf: var(--t, var(--d-bd, hsl(0 0% 4%)));
+    --on-sec: var(--l-bd, hsl(0 0% 100%));
+    --on-ter: var(--sec, var(--d-lt, hsl(200 19% 18%)));
+
+    /* Outlines Extended */
+    --out-sec: var(--sec, var(--theme-palette-color-23, hsl(200 19% 18%)));
+    --out-ter: var(--ter, var(--theme-palette-color-24, hsl(40 33% 93%)));
+}

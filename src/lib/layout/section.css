@@ -241,11 +241,3 @@
 :where(.s.gap--xs) {
   --s-gap: clamp(1.375rem, 0.956vw + 1.184rem, 2rem);
 }
-
-
-/* WordPress Gutenberg Fix */
-:is(.is-layout-flow, .is-layout-constrained)>.s {
-  margin-block-start: var(--s-mbs, var(--s-mb, 0));
-  margin-block-end: var(--s-mbe, var(--s-mb, 0));
-  --theme-content-spacing: var(--s-mb, var(--content-mb, 0));
-}

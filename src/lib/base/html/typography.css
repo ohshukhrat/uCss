@@ -1,0 +1,123 @@
+/**
+ * @file HTML Typography
+ * @description Headings, paragraphs, links, and inline text elements.
+ */
+
+/* Headings: Map to --t (Title) variables */
+:where(h1, h2, h3, h4, h5, h6) {
+    color: var(--t, currentColor);
+    font-family: var(--t-font-fam, inherit);
+    font-weight: var(--t-fw--m, 700);
+    line-height: var(--t-lh, 1.1);
+    text-wrap: var(--t-tw, balance);
+
+    /* Remove default margins, handled by flow */
+    margin-block: 0;
+}
+
+/* Specific Sizes */
+:where(h1) {
+    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--xl, var(--t-fs, var(--t-fs--s, 2.625rem)))));
+}
+
+:where(h2) {
+    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--l, var(--t-fs, var(--t-fs--xs, 2.25rem)))));
+}
+
+:where(h3) {
+    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--m, var(--t-fs, var(--t-fs--xxs, 2rem)))));
+}
+
+:where(h4) {
+    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--s, var(--t-fs, var(--t-fs--xxxs, 1.75rem)))));
+}
+
+:where(h5) {
+    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--xs, var(--t-fs, var(--tx-fs--xxl, 1.625rem)))));
+}
+
+:where(h6) {
+    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--xxs, var(--t-fs, var(--tx-fs--xl, 1.4375rem)))));
+}
+
+/* Paragraphs & Text */
+:where(p) {
+    margin-block: 0;
+    max-width: var(--flow-max-width, 65ch);
+}
+
+:where(small) {
+    font-size: 0.875em;
+}
+
+:where(b, strong) {
+    font-weight: 700;
+    color: var(--t, currentColor);
+}
+
+/* Links */
+:where(a) {
+    color: var(--link, var(--alt-bd, var(--p, #eec14c)));
+    text-decoration: underline;
+    text-decoration-thickness: var(--a-td-t, var(--bd-w, 1px));
+    text-underline-offset: var(--a-td-o, 0.125em);
+    transition: color var(--trans-d, 0.16s) ease, text-decoration-color var(--trans-d, 0.16s) ease;
+}
+
+:where(a:focus-visible) {
+    outline: var(--link-focus-ring, 0.125rem solid var(--p, currentColor));
+    outline-offset: var(--link-focus-offset, 0.125rem);
+    text-decoration: none;
+    border-radius: var(--rad--xs, 0.125em);
+}
+
+:where(a:hover) {
+    color: var(--link-hover, var(--a, #eec14c));
+}
+
+/* Inline Code */
+:where(code, kbd, samp) {
+    font-family: var(--mono-font, monospace);
+    font-size: var(--code-fs, 0.9em);
+    padding: var(--code-pd, 0.1em 0.3em);
+    border-radius: var(--code-rad, var(--rad--xs, 0.25em));
+    background-color: var(--code-bg, var(--srf, #eee));
+    color: var(--code-tx, var(--t, #000));
+}
+
+/* Preformatted blocks */
+:where(pre) {
+    background-color: var(--pre-bg, var(--d, #222));
+    color: var(--pre-tx, var(--l, #fff));
+    padding: var(--pre-pd, var(--gap, 1.5rem));
+    border-radius: var(--rad--xs, 0.5rem);
+    overflow-x: auto;
+    font-family: var(--mono-font, monospace);
+    font-size: var(--pre-fs, 0.9em);
+    /* Margin handled by Smart Flow */
+    margin-block: 0;
+}
+
+:where(hr) {
+    border: none;
+    border-block-start: var(--hr-h, 1px) solid var(--hr-c, var(--out, #ccc));
+    margin-block: var(--hr-m, 2.5rem);
+}
+
+:where(blockquote) {
+    border-inline-start: var(--bq-bd-w, calc(var(--border-width, .125rem) * 2)) solid var(--bq-bd-c, var(--p, currentColor));
+    margin-inline: 0;
+    padding-inline: var(--bq-pdi, 1.5em);
+    padding-block: var(--bq-pdb, .5em);
+    font-style: italic;
+    color: var(--tx, var(--on-srf, var(--alt-bd, currentColor)));
+    background-color: var(--bq-bg, var(--oter, var(--ontf, var(--srf, #eee))));
+    /* Margin handled by Smart Flow */
+    margin-block: 0;
+}
+
+/* Selection Color */
+::selection {
+    background-color: var(--p, #eec14c);
+    color: var(--on-p, #000);
+}

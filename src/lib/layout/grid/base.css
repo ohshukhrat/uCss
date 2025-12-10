@@ -1,0 +1,178 @@
+/**
+ * @file Grid Base
+ * @description Core grid engine container (`.g`) and grid item (`.gi`) setup, gaps, and responsive container queries.
+ */
+
+/**
+ * @group Base Grid
+ * Sets display: grid and default behaviors.
+ * Defines auto-column/row sizing and gap variables.
+ */
+:where(.g) {
+    display: var(--g-d, grid);
+    position: var(--g-pos, relative);
+
+    column-gap: var(--g-col-gap--sm,
+            var(--g-gap--sm,
+                var(--g-col-gap,
+                    var(--g-gap, clamp(1.75rem, 1.912vw + 1.368rem, 3rem)))));
+
+    row-gap: var(--g-row-gap--sm,
+            var(--g-gap--sm,
+                var(--g-row-gap,
+                    var(--g-gap, clamp(1.75rem, 1.912vw + 1.368rem, 3rem)))));
+
+    grid-template-areas: var(--g-areas--sm, var(--g-areas));
+
+    grid-template-columns: var(--g-cols-template,
+            repeat(var(--g-cols--sm, var(--g-cols, auto-fit)),
+                var(--g-col--sm, var(--g-col,
+                        minmax(var(--g-min--sm, var(--g-min, 256px)),
+                            var(--g-max--sm, var(--g-max, 1fr)))))));
+
+    grid-template-rows: var(--g-rows-template,
+            repeat(var(--g-rows--sm, var(--g-rows, auto)),
+                var(--g-row--sm, var(--g-row,
+                        minmax(var(--g-row-min--sm, var(--g-row-min, 1rem)),
+                            var(--g-row-max--sm, var(--g-row-max, 1fr)))))));
+
+    grid-auto-rows: var(--g-auto-rows--sm, var(--g-auto-rows, minmax(0, auto)));
+    grid-auto-columns: var(--g-auto-cols--sm, var(--g-auto-cols, minmax(0, auto)));
+
+    align-items: var(--g-ai--sm, var(--g-ai));
+    align-content: var(--g-ac--sm, var(--g-ac));
+
+    justify-items: var(--g-ji--sm, var(--g-ji));
+    justify-content: var(--g-jc--sm, var(--g-jc));
+
+    grid-auto-flow: var(--g-flow--sm, var(--g-flow));
+
+    :not(.g):has(> &) {
+        container-name: gp;
+        container-type: inline-size;
+        contain: inline-size layout;
+    }
+
+    @container (669.99px <=width <=999.99px) {
+
+        column-gap: var(--g-col-gap--md,
+                var(--g-gap--md,
+                    var(--g-col-gap,
+                        var(--g-gap,
+                            clamp(1.75rem, 1.912vw + 1.368rem, 3rem)))));
+
+        row-gap: var(--g-row-gap--md,
+                var(--g-gap--md,
+                    var(--g-row-gap,
+                        var(--g-gap,
+                            clamp(1.75rem, 1.912vw + 1.368rem, 3rem)))));
+
+        grid-template-areas: var(--g-areas--md, var(--g-areas));
+
+        grid-template-columns: var(--g-cols-template,
+                repeat(var(--g-cols--md, var(--g-cols, auto-fit)),
+                    var(--g-col--md, var(--g-col,
+                            minmax(var(--g-min--md, var(--g-min, 288px)),
+                                var(--g-max--md, var(--g-max, 1fr)))))));
+
+        grid-template-rows: var(--g-rows-template,
+                repeat(var(--g-rows--md, var(--g-rows, auto)),
+                    var(--g-row--md, var(--g-row,
+                            minmax(var(--g-row-min--md, var(--g-row-min, 1rem)),
+                                var(--g-row-max--md, var(--g-row-max, 1fr)))))));
+
+        grid-auto-rows: var(--g-auto-rows--md, var(--g-auto-rows, minmax(0, auto)));
+        grid-auto-columns: var(--g-auto-cols--md, var(--g-auto-cols, minmax(0, auto)));
+
+        align-items: var(--g-ai--md, var(--g-ai));
+        justify-items: var(--g-ji--md, var(--g-ji));
+        align-content: var(--g-ac--md, var(--g-ac));
+        justify-content: var(--g-jc--md, var(--g-jc));
+
+        grid-auto-flow: var(--g-flow--md, var(--g-flow));
+    }
+
+    @container (width > 999.99px) {
+
+        column-gap: var(--g-col-gap--lg,
+                var(--g-gap--lg,
+                    var(--g-col-gap,
+                        var(--g-gap,
+                            clamp(1.75rem, 1.912vw + 1.368rem, 3rem)))));
+
+        row-gap: var(--g-row-gap--lg,
+                var(--g-gap--lg,
+                    var(--g-row-gap,
+                        var(--g-gap,
+                            clamp(1.75rem, 1.912vw + 1.368rem, 3rem)))));
+
+        grid-template-areas: var(--g-areas--lg, var(--g-areas));
+
+        grid-template-columns: var(--g-cols-template,
+                repeat(var(--g-cols--lg, var(--g-cols, auto-fit)),
+                    var(--g-col--lg, var(--g-col,
+                            minmax(var(--g-min--lg, var(--g-min, 320px)),
+                                var(--g-max--lg, var(--g-max, 1fr)))))));
+
+        grid-template-rows: var(--g-rows-template,
+                repeat(var(--g-rows--lg, var(--g-rows, auto)),
+                    var(--g-row--lg, var(--g-row,
+                            minmax(var(--g-row-min--lg, var(--g-row-min, 1rem)),
+                                var(--g-row-max--lg, var(--g-row-max, 1fr)))))));
+
+        grid-auto-rows: var(--g-auto-rows--lg, var(--g-auto-rows, minmax(0, auto)));
+        grid-auto-columns: var(--g-auto-cols--lg, var(--g-auto-cols, minmax(0, auto)));
+
+        align-items: var(--g-ai--lg, var(--g-ai));
+        justify-items: var(--g-ji--lg, var(--g-ji));
+        align-content: var(--g-ac--lg, var(--g-ac));
+        justify-content: var(--g-jc--lg, var(--g-jc));
+
+        grid-auto-flow: var(--g-flow--lg, var(--g-flow));
+    }
+
+    @container (width <=384px) {
+        grid-template-columns: var(--g-cols-template,
+                repeat(var(--g-cols--sm, var(--g-cols, auto-fit)),
+                    var(--g-col--sm, var(--g-col,
+                            minmax(var(--g-min--xsm, 192px),
+                                var(--g-max--xsm, 1fr))))));
+    }
+
+    /**
+   * @group Child Placement
+   * Handles placement of grid items (areas, cols, rows).
+   */
+    :where(& > *, .gi, .sg > *, .sgc > *) {
+        grid-area: var(--g-area--sm, var(--gi-area));
+        grid-column: var(--gi-col--sm, var(--gi-col));
+        grid-row: var(--gi-row--sm, var(--gi-row));
+
+        align-self: var(--gi-as--sm, var(--gi-as));
+        justify-self: var(--gi-js--sm, var(--gi-js));
+
+        order: var(--gi-o--sm, var(--gi-o));
+
+        @container (669.99px <=width <=999.99px) {
+            grid-area: var(--gi-area--md, var(--gi-area));
+            grid-column: var(--gi-col--md, var(--gi-col));
+            grid-row: var(--gi-row--md, var(--gi-row));
+
+            align-self: var(--gi-as--md, var(--gi-as));
+            justify-self: var(--gi-js--md, var(--gi-js));
+
+            order: var(--gi-o--md, var(--gi-o));
+        }
+
+        @container (width > 999.99px) {
+            grid-area: var(--gi-area--lg, var(--gi-area));
+            grid-column: var(--gi-col--lg, var(--gi-col));
+            grid-row: var(--gi-row--lg, var(--gi-row));
+
+            align-self: var(--gi-as--lg, var(--gi-as));
+            justify-self: var(--gi-js--lg, var(--gi-js));
+
+            order: var(--gi-o--lg, var(--gi-o));
+        }
+    }
+}

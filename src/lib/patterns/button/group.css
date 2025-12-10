@@ -1,0 +1,99 @@
+/**
+ * @file Button Groups (Pattern)
+ * @description Container for arranging multiple buttons (.btns).
+ * Supports complex alignment, spacing, reverse capability and wrapping.
+ */
+
+:where(.btns) {
+    display: var(--btns-d, flex);
+    flex-direction: var(--btns-fd);
+    align-items: var(--btns-ai--sm, var(--btns-ai, center));
+    align-content: var(--btns-ac);
+    justify-content: var(--btns-jc--sm, var(--btns-jc));
+    gap: var(--btns-gap, clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem));
+    flex-wrap: var(--btns-fw, wrap);
+
+    inline-size: var(--btns-w--sm, var(--btns-w));
+    max-inline-size: var(--btns-max-w);
+    align-self: var(--btns-as);
+    margin-inline: var(--btns-mi,
+            var(--btns-mis) var(--btns-mie));
+
+    :not(.g, .sg, .sgc, .f, .row, .col, .crd .block-library-block__reusable-block-container):has(> &) {
+        container-name: btnsp;
+        container-type: inline-size;
+        contain: inline-size;
+    }
+
+    @container (669.99px <=width <=999.99px) {
+        inline-size: var(--btns-w--md, var(--btns-w));
+        justify-content: var(--btns-jc--md, var(--btns-jc));
+        align-items: var(--btns-ai--md, var(--btns-ai));
+    }
+
+    @container (width > 999.99px) {
+        inline-size: var(--btns-w--lg, var(--btns-w));
+        justify-content: var(--btns-jc--lg, var(--btns-jc));
+        align-items: var(--btns-ai--lg, var(--btns-ai));
+    }
+}
+
+:where(.btns.full) {
+    --btns-w: 100%;
+}
+
+:where(.btns.c, .btns-c) {
+    --btns-jc: center;
+    --btns-mi: auto;
+}
+
+:where(.btns.c--sm, .btns-c--sm, .btns.c--smd, .btns-c--smd) {
+    --btns-jc--sm: center;
+    --btns-mi--sm: auto;
+}
+
+:where(.btns.c--md, .btns-c--md, .btns.c--smd, .btns-c--smd, .btns.c--mdl, .btns-c--mdl) {
+    --btns-jc--md: center;
+    --btns-mi--md: auto;
+}
+
+:where(.btns.c--lg, .btns-c--lg, .btns.c--mdl, .btns-c--mdl) {
+    --btns-jc--lg: center;
+    --btns-mi--lg: auto;
+}
+
+:where(.btns.s, .btns-s) {
+    --btns-jc: start;
+}
+
+:where(.btns.s--sm, .btns-s--sm, .btns.s--smd, .btns-s--smd) {
+    --btns-jc--sm: start;
+}
+
+:where(.btns.s--md, .btns-s--md, .btns.s--smd, .btns-s--smd, .btns.s--mdl, .btns-s--mdl) {
+    --btns-jc--md: start;
+}
+
+:where(.btns.s--lg, .btns-s--lg, .btns.s--mdl, .btns-s--mdl) {
+    --btns-jc--lg: start;
+}
+
+:where(.btns.e, .btns-e) {
+    --btns-jc: end;
+}
+
+:where(.btns.e--sm, .btns-e--sm, .btns.e--smd, .btns-e--smd) {
+    --btns-jc--sm: end;
+}
+
+:where(.btns.e--md, .btns-e--md, .btns.e--smd, .btns-e--smd, .btns.e--mdl, .btns-e--mdl) {
+    --btns-jc--md: end;
+}
+
+:where(.btns.e--lg, .btns-e--lg, .btns.e--mdl, .btns-e--mdl) {
+    --btns-jc--lg: end;
+}
+
+:where(.btn, .btns):where(.rv) {
+    --btn-icn-o: -1;
+}

@@ -1,0 +1,98 @@
+/**
+ * @file Component Configuration
+ * @description Global variables for UI patterns (Card, Button).
+ */
+
+:where(:root) {
+    /**
+   * @group Base: Core Components
+   */
+
+    /* Card: Core (card.css) */
+    --crd-bg: var(--crd, hsl(0 0% 100%));
+    --crd-rad: var(--rad, 0.5rem);
+    --crd-p: 1.25rem;
+    --crd-gap: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
+
+    /* Button: Core (button.css) */
+    --btn-fs: 1.125rem;
+    --btn-fw: 600;
+    --btn-lh: 1.5;
+    --btn-pb: .625em;
+    --btn-pi: 1.325em;
+
+    --btn-c: var(--on-p, currentColor);
+    --btn-c-hover: var(--on-a, currentColor);
+    --btn-bg: var(--p, #eec14c);
+    --btn-bg-hover: var(--a, #ffb900);
+    --btn-bc: var(--btn-bg, var(--out-p, #eec14c));
+    --btn-bc-hover: var(--btn-bg-hover, var(--out-a, #ffb900));
+
+    /**
+   * @group Advanced: Component Geometry
+   */
+
+    /* Card: Typography & Layout */
+    --crd-slot-gap: .75rem;
+    --crd-fs: clamp(1rem, 0.191vw + 0.962rem, 1.125rem);
+    --crd-fw: 400;
+    --crd-tx-lh: 1.375;
+    --crd-a-td: underline;
+
+    --crd-h-fs: clamp(1.375rem, 0.417vw + 1.292rem, 1.625rem);
+    --crd-h-fw: 700;
+    --crd-h-lh: 1.25;
+    --crd-h-ls: 0;
+
+    --crd-mt-fs: clamp(0.875rem, 0.191vw + 0.837rem, 1rem);
+    --crd-mt-fw: 400;
+    --crd-mt-lh: 1.5;
+
+    /* Button: Borders & Sizing */
+    --btn-bw: .125rem;
+    --btn-bs: solid;
+    --btn-rad: var(--theme-button-border-radius, 4em);
+    --btn-rad-lt: 0.375em;
+    --btn-rad-bd: 0.625em;
+    --btn-rad-rd: 8em;
+
+    --btn-w: fit-content;
+    --btn-min-h: calc(var(--btn-fs, 1.125rem) * var(--btn-lh, 1.5) + var(--btn-pb, var(--btn-p, .625em)) * 2 + var(--btn-border-w, var(--btn-bw, .125rem)) * 2);
+    --btns-gap: clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem);
+
+    /**
+   * @group Pro: Component Micro-interactions
+   */
+
+    /* Card: Media & Transitions */
+    --crd-trans: var(--trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
+    --crd-trans-hover: var(--trans-hover, var(--trans-d--hover, 0.16s) var(--trans-t-hover, ease-in-out));
+
+    --crd-med-obj: cover;
+    --crd-med-ar: 1.91 / 1;
+    --crd-med-max-w--lg: 50vh;
+    --crd-med-max-w--md: 100%;
+    --crd-med-op-hover: 1;
+    --crd-svg-size: 3em;
+    --crd-med-trans: var(--crd-trans);
+    --crd-med-trans-hover: var(--crd-trans-hover);
+    --crd-med-tf-hover: scale(var(--crd-med-tf-scale, var(--tf-scale, 1.125)));
+
+    /* Button: Transitions & Transform */
+    --btn-trans: var(--trans-d, 0.32s) var(--trans-t, ease-in-out);
+    --btn-trans-p: background-color, border-color, color, opacity, transform;
+
+    --btn-tf: none;
+    --btn-tf-hover: translatey(var(--tf-translatey, -0.125em));
+    --btn-tf-active: translatey(var(--tf-translatey-active, 0.0625em));
+
+    --btn-shd: var(--shd, 0 0.25em 2em -0.5em var(--shd-c, hsl(0 0% 8% / .32)));
+    --btn-shd-p: var(--shd-p, 0 0.25em 2em -0.5em var(--shd-c-p, hsl(0 0% 8% / .32)));
+
+    /* Button: Icon */
+    --btn-icn-fill: var(--icn-fill, currentColor);
+    --btn-icn-stroke: var(--icn-stroke);
+    --btn-icn-size: var(--icn-size, 1.25em);
+    --btn-icn-shrink: 0;
+    --btn-icn-o: var(--icn-o);
+}

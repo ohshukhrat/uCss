@@ -1,0 +1,100 @@
+/**
+ * @file Grid Item Placement
+ * @description Child placement utilities (.sp-*) and generic grid item rules.
+ */
+
+:where(.sp-1) {
+    --gi-col: span 1;
+}
+
+:where(.sp-1--sm, .sp-1--smd) {
+    --gi-col--sm: span 1;
+}
+
+:where(.sp-1--md, .sp-1--smd, .sp-1--mdl) {
+    --gi-col--md: span 1;
+}
+
+:where(.sp-1--lg, .sp-1--mdl) {
+    --gi-col--lg: span 1;
+}
+
+:where(.sp-2) {
+    --gi-col: span 2;
+}
+
+:where(.sp-2--sm, .sp-2--smd) {
+    --gi-col--sm: span 2;
+}
+
+:where(.sp-2--md, .sp-2--smd, .sp-2--mdl) {
+    --gi-col--md: span 2;
+}
+
+:where(.sp-2--lg, .sp-2--mdl) {
+    --gi-col--lg: span 2;
+}
+
+:where(.sp-3) {
+    --gi-col: span 3;
+}
+
+:where(.sp-3--sm, .sp-3--smd) {
+    --gi-col--sm: span 3;
+}
+
+:where(.sp-3--md, .sp-3--smd, .sp-3--mdl) {
+    --gi-col--md: span 3;
+}
+
+:where(.sp-3--lg, .sp-3--mdl) {
+    --gi-col--lg: span 3;
+}
+
+:where(.rsp-1) {
+    --gi-row: span 1;
+}
+
+:where(.rsp-1--sm, .rsp-1--smd) {
+    --gi-row--sm: span 1;
+}
+
+:where(.rsp-1--md, .rsp-1--smd, .rsp-1--mdl) {
+    --gi-row--md: span 1;
+}
+
+:where(.rsp-1--lg, .rsp-1--mdl) {
+    --gi-row--lg: span 1;
+}
+
+:where(.rsp-2) {
+    --gi-row: span 2;
+}
+
+:where(.rsp-2--sm, .rsp-2--smd) {
+    --gi-row--sm: span 2;
+}
+
+:where(.rsp-2--md, .rsp-2--smd, .rsp-2--mdl) {
+    --gi-row--md: span 2;
+}
+
+:where(.rsp-2--lg, .rsp-2--mdl) {
+    --gi-row--lg: span 2;
+}
+
+:where(.rsp-3) {
+    --gi-row: span 3;
+}
+
+:where(.rsp-3--sm, .rsp-3--smd) {
+    --gi-row--sm: span 3;
+}
+
+:where(.rsp-3--md, .rsp-3--smd, .rsp-3--mdl) {
+    --gi-row--md: span 3;
+}
+
+:where(.rsp-3--lg, .rsp-3--mdl) {
+    --gi-row--lg: span 3;
+}

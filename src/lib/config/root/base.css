@@ -1,0 +1,105 @@
+/**
+ * @file Base Configuration
+ * @description Generic globals, spacing, shapes, borders, animations, variances.
+ */
+
+:where(:root) {
+    /**
+   * @group Base: Generic Globals
+   */
+
+    /* Spacing: Gaps */
+    --gap: 1.5rem;
+
+    /* Shapes: Radius */
+    --rad: 0.5em;
+    --rad--xs: 0.25em;
+    --rad--s: 0.375em;
+    --rad--m: 0.625em;
+    --rad--l: 0.75em;
+    --rad--xl: 1em;
+    --rad--xxl: 1.5em;
+    --rad--xxxl: 2.5em;
+    --rad--full: 100vw;
+
+    /* Borders: Widths */
+    --bd-w: .0625rem;
+    --bd-w--s: .0625rem;
+    --bd-w--m: .125rem;
+    --bd-w--l: .25rem;
+    --border-width: var(--bd-w--m, .125rem);
+
+    /* Typography: Families */
+    --tx-font-fam: system-ui, -apple-system, sans-serif;
+    --t-font-fam: inherit;
+    --mono-font: monospace;
+
+    /* Scrollbar (html.css) */
+    --scrollbar-w: 1rem;
+    --scrollbar-w-hover: 1.5rem;
+
+
+    /**
+   * @group Advanced: Animation & Transform
+   */
+
+    /* Animation: Transition */
+    --trans-d: 0.32s;
+    --trans-d-hover: 0.16s;
+    --trans-t: ease-in-out;
+    --trans-t-hover: ease-in-out;
+    --trans: var(--trans-d, 0.32s) var(--trans-t, ease-in-out);
+    --trans-hover: var(--trans-d-hover, 0.16s) var(--trans-t-hover, ease-in-out);
+
+    /* Transform: Scale / Translate */
+    --tf-scale: 1.125;
+    --tf-translatey: -0.125em;
+    --tf-translatey-active: 0.0625em;
+
+    /* Shadows */
+    --shd-c: var(--od-lt, hsl(0 0% 8% / .32));
+    --shd-h: 0;
+    --shd-v: 0.25em;
+    --shd-b: 2em;
+    --shd-s: -0.5em;
+    --shd--m: var(--shd-h, 0) var(--shd-v, 0.25em) var(--shd-b, 2em) var(--shd-s, -0.5em);
+    --shd: var(--shd--m, 0 0.25em 2em -0.5em) var(--shd-c, hsl(0 0% 8% / .32));
+
+    /**
+   * @group Pro: Effects & Elements
+   */
+
+    /* Blurs */
+    --blr--m: 0.25rem;
+    --blr--s: 0.125rem;
+    --blr--l: 0.5rem;
+    --blr--xl: 1rem;
+    --blr--xxl: 2rem;
+
+    /* HTML: Blockquotes (html.css) */
+    --bq-bd-w: var(--bd-w--l, 4px);
+    --bq-bd-c: var(--p, currentColor);
+    --bq-pd: 1.5em;
+
+    /* HTML: Code / KBD (html.css) */
+    --code-bg: var(--srf, #eee);
+    --code-tx: var(--t, #000);
+    --code-rad: var(--rad-xs, 0.25em);
+
+    /* HTML: Preformatted (html.css) */
+    --pre-bg: var(--d, #222);
+    --pre-tx: var(--l, #fff);
+    --pre-pd: var(--gap, 1.5rem);
+
+    /* HTML: Tables (html.css) */
+    --tbl-bd-w: var(--bd-w, 1px);
+    --tbl-bd-c: var(--out, #ccc);
+    --tbl-pd: .75em;
+    --tbl-bg-head: var(--srf, #eee);
+    --tbl-bg-hover: var(--srf, #fafafa);
+
+    /* HTML: Horizontal Rule (html.css) */
+    --hr-h: 1px;
+    --hr-c: var(--out, #ccc);
+    --hr-m: 2.5rem;
+}

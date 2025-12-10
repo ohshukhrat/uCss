@@ -1,0 +1,276 @@
+/**
+ * @file Grid Alignment
+ * @description Utilities for align-items, justify-content, align-content, justify-items.
+ */
+
+:where(.g.ai-c) {
+    --g-ai: center;
+}
+
+:where(.g.ai-c--lg, .g.ai-c--mdl) {
+    --g-ai--lg: center;
+}
+
+:where(.g.ai-c--md, .g.ai-c--smd, .g.ai-c--mdl) {
+    --g-ai--md: center;
+}
+
+:where(.g.ai-c--sm, .g.ai-c--smd) {
+    --g-ai--sm: center;
+}
+
+:where(.g.ai-s) {
+    --g-ai: start;
+}
+
+:where(.g.ai-s--lg, .g.ai-s--mdl) {
+    --g-ai--lg: start;
+}
+
+:where(.g.ai-s--md, .g.ai-s--smd, .g.ai-s--mdl) {
+    --g-ai--md: start;
+}
+
+:where(.g.ai-s--sm, .g.ai-s--smd) {
+    --g-ai--sm: start;
+}
+
+:where(.g.ai-e) {
+    --g-ai: end;
+}
+
+:where(.g.ai-e--lg, .g.ai-e--mdl) {
+    --g-ai--lg: end;
+}
+
+:where(.g.ai-e--md, .g.ai-e--smd, .g.ai-e--mdl) {
+    --g-ai--md: end;
+}
+
+:where(.g.ai-e--sm, .g.ai-e--smd) {
+    --g-ai--sm: end;
+}
+
+:where(.g.ai-b) {
+    --g-ai: baseline;
+}
+
+:where(.g.ai-b--lg, .g.ai-b--mdl) {
+    --g-ai--lg: baseline;
+}
+
+:where(.g.ai-b--md, .g.ai-b--smd, .g.ai-b--mdl) {
+    --g-ai--md: baseline;
+}
+
+:where(.g.ai-b--sm, .g.ai-b--smd) {
+    --g-ai--sm: baseline;
+}
+
+:where(.g.ai-b) {
+    --g-ac: baseline;
+}
+
+:where(.g.ai-b--lg, .g.ai-b--mdl) {
+    --g-ac--lg: baseline;
+}
+
+:where(.g.ai-b--md, .g.ai-b--smd, .g.ai-b--mdl) {
+    --g-ac--md: baseline;
+}
+
+:where(.g.ai-b--sm, .g.ai-b--smd) {
+    --g-ac--sm: baseline;
+}
+
+:where(.g.ac-c) {
+    --g-ac: center;
+}
+
+:where(.g.ac-c--lg, .g.ac-c--mdl) {
+    --g-ac--lg: center;
+}
+
+:where(.g.ac-c--md, .g.ac-c--smd, .g.ac-c--mdl) {
+    --g-ac--md: center;
+}
+
+:where(.g.ac-c--sm, .g.ac-c--smd) {
+    --g-ac--sm: center;
+}
+
+:where(.g.ac-s) {
+    --g-ac: start;
+}
+
+:where(.g.ac-s--lg, .g.ac-s--mdl) {
+    --g-ac--lg: start;
+}
+
+:where(.g.ac-s--md, .g.ac-s--smd, .g.ac-s--mdl) {
+    --g-ac--md: start;
+}
+
+:where(.g.ac-s--sm, .g.ac-s--smd) {
+    --g-ac--sm: start;
+}
+
+:where(.g.ac-e) {
+    --g-ac: end;
+}
+
+:where(.g.ac-e--lg, .g.ac-e--mdl) {
+    --g-ac--lg: end;
+}
+
+:where(.g.ac-e--md, .g.ac-e--smd, .g.ac-e--mdl) {
+    --g-ac--md: end;
+}
+
+:where(.g.ac-e--sm, .g.ac-e--smd) {
+    --g-ac--sm: end;
+}
+
+:where(.g.ac-b) {
+    --g-ac: baseline;
+}
+
+:where(.g.ac-b--lg, .g.ac-b--mdl) {
+    --g-ac--lg: baseline;
+}
+
+:where(.g.ac-b--md, .g.ac-b--smd, .g.ac-b--mdl) {
+    --g-ac--md: baseline;
+}
+
+:where(.g.ac-b--sm, .g.ac-b--smd) {
+    --g-ac--sm: baseline;
+}
+
+:where(.g.ji-c) {
+    --g-ji: center;
+}
+
+:where(.g.ji-c--lg, .g.ji-c--mdl) {
+    --g-ji--lg: center;
+}
+
+:where(.g.ji-c--md, .g.ji-c--smd, .g.ji-c--mdl) {
+    --g-ji--md: center;
+}
+
+:where(.g.ji-c--sm, .g.ji-c--smd) {
+    --g-ji--sm: center;
+}
+
+:where(.g.ji-s) {
+    --g-ji: start;
+}
+
+:where(.g.ji-s--lg, .g.ji-s--mdl) {
+    --g-ji--lg: start;
+}
+
+:where(.g.ji-s--md, .g.ji-s--smd, .g.ji-s--mdl) {
+    --g-ji--md: start;
+}
+
+:where(.g.ji-s--sm, .g.ji-s--smd) {
+    --g-ji--sm: start;
+}
+
+:where(.g.ji-e) {
+    --g-ji: end;
+}
+
+:where(.g.ji-e--lg, .g.ji-e--mdl) {
+    --g-ji--lg: end;
+}
+
+:where(.g.ji-e--md, .g.ji-e--smd, .g.ji-e--mdl) {
+    --g-ji--md: end;
+}
+
+:where(.g.ji-e--sm, .g.ji-e--smd) {
+    --g-ji--sm: end;
+}
+
+:where(.g.jc-c) {
+    --g-jc: center;
+}
+
+:where(.g.jc-c--lg, .g.jc-c--mdl) {
+    --g-jc--lg: center;
+}
+
+:where(.g.jc-c--md, .g.jc-c--smd, .g.jc-c--mdl) {
+    --g-jc--md: center;
+}
+
+:where(.g.jc-c--sm, .g.jc-c--smd) {
+    --g-jc--sm: center;
+}
+
+:where(.g.jc-s) {
+    --g-jc: start;
+}
+
+:where(.g.jc-s--lg, .g.jc-s--mdl) {
+    --g-jc--lg: start;
+}
+
+:where(.g.jc-s--md, .g.jc-s--smd, .g.jc-s--mdl) {
+    --g-jc--md: start;
+}
+
+:where(.g.jc-s--sm, .g.jc-s--smd) {
+    --g-jc--sm: start;
+}
+
+:where(.g.jc-e) {
+    --g-jc: end;
+}
+
+:where(.g.jc-e--lg, .g.jc-e--mdl) {
+    --g-jc--lg: end;
+}
+
+:where(.g.jc-e--md, .g.jc-e--smd, .g.jc-e--mdl) {
+    --g-jc--md: end;
+}
+
+:where(.g.jc-e--sm, .g.jc-e--smd) {
+    --g-jc--sm: end;
+}
+
+:where(.g > .as-c) {
+    --gi-as: center;
+}
+
+:where(.g > .as-c--lg, .g > .as-c--mdl) {
+    --gi-as--lg: center;
+}
+
+:where(.g > .as-c--md, .g > .as-c--smd, .g > .as-c--mdl) {
+    --gi-as--md: center;
+}
+
+:where(.g > .as-c--sm, .g > .as-c--smd) {
+    --gi-as--sm: center;
+}
+
+:where(.g > .js-c) {
+    --gi-js: center;
+}
+
+:where(.g > .js-c--lg, .g > .js-c--mdl) {
+    --gi-js--lg: center;
+}
+
+:where(.g > .js-c--md, .g > .js-c--smd, .g > .js-c--mdl) {
+    --gi-js--md: center;
+}
+
+:where(.g > .js-c--sm, .g > .js-c--smd) {
+    --gi-js--sm: center;
+}

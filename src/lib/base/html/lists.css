@@ -1,0 +1,55 @@
+/**
+ * @file HTML Lists Styles
+ * @description Unordered and ordered list styling and markers. Base styles for ul, ol, dl.
+ */
+
+:where(ul, ol) {
+    padding-inline-start: var(--list-pis, var(--list-pi, 1.5em));
+    margin-block: 0;
+    /* Handled by Smart Flow */
+}
+
+:where(ul) {
+    list-style: var(--ul-style, disc);
+}
+
+:where(ol) {
+    list-style: var(--ol-style, decimal);
+}
+
+:where(li) {
+    margin-block-end: 0;
+    line-height: var(--tx-lh, 1.25);
+    padding-inline-start: var(--li-pis, var(--li-pi, 0.25em));
+    /* Handled by Smart Flow */
+}
+
+:where(li::marker) {
+    color: var(--list-marker-c, var(--p, currentColor));
+    font-weight: var(--list-marker-fw, bold);
+    font-family: var(--list-marker-font, inherit);
+}
+
+/**
+ * @group Definition Lists
+ */
+:where(dt) {
+    font-weight: var(--dt-fw, var(--t-fw, 700));
+}
+
+:where(dd) {
+    margin-inline-start: var(--dd-mis, var(--dd-pi, 1.5em));
+}
+
+/**
+ * @group Clear List (.cl)
+ * Removes default list styling and margins.
+ */
+.cl:where(ul, ol) {
+    list-style: var(--cl-list-style, none);
+    padding-inline: var(--cl-pi, 0);
+    margin-inline: var(--cl-mi, 0);
+    margin-block: var(--cl-mb, 0);
+    /* Integrate with new flow system */
+    --list-flow: 0;
+}

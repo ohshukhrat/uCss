@@ -1,0 +1,144 @@
+/**
+ * @file Grid Subgrid
+ * @description Smart Grid logic (.sg, .sgc) allowing nested grids to align with parent tracks.
+ */
+
+:where(.sg, .sgc) {
+    display: var(--sg-d--fallback, var(--sg-d, grid));
+
+    :where(& > *) {
+        grid-area: var(--sgi-area--sm, var(--sgi-area, var(--gi-area-sm, var(--gi-area))));
+        align-self: var(--sgi-as--sm, var(--sgi-as, var(--gi-as-sm, var(--gi-as))));
+        justify-self: var(--sgi-js--sm, var(--sgi-js, var(--gi-js-sm, var(--gi-js))));
+
+        order: var(--sgi-o--sm, var(--sgi-o, var(--gi-o-sm, var(--gi-o))));
+    }
+
+    @container (669.99px <=width <=999.99px) {
+        :where(& > *) {
+            grid-area: var(--sgi-area--md, var(--sgi-area, var(--gi-area-md, var(--gi-area))));
+            align-self: var(--sgi-as--md, var(--sgi-as, var(--gi-as-md, var(--gi-as))));
+            justify-self: var(--sgi-js--md, var(--sgi-js, var(--gi-js-md, var(--gi-js))));
+
+            order: var(--sgi-o--md, var(--sgi-o, var(--gi-o-md, var(--gi-o))));
+        }
+    }
+
+    @container (width > 999.99px) {
+        :where(& > *) {
+            grid-area: var(--sgi-area--lg, var(--sgi-area, var(--gi-area-lg, var(--gi-area))));
+            align-self: var(--sgi-as--lg, var(--sgi-as, var(--gi-as-lg, var(--gi-as))));
+            justify-self: var(--sgi-js--lg, var(--sgi-js, var(--gi-js-lg, var(--gi-js))));
+
+            order: var(--sgi-o--lg, var(--sgi-o, var(--gi-o-lg, var(--gi-o))));
+        }
+    }
+}
+
+:where(.sg) {
+    grid-template-rows: var(--sg-rows-template--fallback--sm, var(--sg-rows-template--fallback, auto));
+
+    row-gap: var(--sg-row-gap--sm, var(--sg-row-gap,
+                var(--g-row-gap--sm, var(--g-row-gap,
+                        var(--g-gap--sm, var(--g-gap,
+                                clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))))));
+
+    @container (669.99px <=width <=999.99px) {
+        display: var(--sg-d--md, var(--sg-d, grid));
+        grid-template-rows: var(--sg-rows-template--md--fallback, var(--sg-rows-template--fallback, auto));
+        row-gap: var(--sg-row-gap--md, var(--sg-row-gap,
+                    var(--g-row-gap--md, var(--g-row-gap,
+                            var(--g-gap--md, var(--g-gap,
+                                    clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))))));
+    }
+
+    @container (width > 999.99px) {
+        display: var(--sg-d--lg, var(--sg-d, grid));
+        grid-template-rows: var(--sg-rows-template--lg--fallback, var(--sg-rows-template--fallback, auto));
+        row-gap: var(--sg-row-gap--lg, var(--sg-row-gap,
+                    var(--g-row-gap--lg, var(--g-row-gap,
+                            var(--g-gap--lg, var(--g-gap,
+                                    clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))))));
+    }
+
+    :where(& > *) {
+
+        grid-row: var(--sgi-row--sm, var(--sgi-row, var(--gi-row-sm, var(--gi-row))));
+
+        @container (669.99px <=width <=999.99px) {
+            grid-row: var(--sgi-row--md, var(--sgi-row, var(--gi-row-md, var(--gi-row))));
+        }
+
+        @container (width > 999.99px) {
+            grid-row: var(--sgi-row--lg, var(--sgi-row, var(--gi-row-lg, var(--gi-row))));
+        }
+    }
+}
+
+@supports (grid-template-rows: subgrid) {
+    :where(.sg) {
+        grid-template-rows: var(--sg-rows-template--sm, var(--sg-rows-template, subgrid));
+
+        @container (669.99px <=width <=999.99px) {
+            grid-template-rows: var(--sg-rows-template--md, var(--sg-rows-template, subgrid));
+        }
+
+        @container (width > 999.99px) {
+            grid-template-rows: var(--sg-rows-template--lg, var(--sg-rows-template, subgrid));
+        }
+    }
+}
+
+:where(.sgc) {
+    grid-template-columns: var(--sg-cols-template--fallback--sm, var(--sg-cols-template--fallback, auto));
+
+    column-gap: var(--sg-col-gap--sm, var(--sg-col-gap,
+                var(--g-col-gap--sm, var(--g-col-gap,
+                        var(--g-gap--sm, var(--g-gap,
+                                clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))))));
+
+    @container (669.99px <=width <=999.99px) {
+        display: var(--sg-d--md, var(--sg-d, grid));
+        grid-template-columns: var(--sg-cols-template--md--fallback, var(--sg-cols-template--fallback, auto));
+        column-gap: var(--sg-col-gap--md, var(--sg-col-gap,
+                    var(--g-col-gap--md, var(--g-col-gap,
+                            var(--g-gap--md, var(--g-gap,
+                                    clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))))));
+    }
+
+    @container (width > 999.99px) {
+        display: var(--sg-d--lg, var(--sg-d, grid));
+        grid-template-columns: var(--sg-cols-template--lg--fallback, var(--sg-cols-template--fallback, auto));
+        column-gap: var(--sg-col-gap--lg, var(--sg-col-gap,
+                    var(--g-col-gap--lg, var(--g-col-gap,
+                            var(--g-gap--lg, var(--g-gap,
+                                    clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))))));
+    }
+
+    :where(& > *) {
+
+        grid-column: var(--sgi-col--sm, var(--sgi-col, var(--gi-col-sm, var(--gi-col))));
+
+        @container (669.99px <=width <=999.99px) {
+            grid-column: var(--sgi-col--md, var(--sgi-col, var(--gi-col-md, var(--gi-col))));
+        }
+
+        @container (width > 999.99px) {
+            grid-column: var(--sgi-col--lg, var(--sgi-col, var(--gi-col-lg, var(--gi-col))));
+        }
+    }
+}
+
+@supports (grid-template-columns: subgrid) {
+    :where(.sgc) {
+        grid-template-columns: var(--sg-cols-template--sm, var(--sg-cols-template, subgrid));
+
+        @container (669.99px <=width <=999.99px) {
+            grid-template-columns: var(--sg-cols-template--md, var(--sg-cols-template, subgrid));
+        }
+
+        @container (width > 999.99px) {
+            grid-template-columns: var(--sg-cols-template--lg, var(--sg-cols-template, subgrid));
+        }
+    }
+}

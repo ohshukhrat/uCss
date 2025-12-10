@@ -1,0 +1,31 @@
+/**
+ * @file HTML Tables
+ * @description Table styling and interactive rows.
+ */
+
+:where(table) {
+    width: var(--tbl-w, 100%);
+    border-collapse: var(--tbl-border-collapse, collapse);
+    caption-side: var(--tbl-caption-side, bottom);
+    margin-block-start: var(--tbl-mbs, 0);
+    margin-block-end: var(--tbl-mbe, 0);
+    /* Handled by Smart Flow */
+}
+
+:where(th) {
+    text-align: var(--tbl-th-ta, start);
+    font-weight: var(--tbl-th-fw, var(--t-fw, 700));
+    color: var(--t, #000);
+    background-color: var(--tbl-bg-head, var(--srf, #eee));
+    padding: var(--tbl-pd, 0.75em);
+}
+
+:where(td) {
+    padding: var(--tbl-pd, 0.75em);
+    border-bottom: var(--tbl-bd-w, 1px) solid var(--tbl-bd-c, var(--out, #131313));
+    color: var(--tx, #333);
+}
+
+:where(tr:hover td) {
+    background-color: var(--tbl-bg-hover, var(--srf, #fafafa));
+}

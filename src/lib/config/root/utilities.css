@@ -1,0 +1,49 @@
+/**
+ * @file Utilities Configuration
+ * @description Spacing scales, flow, and edge offsets.
+ */
+
+:where(:root) {
+    /**
+   * @group Base: Spacing Scale
+   */
+
+    /* Fluid Spacing Scale */
+    --sp--xxxl: clamp(6rem, 3.059vw + 5.388rem, 8rem);
+    --sp--xxl: clamp(4rem, 3.059vw + 3.388rem, 6rem);
+    --sp--xl: clamp(3rem, 1.53vw + 2.694rem, 4rem);
+    --sp--l: clamp(2.5rem, 0.765vw + 2.347rem, 3rem);
+    --sp--m: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
+    --sp--s: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
+    --sp--xs: clamp(1.25rem, 0.382vw + 1.174rem, 1.5rem);
+    --sp--xxs: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
+
+    /**
+   * @group Advanced: Flow Spacing
+   */
+
+    /* Vertical Rhythm Grades */
+
+    --flow--xl: 1.25em;
+    --flow--l: 1em;
+    --flow--m: 0.75em;
+    --flow--s: 0.5em;
+    --flow--xs: 0.375em;
+
+    /**
+   * @group Pro: Edge & Element Flow
+   */
+
+    /* Percentage Spacing (Edges) */
+    --spe--l: 7%;
+    --spe--m: 5%;
+    --spe--s: 3%;
+
+    /* Element Specific Flow */
+    --p-flow: var(--flow--m, 0.75em);
+    --list-flow: var(--flow--s, 0.5em);
+    --li-flow: var(--flow--s, 0.5em);
+
+    --t-flow-s: var(--flow--l, 1em);
+    --t-flow-e: var(--flow--xs, 0.375em);
+}
