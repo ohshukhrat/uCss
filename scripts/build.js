@@ -597,7 +597,10 @@ async function main() {
         };
         verify(path.join(outputDir, 'u.css'), 5000);
         verify(path.join(outputDir, 'u.min.css'), 3000);
-        if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) verify(path.join(DIST_ROOT, 'index.html'), 1000);
+        if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) {
+            verify(path.join(outputDir, 'index.html'), 1000);
+            if (outputDirName === 'stable') verify(path.join(DIST_ROOT, 'index.html'), 1000);
+        }
         verify(path.join(outputDir, 'lib/components.min.css'), 500);
     } catch (e) {
         console.error(`❌ Verification Failed: ${e.message}`);

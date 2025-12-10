@@ -29,7 +29,6 @@
     /* Note: We rely on variables in html.css, but this ensures hard resets */
     :where(h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, blockquote, figure, pre, code, kbd, samp, table) {
         margin-block: 0;
-        line-height: inherit;
     }
 
     /* Form Elements Reset */
