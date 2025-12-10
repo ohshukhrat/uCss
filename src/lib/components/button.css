@@ -405,7 +405,7 @@ a.btn:active:not(:disabled, .is-disabled) {
   margin-inline: var(--btns-mi,
       var(--btns-mis) var(--btns-mie));
 
-  :not(.g, .sg, .sgc, .f, .block-library-block__reusable-block-container):has(> &) {
+  :not(.g, .sg, .sgc, .f, .row, .col, .crd .block-library-block__reusable-block-container):has(> &) {
     container-name: btnsp;
     container-type: inline-size;
     contain: inline-size;

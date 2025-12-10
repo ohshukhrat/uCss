@@ -406,7 +406,7 @@ async function main() {
             ]);
 
             // Copy Sub-files (Individual component files)
-            const subDirRel = `src / lib / ${modName} `;
+            const subDirRel = `src/lib/${modName}`;
             // ... (Logic to copy indiv files same as before) ...
             // Simplified for brevity in JSDoc update task, but retaining logic
             let individualFiles = [];
@@ -462,8 +462,8 @@ async function main() {
             const renderer = {
                 heading({ tokens, depth }) {
                     const text = this.parser.parseInline(tokens);
-                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-                    return `< h${depth} id = "${id}" > ${text}</h${depth}> `;
+                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+                    return `<h${depth} id="${id}">${text}</h${depth}>`;
                 },
                 link({ href, title, tokens }) {
                     const text = this.parser.parseInline(tokens);
@@ -478,7 +478,7 @@ async function main() {
                     // e.g. "src/lib/components/" -> "./stable/lib/components/"
                     if (mdPath === path.join(PROJECT_ROOT, 'README.md')) {
                         if (hrefStr.startsWith('./src/') || hrefStr.startsWith('src/')) {
-                            hrefStr = hrefStr.replace(/^(\.\/)?src\//, `./ ${outputDirName}/`);
+                            hrefStr = hrefStr.replace(/^(\.\/)?src\//, `./${outputDirName}/`);
                         }
                     }
 
@@ -489,6 +489,14 @@ async function main() {
 
             let htmlContent;
             try { htmlContent = marked.parse(md, { gfm: true, breaks: false }); } catch (e) { return; }
+
+            // Dynamic CDN Replacement in Content
+            // Replaces "ucss.unqa.dev/stable" with "ucss.unqa.dev/[current-build]" in the text
+            // checking if outputDirName is 'p' or 'latest' or 'preview*'.
+            const cdnSegment = outputDirName.startsWith('preview') ? outputDirName : (['p', 'latest'].includes(outputDirName) ? outputDirName : 'stable');
+            if (cdnSegment !== 'stable') {
+                htmlContent = htmlContent.replace(/ucss\.unqa\.dev\/stable/g, `ucss.unqa.dev/${cdnSegment}`);
+            }
 
             // TEMPLATE: Minimal HTML wrapper
             const relRoot = path.relative(path.dirname(outPath), outputDir);
@@ -536,8 +544,14 @@ async function main() {
 
         const docTasks = [];
         // Root README -> dist/index.html
+        // Root README -> dist/[target]/index.html (Self-contained)
         if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) {
-            docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
+            docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(outputDir, 'index.html'), 'uCss Documentation - Root'));
+
+            // Only update root dist/index.html if we are building stable
+            if (outputDirName === 'stable') {
+                docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
+            }
         }
 
         // Subproject READMEs -> dist/lib/*/index.html

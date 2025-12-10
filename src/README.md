@@ -9,14 +9,14 @@
 ---
 
 ## 📑 Page Contents
-*   [Architecture & Developer Guide](#-architecture--developer-guide)
-*   [Core Pillars](#️-core-pillars)
-*   [Source Map](#-source-map)
-*   [Deployment Stats](#-deployment-stats)
-*   [The Manifest](#-the-manifest)
-*   [Module Reference](#-module-reference)
-*   [Maintainer Workflow](#️-maintainer-workflow)
-*   [Integration Snippets](#-integration-snippets)
+*   [Architecture & Developer Guide](#architecture--developer-guide)
+*   [Core Pillars](#core-pillars)
+*   [Source Map](#source-map)
+*   [Deployment Stats](#deployment-stats)
+*   [The Manifest](#the-manifest)
+*   [Module Reference](#module-reference)
+*   [Maintainer Workflow](#maintainer-workflow)
+*   [Integration Snippets](#integration-snippets)
 
 ---
 
