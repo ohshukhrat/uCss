@@ -17,7 +17,7 @@
 :where(.t, [class^="t--"]):is(p, span, div) {
     color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))))));
 
-    font-family: var(--title-font-family, var(--t-font-f, var(--t-font-fam, var(--theme-font-family, inherit))));
+    font-family: var(--title-font-family, var(--t-font-f, var(--theme-font-family, var(--t-font-fam, inherit))));
 
     font-size: var(--title-font-size, var(--t-font-s--sm, var(--t-font-s,
                     var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem))))));
@@ -205,6 +205,7 @@
  */
 :is(.t, [class^="t-"]):is(h1, h2, h3, h4),
 :is(.t, [class^="t-"]):where(p, span, div) {
+    --theme-font-family: var(--title-font-family, var(--t-font-f, var(--theme-font-family, var(--t-font-fam, inherit))));
     --theme-heading-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))))));
     --theme-text-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))))));
     --theme-font-size: var(--title-font-size, var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));

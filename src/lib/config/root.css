@@ -41,6 +41,16 @@
    --bd-w--l: .25rem;
    --border-width: var(--bd-w--m, .125rem);
 
+   /* Typography: Families */
+   --tx-font-fam: system-ui, -apple-system, sans-serif;
+   --t-font-fam: inherit;
+   --mono-font: monospace;
+
+   /* Scrollbar (html.css) */
+   --scrollbar-w: 0.625rem;
+   --scrollbar-w-hover: 1rem;
+
+
    /**
    * @group Advanced: Animation & Transform
    */
@@ -531,12 +541,11 @@
 
    /* Vertical Rhythm Grades */
 
-   /* Standard flow */
-   --flow-s: 1em;
-   /* Tight flow */
-   --flow-xs: 0.5em;
-   /* Loose flow */
-   --flow-l: 1.5em;
+   --flow--xl: 1.25em;
+   --flow--l: 1em;
+   --flow--m: 0.75em;
+   --flow--s: 0.5em;
+   --flow--xs: 0.375em;
 
    /**
    * @group Pro: Edge & Element Flow
@@ -548,12 +557,12 @@
    --spe--s: 3%;
 
    /* Element Specific Flow */
-   --p-flow: var(--flow-s, 1em);
-   --list-flow: var(--flow-s, 1em);
-   --li-flow: var(--flow-xs, 0.5em);
+   --p-flow: var(--flow--m, 0.75em);
+   --list-flow: var(--flow--s, 0.5em);
+   --li-flow: var(--flow--s, 0.5em);
 
-   --t-flow-s: var(--flow-l, 1.5em);
-   --t-flow-e: var(--flow-xs, 0.5em);
+   --t-flow-s: var(--flow--l, 1em);
+   --t-flow-e: var(--flow--xs, 0.375em);
 
 }
 

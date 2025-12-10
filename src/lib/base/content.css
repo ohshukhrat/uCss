@@ -14,9 +14,11 @@
  */
 .cs {
     /* Kill Flow Variables */
-    --flow-s: 0;
-    --flow-xs: 0;
-    --flow-l: 0;
+    --flow--xl: 0;
+    --flow--l: 0;
+    --flow--m: 0;
+    --flow--s: 0;
+    --flow--xs: 0;
 
     /* Kill Element Mappings */
     --p-flow: 0;
@@ -32,14 +34,14 @@
     }
 
     /* Form Elements Reset */
-    :where(fieldset, legend) {
+    &.app :where(fieldset, legend) {
         margin: 0;
         padding: 0;
         border: 0;
     }
 
     /* List specific reset in App Mode */
-    :where(ul, ol) {
+    &.app :where(ul, ol) {
         list-style: none;
         padding: 0;
     }
@@ -55,25 +57,30 @@
  */
 .csc {
     /* Restore Defaults (from root.css) */
-    /* We don't need to redeclare vars if they inherit from :root, 
-       BUT .csc might be nested inside .cs which killed them. 
-       So we must explicitly restore. */
 
-    --flow-s: 1em;
-    --flow-xs: 0.5em;
-    --flow-l: 1.5em;
+    /* Primitives */
+    --flow--xl: 1.25em;
+    --flow--l: 1em;
+    --flow--m: 0.75em;
+    --flow--s: 0.5em;
+    --flow--xs: 0.375em;
 
-    --p-flow: var(--flow-s, 1em);
-    --list-flow: var(--flow-s, 1em);
-    --li-flow: var(--flow-xs, 0.5em);
+    /* Mappings */
+    --p-flow: var(--flow--m, 0.75em);
+    --list-flow: var(--flow--s, 0.5em);
+    --li-flow: var(--flow--s, 0.5em);
 
-    --t-flow-s: var(--flow-l, 1.5em);
-    --t-flow-e: var(--flow-xs, 0.5em);
+    --t-flow-s: var(--flow--l, 1em);
+    --t-flow-e: var(--flow--xs, 0.375em);
 }
 
 /* Allow nested resets again */
 .csc .cs {
-    --flow-s: 0;
+    --flow--xl: 0;
+    --flow--l: 0;
+    --flow--m: 0;
+    --flow--s: 0;
+    --flow--xs: 0;
     /* ...cascade will handle the rest via .cs selector spec... */
 }
 
@@ -81,13 +88,13 @@
  * @group Clear List (.cl)
  * Removes default list styling and margins.
  */
-.cl {
+.cl:where(ul, ol) {
     list-style: var(--cl-list-style, none);
     padding-inline: var(--cl-pi, 0);
     margin-inline: var(--cl-mi, 0);
     margin-block: var(--cl-mb, 0);
-    --list-flow: 0;
     /* Integrate with new flow system */
+    --list-flow: 0;
 }
 
 /**
@@ -95,27 +102,26 @@
  * Normalizes blockquotes, figures, and figcaptions.
 
  */
-.cs blockquote.cq {
+
+.cs blockquote:where(.cbq) {
     margin: 0;
     padding: 0;
     border: none;
 }
 
-.cs figure.cfg {
-    display: var(--figure-d, grid);
+.cs figure:where(.cfg) {
+    display: var(--figure-d, block);
     margin: 0;
-    margin-block: 0;
     padding: 0;
     border: none;
 }
 
-.cs figcaption.cfgc {
-    display: var(--figcaption-d, flex);
+.cs figcaption:where(.cfc) {
+    display: var(--figcaption-d, block);
     margin: 0;
-    margin-block: 0;
     padding: 0;
     border: none;
-    text-align: var(--figcaption-ta);
+    text-align: var(--figcaption-ta, start);
 }
 
 /**

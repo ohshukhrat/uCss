@@ -18,7 +18,7 @@
 :is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
     color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-4, currentColor)))))));
 
-    font-family: var(--text-font-family, var(--tx-font-f, var(--tx-font-fam, var(--theme-font-family, system-ui, -apple-system, sans-serif))));
+    font-family: var(--text-font-family, var(--tx-font-f, var(--theme-font-family, var(--tx-font-fam, system-ui, -apple-system, sans-serif))));
 
     font-size: var(--text-font-size, var(--tx-font-s--sm, var(--tx-font-s,
                     var(--tx-fs, var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem))))));
@@ -189,6 +189,7 @@
 :is(.tx, [class^="tx--"], .shl, .st),
 :is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption),
 :is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
+    --theme-font-family: var(--text-font-family, var(--tx-font-f, var(--theme-font-family, var(--tx-font-fam, system-ui, -apple-system, sans-serif))));
     --theme-heading-color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-color, var(--tx-c, var(--theme-palette-color-4, currentColor)))))));
     --theme-text-color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-color, var(--tx-c, var(--theme-palette-color-4, currentColor)))))));
     --theme-font-size: var(--text-font-size, var(--tx-font-s, var(--tx-fs, var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem)))));
