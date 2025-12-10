@@ -23,7 +23,7 @@
     font-size: var(--text-font-size, var(--tx-font-s--sm, var(--tx-font-s,
                     var(--tx-fs, var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem))))));
     line-height: var(--text-line-height, var(--tx-line-h--sm, var(--tx-line-h, var(--tx-lh, 1.5))));
-    font-weight: var(--text-font-weight, var(--tx-font-w, var(--tx-fw, 400)));
+    font-weight: var(--text-font-weight, var(--tx-font-w, var(--tx-fw, var(--tx-fw-d, 400))));
 
     text-align: var(--text-align, var(--tx-text-a--sm, var(--tx-text-a, var(--ta--sm, var(--ta)))));
 

@@ -22,7 +22,7 @@
     font-size: var(--title-font-size, var(--t-font-s--sm, var(--t-font-s,
                     var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem))))));
     line-height: var(--title-line-height, var(--t-line-h--sm, var(--t-line-h, var(--t-lh, 1.25))));
-    font-weight: var(--title-font-weight, var(--t-font-w, var(--t-fw, var(--t-fw--m, 800))));
+    font-weight: var(--title-font-weight, var(--t-font-w, var(--t-fw, var(--t-fw-d, 700))));
 
     text-align: var(--title-text-align, var(--t-text-a--sm, var(--t-text-a, var(--ta--sm, var(--ta)))));
 
@@ -57,7 +57,7 @@
     }
 
     /** @group Weight: Extra Bold (800) */
-    &:where(.xb) {
+    &:where(.xb, .tb) {
         --t-fw: 800;
     }
 
@@ -87,7 +87,7 @@
     }
 
     /** @group Transform: Uppercase */
-    &:where(.up, .hl) {
+    &:where(.up, .hl, .tb) {
         --t-tt: uppercase;
     }
 
@@ -99,6 +99,7 @@
      */
     &:where(.t--xxxl, .xxxl, .t--3xl) {
         --t-fs: var(--t-fs--xxxl, clamp(3.5rem, 2.294vw + 3.041rem, 5rem));
+        --t-fw-d: 900;
     }
 
     /** 
@@ -107,6 +108,7 @@
      */
     &:where(.t--xxl, .xxl, .t--2xl) {
         --t-fs: var(--t-fs--xxl, clamp(3.25rem, 1.912vw + 2.868rem, 4.5rem));
+        --t-fw-d: 900;
     }
 
     /** 
@@ -115,6 +117,7 @@
      */
     &:where(.t--xl, .xl) {
         --t-fs: var(--t-fs--xl, clamp(3rem, 1.53vw + 2.694rem, 4rem));
+        --t-fw-d: 800;
     }
 
     /** 
@@ -123,6 +126,7 @@
      */
     &:where(.t--l, .l) {
         --t-fs: var(--t-fs--l, clamp(2.75rem, 1.53vw + 2.444rem, 3.75rem));
+        --t-fw-d: 800;
     }
 
     /** 
@@ -131,6 +135,7 @@
      */
     &:where(.t--m, .m) {
         --t-fs: var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem));
+        --t-fw-d: 800;
     }
 
     /** 

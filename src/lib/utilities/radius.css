@@ -54,37 +54,37 @@
  * rd/full: 640em (pill shape)
  */
 :where(.rad.sq, .rad--sq) {
-    --rad: var(--rad-sq, 0);
+    --rad: var(--rad--sq, 0);
 }
 
 :where(.rad.xs, .rad--xs) {
-    --rad: var(--rad-xs, 0.25em);
+    --rad: var(--rad--xs, 0.25em);
 }
 
 :where(.rad.s, .rad--s) {
-    --rad: var(--rad-s, 0.375em);
+    --rad: var(--rad--s, 0.375em);
 }
 
 :where(.rad.m, .rad--m) {
-    --rad: var(--rad-m, 0.625em);
+    --rad: var(--rad--m, 0.625em);
 }
 
 :where(.rad.l, .rad--l) {
-    --rad: var(--rad-l, 0.75em);
+    --rad: var(--rad--l, 0.75em);
 }
 
 :where(.rad.xl, .rad--xl) {
-    --rad: var(--rad-xl, 1em);
+    --rad: var(--rad--xl, 1em);
 }
 
 :where(.rad.xxl, .rad--xxl, .rad--2xl) {
-    --rad: var(--rad-xxl, 1.5em);
+    --rad: var(--rad--xxl, 1.5em);
 }
 
 :where(.rad.xxxl, .rad--xxxl, .rad--3xl) {
-    --rad: var(--rad-xxxl, 2.5em);
+    --rad: var(--rad--xxxl, 2.5em);
 }
 
 :where(.rad.rd, .rad--rd, .rad.full, .rad--full) {
-    --rad: var(--rad-rd, var(--rad-full, 100vw));
+    --rad: var(--rad--rd, var(--rad--full, 100vw));
 }
