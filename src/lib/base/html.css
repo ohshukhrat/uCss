@@ -13,6 +13,16 @@
    1. GLOBAL RESET & BOX SIZING
    ========================================================================== */
 
+/* Focus Styles (A11y) */
+:where(*:focus-visible) {
+    outline: var(--focus-ring, 0.125rem solid var(--p, #eec14c));
+    outline-offset: var(--focus-offset, 0.125rem);
+}
+
+:where(*:focus:not(:focus-visible)) {
+    outline: none;
+}
+
 :where(*),
 :where(*::before),
 :where(*::after) {
@@ -117,8 +127,15 @@
     color: var(--link, var(--alt-bd, var(--p, #eec14c)));
     text-decoration: underline;
     text-decoration-thickness: var(--a-td-t, var(--bd-w, 1px));
-    text-underline-offset: var(--a-td-o, 0.2em);
-    transition: color var(--trans-d, 0.2s) ease;
+    text-underline-offset: var(--a-td-o, 0.125em);
+    transition: color var(--trans-d, 0.16s) ease, text-decoration-color var(--trans-d, 0.16s) ease;
+}
+
+:where(a:focus-visible) {
+    outline: var(--link-focus-ring, 0.125rem solid var(--p, currentColor));
+    outline-offset: var(--link-focus-offset, 0.125rem);
+    text-decoration: none;
+    border-radius: var(--rad--xs, 0.125em);
 }
 
 :where(a:hover) {
@@ -182,6 +199,10 @@
     height: auto;
     font-style: var(--med-font-style, italic);
     shape-margin: var(--shape-m, 1rem);
+
+    /* SVG Specifics */
+    fill: var(--svg-fill, initial);
+    stroke: var(--svg-stroke, initial);
 }
 
 :where(img) {
@@ -198,6 +219,14 @@
     /* Handled by Smart Flow */
 }
 
+:where(ul) {
+    list-style: var(--ul-style, disc);
+}
+
+:where(ol) {
+    list-style: var(--ol-style, decimal);
+}
+
 :where(li) {
     margin-block-end: 0;
     line-height: var(--tx-lh, 1.25);
@@ -205,8 +234,9 @@
 }
 
 :where(li::marker) {
-    color: var(--p, currentColor);
-    font-weight: bold;
+    color: var(--list-marker-c, var(--p, currentColor));
+    font-weight: var(--list-marker-fw, bold);
+    font-family: var(--list-marker-font, inherit);
 }
 
 /* ==========================================================================
@@ -219,7 +249,51 @@
     letter-spacing: inherit;
 }
 
-:where(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"]), select, textarea) {
+/* Button (Minimal .btn mapping) */
+:where(button, input[type="button"], input[type="submit"], input[type="reset"]) {
+    cursor: var(--btn-cursor, pointer);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--btn-gap, 0.5em);
+
+    font-weight: var(--btn-fw, 600);
+    line-height: var(--btn-lh, 1.5);
+    text-decoration: none;
+    white-space: nowrap;
+
+    padding: var(--btn-pd, var(--btn-pb, var(--btn-p, 0.625em)) var(--btn-pi, var(--btn-p, 1.325em)));
+    background-color: var(--btn-bg, var(--p, #eec14c));
+    color: var(--btn-c, var(--on-p, currentColor));
+
+    border: var(--btn-bw, 0.125rem) solid var(--btn-bc, var(--btn-bg, #eec14c));
+    border-radius: var(--btn-rad, var(--theme-button-border-radius, 4em));
+
+    transform: var(--btn-tf, none);
+    transition: var(--btn-trans, var(--trans-d, 0.32s) ease-in-out);
+    transition-property: var(--btn-trans-p, background-color, border-color, color, opacity, transform);
+}
+
+:where(button:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover) {
+    background-color: var(--btn-bg-hover, var(--a, #ffb900));
+    color: var(--btn-c-hover, var(--on-a, currentColor));
+    border-color: var(--btn-bc-hover, var(--btn-bg-hover, #ffb900));
+
+    transform: var(--btn-tf-hover, translatey(var(--tf-translatey, -0.125em)));
+    transition: var(--btn-trans-hover, var(--trans-d-hover, 0.16s) ease-in-out);
+}
+
+:where(button:active, input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active) {
+    transform: var(--btn-tf-active, translatey(var(--tf-translatey-active, 0.0625em)));
+}
+
+:where(button:focus-visible, input[type="button"]:focus-visible, input[type="submit"]:focus-visible, input[type="reset"]:focus-visible) {
+    outline: var(--btn-outline, .25rem solid var(--btn-outline-c, var(--theme-palette-color-1, currentColor)));
+    outline-offset: var(--btn-outline-offset, var(--btn-o-o, .125rem));
+}
+
+/* Inputs & Selects */
+:where(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"]), select, textarea) {
     display: block;
     width: var(--input-w, 100%);
     padding: var(--input-pd, 0.625em 1em);
@@ -231,10 +305,25 @@
     transition: border-color var(--trans-d, 0.2s), box-shadow var(--trans-d, 0.2s);
 }
 
+:where(select) {
+    appearance: none;
+    background-image: var(--select-arrow, url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E"));
+    background-position: right 0.5em center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5em;
+}
+
+:where(input:focus-visible, select:focus-visible, textarea:focus-visible) {
+    outline: none;
+    border-color: var(--input-focus-bd-c, var(--p, #eec14c));
+    box-shadow: 0 0 0 var(--input-focus-ring-w, 3px) var(--input-focus-ring-c, var(--op-lt, rgba(238, 193, 76, 0.3)));
+}
+
 :where(input:focus, select:focus, textarea:focus) {
     outline: none;
-    border-color: var(--p, #eec14c);
-    box-shadow: 0 0 0 3px var(--op-lt, rgba(238, 193, 76, 0.3));
+    /* Legacy focus for non-visible interaction should handle same style */
+    border-color: var(--input-focus-bd-c, var(--p, #eec14c));
 }
 
 :where(textarea) {
@@ -258,6 +347,35 @@
     cursor: pointer;
 }
 
+/* Fieldset & Legend */
+:where(fieldset) {
+    border: var(--fieldset-bd-w, 1px) solid var(--fieldset-bd-c, var(--out, #ccc));
+    border-radius: var(--fieldset-rad, var(--rad, 0.5rem));
+    padding: var(--fieldset-pd, 1em);
+    margin-inline: 0;
+}
+
+:where(legend) {
+    padding-inline: 0.5em;
+    font-weight: 600;
+    color: var(--t, currentColor);
+}
+
+:where(summary) {
+    cursor: pointer;
+    list-style: none;
+}
+
+:where(summary:focus-visible) {
+    outline: var(--focus-ring, 0.125rem solid var(--p, #eec14c));
+    outline-offset: var(--focus-offset, 0.125rem);
+    border-radius: var(--rad--xs, 0.25rem);
+}
+
+:where(summary)::-webkit-details-marker {
+    display: none;
+}
+
 /* ==========================================================================
    7. TABLES
    ========================================================================== */
@@ -266,7 +384,8 @@
     width: var(--tbl-w, 100%);
     border-collapse: var(--tbl-border-collapse, collapse);
     caption-side: var(--tbl-caption-side, bottom);
-    margin-block: 0;
+    margin-block-start: var(--tbl-mbs, 0);
+    margin-block-end: var(--tbl-mbe, 0);
     /* Handled by Smart Flow */
 }
 
@@ -343,7 +462,7 @@
 
 /* Space AFTER headings (connecting to text) */
 :where(h1, h2, h3, h4, h5, h6)+ :where(p, ul, ol, blockquote, figure, pre, table) {
-    margin-block-start: var(--t-flow-e, 0.375em);
+    margin-block-end: var(--t-flow-e, 0.375em);
 }
 
 /* 3. List Item Flow */

@@ -752,7 +752,7 @@ Our CI/CD pipeline (GitHub Actions) automatically deploys based on branch push:
 | :--- | :--- | :--- |
 | Branch | Output URL | Configuration |
 | :--- | :--- | :--- |
-| **`main`** | `.../stable/` & `.../p/` | **Production**. Stable release (root) + Encapsulated build (`/p/`). |
+| **`main`** | `.../stable/`, `.../p/` & `.../v/` | **Production**. Stable (root) + Encapsulated (`/p/`) + Variables Only (`/v/`). |
 | **`dev`** | `.../latest/` | **Development**. Bleeding-edge code. |
 | **`*`** (Other) | `.../preview-.../` | **Preview**. Timestamped deployments (e.g., `preview-2025-12-08...`). Auto-deleted after 7 days. |
 

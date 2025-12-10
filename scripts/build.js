@@ -257,6 +257,7 @@ async function main() {
         const steps = [
             { id: 'latest', args: ['latest'] },
             { id: 'prefixed', args: ['p'] },
+            { id: 'variables', args: ['v'] },
             { id: 'stable', args: ['stable'] }
         ];
 
@@ -511,27 +512,8 @@ async function main() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="uCss - Modern, mobile-first, pure CSS framework with zero dependencies">
     <title>${title}</title>
-    <link rel="stylesheet" href="${configPath}">
-    <link rel="stylesheet" href="${corePath}">
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.5; color: var(--tx); }
-        code { background: var(--srf); padding: 0.2em 0.4em; border-radius: 0.375rem; font-family: ui-monospace, monospace; font-size: 0.875em; }
-        pre { background: var(--srf); padding: 1rem; overflow-x: auto; border-radius: 0.375rem; border: 1px solid var(--out); }
-        pre code { background: none; padding: 0; font-size: 0.875rem; }
-        table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
-        th, td { border: 1px solid var(--out); padding: 0.5rem 1rem; text-align: left; }
-        th { background: var(--srf); font-weight: 600; }
-        .alert { padding: 1rem; margin: 1rem 0; border-left: 4px solid; border-radius: 0.375rem; }
-        .alert strong { display: block; margin-bottom: 0.5rem; }
-        .alert-note { background: var(--sp-lt); border-color: var(--out); }
-        .alert-tip { background: var(--sp); border-color: var(--out); }
-        .alert-important { background: var(--sp-bd); border-color: var(--out); }
-        .alert-warning { background: var(--alr); border-color: var(--out); }
-        .alert-caution { background: var(--alr); border-color: var(--out); }
-        a { color: var(--t); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        hr { border: none; border-top: 1px solid var(--out); margin: 2rem 0; }
-    </style>
+    <link rel="stylesheet" href="https://ucss.unqa.dev/${cdnSegment === 'stable' ? 'stable' : cdnSegment}/lib/config.css">
+    <link rel="stylesheet" href="https://ucss.unqa.dev/${cdnSegment === 'stable' ? 'stable' : cdnSegment}/u.min.css">
 </head>
 <body>
     <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">

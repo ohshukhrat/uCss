@@ -68,9 +68,10 @@ jobs:
           # Run the build script with target arg
           node scripts/build.js "${{ steps.target.outputs.build_arg }}"
 
-          # If main branch (stable), also build prefixed version (dist/p)
+          # If main branch (stable), also build prefixed versions (dist/p, dist/v)
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             node scripts/build.js p
+            node scripts/build.js v
           fi
 
       # 3. Cleanup Old Previews (Remote)
