@@ -13,6 +13,7 @@
     --crd-rad: var(--rad, 0.5rem);
     --crd-p: 1.25rem;
     --crd-gap: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
+    --crd-out: var(--out-p, #eec14c);
 
     /* Button: Core (button.css) */
     --btn-fs: 1.125rem;
@@ -27,6 +28,7 @@
     --btn-bg-hover: var(--a, #ffb900);
     --btn-bc: var(--btn-bg, var(--out-p, #eec14c));
     --btn-bc-hover: var(--btn-bg-hover, var(--out-a, #ffb900));
+    --btn-out: var(--out-p, #eec14c);
 
     /**
    * @group Advanced: Component Geometry

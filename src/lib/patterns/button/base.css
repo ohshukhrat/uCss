@@ -41,14 +41,14 @@ a.btn {
     /* ~44px */
 
     /* --- Appearance (The API) --- */
-    color: var(--btn-color, var(--btn-c, var(--on-p, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, currentColor))))));
-    background-color: var(--btn-background, var(--btn-bg, var(--p, var(--theme-palette-color-1, #eec14c))));
+    color: var(--btn-color, var(--btn-c, var(--on-p, var(--d, currentColor))));
+    background-color: var(--btn-background, var(--btn-bg, var(--p, #eec14c)));
     opacity: var(--btn-opacity, var(--btn-op));
 
     border-width: var(--btn-border-w, var(--btn-bw, .125rem));
     border-style: var(--btn-border-s, var(--btn-bs, solid));
-    border-color: var(--btn-border-c, var(--btn-bc, var(--btn-bg, var(--out-p, var(--theme-palette-color-1, #eec14c)))));
-    border-radius: var(--btn-border-r, var(--btn-rad, var(--theme-button-border-radius, 4em)));
+    border-color: var(--btn-border-c, var(--btn-bc, var(--btn-bg, var(--out-p, var(--p, #eec14c)))));
+    border-radius: var(--btn-border-r, var(--btn-rad, 4em));
 
     box-shadow: var(--btn-shadow);
 
@@ -63,7 +63,7 @@ a.btn {
     min-block-size: var(--btn-min-height, var(--btn-min-h,
                 calc(var(--btn-fs, 1.125rem) * var(--btn-lh, 1.5) + var(--btn-pb, var(--btn-p, .625em)) * 2 + var(--btn-border-w, var(--btn-bw, .125rem)) * 2)));
 
-    :not(.g, .sg, .sgc, .f, .row, .col, .crd .block-library-block__reusable-block-container):has(> &) {
+    :not(.g, .sg, .sgc, .f, .row, .col, .crd, .block-library-block__reusable-block-container):has(> &) {
         --btn-c-name: var(--c-name, btnsp);
         --btn-c-type: var(--c-type, inline-size);
         container: var(--btn-c-name, btnsp) / var(--btn-c-type, inline-size);
@@ -141,9 +141,9 @@ a.btn {
 :where(.btn:hover:not(:disabled, .is-disabled), [data-style="btn"]:hover:not(:disabled, .is-disabled)),
 button.btn:hover:not(:disabled, .is-disabled),
 a.btn:hover:not(:disabled, .is-disabled) {
-    color: var(--btn-color-hover, var(--btn-c-hover, var(--on-a, var(--theme-palette-color-25, var(--theme-palette-color-11, var(--theme-palette-color-4, var(--d-bd, currentColor)))))));
-    background-color: var(--btn-background-hover, var(--btn-bg-hover, var(--a, var(--theme-palette-color-2, #ffb900))));
-    border-color: var(--btn-border-c-hover, var(--btn-bc-hover, var(--btn-background-hover, var(--btn-bg-hover, var(--out-a, var(--theme-palette-color-2, #ffb900))))));
+    color: var(--btn-color-hover, var(--btn-c-hover, var(--on-a, var(--d-bd, currentColor))));
+    background-color: var(--btn-background-hover, var(--btn-bg-hover, var(--a, #ffb900)));
+    border-color: var(--btn-border-c-hover, var(--btn-bc-hover, var(--btn-background-hover, var(--btn-bg-hover, var(--out-a, var(--a, #ffb900))))));
 
     opacity: var(--btn-opacity-hover, var(--btn-op-hover));
     box-shadow: var(--btn-shadow-hover, var(--btn-shadow));
@@ -156,8 +156,8 @@ a.btn:hover:not(:disabled, .is-disabled) {
 :where(.btn:focus-visible, [data-style="btn"]:focus-visible),
 button.btn:focus-visible,
 a.btn:focus-visible {
-    outline: var(--btn-outline, .25rem solid var(--btn-outline-c, var(--theme-palette-color-1, currentColor)));
-    outline-offset: var(--btn-outline-offset, var(--btn-o-o, .125rem));
+    outline: var(--btn-outline, .25rem solid var(--btn-outline-c, var(--btn-out, currentColor)));
+    outline-offset: var(--btn-outline-offset, var(--btn-o-o, var(--out-of, .125rem)));
 
     box-shadow: var(--btn-shadow-hover, var(--btn-shadow));
     transform: var(--btn-transform-focus, var(--btn-transform-hover, var(--btn-tf-hover, translatey(var(--tf-translatey, -0.125em)))));

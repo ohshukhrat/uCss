@@ -95,19 +95,18 @@
 
 :where(a.btn, a[data-style="btn"]),
 :where(.btn>a, [data-style="btn"] > a) {
-    --theme-button-text-initial-color: var(--btn-color, var(--btn-c, var(--on-p, var(--theme-palette-color-11, var(--theme-palette-color-3, currentColor)))));
-    --theme-button-background-initial-color: var(--btn-background, var(--btn-bg, var(--p, var(--theme-palette-color-1, #eec14c))));
-    --theme-button-border-initial-color: var(--btn-border-c, var(--btn-bc, var(--btn-bg, var(--out-p, var(--theme-palette-color-1, #eec14c)))));
+    --theme-button-text-initial-color: var(--btn-color, var(--btn-c, var(--on-p, var(--d, currentColor))));
+    --theme-button-background-initial-color: var(--btn-background, var(--btn-bg, var(--p, #eec14c)));
+    --theme-button-border-initial-color: var(--btn-border-c, var(--btn-bc, var(--btn-bg, var(--out-p, var(--p, #eec14c)))));
 
-    --theme-button-text-hover-color: var(--btn-color-hover, var(--btn-c-hover, var(--on-a, var(--theme-palette-color-25, var(--theme-palette-color-11, var(--theme-palette-color-4, currentColor))))));
-    --theme-button-background-hover-color: var(--btn-background-hover, var(--btn-bg-hover, var(--a, var(--theme-palette-color-2, #ffb900))));
-    --theme-button-border-hover-color: var(--btn-border-c-hover, var(--btn-bc-hover, var(--btn-bg-hover, var(--out-a, var(--theme-palette-color-2, #ffb900)))));
+    --theme-button-text-hover-color: var(--btn-color-hover, var(--btn-c-hover, var(--on-a, var(--d-bd, currentColor))));
+    --theme-button-background-hover-color: var(--btn-background-hover, var(--btn-bg-hover, var(--a, #ffb900)));
+    --theme-button-border-hover-color: var(--btn-border-c-hover, var(--btn-bc-hover, var(--btn-background-hover, var(--btn-bg-hover, var(--out-a, var(--a, #ffb900))))));
 
     --theme-button-border-radius: var(--btn-border-r, var(--btn-rad, 4em));
 
-    --theme-link-initial-color: var(--btn-color, var(--on-p, var(--theme-palette-color-3, currentColor)));
-    --theme-link-hover-color: var(--btn-color-hover, var(--on-a, var(--theme-palette-color-4, currentColor)));
-
+    --theme-link-initial-color: var(--btn-color, var(--btn-c, var(--on-p, var(--d, currentColor))));
+    --theme-link-hover-color: var(--btn-color-hover, var(--btn-c-hover, var(--on-a, var(--d-bd, currentColor))));
     --theme-transition: var(--btn-transition, var(--btn-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out)));
 
     &:hover {
@@ -119,9 +118,10 @@
  * @group Blocksy Compatibility
  * Maps uCss variables to Blocksy theme properties if present.
  */
-:is(.tx, [class^="tx--"], .shl, .st),
-:is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption),
-:is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
+:is(.tx, .shl, .st),
+:is(.tx, .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption, h6, h5, h4, h3, h2, h1),
+:is(.tx, .shl, .st)> :is(p, span, div, li, label, a, button, caption),
+:where(.tx--xxl, .tx--2xl, .tx--xl, .tx--l, .tx--m, .tx--s, .tx--xs, .tx--xxs, .tx--2xs, .tx--xxxs, .tx--3xs) {
     --theme-font-family: var(--text-font-family, var(--tx-font-f, var(--theme-font-family, var(--tx-font-fam, system-ui, -apple-system, sans-serif))));
     --theme-heading-color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-c, var(--tx-c, var(--theme-palette-color-4, currentColor)))))));
     --theme-text-color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-c, var(--tx-c, var(--theme-palette-color-4, currentColor)))))));
@@ -138,8 +138,8 @@
  * @group Blocksy Compatibility
  * Maps uCss variables to Blocksy theme properties if present.
  */
-:is(.t, [class^="t-"]):is(h1, h2, h3, h4),
-:is(.t, [class^="t-"]):where(p, span, div) {
+:where(.t, .hl, .tb):is(h1, h2, h3, h4, h5, h6, p, span, div),
+:where(.t--xxxl, .t--3xl, .t--xxl, .t--2xl, .t--xl, .t--l, .t--m, .t--s, .t--xs, .t--xxs, .t--2xs, .t--xxxs, .t--3xs) {
     --theme-font-family: var(--title-font-family, var(--t-font-f, var(--theme-font-family, var(--t-font-fam, inherit))));
     --theme-heading-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
     --theme-text-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
@@ -165,14 +165,31 @@
     --theme-link-initial-color: var(--card-title-c, var(--crd-t-c, var(--crd-h-c, var(--set-st, var(--set-h, var(--set-c, var(--alt-bd, var(--t, var(--theme-palette-color-4, currentColor)))))))));
 }
 
-:is(.crd, [class^="crd-"]):hover a {
+:is(.crd):hover a:not(.btn) {
     --theme-link-hover-color: var(--card-title-c-hover, var(--crd-t-c-hover, var(--crd-h-c-hover, var(--set-a, var(--set-st, var(--set-h, var(--set-c, var(--p, var(--alt-bd, var(--t, var(--theme-palette-color-2, #ffb900)))))))))));
 }
 
-:is(.crd, [class^="crd-"]) :is(p, span, div, a, button) {
+:is(.crd) :is(p, span, div, a, button) {
     --theme-text-color: var(--card-text-c, var(--crd-tx-c, var(--set-tx, var(--set-c, var(--on-crd, var(--theme-palette-color-3, currentColor))))));
     --theme-font-size: var(--card-text-font-s, var(--crd-tx-fs, var(--crd-tx-fs-m, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)))));
     --theme-font-weight: var(--card-text-font-w, var(--crd-tx-fw, var(--crd-fw, 400)));
     --theme-line-height: var(--crd-tx-line-h, var(--crd-tx-lh, 1.5));
     --theme-text-transform: var(--card-text-text-t, var(--crd-tx-tt, var(--crd-tt, none)));
+}
+
+.set {
+    --theme-text-color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
+
+    :is(h1, h2) {
+        --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+    }
+
+    :is(h3, h4, h5, h6) {
+        --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+    }
+
+    :is(a):not(.btn, [data-style="btn"]) {
+        --theme-link-initial-color: var(--set-link, var(--set-lnk, var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))))));
+        --theme-link-hover-color: var(--set-link-hover, var(--set-lnk-hover, var(--a, var(--theme-palette-color-2))));
+    }
 }

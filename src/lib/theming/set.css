@@ -118,91 +118,88 @@
 }
 
 /* Alt Theme */
-:where(.set.alt, .set-alt) {
+:where(.set.alt, .set-alt, .set.alternative, .set.neutral, .set.neu) {
     --set-h: var(--set-alternative-heading, var(--set-alt-h, var(--base-bd, var(--bg-bd, var(--theme-palette-color-8, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%))))))));
     --set-c: var(--set-alternative-color, var(--set-alt-c, var(--base, var(--bg, var(--theme-palette-color-7, var(--l, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%))))))));
     --set-bg: var(--set-alternative-background, var(--set-alt-bg, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))));
 }
 
+/* Base Theme */
+:where(.set.base, .set-base, .set.bg, .set-bg) {
+    --set-h: var(--set-base-heading, var(--set-base-h, var(--neutral-bd, var(--alt-bd, var(--theme-palette-color-8, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%))))))));
+    --set-c: var(--set-base-color, var(--set-base-c, var(--neutral, var(--alt, var(--theme-palette-color-7, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
+    --set-bg: var(--set-base-background, var(--set-base-bg, var(--base, var(--bg, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 96%))))))));
+}
+
+/* Surface Theme */
 :where(.set.surface, .set-surface) {
     --set-h: var(--set-surface-heading, var(--set-srf-h, var(--on-srf, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))))));
     --set-c: var(--set-surface-color, var(--set-srf-c, var(--tx, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
     --set-bg: var(--set-surface-background, var(--set-srf-bg, var(--srf, var(--base-lt, var(--bg-lt, var(--theme-palette-color-6, var(--l-lt, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%)))))))));
 }
 
+/* Card Theme */
 :where(.set.card, .set-card) {
     --set-h: var(--set-card-heading, var(--set-crd-h, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%))))))));
     --set-c: var(--set-card-color, var(--set-crd-c, var(--on-crd, var(--tx, var(--alt-lt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
     --set-bg: var(--set-card-background, var(--set-crd-bg, var(--crd, var(--base-bd, var(--bg-bd, var(--theme-palette-color-8, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)))))))));
 }
 
+/* Success Theme */
 :where(.set.success, .set-success, .set.green, .set-green) {
     --set-h: var(--set-success-heading, var(--set-scs-h, var(--scs, var(--theme-palette-color-13, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%))))))))));
     --set-c: var(--set-success-color, var(--set-scs-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
     --set-bg: var(--set-success-background, var(--set-scs-bg, var(--oscs, var(--theme-palette-color-33, var(--o-lt, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%) / var(--ntf-al, .32)))))));
 
     --set-bc: var(--set-h, var(--scs));
-    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
 }
 
+/* Alert Theme */
 :where(.set.alert, .set.error, .set.warning, .set-alert, .set-error, .set-warning, .set.red, .set-red) {
     --set-h: var(--set-alert-heading, var(--set-alr-h, var(--alr, var(--theme-palette-color-14, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%))))))))));
     --set-c: var(--set-alert-color, var(--set-alr-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
     --set-bg: var(--set-alert-background, var(--set-alr-bg, var(--oalr, var(--theme-palette-color-34, var(--o-lt, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%) / var(--ntf-al, .32)))))));
 
     --set-bc: var(--set-h, var(--alr));
-    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
 }
 
+/* Info Theme */
 :where(.set.info, .set-info, .set.blue, .set-blue) {
     --set-h: var(--set-info-heading, var(--set-inf-h, var(--inf, var(--theme-palette-color-15, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%))))))))));
     --set-c: var(--set-info-color, var(--set-inf-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
     --set-bg: var(--set-info-background, var(--set-inf-bg, var(--oinf, var(--theme-palette-color-35, var(--o-lt, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%) / var(--ntf-al, .32)))))));
 
     --set-bc: var(--set-h, var(--inf));
-    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
 }
 
+/* Tip Theme */
 :where(.set.tip, .set-tip, .set.purple, .set-purple) {
     --set-h: var(--set-tip-heading, var(--set-tip-h, var(--tip, var(--theme-palette-color-16, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 51%))))))))));
     --set-c: var(--set-tip-color, var(--set-tip-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
     --set-bg: var(--set-tip-background, var(--set-tip-bg, var(--otip, var(--theme-palette-color-36, var(--o-lt, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 51%) / var(--ntf-al, .32)))))));
 
     --set-bc: var(--set-h, var(--tip));
-    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
 }
 
+/* Notification Theme */
 :where(.set.notification, .set.note, .set.notice, .set.spotlight, .set-notification, .set-note, .set-notice, .set-spotlight, .set.yellow, .set-yellow) {
     --set-h: var(--set-notification-heading, var(--set-ntf-h, var(--ntf, var(--theme-palette-color-37, var(--t, var(--alt-bd, var(--theme-palette-color-4, var(--d-bd, hsl(var(--ntf-h, 56) var(--ntf-s, 100%) var(--ntf-l, 50%))))))))));
     --set-c: var(--set-notification-color, var(--set-ntf-c, var(--on-ntf, var(--t, var(--alt, var(--theme-palette-color-3, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))))));
     --set-bg: var(--set-notification-background, var(--set-ntf-bg, var(--ontf, var(--theme-palette-color-38, var(--theme-palette-color-21, var(--op, hsl(var(--ntf-h, 56) var(--ntf-s, 100%) var(--ntf-l, 50%) / var(--ntf-al, .32))))))));
 
     --set-bc: var(--set-h, var(--ntf));
-    --set-bf: var(--blr, calc(var(--blr--m, 0.25rem) / var(--x, 1)));
 
     --set-a: var(--alt-bd, var(--theme-palette-color-4, #000));
 }
 
+/* Alt for Notification Themes */
+:where(.set.success, .set-success, .set.green, .set-green, .set.alert, .set.error, .set.warning, .set-alert, .set-error, .set-warning, .set.red, .set-red, .set.info, .set-info, .set.blue, .set-blue, .set.tip, .set-tip, .set.purple, .set-purple, .set.notification, .set.note, .set.notice, .set.spotlight, .set-notification, .set-note, .set-notice, .set-spotlight, .set.yellow, .set-yellow):where(.neu, .neutral, .alt, .alternative, .set-alt) {
+    --set-h: var(--set-alternative-heading, var(--set-alt-h, var(--base-bd, var(--bg-bd, var(--theme-palette-color-8, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%))))))));
+}
+
+/* Add Border for Any Theme */
 :where(.set.border, .set-border) {
     --set-bc: var(--set-border-color, var(--sbc, currentColor));
     --set-bs: var(--set-border-style, var(--sbs, solid));
     --set-bw: var(--set-border-width, var(--sbw, calc(0.125rem * var(--y, 1))));
-}
-
-.set,
-[class*="set--"] {
-    --theme-text-color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
-
-    :is(h1, h2) {
-        --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
-    }
-
-    :is(h3, h4, h5, h6) {
-        --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
-    }
-
-    :is(a):not(.btn, [data-style="btn"]) {
-        --theme-link-initial-color: var(--set-link, var(--set-lnk, var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))))));
-        --theme-link-hover-color: var(--set-link-hover, var(--set-lnk-hover, var(--a, var(--theme-palette-color-2))));
-    }
 }

@@ -5,13 +5,13 @@
 
 /* --- Primary (Default) (Applies accent on hover) --- */
 :where(.btn, [data-style="btn"], [data-variant="primary"], .btn.primary, [data-style="btn"].primary, .btn--primary) {
-    --btn-c: var(--btn-primary-color, var(--btn-p-c, var(--on-p, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, currentColor))))));
-    --btn-bg: var(--btn-primary-background, var(--btn-p-bg, var(--p, var(--theme-palette-color-1, #eec14c))));
-    --btn-bc: var(--btn-primary-border-c, var(--btn-p-bc, var(--btn-bg, var(--out-p, var(--theme-palette-color-1, #eec14c)))));
+    --btn-c: var(--btn-primary-color, var(--btn-p-c, var(--on-p, var(--d, currentColor))));
+    --btn-bg: var(--btn-primary-background, var(--btn-p-bg, var(--p, #eec14c)));
+    --btn-bc: var(--btn-primary-border-c, var(--btn-p-bc, var(--btn-bg, var(--out-p, var(--p, #eec14c)))));
 
-    --btn-c-hover: var(--btn-primary-color-hover, var(--btn-p-c-hover, var(--on-a, var(--theme-palette-color-11, var(--theme-palette-color-4, var(--d-bd, currentColor))))));
-    --btn-bg-hover: var(--btn-primary-background-hover, var(--btn-p-bg-hover, var(--a, var(--theme-palette-color-2, #ffb900))));
-    --btn-bc-hover: var(--btn-primary-border-c-hover, var(--btn-p-bc-hover, var(--btn-bg-hover, var(--out-a, var(--theme-palette-color-2, #ffb900)))));
+    --btn-c-hover: var(--btn-primary-color-hover, var(--btn-p-c-hover, var(--on-a var(--d-bd, currentColor))));
+    --btn-bg-hover: var(--btn-primary-background-hover, var(--btn-p-bg-hover, var(--a, #ffb900)));
+    --btn-bc-hover: var(--btn-primary-border-c-hover, var(--btn-p-bc-hover, var(--btn-bg-hover, var(--out-a, var(--a, #ffb900)))));
 }
 
 /* --- Outlined (Goes accent on hover) --- */
@@ -20,7 +20,7 @@
     --btn-background: var(--btn-outlined-background, var(--btn-out-bg, transparent));
     --btn-border-c: var(--btn-outlined-border-c, var(--btn-out-bc, var(--btn-bg, currentColor)));
 
-    --btn-color-hover: var(--btn-outlined-color-hover, var(--btn-out-c-hover, var(--btn-c-hover, var(--on-a, var(--theme-palette-color-4, currentColor)))));
+    --btn-color-hover: var(--btn-outlined-color-hover, var(--btn-out-c-hover, var(--btn-c-hover, var(--on-a, currentColor))));
     --btn-background-hover: var(--btn-outlined-bg-hover, var(--btn-out-bg-hover, var(--btn-bg-hover, #ffb900)));
     --btn-border-c-hover: var(--btn-outlined-border-c-hover, var(--btn-bc-hover, var(--btn-background-hover, #ffb900)));
 }
@@ -34,77 +34,88 @@
 
 /* --- Secondary (Brand Dark) --- */
 :where(.btn.secondary, [data-variant="secondary"], [data-style="btn"].secondary, .btn--secondary) {
-    --btn-c: var(--btn-secondary-color, var(--btn-sec-c, var(--on-sec, var(--theme-palette-color-27, var(--theme-palette-color-8, var(--l, #ffffff))))));
-    --btn-bg: var(--btn-secondary-background, var(--btn-sec-bg, var(--sec, var(--theme-palette-color-23, var(--d, #263238)))));
-    --btn-bc: var(--btn-secondary-border-c, var(--btn-sec-bc, var(--btn-bg, var(--out-sec, var(--theme-palette-color-23, var(--d, #263238))))));
+    --btn-c: var(--btn-secondary-color, var(--btn-sec-c, var(--on-sec, var(--l, #ffffff))));
+    --btn-bg: var(--btn-secondary-background, var(--btn-sec-bg, var(--sec, var(--d, #263238))));
+    --btn-bc: var(--btn-secondary-border-c, var(--btn-sec-bc, var(--btn-bg, var(--out-sec, var(--d, #263238)))));
 
-    --btn-c-hover: var(--btn-secondary-color-hover, var(--btn-sec-c-hover, var(--on-a, var(--theme-palette-color-11, var(--theme-palette-color-4, var(--d-bd, currentColor))))));
-    --btn-bg-hover: var(--btn-secondary-background-hover, var(--btn-sec-bg-hover, var(--a, var(--theme-palette-color-2, #ffb900))));
-    --btn-bc-hover: var(--btn-secondary-border-c-hover, var(--btn-sec-bc-hover, var(--btn-bg-hover, var(--out-a, var(--a, var(--theme-palette-color-2, #ffb900))))));
+    --btn-c-hover: var(--btn-secondary-color-hover, var(--btn-sec-c-hover, var(--on-a, var(--d-bd, currentColor))));
+    --btn-bg-hover: var(--btn-secondary-background-hover, var(--btn-sec-bg-hover, var(--a, #ffb900)));
+    --btn-bc-hover: var(--btn-secondary-border-c-hover, var(--btn-sec-bc-hover, var(--btn-bg-hover, var(--out-a, var(--a, #ffb900)))));
 }
 
 /* --- Tertiary (Brand Light) --- */
 :where(.btn.tertiary, [data-variant="tertiary"], [data-style="btn"].tertiary, .btn--tertiary) {
-    --btn-c: var(--btn-tertiary-color, var(--btn-ter-c, var(--on-ter, var(--theme-palette-color-23, var(--d, #263238)))));
-    --btn-bg: var(--btn-tertiary-background, var(--btn-ter-bg, var(--ter, var(--theme-palette-color-24, var(--l-lt, #F5F0E6)))));
-    --btn-bc: var(--btn-tertiary-border-c, var(--btn-ter-bc, var(--btn-bg, var(--ter, var(--theme-palette-color-24, var(--l-lt, #F5F0E6))))));
+    --btn-c: var(--btn-tertiary-color, var(--btn-ter-c, var(--on-ter, var(--d, #263238))));
+    --btn-bg: var(--btn-tertiary-background, var(--btn-ter-bg, var(--ter, var(--l-lt, #F5F0E6))));
+    --btn-bc: var(--btn-tertiary-border-c, var(--btn-ter-bc, var(--btn-bg, var(--ter, var(--l-lt, #F5F0E6)))));
 
-    --btn-c-hover: var(--btn-tertiary-color-hover, var(--btn-ter-c-hover, var(--on-a, var(--theme-palette-color-11, var(--theme-palette-color-4, var(--d-bd, currentColor))))));
-    --btn-bg-hover: var(--btn-tertiary-background-hover, var(--btn-ter-bg-hover, var(--a, var(--theme-palette-color-2, #ffb900))));
-    --btn-bc-hover: var(--btn-tertiary-border-c-hover, var(--btn-ter-bc-hover, var(--btn-bg-hover, var(--out-a, var(--a, var(--theme-palette-color-2, #ffb900))))));
+    --btn-c-hover: var(--btn-tertiary-color-hover, var(--btn-ter-c-hover, var(--on-a, var(--d-bd, currentColor))));
+    --btn-bg-hover: var(--btn-tertiary-background-hover, var(--btn-ter-bg-hover, var(--a, #ffb900)));
+    --btn-bc-hover: var(--btn-tertiary-border-c-hover, var(--btn-ter-bc-hover, var(--btn-bg-hover, var(--out-a, var(--a, #ffb900)))));
 }
 
 /* --- Subtle (Semi-transparent) --- */
 :where(.btn.subtle, [data-variant="subtle"], [data-style="btn"].subtle, .btn--subtle) {
-    --btn-c: var(--btn-subtle-color, var(--btn-sbt-c, var(--on-sbt, var(--on-p, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, #263238)))))));
-    --btn-bg: var(--btn-subtle-background, var(--btn-sbt-bg, var(--sbt, var(--theme-palette-color-21, var(--op-lt, hsl(43 83% 62% / .32))))));
-    --btn-bc: var(--btn-subtle-border-c, var(--btn-sbt-bc, var(--btn-bg, var(--sbt, var(--theme-palette-color-21, var(--op-lt, hsl(43 83% 62% / .32)))))));
+    --btn-c: var(--btn-subtle-color, var(--btn-sbt-c, var(--on-sbt, var(--on-p, var(--d, #263238)))));
+    --btn-bg: var(--btn-subtle-background, var(--btn-sbt-bg, var(--sbt, var(--op-lt, hsl(43 83% 62% / .32)))));
+    --btn-bc: var(--btn-subtle-border-c, var(--btn-sbt-bc, var(--btn-bg, var(--sbt, var(--op-lt, hsl(43 83% 62% / .32))))));
 
-    --btn-c-hover: var(--btn-subtle-color-hover, var(--btn-sbt-c-hover, var(--on-a, var(--theme-palette-color-11, var(--theme-palette-color-4, var(--d-bd, currentColor))))));
-    --btn-bg-hover: var(--btn-subtle-background-hover, var(--btn-sbt-bg-hover, var(--oa, var(--theme-palette-color-22, hsl(43 83% 62% / .64)))));
-    --btn-bc-hover: var(--btn-subtle-border-c-hover, var(--btn-sbt-bc-hover, var(--btn-bg-hover, var(--oa-lt, var(--oa, var(--theme-palette-color-22, hsl(43 83% 62% / .64)))))));
+    --btn-c-hover: var(--btn-subtle-color-hover, var(--btn-sbt-c-hover, var(--on-a, var(--d-bd, currentColor))));
+    --btn-bg-hover: var(--btn-subtle-background-hover, var(--btn-sbt-bg-hover, var(--oa, hsl(43 83% 62% / .64))));
+    --btn-bc-hover: var(--btn-subtle-border-c-hover, var(--btn-sbt-bc-hover, var(--btn-bg-hover, var(--oa-lt, var(--oa, hsl(43 83% 62% / .64))))));
 }
 
 /* --- Plain (Transparent) --- */
 :where(.btn.plain, [data-variant="plain"], [data-style="btn"].plain, .btn--plain) {
-    --btn-c: var(--btn-plain-color, var(--btn-pln-c, var(--on-pln, var(--on-p, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, #263238)))))));
+    --btn-c: var(--btn-plain-color, var(--btn-pln-c, var(--on-pln, var(--on-p, var(--d, #263238)))));
     --btn-bg: var(--btn-plain-background, var(--btn-pln-bg, var(--pln, transparent)));
     --btn-bc: var(--btn-plain-border-c, var(--btn-pln-bc, var(--btn-bg, transparent)));
 
-    --btn-c-hover: var(--btn-plain-color-hover, var(--btn-pln-c-hover, var(--on-a, var(--theme-palette-color-11, var(--theme-palette-color-4, var(--d-bd, currentColor))))));
-    --btn-bg-hover: var(--btn-plain-background-hover, var(--btn-pln-bg-hover, var(--oa, var(--theme-palette-color-22, hsl(43 83% 62% / .64)))));
-    --btn-bc-hover: var(--btn-plain-border-c-hover, var(--btn-pln-bc-hover, var(--btn-bg-hover, var(--oa-lt, var(--oa, var(--theme-palette-color-22, hsl(43 83% 62% / .64)))))));
+    --btn-c-hover: var(--btn-plain-color-hover, var(--btn-pln-c-hover, var(--on-a, var(--d-bd, currentColor))));
+    --btn-bg-hover: var(--btn-plain-background-hover, var(--btn-pln-bg-hover, var(--oa, hsl(43 83% 62% / .64))));
+    --btn-bc-hover: var(--btn-plain-border-c-hover, var(--btn-pln-bc-hover, var(--btn-bg-hover, var(--oa-lt, var(--oa, hsl(43 83% 62% / .64))))));
 }
 
 /* --- Dark (Always stays dark) --- */
 :where(.btn.dark, .btn[data-variant="dark"], [data-style="btn"].dark, .btn--dark) {
-    --btn-c: var(--btn-dark-color, var(--btn-d-c, var(--on-d, var(--theme-palette-color-12, var(--theme-palette-color-7, var(--l, #f5f5f5))))));
-    --btn-bg: var(--btn-dark-background, var(--btn-d-bg, var(--d, var(--theme-palette-color-11, var(--theme-palette-color-3, #141414)))));
+    --btn-c: var(--btn-dark-color, var(--btn-d-c, var(--on-d, var(--l, #f5f5f5))));
+    --btn-bg: var(--btn-dark-background, var(--btn-d-bg, var(--d, #141414)));
     --btn-bc: var(--btn-dark-border-c, var(--btn-d-bc, var(--btn-bg, var(--out-d, var(--d, #141414)))));
 
-    --btn-c-hover: var(--btn-dark-color-hover, var(--btn-d-c-hover, var(--theme-palette-color-27, var(--theme-palette-color-8, var(--l-bd, var(--on-d, #fff))))));
-    --btn-bg-hover: var(--btn-dark-background-hover, var(--btn-d-bg-hover, var(--d-bd, var(--theme-palette-color-25, var(--theme-palette-color-4, #000)))));
-    --btn-bc-hover: var(--btn-dark-border-c-hover, var(--btn-d-bc-hover, var(--btn-bg-hover, var(--d-bd, var(--theme-palette-color-25, var(--theme-palette-color-4, #000))))));
+    --btn-c-hover: var(--btn-dark-color-hover, var(--btn-d-c-hover, var(--l-bd, var(--on-d, #fff))));
+    --btn-bg-hover: var(--btn-dark-background-hover, var(--btn-d-bg-hover, var(--d-bd, #000)));
+    --btn-bc-hover: var(--btn-dark-border-c-hover, var(--btn-d-bc-hover, var(--btn-bg-hover, var(--d-bd, #000))));
 }
 
 /* --- Light (Always stays light) --- */
 :where(.btn.light, .btn[data-variant="light"], [data-style="btn"].light, .btn--light) {
-    --btn-c: var(--btn-light-color, var(--btn-l-c, var(--on-l, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, #141414))))));
-    --btn-bg: var(--btn-light-background, var(--btn-l-bg, var(--l, var(--theme-palette-color-12, var(--theme-palette-color-7, #f5f5f5)))));
+    --btn-c: var(--btn-light-color, var(--btn-l-c, var(--on-l, var(--d, #141414))));
+    --btn-bg: var(--btn-light-background, var(--btn-l-bg, var(--l, #f5f5f5)));
     --btn-bc: var(--btn-light-border-c, var(--btn-l-bc, var(--btn-bg, var(--out-l, var(--l, #f5f5f5)))));
 
-    --btn-c-hover: var(--btn-light-color-hover, var(--btn-l-c-hover, var(--theme-palette-color-25, var(--theme-palette-color-4, var(--d-bd, var(--on-l, #0a0a0a))))));
-    --btn-bg-hover: var(--btn-light-background-hover, var(--btn-l-bg-hover, var(--l-bd, var(--theme-palette-color-27, var(--theme-palette-color-8, #fff)))));
-    --btn-bc-hover: var(--btn-light-border-c-hover, var(--btn-l-bc-hover, var(--btn-bg-hover, var(--l-bd, var(--theme-palette-color-27, var(--theme-palette-color-8, #fff))))));
+    --btn-c-hover: var(--btn-light-color-hover, var(--btn-l-c-hover, var(--d-bd, var(--on-l, #0a0a0a))));
+    --btn-bg-hover: var(--btn-light-background-hover, var(--btn-l-bg-hover, var(--l-bd, #fff)));
+    --btn-bc-hover: var(--btn-light-border-c-hover, var(--btn-l-bc-hover, var(--btn-bg-hover, var(--l-bd, #fff))));
 }
 
 /* --- Alternative (Auto-adjusts to current color scheme) --- */
 :where(.btn.alt, .btn[data-variant="alt"], [data-style="btn"].alt, .btn--alt) {
-    --btn-c: var(--btn-alt-color, var(--btn-alt-c, var(--on-alt, var(--theme-palette-color-7, var(--bg, #f5f5f5)))));
-    --btn-bg: var(--btn-alt-background, var(--btn-alt-bg, var(--alt, var(--theme-palette-color-3, var(--tx, #141414)))));
-    --btn-bc: var(--btn-alt-border-c, var(--btn-alt-bc, var(--btn-bg, var(--out-alt, var(--alt, var(--theme-palette-color-3, var(--tx, #141414)))))));
+    --btn-c: var(--btn-alt-color, var(--btn-alt-c, var(--on-alt, var(--bg, #f5f5f5))));
+    --btn-bg: var(--btn-alt-background, var(--btn-alt-bg, var(--alt var(--tx, #141414))));
+    --btn-bc: var(--btn-alt-border-c, var(--btn-alt-bc, var(--btn-bg, var(--out-alt, var(--alt var(--tx, #141414))))));
 
-    --btn-c-hover: var(--btn-alt-color-hover, var(--btn-alt-c-hover, var(--theme-palette-color-8, var(--bg-bd, var(--on-alt, #fff)))));
-    --btn-bg-hover: var(--btn-alt-background-hover, var(--btn-alt-bg-hover, var(--alt-bd, var(--theme-palette-color-4, var(--t, #000)))));
-    --btn-bc-hover: var(--btn-alt-border-c-hover, var(--btn-alt-bc-hover, var(--btn-bg-hover, var(--alt-bd, var(--theme-palette-color-4, var(--t, #000))))));
+    --btn-c-hover: var(--btn-alt-color-hover, var(--btn-alt-c-hover, var(--bg-bd, var(--on-alt, #fff))));
+    --btn-bg-hover: var(--btn-alt-background-hover, var(--btn-alt-bg-hover, var(--alt-bd, var(--t, #000))));
+    --btn-bc-hover: var(--btn-alt-border-c-hover, var(--btn-alt-bc-hover, var(--btn-bg-hover, var(--alt-bd, var(--t, #000)))));
+}
+
+/* --- Base (Auto-adjusts to current color scheme) --- */
+:where(.btn.base, .btn[data-variant="base"], [data-style="btn"].base, .btn--base) {
+    --btn-c: var(--btn-base-color, var(--btn-base-c, var(--on-bg, var(--alt, #141414))));
+    --btn-bg: var(--btn-base-background, var(--btn-base-bg, var(--bg, var(--base, #f5f5f5))));
+    --btn-bc: var(--btn-base-border-c, var(--btn-base-bc, var(--btn-bg, var(--bg, var(--base, #f5f5f5)))));
+
+    --btn-c-hover: var(--btn-base-color-hover, var(--btn-base-c-hover, var(--alt-bd, var(--on-bg, #0a0a0a))));
+    --btn-bg-hover: var(--btn-alt-background-hover, var(--btn-alt-bg-hover, var(--bg-bd, var(--base-bd, #000))));
+    --btn-bc-hover: var(--btn-alt-border-c-hover, var(--btn-alt-bc-hover, var(--btn-bg-hover, var(--bg-bd, var(--base-bd, #000)))));
 }

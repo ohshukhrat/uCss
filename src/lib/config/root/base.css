@@ -69,6 +69,9 @@
    * @group Pro: Effects & Elements
    */
 
+    /* Focus outline offset */
+    --out-of: .125rem;
+
     /* Blurs */
     --blr--m: 0.25rem;
     --blr--s: 0.125rem;

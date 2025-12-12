@@ -574,7 +574,7 @@ Flexible box layout with gap intelligence.
 *   **Alignment Helpers**:
     *   `.ai-c` (align-items: center), `.jc-sb` (justify-content: space-between), `.jc-c` (center).
 *   **Child Props**:
-    *   `--fc-grow`, `--fc-shrink`, `--fc-basis`: Standard flex controls.
+    *   `--fi-grow`, `--fi-shrink`, `--fi-basis`, `--fi-o`: Standard flex controls.
     *   `.mi-a` (margin-inline: auto) for pushing items (like `margin-left: auto`).
 *   **Responsive**: Suffixes supported (e.g., `.col--md` switches to column on medium screens).
 

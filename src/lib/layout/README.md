@@ -399,7 +399,10 @@ A comprehensive flexbox utility toolkit.
 | `--f-gap` | `clamp(...)` | Gap between items. |
 | `--f-ai` | `stretch` | Align items (cross axis). |
 | `--f-jc` | `flex-start` | Justify content (main axis). |
-| `--fc-grow` | `0` | Child grow factor. |
+| `--fi-grow` | `0` | Child grow factor. |
+| `--fi-shrink` | `1` | Child shrink factor. |
+| `--fi-basis` | `auto` | Child basis. |
+| `--fi-o` | `0` | Child order. |
 
 #### Responsive Suffixes
 All flex variables and classes support `--sm`, `--md`, and `--lg` (e.g., `.col--sm`, `.col--md`, `.col--lg`, `--f-gap--sm`, `--f-gap--md`, `--f-gap--lg`).

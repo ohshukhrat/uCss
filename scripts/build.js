@@ -487,7 +487,8 @@ async function main() {
             const renderer = {
                 heading({ tokens, depth }) {
                     const text = this.parser.parseInline(tokens);
-                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+                    // Match marked default slugger: replace non-word chars with dash
+                    const id = text.toLowerCase().replace(/[^\w]+/g, '-');
                     return `<h${depth} id="${id}">${text}</h${depth}>`;
                 },
                 link({ href, title, tokens }) {
@@ -515,6 +516,9 @@ async function main() {
             let htmlContent;
             try { htmlContent = marked.parse(md, { gfm: true, breaks: false }); } catch (e) { return; }
 
+            // Wrap tables for scrollability
+            htmlContent = htmlContent.replace(/<table>/g, '<div class="of-x"><table>').replace(/<\/table>/g, '</table></div>');
+
             // Dynamic CDN Replacement in Content
             // Replaces "ucss.unqa.dev/stable" with "ucss.unqa.dev/[current-build]" in the text
             // checking if outputDirName is 'p' or 'latest' or 'preview*'.
@@ -538,11 +542,30 @@ async function main() {
     <title>${title}</title>
     <link rel="stylesheet" href="https://ucss.unqa.dev/${cdnSegment === 'stable' ? 'stable' : cdnSegment}/lib/config.css">
     <link rel="stylesheet" href="https://ucss.unqa.dev/${cdnSegment === 'stable' ? 'stable' : cdnSegment}/u.min.css">
+    <style>
+        /* Documentation specific overrides */
+        .s { min-height: 100vh; }
+    </style>
 </head>
 <body>
-    <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
-        <div class="sc"><div>${htmlContent}</div></div>
+    <section class="s set dark" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
+        <div class="sf"><div>${htmlContent}</div></div>
     </section>
+
+    <!-- Theme Toggle -->
+    <button onclick="const s = document.querySelector('.s'); s.classList.toggle('dark'); s.classList.toggle('light');" class="btn plain blr rd" style="position: fixed; bottom: 2rem; left: 2rem; z-index: 999; --btn-c: var(--tx);">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
 </body>
 </html>`;
             await fs.writeFile(outPath, template);

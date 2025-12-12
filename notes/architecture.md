@@ -11,8 +11,7 @@ src/lib/
 │   │   ├── colors.css       #    - Palettes & Themes
 │   │   ├── typography.css   #    - Fonts & Scales
 │   │   ├── layout.css       #    - Radius & Spacing
-│   │   ├── patterns.css     #    - Component Vars
-│   │   └── blocksy/         #    - Theme Bridge & Map
+│   │   └── patterns.css     #    - Component Vars
 │   ├── blocksy.css          #    - Theme Adapter
 │   └── root.css             #    - Entry Point
 │
@@ -32,7 +31,7 @@ src/lib/
 │   │   ├── columns.css      #    - Presets
 │   │   ├── subgrid.css      #    - Smart Grid
 │   │   ├── recipes.css      #    - Smart Logic (.masonry .g-row)
-│   │   └── item/            #    - Child Logic
+│   │   └── item.css         #    - Child Logic
 │   ├── flex/                #    - Flex Engine
 │   │   ├── base.css         #    - Core Logic
 │   │   ├── alignment.css    #    - Alignment Tools
@@ -44,21 +43,38 @@ src/lib/
 │   └── section.css          #    - Structural Layout
 │
 ├── theming/                 # 4. THEMING (The Skin)
-│   └── ...
+│   ├── set.css
+│   └── overlay.css
 │
 ├── typography/              # 5. TYPOGRAPHY (The Voice)
-│   └── text.css
+│   ├── title.css
+│   ├── text.css
+│   └── text-align.css
 │
 ├── patterns/                # 6. PATTERNS (The Components)
 │   ├── button/              #    - Atomic Component
 │   │   ├── base.css
-│   │   ├── skins.css
-│   │   └── sizes.css
-│   ├── card.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
 │   └── patterns.css         #    - Entry Point
 │
 └── utilities/               # 7. UTILITIES (The Tools)
-    └── ...
+    ├── display.css
+    ├── position.css
+    ├── overflow.css
+    ├── margin.css
+    ├── padding.css
+    ├── radius.css
+    ├── blur.css
+    └── utilities.css
 ```
 
 ## Layers Description
