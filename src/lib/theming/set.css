@@ -22,7 +22,7 @@
     border-color: var(--set-border-c, var(--set-bc, currentColor));
     backdrop-filter: var(--set-backdrop-filter, var(--set-bf, var(--set-blur, var(--set-blr))));
 
-    :where(p, span, div, ul, ol, li, label, svg, table, th, td, blockquote, pre, code, form, fieldset, legend, input, textarea) {
+    :where(p, span, div, ul, ol, li, label, svg, table, th, td, blockquote, form, fieldset, legend, input, textarea, hr) {
         color: var(--set-text, var(--set-tx, var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))))));
     }
 
@@ -31,7 +31,7 @@
         color: var(--set-title, var(--set-t, var(--set-heading, var(--set-h, var(--set-color, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
     }
 
-    :where(h3, h4, h5, h6, strong, b) {
+    :where(h3, h4, h5, h6, b, strong) {
         color: var(--set-subtitle, var(--set-st, var(--set-heading, var(--set-h, var(--set-color, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
     }
 

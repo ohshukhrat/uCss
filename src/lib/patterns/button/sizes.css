@@ -45,6 +45,7 @@
 
 :where(.btn[data-size="icn"], .btn.icn, [data-style="btn"].icn) {
     --btn-pd: var(--btn-icn-pd, var(--btn-icn-p, 0.25em 0.25em));
+    --btn-min-h: fit-content;
 }
 
 

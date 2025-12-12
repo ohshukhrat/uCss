@@ -6,7 +6,7 @@
 /* Focus Styles (A11y) */
 :where(*:focus-visible) {
     outline: var(--focus-ring, 0.125rem solid var(--p, #eec14c));
-    outline-offset: var(--focus-offset, 0.125rem);
+    outline-offset: var(--focus-offset, var(--out-of, 0.125rem));
 }
 
 :where(*:focus:not(:focus-visible)) {

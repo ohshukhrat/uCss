@@ -80,22 +80,22 @@
 /* Inline Code */
 :where(code, kbd, samp) {
     font-family: var(--mono-font, monospace);
-    font-size: var(--code-fs, 0.9em);
+    font-size: var(--code-fs, 0.875em);
     padding: var(--code-pd, 0.1em 0.3em);
     border-radius: var(--code-rad, var(--rad--xs, 0.25em));
-    background-color: var(--code-bg, var(--d, #0a0a0a));
+    background-color: var(--code-bg, var(--d, #141414));
     color: var(--code-tx, var(--l-lt, #ececec));
 }
 
 /* Preformatted blocks */
 :where(pre) {
-    background-color: var(--pre-bg, var(--d-lt, #141414));
+    background-color: var(--pre-bg, var(--d-bd, #0a0a0a));
     color: var(--pre-tx, var(--l, #f5f5f5));
     padding: var(--pre-pd, var(--gap, 1.5rem));
     border-radius: var(--rad--xs, 0.5rem);
     overflow-x: auto;
     font-family: var(--mono-font, monospace);
-    font-size: var(--pre-fs, 0.9em);
+    font-size: var(--pre-fs, 0.875em);
     line-height: var(--pre-lh, 1.375em);
     /* Margin handled by Smart Flow */
     margin-block: 0;
@@ -103,12 +103,15 @@
 
 :where(hr) {
     border: none;
-    border-block-start: var(--hr-h, 1px) solid var(--hr-c, var(--out, #ccc));
-    margin-block: var(--hr-m, 2.5rem);
+    border-block-start: var(--hr-h, 1px) solid var(--hr-c, var(--out, #1f1f1f));
+    --mg: var(--hr-m, 2.5rem);
+    --mgb: var(--mg);
+    margin-block: var(--mgb, var(--mg, var(--hr-m, 2.5rem)));
 }
 
 :where(blockquote) {
-    border-inline-start: var(--bq-bd-w, calc(var(--border-width, .125rem) * 2)) solid var(--bq-bd-c, var(--p, currentColor));
+    --set-bc: var(--out-p, var(--p, currentColor));
+    border-inline-start: var(--bq-bd-w, calc(var(--border-width, .125rem) * 2)) solid var(--bq-bd-c, var(--set-bc, var(--out-p, var(--p, currentColor))));
     margin-inline: 0;
     padding-inline: var(--bq-pdi, 1.5em);
     padding-block: var(--bq-pdb, .5em);
@@ -123,5 +126,5 @@
 /* Selection Color */
 ::selection {
     background-color: var(--selection-bg, var(--p, #eec14c));
-    color: var(--selection-text-color, var(--on-p, #000));
+    color: var(--selection-text-color, var(--on-a, var(--on-p, var(--d-bd, #000))));
 }

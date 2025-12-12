@@ -35,8 +35,12 @@
     --mono-font: monospace;
 
     /* Scrollbar (html.css) */
-    --scrollbar-w: 1rem;
-    --scrollbar-w-hover: 1.5rem;
+    --scrollbar-w: 0.5rem;
+    --scrollbar-w-hover: 0.75rem;
+
+    /* Selection (html.css) */
+    --selection-bg: var(--p, #eec14c);
+    --selection-text-color: var(--on-a, var(--on-p, var(--d-bd, #000)));
 
 
     /**
@@ -103,6 +107,6 @@
 
     /* HTML: Horizontal Rule (html.css) */
     --hr-h: 1px;
-    --hr-c: var(--out, #ccc);
+    --hr-c: var(--out, #1f1f1f);
     --hr-m: 2.5rem;
 }

@@ -16,21 +16,23 @@
 }
 
 :where(html)::-webkit-scrollbar {
-    width: var(--scrollbar-w, 0.625rem);
+    width: var(--scrollbar-w, 0.5rem);
+    transition: width 0.16s ease-in-out;
+    will-change: width;
 }
 
 :where(html)::-webkit-scrollbar:hover {
-    width: var(--scrollbar-w-hover, 1rem);
+    width: var(--scrollbar-w-hover, 0.75rem);
 }
 
 :where(html)::-webkit-scrollbar-track {
-    background: var(--srf, #eee);
+    background: var(--bg, var(--base, hsl(0 0% 96%)));
 }
 
 :where(html)::-webkit-scrollbar-thumb {
-    background-color: var(--out, #ccc);
+    background-color: var(--alt, var(--neutral, hsl(0 0% 8%)));
     border-radius: calc(var(--rad, 0.25rem) * 2.5);
-    border: 2px solid var(--srf, #eee);
+    border: 2px solid var(--bg, var(--base, hsl(0 0% 96%)));
 }
 
 :where(html)::-webkit-scrollbar-thumb:hover {

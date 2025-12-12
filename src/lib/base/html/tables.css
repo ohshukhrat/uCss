@@ -16,7 +16,8 @@
     text-align: var(--tbl-th-ta, start);
     font-weight: var(--tbl-th-fw, var(--t-fw, 700));
     color: var(--t, #000);
-    background-color: var(--tbl-bg-head, var(--srf, #eee));
+    --set-bg: var(--bg-lt, var(--base-lt, #ececec));
+    background-color: var(--tbl-bg-head, var(--set-bg, #ececec));
     padding: var(--tbl-pd, 0.75em);
 }
 
@@ -27,5 +28,6 @@
 }
 
 :where(tr:hover td) {
-    background-color: var(--tbl-bg-hover, var(--srf, #fafafa));
+    --set-bg: var(--bg-lt, var(--base-lt, #fafafa));
+    background-color: var(--tbl-bg-hover, var(--set-bg, #fafafa));
 }
