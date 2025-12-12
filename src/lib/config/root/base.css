@@ -89,8 +89,8 @@
     --bq-pdy: 1.5em;
 
     /* HTML: Code / KBD (html.css) */
-    --code-bg: var(--od-lt, #141414);
     --code-tx: var(--bg-bd, var(--base-bd, #ececec));
+    --code-bg: var(--code-bg, var(--og-lt, hsl(0 0% 50% / .32)));
     --code-rad: var(--rad-xs, 0.25em);
 
     /* HTML: Preformatted (html.css) */

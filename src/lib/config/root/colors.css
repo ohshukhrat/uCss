@@ -49,15 +49,20 @@
     --g-s: 0%;
     --g-l: 50%;
     --g: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%));
-    --g-bd: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 32%));
-    --g-lt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 64%));
+    --dg: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 64%));
+    --lg: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 32%));
+
+    /* Grays (For those who prefer --neu convention instead of --g) */
+    /* --neu: var(--g, hsl(0 0% 50%));
+    --dneu: var(--g-lt, hsl(0 0% 64%));
+    --lneu: var(--g-bd, hsl(0 0% 32%)); */
 
     /* Backgrounds: Base Contexts */
     --bg: var(--l, hsl(0 0% 96%));
     --bg-bd: var(--l-bd, hsl(0 0% 100%));
     --bg-lt: var(--l-lt, hsl(0 0% 93%));
 
-    /* Base Colors (For those who prefer this naming convention instead of --bg) */
+    /* Base Colors (For those who prefer --base instead of --bg) */
     /* --base: var(--l, hsl(0 0% 96%));
    --base-bd: var(--l-bd, hsl(0 0% 100%));
    --base-lt: var(--l-lt, hsl(0 0% 93%)); */
@@ -67,21 +72,21 @@
     --alt-bd: var(--d-bd, hsl(0 0% 4%));
     --alt-lt: var(--d-lt, hsl(0 0% 12%));
 
-    /* Neutral Colors (For those who prefer this naming convention instead of --alt) */
-    /* --neutral: var(--l, hsl(0 0% 96%));
-    --neutral-bd: var(--l-bd, hsl(0 0% 100%));
-    --neutral-lt: var(--l-lt, hsl(0 0% 93%)); */
+    /* Alternative Colors (For those who prefer --contrast instead of --alt) */
+    /* --contrast: var(--l, hsl(0 0% 96%));
+   --contrast-bd: var(--l-bd, hsl(0 0% 100%));
+   --contrast-lt: var(--l-lt, hsl(0 0% 93%)); */
 
     /* Surface & Card context */
     --srf: var(--bg-lt, var(--base-lt, hsl(0 0% 93%)));
     --crd: var(--bg-bd, var(--base-bd, hsl(0 0% 100%)));
 
     /* Main Typography Colors */
-    --tx: var(--alt, var(--neutral, hsl(0 0% 8%)));
-    --t: var(--alt-bd, var(--neutral-bd, hsl(0 0% 4%)));
+    --tx: var(--alt, var(--contrast, hsl(0 0% 8%)));
+    --t: var(--alt-bd, var(--contrast-bd, hsl(0 0% 4%)));
 
     /* Outlines & Borders */
-    --out: var(--alt-lt, var(--neutral-lt, hsl(0 0% 12%)));
+    --out: var(--alt-lt, var(--contrast-lt, hsl(0 0% 12%)));
     --out-p: var(--p, hsl(43 83% 62%));
     --out-a: var(--a, hsl(44 100% 50%));
     --out-d: var(--d, hsl(0 0% 8%));
@@ -148,7 +153,7 @@
     --al-bd: .8;
     --al-lt: .32;
 
-    /* Overlays (overlay.css) hsl(0 0% 96%) */
+    /* Overlays (overlay.css) hsl(0 0% 96%) / hsl(0 0% 8%) / hsl(0 0% 50%) */
     --ol: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64));
     --ol-bd: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al-bd, .8));
     --ol-lt: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al-lt, .32));
@@ -156,6 +161,10 @@
     --od: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
     --od-bd: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al-bd, .8));
     --od-lt: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al-lt, .32));
+
+    --og: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al, .64));
+    --og-bd: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-bd, .8));
+    --og-lt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-lt, .32));
 
     --obg: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64));
     --oalt: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
@@ -179,12 +188,12 @@
     --on-d: var(--l, hsl(0 0% 96%));
     --on-l: var(--d, hsl(0 0% 8%));
 
-    --on-bg: var(--tx, var(--alt, var(--neutral, hsl(0 0% 8%))));
+    --on-bg: var(--tx, var(--alt, var(--contrast, hsl(0 0% 8%))));
     --on-alt: var(--bg, var(--base, hsl(0 0% 96%)));
-    --on-srf: var(--t, var(--alt-bd, var(--neutral-bd, hsl(0 0% 4%))));
-    --on-crd: var(--tx, var(--alt, var(--neutral, hsl(0 0% 8%))));
+    --on-srf: var(--t, var(--alt-bd, var(--contrast-bd, hsl(0 0% 4%))));
+    --on-crd: var(--tx, var(--alt, var(--contrast, hsl(0 0% 8%))));
 
-    --on-ntf: var(--t, var(--alt-bd, var(--neutral-bd, hsl(0 0% 4%))));
+    --on-ntf: var(--t, var(--alt-bd, var(--contrast-bd, hsl(0 0% 4%))));
     --on-sec: var(--ter, var(--l-bd, hsl(0 0% 100%)));
     --on-ter: var(--sec, var(--d-lt, hsl(200 19% 18%)));
 
@@ -215,13 +224,13 @@
         --base-lt: var(--d-lt, hsl(0 0% 12%)); */
 
         /* Contrast: Light Contexts */
-        /* --neutral: var(--l, hsl(0 0% 96%));
-        --neutral-bd: var(--l-bd, hsl(0 0% 100%));
-        --neutral-lt: var(--l-lt, hsl(0 0% 93%)); */
+        /* --contrast: var(--l, hsl(0 0% 96%));
+        --contrast-bd: var(--l-bd, hsl(0 0% 100%));
+        --contrast-lt: var(--l-lt, hsl(0 0% 93%)); */
 
         /* Overlays: Contextual Swaps */
         /* --obase: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
-        --oneutral: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64)); */
+        --ocontrast: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64)); */
 
         /* Secondary Brand Colors */
         --sec-h: 40;
@@ -238,4 +247,5 @@
         --oter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)) / var(--st-al, .32));
 
     }
+
 }

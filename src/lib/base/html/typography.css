@@ -83,8 +83,8 @@
     font-size: var(--code-fs, 0.875em);
     padding: var(--code-pd, 0.1em 0.3em);
     border-radius: var(--code-rad, var(--rad--xs, 0.25em));
-    background-color: var(--code-bg, var(--od-lt, #141414));
-    color: var(--bg-bd, var(--base-bd, #ececec));
+    color: var(--code-tx, var(--bg-bd, var(--base-bd, #ececec)));
+    background-color: var(--code-bg, var(--og-lt, hsl(0 0% 50% / .32)));
 }
 
 /* Preformatted blocks */
@@ -99,6 +99,10 @@
     line-height: var(--pre-lh, 1.375em);
     /* Margin handled by Smart Flow */
     margin-block: 0;
+
+    & :where(code, kbd, samp) {
+        color: var(--pre-tx, var(--l, #f5f5f5));
+    }
 }
 
 :where(hr) {

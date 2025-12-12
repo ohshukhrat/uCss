@@ -30,4 +30,6 @@
 :where(tr:hover td) {
     --set-bg: var(--bg-lt, var(--base-lt, #fafafa));
     background-color: var(--tbl-bg-hover, var(--set-bg, #fafafa));
+    --set-c: var(--tx, currentColor);
+    color: var(--tbl-color-hover, var(--set-c, currentColor));
 }

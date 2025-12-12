@@ -22,7 +22,7 @@
     border-color: var(--set-border-c, var(--set-bc, currentColor));
     backdrop-filter: var(--set-backdrop-filter, var(--set-bf, var(--set-blur, var(--set-blr))));
 
-    :where(p, span, div, ul, ol, li, label, svg, table, th, td, blockquote, form, fieldset, legend, input, textarea, hr) {
+    :where(p, span, div, ul, ol, li, label, svg, th, td, blockquote, form, fieldset, legend, textarea, hr) {
         color: var(--set-text, var(--set-tx, var(--set-color, var(--set-c, var(--tx, currentColor)))));
     }
 
@@ -68,7 +68,7 @@
     --set-c: var(--set-primary-color, var(--set-p-c, var(--tx, hsl(0 0% 8%))));
     --set-bg: var(--set-primary-background, var(--set-p-bg, var(--op-lt, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-lt, .32)))));
 
-    --set-a: var(--alt-bd, var(--neutral, #000));
+    --set-a: var(--alt-bd, var(--contrast, #000));
 }
 
 :where(.set.primary.bd, .set-primary.bd) {
@@ -81,7 +81,7 @@
     --set-c: var(--set-accent-color, var(--set-a-c, var(--tx, hsl(0 0% 8%))));
     --set-bg: var(--set-accent-background, var(--set-a-bg, var(--oa-lt, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-lt, .32)))));
 
-    --set-a: var(--alt-bd, var(--neutral, #000));
+    --set-a: var(--alt-bd, var(--contrast, #000));
 }
 
 :where(.set.accent.bd, .set-accent.bd) {
@@ -117,7 +117,7 @@
 }
 
 /* Alt Theme */
-:where(.set.alt, .set-alt, .set.alternative, .set.neutral, .set.neu) {
+:where(.set.alt, .set-alt, .set.alternative, .set.contrast, .set.cst) {
     --set-h: var(--set-alternative-heading, var(--set-alt-h, var(--base-bd, var(--bg-bd, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)))))));
     --set-c: var(--set-alternative-color, var(--set-alt-c, var(--base, var(--bg, var(--l, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)))))));
     --set-bg: var(--set-alternative-background, var(--set-alt-bg, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))));
@@ -125,9 +125,16 @@
 
 /* Base Theme */
 :where(.set.base, .set-base, .set.bg, .set-bg) {
-    --set-h: var(--set-base-heading, var(--set-base-h, var(--neutral-bd, var(--alt-bd, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))));
-    --set-c: var(--set-base-color, var(--set-base-c, var(--neutral, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))));
+    --set-h: var(--set-base-heading, var(--set-base-h, var(--contrast-bd, var(--alt-bd, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))));
+    --set-c: var(--set-base-color, var(--set-base-c, var(--contrast, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))));
     --set-bg: var(--set-base-background, var(--set-base-bg, var(--base, var(--bg, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 96%)))))));
+}
+
+/* Base Theme */
+:where(.set.gray, .set-gray, .set.neutral, .set.neu) {
+    --set-h: var(--set-base-heading, var(--set-base-h, var(--contrast-bd, var(--t, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))));
+    --set-c: var(--set-base-color, var(--set-base-c, var(--contrast, var(--tx, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))));
+    --set-bg: var(--set-base-background, var(--set-base-bg, var(--g, var(--neu, hsl(var(--neu-h, 0) var(--neu-s, 0%) var(--neu-l, 50%))))));
 }
 
 /* Surface Theme */

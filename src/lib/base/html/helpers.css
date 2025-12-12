@@ -30,7 +30,7 @@
 }
 
 :where(html)::-webkit-scrollbar-thumb {
-    background-color: var(--alt, var(--neutral, hsl(0 0% 8%)));
+    background-color: var(--alt, var(--contrast, hsl(0 0% 8%)));
     border-radius: calc(var(--rad, 0.25rem) * 2.5);
     border: 2px solid var(--bg, var(--base, hsl(0 0% 96%)));
 }
