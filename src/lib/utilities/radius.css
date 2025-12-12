@@ -8,36 +8,66 @@
  * variables: --rad, --rad-tl, --rad-tr, etc.
  */
 
-/**
- * @group Top Left Radius
- * Applies to .rad, .rad-t, .rad-tl
- */
-:where(.rad, .rad-t, .rad-tl, [class^="rad--"]) {
-    border-top-left-radius: var(--rad-tl, var(--rad-t, var(--rad)));
+:where(.rad),
+:where(.rad-t, .rad-tl, .rad-tr, .rad-b, .rad-br, .rad-bl),
+:where(.rad--sq, .rad--xs, .rad--s, .rad--m, .rad--l, .rad--xl, .rad--xxl, .rad--2xl, .rad--3xl, .rad--xxxl, .rad--rd, .rad--full) {
+    --rad: var(--radius, initial);
+    --rad-t: var(--rad);
+    --rad-r: var(--rad);
+    --rad-b: var(--rad);
+    --rad-l: var(--rad);
+    --rad-tl: var(--rad-t);
+    --rad-tr: var(--rad-t);
+    --rad-br: var(--rad-b);
+    --rad-bl: var(--rad-b);
+    border-radius: var(--rad-tl, var(--rad-t, var(--rad))) var(--rad-tr, var(--rad-t, var(--rad))) var(--rad-br, var(--rad-b, var(--rad))) var(--rad-bl, var(--rad-b, var(--rad)));
 }
 
-/**
- * @group Top Right Radius
- * Applies to .rad, .rad-t, .rad-tr
- */
-:where(.rad, .rad-t, .rad-tr, [class^="rad--"]) {
-    border-top-right-radius: var(--rad-tr, var(--rad-t, var(--rad)));
+/* DIRECTIONAL MODIFIERS */
+/* These "Stop the Waterfall" by zeroing out the opposing sides. */
+
+/* Sides */
+:where(.rad-t) {
+    --rad-b: 0;
 }
 
-/**
- * @group Bottom Right Radius
- * Applies to .rad, .rad-b, .rad-br
- */
-:where(.rad, .rad-b, .rad-br, [class^="rad--"]) {
-    border-bottom-right-radius: var(--rad-br, var(--rad-b, var(--rad)));
+/* Top only (Bottom is 0) */
+:where(.rad-r) {
+    --rad-l: 0;
 }
 
-/**
- * @group Bottom Left Radius
- * Applies to .rad, .rad-b, .rad-bl
- */
-:where(.rad, .rad-b, .rad-bl, [class^="rad--"]) {
-    border-bottom-left-radius: var(--rad-bl, var(--rad-b, var(--rad)));
+/* Right only (Left is 0) */
+:where(.rad-b) {
+    --rad-t: 0;
+}
+
+/* Bottom only (Top is 0) */
+:where(.rad-l) {
+    --rad-r: 0;
+}
+
+/* Left only (Right is 0) */
+
+/* Corners */
+:where(.rad-tl) {
+    --rad-tr: 0;
+    --rad-b: 0;
+}
+
+/* Top-Left only */
+:where(.rad-tr) {
+    --rad-tl: 0;
+    --rad-b: 0;
+}
+
+:where(.rad-bl) {
+    --rad-br: 0;
+    --rad-t: 0;
+}
+
+:where(.rad-br) {
+    --rad-bl: 0;
+    --rad-t: 0;
 }
 
 /**

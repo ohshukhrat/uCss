@@ -1,0 +1,104 @@
+/**
+   * @group  .crd__content slots
+   * Semantic containers: Content, Header, Body, Footer.
+   */
+
+:where(.crd .crd__content) {
+
+    /* .crd__content is the primary PADDED wrapper for flex mode */
+    display: var(--crd-content-d, flex);
+    --f-fd: var(--crd-content-fd, column);
+    --f-fd--sm: var(--f-fd);
+    --f-fd--md: var(--f-fd);
+    --f-fd--lg: var(--f-fd);
+    flex-direction: var(--crd-content-fd--sm, var(--f-fd--sm));
+    gap: var(--crd-content-gap--sm, var(--crd-content-gap,
+                var(--crd-gap--sm, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
+
+    align-items: var(--crd-content-ai--sm, var(--crd-content-ai, var(--crd-ai--sm, var(--crd-ai))));
+    justify-content: var(--crd-content-jc--sm, var(--crd-content-jc, var(--crd-jc--sm, var(--crd-jc))));
+    align-content: var(--crd-content-ac--sm, var(--crd-content-ac, var(--crd-ac--sm, var(--crd-ac))));
+
+    flex-wrap: var(--crd-content-fw--sm, var(--crd-content-fw, var(--crd-fw--sm, var(--crd-fw))));
+
+    text-align: var(--crd-content-ta--sm, var(--crd-content-ta, var(--crd-ta--sm, var(--crd-ta))));
+
+    /* PADDING lives here! */
+    padding-block: var(--card-content-pdb, var(--crd-content-pb--sm, var(--crd-content-pb, var(--crd-content-p--sm, var(--crd-content-p, 1.25rem)))));
+    padding-inline: var(--card-content-pdi, var(--crd-content-pi--sm, var(--crd-content-pi, var(--crd-content-p--sm, var(--crd-content-p, 1.25rem)))));
+
+    /* Granular slots (header, body, footer) for semantic structure */
+    :where(.crd__header, .crd__body, .crd__footer) {
+        display: var(--crd-slot-d, flex);
+        --f-fd: var(--crd-slot-fd, column);
+        --f-fd--sm: var(--f-fd);
+        --f-fd--md: var(--f-fd);
+        --f-fd--lg: var(--f-fd);
+        flex-direction: var(--crd-slot-fd--sm, var(--f-fd--sm));
+        gap: var(--crd-slot-gap--sm, var(--crd-slot-gap, .75rem));
+        flex-wrap: var(--crd-slot-fw--sm, var(--crd-slot-fw));
+
+        :where(>:not(svg, figure, img, picture, .btn)) {
+            display: var(--crd-slot-c-d, flex);
+            --f-fd: var(--crd-slot-c-fd, row);
+            flex-direction: var(--crd-slot-c-fd);
+            flex-wrap: var(--crd-slot-c-fw, wrap);
+            inline-size: var(--crd-slot-c-w, var(--crd-slot-c-size, 100%));
+            --f-gap: var(--crd-slot-c-gap, .75rem);
+            gap: var(--f-gap, .75rem);
+        }
+    }
+
+    :where(.crd__body) {
+        font-size: var(--crd-slot-b-font-s, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)));
+    }
+
+    :where(.crd__footer) {
+        font-size: var(--crd-slot-f-font-s, var(--crd-meta-fs, var(--crd-fs, clamp(0.875rem, 0.191vw + 0.837rem, 1rem))));
+        margin-block: var(--crd-slot-f-mb, var(--crd-slot-f-mbs) var(--crd-slot-f-mbe));
+        margin-inline: var(--crd-slot-f-mi, var(--crd-slot-f-mis) var(--crd-slot-f-mie));
+    }
+
+    /* --- 'md' Slot Overrides --- */
+    @container (669.99px <=width <=999.99px) {
+
+        flex-direction: var(--crd-con-fd--md, var(--f-fd--md));
+        align-items: var(--crd-con-ai--md, var(--crd-con-ai, var(--crd-ai--md, var(--crd-ai))));
+        justify-content: var(--crd-con-jc--md, var(--crd-con-jc, var(--crd-jc--md, var(--crd-jc))));
+        align-content: var(--crd-con-ac--md, var(--crd-con-ac, var(--crd-ac--md, var(--crd-ac))));
+        gap: var(--crd-con-gap--md, var(--crd-con-gap,
+                    var(--crd-gap--md, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
+        padding-block: var(--crd-con-pb--md, var(--crd-con-pb, var(--crd-con-p--md, var(--crd-con-p, 1.25rem))));
+        padding-inline: var(--crd-con-pi--md, var(--crd-con-pi, var(--crd-con-p--md, var(--crd-con-p, 1.25rem))));
+        flex-wrap: var(--crd-con-fw--md, var(--crd-con-fw, var(--crd-fw--md, var(--crd-fw))));
+        text-align: var(--crd-con-ta--md, var(--crd-con-ta, var(--crd-ta--md, var(--crd-ta))));
+
+
+        :where(.crd__header, .crd__body, .crd__footer) {
+            flex-direction: var(--crd-slot-fd--md, var(--f-fd--md));
+            gap: var(--crd-slot-gap--md, var(--crd-slot-gap, .75rem));
+            flex-wrap: var(--crd-slot-fw--md, var(--crd-slot-fw));
+        }
+    }
+
+    /* --- 'lg' Slot Overrides --- */
+    @container (width > 999.99px) {
+        flex-direction: var(--crd-con-fd--lg, var(--f-fd--lg));
+        align-items: var(--crd-con-ai--lg, var(--crd-con-ai, var(--crd-ai--lg, var(--crd-ai))));
+        justify-content: var(--crd-con-jc--lg, var(--crd-con-jc, var(--crd-jc--lg, var(--crd-jc))));
+        align-content: var(--crd-con-ac--lg, var(--crd-con-ac, var(--crd-ac--lg, var(--crd-ac))));
+        gap: var(--crd-con-gap--lg, var(--crd-con-gap,
+                    var(--crd-gap--lg, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
+        padding-block: var(--crd-con-pb--lg, var(--crd-con-pb, var(--crd-con-p--lg, var(--crd-con-p, 1.25rem))));
+        padding-inline: var(--crd-con-pi--lg, var(--crd-con-pi, var(--crd-con-p--lg, var(--crd-con-p, 1.25rem))));
+        flex-wrap: var(--crd-con-fw--lg, var(--crd-con-fw, var(--crd-fw--lg, var(--crd-fw))));
+        text-align: var(--crd-con-ta--lg, var(--crd-con-ta, var(--crd-ta--lg, var(--crd-ta))));
+
+
+        :where(.crd__header, .crd__body, .crd__footer) {
+            flex-direction: var(--crd-slot-fd--lg, var(--f-fd--lg));
+            gap: var(--crd-slot-gap--lg, var(--crd-slot-gap, .75rem));
+            flex-wrap: var(--crd-slot-fw--lg, var(--crd-slot-fw));
+        }
+    }
+}

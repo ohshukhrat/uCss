@@ -13,10 +13,11 @@
  * Applies standard font properties to generic text elements.
  * Includes responsive container queries for font-size and line-height.
  */
-:is(.tx, [class^="tx--"], .shl, .st),
-:is(.tx, [class^="tx--"], .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption),
-:is(.tx, [class^="tx--"], .shl, .st)> :is(p, span, div, li, label, a, button, caption) {
-    color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-c, var(--tx, var(--theme-palette-color-4, currentColor)))))));
+:is(.tx, .shl, .st),
+:is(.tx, .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption, h6, h5, h4, h3, h2, h1),
+:is(.tx, .shl, .st)> :is(p, span, div, li, label, a, button, caption),
+:where(.tx--xxl, .tx--2xl, .tx--xl, .tx--l, .tx--m, .tx--s, .tx--xs, .tx--xxs, .tx--2xs, .tx--xxxs, .tx--3xs) {
+    color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-c, var(--tx, currentColor))))));
 
     font-family: var(--text-font-family, var(--tx-font-f, var(--theme-font-family, var(--tx-font-fam, system-ui, -apple-system, sans-serif))));
 
@@ -92,7 +93,7 @@
      * @group Size: XXL 
      * clamp(1.5rem ... 1.75rem)
      */
-    &:where(.tx--xxl, .xxl, .tx--2xl, .shl) {
+    &:where(.tx--xxl, .tx.xxl, .tx--2xl, .shl) {
         --tx-fs: var(--tx-fs--xxl, clamp(1.5rem, 0.382vw + 1.424rem, 1.75rem));
     }
 
@@ -100,7 +101,7 @@
      * @group Size: XL 
      * clamp(1.375rem ... 1.5rem)
      */
-    &:where(.tx--xl, .xl, .st) {
+    &:where(.tx--xl, .tx.xl, .st) {
         --tx-fs: var(--tx-fs--xl, clamp(1.375rem, 0.191vw + 1.337rem, 1.5rem));
     }
 
@@ -108,7 +109,7 @@
      * @group Size: Large
      * clamp(1.25rem ... 1.375rem)
      */
-    &:where(.tx--l, .l) {
+    &:where(.tx--l, .tx.l) {
         --tx-fs: var(--tx-fs--l, clamp(1.25rem, 0.191vw + 1.212rem, 1.375rem));
     }
 
@@ -116,7 +117,7 @@
      * @group Size: Medium (Default)
      * clamp(1.125rem ... 1.25rem)
      */
-    &:where(.tx--m, .m) {
+    &:where(.tx--m, .tx.m) {
         --tx-fs: var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem));
     }
 
@@ -124,7 +125,7 @@
      * @group Size: Small
      * clamp(1rem ... 1.125rem)
      */
-    &:where(.tx--s, .s) {
+    &:where(.tx--s, .tx.s) {
         --tx-fs: var(--tx-fs--s, clamp(1rem, 0.191vw + 0.962rem, 1.125rem));
     }
 
@@ -132,7 +133,7 @@
      * @group Size: XS
      * clamp(0.875rem ... 1rem)
      */
-    &:where(.tx--xs, .xs) {
+    &:where(.tx--xs, .tx.xs) {
         --tx-fs: var(--tx-fs--xs, clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
     }
 
@@ -140,7 +141,7 @@
      * @group Size: XXS
      * clamp(0.75rem ... 0.875rem)
      */
-    &:where(.tx--xxs, .xxs, .tx--2xs) {
+    &:where(.tx--xxs, .tx.xxs, .tx--2xs) {
         --tx-fs: var(--tx-fs--xxs, clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
     }
 
@@ -148,7 +149,7 @@
      * @group Size: XXXS
      * clamp(0.625rem ... 0.75rem)
      */
-    &:where(.tx--xxxs, .xxxs, .tx--3xs) {
+    &:where(.tx--xxxs, .tx.xxxs, .tx--3xs) {
         --tx-fs: var(--tx-fs--xxxs, clamp(0.625rem, 0.191vw + 0.587rem, 0.75rem));
     }
 

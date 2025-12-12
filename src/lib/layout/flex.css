@@ -5,5 +5,5 @@
 
 @import "flex/base.css";
 @import "flex/gaps.css";
-@import "flex/child.css";
+@import "flex/item.css";
 @import "flex/alignment.css";

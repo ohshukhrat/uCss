@@ -10,72 +10,104 @@
  */
 
 /**
- * @group Block Start
- * Controls padding-block-start (top).
+ * @group Padding block
+ * Controls padding-block.
  * Fallback chain: pdbs -> pdb -> pd
  */
-:where(.pd, .pdb, .pdbs) {
-    padding-block-start: var(--pdbs--sm, var(--pdbs, var(--pdb--sm, var(--pdb, var(--pd--sm, var(--pd))))));
+:where(.pd, .pdb, .pdbs, .pdbe) {
+    /* Default padding */
+    --padding: 0;
+    padding: var(--padding);
+    /* Padding Single Value */
+    --pd: var(--padding);
+    --pd--sm: var(--pd);
+    /* Padding Block */
+    --pdb: var(--pd--sm);
+    --pdb--sm: var(--pdb);
+    /* Padding Block Start */
+    --pdbs: var(--pdb--sm);
+    --pdbs--sm: var(--pdbs);
+    /* Padding Block End */
+    --pdbe: var(--pd--sm);
+    --pdbe--sm: var(--pdbe);
+    /* Chained Declaration (for ease of computation) */
+    padding-block:
+        var(--pdbs--sm, var(--pdbs, var(--pdb--sm, var(--pdb, var(--pd--sm, var(--pd)))))) var(--pdbe--sm, var(--pdbe, var(--pdb--sm, var(--pdb, var(--pd--sm, var(--pd))))));
 
     @container (669.99px <=width <=999.99px) {
-        padding-block-start: var(--pdbs--md, var(--pdbs, var(--pdb--md, var(--pdb, var(--pd--md, var(--pd))))));
+        --pd--md: var(--pd);
+        --pdb: var(--pd--md);
+        --pdb--md: var(--pdb);
+        --pdbs: var(--pdb--md);
+        --pdbs--md: var(--pdbs);
+        --pdbe: var(--pd--md);
+        --pdbe--md: var(--pdbe);
+        padding-block:
+            var(--pdbs--md, var(--pdbs, var(--pdb--md, var(--pdb, var(--pd--md, var(--pd)))))) var(--pdbe--md, var(--pdbe, var(--pdb--md, var(--pdb, var(--pd--md, var(--pd))))));
     }
 
-    @container (width >=1000px) {
-        padding-block-start: var(--pdbs--lg, var(--pdbs, var(--pdb--lg, var(--pdb, var(--pd--lg, var(--pd))))));
+    @container (width >999.99px) {
+        --pd--lg: var(--pd);
+        --pdb: var(--pd--lg);
+        --pdb--lg: var(--pdb);
+        --pdbs: var(--pdb--lg);
+        --pdbs--lg: var(--pdbs);
+        --pdbe: var(--pd--lg);
+        --pdbe--lg: var(--pdbe);
+        padding-block:
+            var(--pdbs--lg, var(--pdbs, var(--pdb--lg, var(--pdb, var(--pd--lg, var(--pd)))))) var(--pdbe--lg, var(--pdbe, var(--pdb--lg, var(--pdb, var(--pd--lg, var(--pd))))));
     }
 }
 
 /**
- * @group Block End
- * Controls padding-block-end (bottom).
- * Fallback chain: pdbe -> pdb -> pd
- */
-:where(.pd, .pdb, .pdbe) {
-    padding-block-end: var(--pdbe--sm, var(--pdbe, var(--pdb--sm, var(--pdb, var(--pd--sm, var(--pd))))));
-
-    @container (669.99px <=width <=999.99px) {
-        padding-block-end: var(--pdbe--md, var(--pdbe, var(--pdb--md, var(--pdb, var(--pd--md, var(--pd))))));
-    }
-
-    @container (width >=1000px) {
-        padding-block-end: var(--pdbe--lg, var(--pdbe, var(--pdb--lg, var(--pdb, var(--pd--lg, var(--pd))))));
-    }
-}
-
-/**
- * @group Inline Start
- * Controls padding-inline-start (left in LTR).
+ * @group Padding inline
+ * Controls padding-inline.
  * Fallback chain: pdis -> pdi -> pd
  */
-:where(.pd, .pdi, .pdis) {
-    padding-inline-start: var(--pdis--sm, var(--pdis, var(--pdi--sm, var(--pdi, var(--pd--sm, var(--pd))))));
+:where(.pd, .pdi, .pdis, .pdie) {
+    /* Default padding */
+    --padding: 0;
+    /* Padding Single Value */
+    --pd: var(--padding);
+    --pd--sm: var(--pd);
+    /* Padding Inline */
+    --pdi: var(--pd--sm);
+    --pdi--sm: var(--pdi);
+    /* Padding Inline Start */
+    --pdis: var(--pdi--sm);
+    --pdis--sm: var(--pdis);
+    /* Padding Inline End */
+    --pdie: var(--pdi--sm);
+    --pdie--sm: var(--pdie);
+    /* Chained Declaration (for ease of computation) */
+    padding-inline:
+        var(--pdis--sm, var(--pdis, var(--pdi--sm, var(--pdi, var(--pd--sm, var(--pd)))))) var(--pdie--sm, var(--pdie, var(--pdi--sm, var(--pdi, var(--pd--sm, var(--pd))))));
 
     @container (669.99px <=width <=999.99px) {
-        padding-inline-start: var(--pdis--md, var(--pdis, var(--pdi--md, var(--pdi, var(--pd--md, var(--pd))))));
+        --pd--md: var(--pd);
+        --pdi: var(--pd--md);
+        --pdi--md: var(--pdi);
+        --pdis: var(--pdi--md);
+        --pdis--md: var(--pdis);
+        --pdie: var(--pd--md);
+        --pdie--md: var(--pdie);
+        padding-inline:
+            var(--pdis--md, var(--pdis, var(--pdi--md, var(--pdi, var(--pd--md, var(--pd)))))) var(--pdie--md, var(--pdie, var(--pdi--md, var(--pdi, var(--pd--md, var(--pd))))));
     }
 
-    @container (width >=1000px) {
-        padding-inline-start: var(--pdis--lg, var(--pdis, var(--pdi--lg, var(--pdi, var(--pd--lg, var(--pd))))));
+    @container (width >999.99px) {
+        --pd--lg: var(--pd);
+        --pdi: var(--pd--lg);
+        --pdi--lg: var(--pdi);
+        --pdis: var(--pdi--lg);
+        --pdis--lg: var(--pdis);
+        --pdie: var(--pd--lg);
+        --pdie--lg: var(--pdie);
+        padding-inline:
+            var(--pdis--lg, var(--pdis, var(--pdi--lg, var(--pdi, var(--pd--lg, var(--pd)))))) var(--pdie--lg, var(--pdie, var(--pdi--lg, var(--pdi, var(--pd--lg, var(--pd))))));
     }
 }
 
-/**
- * @group Inline End
- * Controls padding-inline-end (right in LTR).
- * Fallback chain: pdie -> pdi -> pd
- */
-:where(.pd, .pdi, .pdie) {
-    padding-inline-end: var(--pdie--sm, var(--pdie, var(--pdi--sm, var(--pdi, var(--pd--sm, var(--pd))))));
-
-    @container (669.99px <=width <=999.99px) {
-        padding-inline-end: var(--pdie--md, var(--pdie, var(--pdi--md, var(--pdi, var(--pd--md, var(--pd))))));
-    }
-
-    @container (width >=1000px) {
-        padding-inline-end: var(--pdie--lg, var(--pdie, var(--pdi--lg, var(--pdi, var(--pd--lg, var(--pd))))));
-    }
-}
 
 /**
  * @group Block Padding Presets

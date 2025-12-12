@@ -1,0 +1,279 @@
+/**
+ * @file Card Component
+ * @description Flexible container component with slots for media, content, header, body, and footer.
+ * Heavily relies on container queries for responsive layouts.
+ * 
+ * @usage
+ * classes: .crd, .crd.sg (smart subgrid), .crd__media, .crd__content
+ * variables: --crd-bg, --crd-gap, --crd-p (padding), --crd-rad (radius), --crd-shadow (box-shadow)
+ */
+
+:where(.crd) {
+    /**
+   * @group Shell (Base Container)
+   * The outer wrapper. Configured as a flex container by default.
+   * Handles positioning, dimensions, background, and borders.
+   */
+    display: var(--card-display, var(--crd-d, flex));
+
+    --f-fd: var(--crd-fd, column);
+    --f-fd--sm: var(--f-fd);
+    --f-fd--md: var(--f-fd);
+    --f-fd--lg: var(--f-fd);
+    flex-direction: var(--card-flex-direction, var(--crd-fd--sm, var(--f-fd--sm)));
+
+    align-items: var(--crd-ai--sm, var(--crd-ai));
+    justify-content: var(--crd-jc--sm, var(--crd-jc));
+    align-content: var(--crd-ac--sm, var(--crd-ac));
+
+    flex-wrap: var(--crd-fw--sm, var(--crd-fw));
+
+    order: var(--card-order, var(--crd-order));
+    flex-grow: var(--crd-grow);
+    flex-shrink: var(--crd-shrink, 0);
+    flex-basis: var(--crd-basis, auto);
+    align-self: var(--crd-as);
+    justify-self: var(--crd-js);
+
+    gap: var(--card-gap, var(--crd-gap--sm, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem))));
+
+    position: var(--crd-pos, relative);
+
+    block-size: var(--crd-h--sm, var(--crd-h));
+    min-block-size: var(--crd-min-h--sm, var(--crd-min-h));
+    inline-size: var(--crd-w--sm, var(--crd-w));
+    max-inline-size: var(--crd-max-w);
+
+    /* Shell has NO PADDING by default */
+    padding-block: var(--card-padding-pb, var(--crd-pdb, var(--crd-pb--sm, var(--crd-pb, var(--crd-p--sm, var(--crd-p, 1.25rem))))));
+    padding-inline: var(--card-padding-pi, var(--crd-pdi, var(--crd-pi--sm, var(--crd-pi, var(--crd-p--sm, var(--crd-p, 1.25rem))))));
+
+    &:has(.crd__content),
+    &.sg,
+    &.sgc {
+        --crd-p: 0;
+    }
+
+    /* --- Appearance --- */
+
+    --ta: start;
+    --crd-ta: var(--ta);
+    text-align: var(--card-text-align, var(--crd-ta--sm, var(--crd-ta)));
+
+    color: var(--card-color, var(--crd-color, var(--card-text-c, var(--crd-tx-c,
+                    var(--set-tx, var(--set-c, var(--on-crd, currentColor)))))));
+    background-color: var(--card-background, var(--crd-bg));
+
+    border-width: var(--card-border-w, var(--crd-border-w, 0));
+    border-style: var(--card-border-s, var(--crd-border-s, solid));
+    border-color: var(--card-border-c, var(--crd-border-c, currentColor));
+
+    border-radius: var(--card-border-radius, var(--crd-rad));
+
+    box-shadow: var(--card-shadow, var(--crd-shadow));
+
+    overflow-x: var(--card-overflow-x, var(--crd-of-x, var(--crd-of, clip)));
+    overflow-y: var(--card-overflow-y, var(--crd-of-y, var(--crd-of, clip)));
+
+    transition: var(--card-transition, var(--crd-trans,
+            var(--trans-d, 0.32s) var(--trans-t, ease-in-out)));
+    transition-property: var(--card-transition-p, var(--crd-trans-p,
+            background-color,
+            border-color,
+            box-shadow,
+            outline-color));
+
+    &:hover {
+        background-color: var(--card-background-hover, var(--crd-bg-hover, var(--crd-bg)));
+        border-color: var(--card-border-c-hover, var(--crd-border-c-hover, var(--crd-border-c, currentColor)));
+        outline-color: var(--card-outline-c-hover, var(--crd-outline-c-hover, var(--crd-outline-c, currentColor)));
+        box-shadow: var(--card-shadow-hover, var(--crd-shadow-hover, var(--crd-shadow)));
+
+        transition: var(--card-trans-hover, var(--crd-trans-hover, var(--crd-trans,
+                        var(--trans-d--hover, var(--trans-d, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out)))));
+    }
+
+    &:focus-visible {
+        outline-width: var(--card-outline-w, var(--crd-outline-w, 0));
+        outline-style: var(--card-outline-s, var(--crd-outline-s, solid));
+        outline-color: var(--card-outline-c, var(--crd-outline-c,
+                    var(--p, var(--theme-palette-color-1, currentColor))));
+        outline-offset: var(--card-outline-o, var(--crd-outline-o, 0.25rem));
+    }
+
+    /* --- Container Query Setup --- */
+    :not(.g, .sg, .sgc, .block-library-block__reusable-block-container):has(> &) {
+        --crd-c-name: var(--c-name, crdp);
+        --crd-c-type: var(--c-type, inline-size);
+        container: var(--crd-c-name, crdp) / var(--crd-c-type, inline-size);
+
+        --crd-c-min-w: var(--c-min-w, 0);
+        --crd-c-max-w: var(--c-max-w, 100%);
+        --crd-c-w: var(--c-w, 100%);
+        min-inline-size: var(--crd-c-min-w, 0);
+        max-inline-size: var(--crd-c-max-w, 100%);
+        inline-size: var(--crd-c-w, 100%);
+
+        box-sizing: border-box;
+    }
+
+    :where(&) {
+        --crd-c-name: var(--c-name, crd);
+        --crd-c-type: var(--c-type, inline-size);
+        container: var(--crd-c-name, crd) / var(--crd-c-type, inline-size);
+
+        --crd-c-min-w: var(--c-min-w, 0);
+        --crd-c-max-w: var(--c-max-w, 100%);
+        --crd-c-w: var(--c-w, 100%);
+        min-inline-size: var(--crd-c-min-w, 0);
+        max-inline-size: var(--crd-c-max-w, 100%);
+        inline-size: var(--crd-c-w, 100%);
+
+        box-sizing: border-box;
+    }
+
+    /* --- 'md' CONTAINER (Ranged) --- */
+    @container (669.99px <=width <=999.99px) {
+        flex-direction: var(--card-flex-direction, var(--crd-fd--md, var(--f-fd--md, column)));
+
+        align-items: var(--crd-ai--md, var(--crd-ai));
+        justify-content: var(--crd-jc--md, var(--crd-jc));
+        align-content: var(--crd-ac--md, var(--crd-ac));
+
+        gap: var(--crd-gap--md, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)));
+
+        block-size: var(--crd-h--md, var(--crd-h));
+        min-block-size: var(--crd-min-h--md, var(--crd-min-h));
+        inline-size: var(--crd-w--md, var(--crd-w));
+
+        padding-block: var(--crd-pb--md, var(--crd-pb, var(--crd-p--md, var(--crd-p, 1.25em))));
+        padding-inline: var(--crd-pi--md, var(--crd-pi, var(--crd-p--md, var(--crd-p, 1.25em))));
+
+        text-align: var(--crd-ta--md, var(--crd-ta));
+    }
+
+    /* --- 'lg' CONTAINER (Ranged) --- */
+    @container (width > 999.99px) {
+        flex-direction: var(--card-flex-direction, var(--crd-fd--lg, var(--f-fd--lg, column)));
+
+        align-items: var(--crd-ai--lg, var(--crd-ai));
+        justify-content: var(--crd-jc--lg, var(--crd-jc));
+        align-content: var(--crd-ac--lg, var(--crd-ac));
+
+        gap: var(--crd-gap--lg, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)));
+
+        block-size: var(--crd-h--lg, var(--crd-h));
+        min-block-size: var(--crd-min-h--lg, var(--crd-min-h));
+        inline-size: var(--crd-w--lg, var(--crd-w, auto));
+
+        padding-block: var(--crd-pb--lg, var(--crd-pb, var(--crd-p--lg, var(--crd-p, 1.25em))));
+        padding-inline: var(--crd-pi--lg, var(--crd-pi, var(--crd-p--lg, var(--crd-p, 1.25em))));
+
+        text-align: var(--crd-ta--lg, var(--crd-ta));
+    }
+
+    /**
+   * @group Child API
+   * Controls layout properties of direct children using variables.
+   * Useful when Card is a flex container.
+   */
+    :where(& > *) {
+        /* 'sm' defaults */
+        --cc-o: 0;
+        order: var(--cc-o--sm, var(--cc-o));
+
+        --cc-grow: 1;
+        --cc-shrink: 1;
+        --cc-basis: auto;
+        flex-grow: var(--cc-grow--sm, var(--cc-grow));
+        flex-shrink: var(--cc-shrink--sm, var(--cc-shrink));
+        flex-basis: var(--cc-basis--sm, var(--cc-basis));
+
+        --cc-as: stretch;
+        align-self: var(--cc-as--sm, var(--cc-as));
+
+        --cc-mbs: 0;
+        --cc-mbe: 0;
+        margin-block-start: var(--cc-mbs--sm, var(--cc-mbs));
+        margin-block-end: var(--cc-mbe--sm, var(--cc-mbe));
+
+        /* 'md' overrides */
+        @container (669.99px <=width <=999.99px) {
+            order: var(--cc-o--md, var(--cc-o));
+            flex-grow: var(--cc-grow--md, var(--cc-grow));
+            flex-shrink: var(--cc-shrink--md, var(--cc-shrink));
+            flex-basis: var(--cc-basis--md, var(--cc-basis));
+            align-self: var(--cc-as--md, var(--cc-as));
+
+            margin-block-start: var(--cc-mbs--md, var(--cc-mbs));
+            margin-block-end: var(--cc-mbe--md, var(--cc-mbe));
+        }
+
+        /* 'lg' overrides */
+        @container (width > 999.99px) {
+            order: var(--cc-o--lg, var(--cc-o));
+            flex-grow: var(--cc-grow--lg, var(--cc-grow));
+            flex-shrink: var(--cc-shrink--lg, var(--cc-shrink));
+            flex-basis: var(--cc-basis--lg, var(--cc-basis));
+            align-self: var(--cc-as--lg, var(--cc-as));
+
+            margin-block-start: var(--cc-mbs--lg, var(--cc-mbs));
+            margin-block-end: var(--cc-mbe--lg, var(--cc-mbe));
+        }
+    }
+}
+
+/* Typography */
+
+.crd {
+    :is(h2, h3, h4) {
+        color: var(--card-title-c, var(--crd-t-c, var(--crd-h-c,
+                        var(--set-st, var(--set-h, var(--set-c,
+                                    var(--alt-bd, var(--t, currentColor))))))));
+        font-size: var(--card-title-font-s, var(--crd-t-fs, var(--crd-h-fs, clamp(1.375rem, 0.417vw + 1.292rem, 1.625rem))));
+        font-weight: var(--card-title-font-w, var(--crd-t-fw, var(--crd-h-fw, 700)));
+        line-height: var(--card-title-line-h, var(--crd-t-lh, var(--crd-h-lh, 1.25)));
+        letter-spacing: var(--card-title-letter-s, var(--crd-t-ls, var(--crd-h-ls)));
+        text-transform: var(--card-title-text-t, var(--crd-t-tt, var(--crd-h-tt, none)));
+    }
+
+    :not(.btn, [data-style="btn"])> :where(p, span, div, button, a) {
+        color: var(--card-text-c, var(--crd-tx-c, var(--set-tx, var(--set-c, var(--on-crd, var(--theme-palette-color-3, currentColor))))));
+        font-size: var(--card-text-font-s, var(--crd-tx-fs, var(--crd-tx-fs-m, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)))));
+        font-weight: var(--card-text-font-w, var(--crd-tx-fw, var(--crd-fw, 400)));
+        line-height: var(--card-text-line-h, var(--crd-tx-lh, var(--crd-lh, 1.375)));
+        text-transform: var(--card-text-text-t, var(--crd-tx-tt, var(--crd-tt, none)));
+    }
+
+    a:not(.btn, [data-style="btn"]) {
+        color: var(--card-title-c, var(--crd-t-c, var(--crd-h-c, var(--set-st, var(--set-h, var(--set-c, var(--alt-bd, var(--t, var(--theme-palette-color-4, currentColor)))))))));
+        text-decoration: var(--card-title-text-dec, var(--crd-t-text-d, var(--crd-t-td, var(--crd-h-td, none))));
+        opacity: var(--crd-title-op, var(--crd-t-op, var(--crd-h-op, 1)));
+
+        transition: var(--crd-trans,
+                var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
+        transition-property: var(--crd-trans-p,
+                color, opacity);
+    }
+
+    :not(h2, h3, h4)>a:not(.btn, [data-style="btn"]) {
+        text-decoration: var(--card-link-text-dec, var(--crd-lnk-text-d, var(--crd-lnk-td, var(--crd-a-td, var(--link-text-dec, var(--lnk-text-d, var(--lnk-td, var(--a-td, underline))))))));
+    }
+
+    &:hover a:not(.btn, [data-style="btn"]) {
+        color: var(--card-title-c-hover, var(--crd-t-c-hover, var(--crd-h-c-hover, var(--set-a, var(--set-st, var(--set-h, var(--set-c, var(--p, var(--alt-bd, var(--t, var(--theme-palette-color-2, #ffb900)))))))))));
+        opacity: var(--crd-title-op-hover);
+
+        transition: var(--crd-trans-hover,
+                var(--trans-d-hover, 0.16s) var(--trans-t-hover, ease-in-out));
+    }
+}
+
+
+li:where(.crd) {
+    display: var(--crd-d, flex);
+
+    &:where(.g, .sg, .sgc):has(> &) {
+        display: var(--crd-d, grid);
+    }
+}

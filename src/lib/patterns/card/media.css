@@ -1,0 +1,109 @@
+/**
+   * @group .crd__media Slot
+   * Semantic elements: Figure > (Image, Picture, SVG)
+   */
+
+:where(.crd) {
+
+    /* .crd__media /figure (has NO PADDING) */
+    :where(.crd__media, > figure) {
+        margin: var(--crd-med-m, 0);
+
+        object-fit: var(--card-media-obj, var(--crd-med-obj, cover));
+        aspect-ratio: var(--card-media-ar, var(--crd-med-ar--sm, var(--crd-med-ar, 1.91 / 1)));
+
+        overflow-x: var(--crd-med-of-x, var(--crd-of-x, clip));
+        overflow-y: var(--crd-med-of-y, var(--crd-of-y, clip));
+
+        inline-size: var(--crd-med-w, var(--crd-med-size, 100%));
+        block-size: var(--crd-med-h, var(--crd-med-size, auto));
+        min-inline-size: var(--crd-med-min-w);
+        min-block-size: var(--crd-med-min-h);
+        max-inline-size: var(--card-media-max-w, var(--crd-med-max-w--sm, var(--crd-med-max-w)));
+        max-block-size: var(--crd-med-max-h);
+
+        margin: var(--crd-med-m, 0);
+        padding: var(--card-media-pd, var(--crd-med-p));
+
+        background-color: var(--card-media-bg, var(--crd-med-bg, transparent));
+        opacity: var(--crd-med-op);
+
+        flex-shrink: var(--crd-med-shrink, 0);
+
+        order: var(--card-media-o, var(--crd-med-o--sm, var(--crd-med-o, -1)));
+
+        isolation: var(--crd-med-iso);
+        z-index: var(--crd-med-z);
+
+        transition: var(--crd-med-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
+
+        transition-property: var(--crd-med-trans-p, transform, opacity, background-color);
+
+        :where(.crd__media, > figure)> :where(img, picture, video) {
+            display: var(--crd-img-d, block);
+            inline-size: var(--crd-img-w, var(--crd-img-size, 100%));
+            block-size: var(--crd-img-h, var(--crd-img-size, 100%));
+            object-fit: var(--crd-img-obj, var(--crd-med-obj, cover));
+            aspect-ratio: var(--crd-img-ar, var(--crd-med-ar));
+            transform: var(--crd-img-tf, var(--crd-med-tf));
+        }
+
+        :where(.crd__media, > figure):has(svg) {
+            aspect-ratio: var(--crd-svg-ar--sm, var(--crd-med-ar, 1 / 1));
+        }
+
+        :where(svg) {
+            display: var(--crd-svg-d, block);
+            fill: var(--crd-svg-fill, currentColor);
+            stroke: var(--crd-svg-stroke);
+            inline-size: var(--card-svg-size, var(--crd-svg-w, var(--crd-svg-size, 3em)));
+            block-size: var(--card-svg-size, var(--crd-svg-h, var(--crd-svg-size, 3em)));
+            aspect-ratio: var(--crd-svg-ar, var(--crd-ar));
+            flex-shrink: var(--crd-svg-shrink, 0);
+        }
+
+        :where(svg.str, .str svg) {
+            fill: var(--crd-svg-fill);
+            stroke: var(--crd-svg-stroke, currentColor);
+        }
+
+        :where(svg.fill, .fill svg) {
+            fill: var(--crd-svg-fill, currentColor);
+        }
+
+        :where(.crd__media, > figure)> :where(img, picture, svg, video) {
+            transition: var(--crd-med-trans,
+                    var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
+            transition-property: var(--crd-med-trans-p,
+                    background-color, transform, opacity, fill, stroke);
+        }
+    }
+
+    :where(&:hover .crd__media) {
+        transition: var(--card-med-trans-hover, var(--crd-med-trans-hover, var(--crd-med-trans, var(--trans-d--hover, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
+        opacity: var(--card-med-op-hover, var(--crd-med-op-hover, var(--crd-med-op, 1)));
+    }
+
+    :where(&:hover .crd__media)> :where(img, picture, svg, video) {
+        transition: var(--card-med-trans-hover, var(--crd-med-trans-hover, var(--crd-med-trans, var(--trans-d--hover, 0.16s)) var(--trans-t--hover, var(--trans-t, ease-in-out))));
+        transform: var(--card-med-tf-hover, var(--crd-med-tf-hover, scale(var(--crd-med-tf-scale, var(--tf-scale, 1.125)))));
+    }
+
+    /* --- 'md' Slot Overrides --- */
+    @container (669.99px <=width <=999.99px) {
+        :where(.crd__media) {
+            max-inline-size: var(--crd-med-max-w--md, var(--crd-med-max-w));
+            aspect-ratio: var(--crd-med-ar--md, var(--crd-med-ar, 1.91 / 1));
+            order: var(--crd-med-o--md, var(--crd-med-o, -1));
+        }
+    }
+
+    /* --- 'lg' Slot Overrides --- */
+    @container (width > 999.99px) {
+        :where(.crd__media) {
+            max-inline-size: var(--crd-med-max-w--lg, var(--crd-med-max-w));
+            aspect-ratio: var(--crd-med-ar--lg, var(--crd-med-ar, 1.91 / 1));
+            order: var(--crd-med-o--lg, var(--crd-med-o, -1));
+        }
+    }
+}

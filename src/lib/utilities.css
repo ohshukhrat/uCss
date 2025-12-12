@@ -1,5 +1,7 @@
+@import "utilities/display.css";
+@import "utilities/position.css";
+@import "utilities/overflow.css";
 @import "utilities/margin.css";
 @import "utilities/padding.css";
 @import "utilities/radius.css";
 @import "utilities/blur.css";
-@import "utilities/misc.css";

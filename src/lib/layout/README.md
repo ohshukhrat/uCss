@@ -28,6 +28,7 @@
     *   [2. Section Architecture (`.s`)](#2-section-architecture-s)
     *   [3. Implicit Auto-Fit Grids (`.g`)](#3-implicit-auto-fit-grids-g)
     *   [4. The Flex System (`.f`)](#4-the-flex-system-f)
+    *   [5. Variable API (Advanced)](#5-variable-api-advanced)
 *   [📍 Reference: Content Map](#-reference-content-map)
     *   [Section Classes (`.s`)](#section-classes-s)
     *   [Grid Classes (`.g`)](#grid-classes-g)
@@ -193,6 +194,48 @@ While Grid handles structure, Flex handles *flow*.
 The `.f` class enables flexbox.
 It sets `gap: var(--f-gap)`.
 It defaults to `flex-wrap: wrap` on small containers (Safety First).
+
+### 5. Variable API (Advanced)
+
+uCss exposes a powerful Variable API that allows you to control layout behavior without writing new CSS classes.
+This is called "Configuration over Implementation".
+
+#### The Cascade of Truth
+The variables follow a strict specificity chain:
+`Interactive (@media/@container)` -> `Local Override (style="")` -> `System Default`
+
+#### Common Variables
+
+**Container Control**:
+*   `--g-cols`: Number of columns for explicit grids (e.g., `3`).
+*   `--g-min`: Minimum item width for auto-fit (e.g., `300px`).
+*   `--g-gap`: Gap size (e.g., `2rem`).
+
+**Item Control** (Applied to children):
+*   `--gi-col`: Column span (e.g., `span 2`).
+*   `--gi-row`: Row span.
+*   `--fi-grow`: Flex grow factor (e.g., `1`).
+*   `--fi-shrink`: Flex shrink factor.
+
+**Responsive Chaining**:
+Almost every variable has responsive counterparts:
+*   `--g-cols` (Default)
+*   `--g-cols--sm` (Small Containers)
+*   `--g-cols--md` (Medium Containers)
+*   `--g-cols--lg` (Large Containers)
+
+**Example**:
+```html
+<!-- 
+  Logic: 
+  Default: 4 Columns
+  Small Container: 2 Columns
+  Tiny Container: 1 Column
+-->
+<div class="g" style="--g-cols: 4; --g-cols--md: 2; --g-cols--sm: 1">
+  <!-- Items -->
+</div>
+```
 
 ---
 
