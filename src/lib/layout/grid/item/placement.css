@@ -1,100 +1,259 @@
 /**
- * @file Grid Item Placement
+ * @file Grid Item (Column and Row) Placement
  * @description Child placement utilities (.sp-*) and generic grid item rules.
  */
 
-:where(.sp-1) {
+/* Span 1 column */
+:where(.g, .sg, .sgc)> :where(.c-1) {
     --gi-col: span 1;
 }
 
-:where(.sp-1--sm, .sp-1--smd) {
+:where(.g, .sg, .sgc)> :where(.c-1--sm, .c-1--smd) {
     --gi-col--sm: span 1;
 }
 
-:where(.sp-1--md, .sp-1--smd, .sp-1--mdl) {
+:where(.g, .sg, .sgc)> :where(.c-1--md, .c-1--smd, .c-1--mdl) {
     --gi-col--md: span 1;
 }
 
-:where(.sp-1--lg, .sp-1--mdl) {
+:where(.g, .sg, .sgc)> :where(.c-1--lg, .c-1--mdl) {
     --gi-col--lg: span 1;
 }
 
-:where(.sp-2) {
+/* Span 2 columns */
+:where(.g, .sg, .sgc)> :where(.c-2) {
     --gi-col: span 2;
 }
 
-:where(.sp-2--sm, .sp-2--smd) {
+:where(.g, .sg, .sgc)> :where(.c-2--sm, .c-2--smd) {
     --gi-col--sm: span 2;
 }
 
-:where(.sp-2--md, .sp-2--smd, .sp-2--mdl) {
+:where(.g, .sg, .sgc)> :where(.c-2--md, .c-2--smd, .c-2--mdl) {
     --gi-col--md: span 2;
 }
 
-:where(.sp-2--lg, .sp-2--mdl) {
+:where(.g, .sg, .sgc)> :where(.c-2--lg, .c-2--mdl) {
     --gi-col--lg: span 2;
 }
 
-:where(.sp-3) {
+/* Span 3 columns */
+:where(.g, .sg, .sgc)> :where(.c-3) {
     --gi-col: span 3;
 }
 
-:where(.sp-3--sm, .sp-3--smd) {
+:where(.g, .sg, .sgc)> :where(.c-3--sm, .c-3--smd) {
     --gi-col--sm: span 3;
 }
 
-:where(.sp-3--md, .sp-3--smd, .sp-3--mdl) {
+:where(.g, .sg, .sgc)> :where(.c-3--md, .c-3--smd, .c-3--mdl) {
     --gi-col--md: span 3;
 }
 
-:where(.sp-3--lg, .sp-3--mdl) {
+:where(.g, .sg, .sgc)> :where(.c-3--lg, .c-3--mdl) {
     --gi-col--lg: span 3;
 }
 
-:where(.rsp-1) {
+/* Span 4 columns */
+:where(.g, .sg, .sgc)> :where(.c-4) {
+    --gi-col: span 4;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-4--sm, .c-4--smd) {
+    --gi-col--sm: span 4;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-4--md, .c-4--smd, .c-4--mdl) {
+    --gi-col--md: span 4;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-4--lg, .c-4--mdl) {
+    --gi-col--lg: span 4;
+}
+
+/* Span 5 columns */
+:where(.g, .sg, .sgc)> :where(.c-5) {
+    --gi-col: span 5;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-5--sm, .c-5--smd) {
+    --gi-col--sm: span 5;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-5--md, .c-5--smd, .c-5--mdl) {
+    --gi-col--md: span 5;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-5--lg, .c-5--mdl) {
+    --gi-col--lg: span 5;
+}
+
+/* Span 6 columns */
+:where(.g, .sg, .sgc)> :where(.c-6) {
+    --gi-col: span 6;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-6--sm, .c-6--smd) {
+    --gi-col--sm: span 6;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-6--md, .c-6--smd, .c-6--mdl) {
+    --gi-col--md: span 6;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-6--lg, .c-6--mdl) {
+    --gi-col--lg: span 6;
+}
+
+/* Span 9 columns */
+:where(.g, .sg, .sgc)> :where(.c-9) {
+    --gi-col: span 9;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-9--sm, .c-9--smd) {
+    --gi-col--sm: span 9;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-9--md, .c-9--smd, .c-9--mdl) {
+    --gi-col--md: span 9;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-9--lg, .c-9--mdl) {
+    --gi-col--lg: span 9;
+}
+
+/* Span 12 columns */
+:where(.g, .sg, .sgc)> :where(.c-12) {
+    --gi-col: span 12;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-12--sm, .c-12--smd) {
+    --gi-col--sm: span 12;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-12--md, .c-12--smd, .c-12--mdl) {
+    --gi-col--md: span 12;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-12--lg, .c-12--mdl) {
+    --gi-col--lg: span 12;
+}
+
+/* Span 1 row */
+:where(.g, .sg, .sgc)> :where(.r-1) {
     --gi-row: span 1;
 }
 
-:where(.rsp-1--sm, .rsp-1--smd) {
+:where(.g, .sg, .sgc)> :where(.r-1--sm, .r-1--smd) {
     --gi-row--sm: span 1;
 }
 
-:where(.rsp-1--md, .rsp-1--smd, .rsp-1--mdl) {
+:where(.g, .sg, .sgc)> :where(.r-1--md, .r-1--smd, .r-1--mdl) {
     --gi-row--md: span 1;
 }
 
-:where(.rsp-1--lg, .rsp-1--mdl) {
+:where(.g, .sg, .sgc)> :where(.r-1--lg, .r-1--mdl) {
     --gi-row--lg: span 1;
 }
 
-:where(.rsp-2) {
+/* Span 2 rows */
+:where(.g, .sg, .sgc)> :where(.r-2) {
     --gi-row: span 2;
 }
 
-:where(.rsp-2--sm, .rsp-2--smd) {
+:where(.g, .sg, .sgc)> :where(.r-2--sm, .r-2--smd) {
     --gi-row--sm: span 2;
 }
 
-:where(.rsp-2--md, .rsp-2--smd, .rsp-2--mdl) {
+:where(.g, .sg, .sgc)> :where(.r-2--md, .r-2--smd, .r-2--mdl) {
     --gi-row--md: span 2;
 }
 
-:where(.rsp-2--lg, .rsp-2--mdl) {
+:where(.g, .sg, .sgc)> :where(.r-2--lg, .r-2--mdl) {
     --gi-row--lg: span 2;
 }
 
-:where(.rsp-3) {
+/* Span 3 rows */
+:where(.g, .sg, .sgc)> :where(.r-3) {
     --gi-row: span 3;
 }
 
-:where(.rsp-3--sm, .rsp-3--smd) {
+:where(.g, .sg, .sgc)> :where(.r-3--sm, .r-3--smd) {
     --gi-row--sm: span 3;
 }
 
-:where(.rsp-3--md, .rsp-3--smd, .rsp-3--mdl) {
+:where(.g, .sg, .sgc)> :where(.r-3--md, .r-3--smd, .r-3--mdl) {
     --gi-row--md: span 3;
 }
 
-:where(.rsp-3--lg, .rsp-3--mdl) {
+:where(.g, .sg, .sgc)> :where(.r-3--lg, .r-3--mdl) {
     --gi-row--lg: span 3;
+}
+
+/* Span 4 rows */
+:where(.g, .sg, .sgc)> :where(.r-4) {
+    --gi-row: span 4;
+}
+
+:where(.g, .sg, .sgc)> :where(.r-4--sm, .r-4--smd) {
+    --gi-row--sm: span 4;
+}
+
+:where(.g, .sg, .sgc)> :where(.r-4--md, .r-4--smd, .r-4--mdl) {
+    --gi-row--md: span 4;
+}
+
+:where(.g, .sg, .sgc)> :where(.r-4--lg, .r-4--mdl) {
+    --gi-row--lg: span 4;
+}
+
+/* Span 5 rows */
+:where(.g, .sg, .sgc)> :where(.r-5) {
+    --gi-row: span 5;
+}
+
+:where(.g, .sg, .sgc)> :where(.r-5--sm, .r-5--smd) {
+    --gi-row--sm: span 5;
+}
+
+:where(.g, .sg, .sgc)> :where(.r-5--md, .r-5--smd, .r-5--mdl) {
+    --gi-row--md: span 5;
+}
+
+:where(.g, .sg, .sgc)> :where(.r-5--lg, .r-5--mdl) {
+    --gi-row--lg: span 5;
+}
+
+/* Full column */
+:where(.g, .sg, .sgc)> :where(.c-f) {
+    --gi-col: 1 / -1;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-f--sm, .c-f--smd) {
+    --gi-col--sm: 1 / -1;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-f--md, .c-f--smd, .c-f--mdl) {
+    --gi-col--md: 1 / -1;
+}
+
+:where(.g, .sg, .sgc)> :where(.c-f--lg, .c-f--mdl) {
+    --gi-col--lg: 1 / -1;
+}
+
+/* Full row */
+:where(.g, .sg, .sgc)> :where(.r-f) {
+    --gi-row: 1 / -1;
+}
+
+:where(.g, .sg, .sgc)> :where(.r-f--sm, .r-f--smd) {
+    --gi-row--sm: 1 / -1;
+}
+
+:where(.g, .sg, .sgc)> :where(.r-f--md, .r-f--smd, .r-f--mdl) {
+    --gi-row--md: 1 / -1;
+}
+
+:where(.g, .sg, .sgc)> :where(.r-f--lg, .r-f--mdl) {
+    --gi-row--lg: 1 / -1;
 }

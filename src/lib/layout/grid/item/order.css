@@ -3,82 +3,87 @@
  * @description Visual order manipulation utilities.
  */
 
-:where(.g > .o-1, .gi.o-1, .sg.o-1, .sgc.o-1) {
-    --gi-o: -3;
+/* At very start in Order*/
+:where(.g, .sg, .sgc)> :where(.o-f, .o-s, .o-first) {
+    --gi-o: -69;
 }
 
-:where(.g > .o-1--lg, .gi.o-1--lg, .sg.o-1--lg, .sgc.o-1--lg,
-    .g > .o-1--mdl, .gi.o-1--mdl, .sg.o-1--mdl, .sgc.o-1--mdl) {
-    --gi-o--lg: -3;
+:where(.g, .sg, .sgc)> :where(.o-f--lg, .o-f--mdl, .o-s--lg, .o-s--mdl) {
+    --gi-o--lg: -69;
 }
 
-:where(.g > .o-1--md, .gi.o-1--md, .sg.o-1--md, .sgc.o-1--md,
-    .g > .o-1--smd, .gi.o-1--smd, .sg.o-1--smd, .sgc.o-1--smd,
-    .g > .o-1--mdl, .gi.o-1--mdl, .sg.o-1--mdl, .sgc.o-1--mdl) {
-    --gi-o--md: -3;
+:where(.g, .sg, .sgc)> :where(.o-f--md, .o-f--smd, .o-f--mdl, .o-s--md, .o-s--smd, .o-s--mdl) {
+    --gi-o--md: -69;
 }
 
-:where(.g > .o-1--sm, .gi.o-1--sm, .sg.o-1--sm, .sgc.o-1--sm,
-    .g > .o-1--smd, .gi.o-1--smd, .sg.o-1--smd, .sgc.o-1--smd) {
-    --gi-o--sm: -3;
+:where(.g, .sg, .sgc)> :where(.o-f--sm, .o-f--smd, .o-s--sm, .o-s--smd) {
+    --gi-o--sm: -69;
 }
 
-:where(.g > .o-2, .gi.o-2, .sg.o-2, .sgc.o-2) {
-    --gi-o: -2;
+/* First in Order*/
+:where(.g, .sg, .sgc)> :where(.o-1) {
+    --gi-o: 1;
 }
 
-:where(.g > .o-2--lg, .gi.o-2--lg, .sg.o-2--lg, .sgc.o-2--lg,
-    .g > .o-2--mdl, .gi.o-2--mdl, .sg.o-2--mdl, .sgc.o-2--mdl) {
-    --gi-o--lg: -2;
+:where(.g, .sg, .sgc)> :where(.o-1--lg, .o-1--mdl) {
+    --gi-o--lg: 1;
 }
 
-:where(.g > .o-2--md, .gi.o-2--md, .sg.o-2--md, .sgc.o-2--md,
-    .g > .o-2--smd, .gi.o-2--smd, .sg.o-2--smd, .sgc.o-2--smd,
-    .g > .o-2--mdl, .gi.o-2--mdl, .sg.o-2--mdl, .sgc.o-2--mdl) {
-    --gi-o--md: -2;
+:where(.g, .sg, .sgc)> :where(.o-1--md, .o-1--smd, .o-1--mdl) {
+    --gi-o--md: 1;
 }
 
-:where(.g > .o-2--sm, .gi.o-2--sm, .sg.o-2--sm, .sgc.o-2--sm,
-    .g > .o-2--smd, .gi.o-2--smd, .sg.o-2--smd, .sgc.o-2--smd) {
-    --gi-o--sm: -2;
+:where(.g, .sg, .sgc)> :where(.o-1--sm, .o-1--smd) {
+    --gi-o--sm: 1;
 }
 
-:where(.g > .o-3, .gi.o-3, .sg.o-3, .sgc.o-3) {
-    --gi-o: -3;
+/* Second in Order*/
+:where(.g, .sg, .sgc)> :where(.o-2) {
+    --gi-o: 2;
 }
 
-:where(.g > .o-3--lg, .gi.o-3--lg, .sg.o-3--lg, .sgc.o-3--lg,
-    .g > .o-3--mdl, .gi.o-3--mdl, .sg.o-3--mdl, .sgc.o-3--mdl) {
-    --gi-o--lg: -3;
+:where(.g, .sg, .sgc)> :where(.o-2--lg, .o-2--mdl) {
+    --gi-o--lg: 2;
 }
 
-:where(.g > .o-3--md, .gi.o-3--md, .sg.o-3--md, .sgc.o-3--md,
-    .g > .o-3--smd, .gi.o-3--smd, .sg.o-3--smd, .sgc.o-3--smd,
-    .g > .o-3--mdl, .gi.o-3--mdl, .sg.o-3--mdl, .sgc.o-3--mdl) {
-    --gi-o--md: -3;
+:where(.g, .sg, .sgc)> :where(.o-2--md, .o-2--smd, .o-2--mdl) {
+    --gi-o--md: 2;
 }
 
-:where(.g > .o-3--sm, .gi.o-3--sm, .sg.o-3--sm, .sgc.o-3--sm,
-    .g > .o-3--smd, .gi.o-3--smd, .sg.o-3--smd, .sgc.o-3--smd) {
-    --gi-o--sm: -3;
+:where(.g, .sg, .sgc)> :where(.o-2--sm, .o-2--smd) {
+    --gi-o--sm: 2;
 }
 
-:where(.g > .o-9, .gi.o-9, .sg.o-9, .sgc.o-9) {
-    --gi-o: 9;
+/* Third in Order*/
+:where(.g, .sg, .sgc)> :where(.o-3) {
+    --gi-o: 3;
 }
 
-:where(.g > .o-9--lg, .gi.o-9--lg, .sg.o-9--lg, .sgc.o-9--lg,
-    .g > .o-9--mdl, .gi.o-9--mdl, .sg.o-9--mdl, .sgc.o-9--mdl) {
-    --gi-o--lg: 9;
+:where(.g, .sg, .sgc)> :where(.o-3--lg, .o-3--mdl) {
+    --gi-o--lg: 3;
 }
 
-:where(.g > .o-9--md, .gi.o-9--md, .sg.o-9--md, .sgc.o-9--md,
-    .g > .o-9--smd, .gi.o-9--smd, .sg.o-9--smd, .sgc.o-9--smd,
-    .g > .o-9--mdl, .gi.o-9--mdl, .sg.o-9--mdl, .sgc.o-9--mdl) {
-    --gi-o--md: 9;
+:where(.g, .sg, .sgc)> :where(.o-3--md, .o-3--smd, .o-3--mdl) {
+    --gi-o--md: 3;
 }
 
-:where(.g > .o-9--sm, .gi.o-9--sm, .sg.o-9--sm, .sgc.o-9--sm,
-    .g > .o-9--smd, .gi.o-9--smd, .sg.o-9--smd, .sgc.o-9--smd) {
-    --gi-o--sm: 9;
+:where(.g, .sg, .sgc)> :where(.o-3--sm, .o-3--smd) {
+    --gi-o--sm: 3;
+}
+
+/* Last in Order*/
+:where(.g, .sg, .sgc)> :where(.o-l, .o-e) {
+    --gi-o: 420;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-l--lg, .o-l--mdl, .o-e--lg, .o-e--mdl) {
+    --gi-o--lg: 420;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-l--md, .o-l--smd, .o-l--mdl, .o-e--md, .o-e--smd, .o-e--mdl) {
+    --gi-o--md: 420;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-l--sm, .o-l--smd, .o-e--sm, .o-e--smd) {
+    --gi-o--sm: 420;
 }

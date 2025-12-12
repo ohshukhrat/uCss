@@ -1,80 +1,303 @@
 # Config Module
 
-**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Config](./) 
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Config](./)
 
-**Modules**: [Config](./) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
+**Modules**: [Config](./) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Patterns](../patterns/) | [Utilities](../utilities/)
 
-> **The Central Nervous System**. Defines the global design tokens—Colors, Typography, and Spacing. While strictly optional (as all modules have built-in fallbacks), this file mirrors those values, allowing you to define your entire theme from scratch by overriding them.
-
----
-
-## 📑 Page Contents
-*   [Installation & Stats](#-installation-bundle-stats)
-*   [Deep Dive: How It Works](#deep-dive-how-it-works)
-*   [Reference: Content Map](#reference-content-map)
-*   [Best Practices](#best-practices-customization)
+> **The Central Nervous System**. This module defines the "DNA" of your design system. It contains no CSS selectors, only **CSS Variables** (Custom Properties) that drive the rest of the framework. It replaces "Magic Numbers" with semantic tokens.
 
 ---
 
-## Configuration Module
+## 📑 Contents
 
-The **Configuration Module** contains the central nervous system of the framework: **CSS Variables**. This is where all design tokens (colors, typography scales, spacing tokens, layout defaults) are defined.
-
-### 🧠 Thinking in Tokens
-1.  **Variables are the API**: This is the most important concept in uCss. You don't "compile" a theme; you "set" a variable.
-2.  **Scope Matters**: Variables cascade. If you set `--p: red` on `<body>`, everything is red. If you set it on `.my-card`, only that card is red. Use this power to create contextual themes without extra CSS.
-3.  **Short is Good**: We use `--p` (Primary) instead of `--theme-color-primary-500`. Why? Because you will type it 100 times a day. Typing speed matters.
-
-## 📦 Installation & Bundle Stats
-
-| File | Full | Clean | Min | Gzip | Brotli | Download |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`config.css`** | ~21KB | ~12KB | ~11KB | ~2.5KB | ~2.1KB | [src](https://ucss.unqa.dev/stable/lib/config.css) • [clean](https://ucss.unqa.dev/stable/lib/config.clean.css) • [min](https://ucss.unqa.dev/stable/lib/config.min.css) |
-| **`root.css`** | ~21KB | ~12KB | ~11KB | ~2.5KB | ~2.1KB | [src](https://ucss.unqa.dev/stable/lib/config/root.css) • [clean](https://ucss.unqa.dev/stable/lib/config/root.clean.css) • [min](https://ucss.unqa.dev/stable/lib/config/root.min.css) |
-
-> **Important Note**: This file is **NOT included** in the default `u.min.css` bundle. The framework components have built-in fallbacks. You only need to include `root.css` if you want to **override** the default design tokens globally without writing your own CSS.
-
-> **Tip**: You can copy only specific parts of this file to override default tokens in your own CSS :root declaration. You do not need to copy the entire file.
-
-### Connection Strategies
-
-#### 1. The "Theme Bridge" (WordPress / CMS)
-Best for WordPress sites using themes like Blocksy.
-*   **Method**: `root.css` (or `config.css`) inherits variables defined by the theme.
-*   **Code**:
-    ```html
-    <!-- Add this to your <head> -->
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config.min.css">
-    ```
-    *Or specific file:*
-    ```html
-    <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.min.css">
-    ```
-
-#### 2. The "Overrider" (Manual / Self-Host)
-Best for custom builds or non-CMS sites where you want full control.
-*   **Method**: Host the file locally and edit the variables.
-*   **Code**:
-    ```html
-    <!-- Download src/lib/config/root.css and link it locally -->
-    <link rel="stylesheet" href="/css/root.css">
-    ```
-
-### Individual Files
-> **Note**: `src/lib/config.css` is a concatenation of logical groups. It creates a single HTTP request for all your tokens and configurations. In most cases, you only need `src/lib/config/root.css` file.
+*   [🌟 Overview](#-overview)
+*   [🤯 Philosophy](#-philosophy)
+    *   [The End of Magic Numbers](#the-end-of-magic-numbers)
+    *   [The Three-Tier Architecture](#the-three-tier-architecture)
+*   [🚀 Getting Started](#-getting-started)
+*   [📦 Installation & Stats](#-installation--stats)
+    *   [Bundle Stats](#bundle-stats)
+    *   [Direct Links](#direct-links)
+    *   [HTML Snippets](#html-snippets)
+*   [📂 Files Reference](#-files-reference)
+*   [🧠 Deep Dive](#-deep-dive)
+    *   [The HSL Logic](#the-hsl-logic)
+    *   [The Fluid Equation (Clamp)](#the-fluid-equation-clamp)
+*   [📍 Variable Dictionary (Reference)](#-variable-dictionary-reference)
+    *   [Colors (Core)](#colors-core)
+    *   [Typography](#typography)
+    *   [Layout & Spacing](#layout--spacing)
+*   [💡 Best Practices & Theming](#-best-practices--theming)
+*   [🔧 For Developers](#-for-developers)
 
 ---
 
-## Deep Dive: How it Works
+## 🌟 Overview
+
+The **Config Module** is the single source of truth for your design system.
+If `base` is the foundation and `layout` is the skeleton, `config` is the **Genetic Code**.
+
+### Top Features
+1.  **Deconstructed HSL Colors**: We split colors into Hue, Saturation, and Lightness (`--p-h`, `--p-s`, `--p-l`) to allow for dynamic opacity and mixing without JavaScript.
+2.  **Fluid Typography & Spacing**: We don't use fixed `px` values. We use `clamp()` equations that scale mathematically from a "Minimum Viewport" to a "Maximum Viewport".
+3.  **Semantic Mapping**: Variables are mapped to *intent* (e.g. `--alr` for Alert), not *appearance* (Red).
+4.  **Zero-Runtime Theming**: Change a variable in the DOM, and the theme updates instantly via the native browser cascade.
+
+> [!LIGHTBULB]
+> **Why separate `config`?**
+> By isolating Design Tokens from the structural CSS, we allow you to completely "reskin" the framework by loading a single different CSS file, without downloading the layout logic again.
+
+---
+
+## 🤯 Philosophy
+
+### The End of Magic Numbers
+In legacy CSS, you see this:
+```css
+.card { padding: 24px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+```
+`24px`, `8px`, `0.1`... these are **Magic Numbers**. They are hardcoded, disconnected, and hard to maintain. If you want to change "padding" globally, you have to find/replace 500 instances.
+
+In component-driven systems (like uCss), we use **Tokens**:
+```css
+.card { padding: var(--sp-m); border-radius: var(--rad); box-shadow: var(--shadow-1); }
+```
+Now, `config/root/utilities.css` defines `--sp-m`. Change it once, update everywhere.
+
+### The Three-Tier Architecture
+We organize variables into three layers of abstraction:
+1.  **Primitive (Tier 1)**: Raw values.
+    *   `--p: #eec14c;` (Primary)
+2.  **Element (Tier 2)**: Intent.
+    *   `--btn-bg: var(--p);`
+3.  **Component (Tier 3)**: Context.
+    *   `.btn {background-color: var(--button-background, var(--btn-bg, var(--p, #eec14c)));}`
+
+For styling components uCss primarily uses Primitive colors exposed to **Tier 2 (Element)** variables (`--btn-bg`, `--btn-c`), mapped to **Tier 3 (Component)** with graceful fallbacks inside the components.
+
+---
+
+## 🚀 Getting Started
+
+### How to Theme
+The fastest way to customize uCss is to create a local `style.css` (or `<style>` block) that overrides the defaults defined in this module.
+
+1.  **Identify the variable**: Look at the "Variable Dictionary" below.
+2.  **Override in `:root`**:
+    ```css
+    :root {
+        /* Change Primary Brand Color to Purple */
+        --p-h: 270;
+        --p-s: 100%;
+        --p-l: 50%;
+
+        /* Make everything square */
+        --rad: 0px;
+
+        /* Increase base font size */
+        --tx-fs: 1.125rem;
+    }
+    ```
+
+> [!TIP]
+> **Pro Tip**: You can scope these!
+> ```css
+> .marketing-section {
+>     --p-h: 10; /* Change primary to Red ONLY inside this section */
+> }
+> ```
+
+---
+
+## 📦 Installation & Stats
+
+### Bundle Stats
+
+| File | Full (Raw) | Clean | Min | Gzip | Brotli |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`root.css` (Aggregator)** | **~20 KB** | **~16 KB** | **~14 KB** | **~3.5 KB** | **~3.0 KB** |
+| `colors.css` | 8.5 KB | 7.0 KB | 6.0 KB | 1.5 KB | 1.2 KB |
+| `typography.css` | 1.7 KB | 1.5 KB | 1.2 KB | 0.4 KB | 0.3 KB |
+| `layout.css` | 2.0 KB | 1.8 KB | 1.5 KB | 0.5 KB | 0.4 KB |
+| `utilities.css` | 1.2 KB | 1.0 KB | 0.8 KB | 0.3 KB | 0.2 KB |
+
+### Direct Links
+
+| Module | Full Source | Clean Source | Minified (Prod) |
+| :--- | :--- | :--- | :--- |
+| **Root (All)** | [root.css](https://ucss.unqa.dev/stable/lib/config/root.css) | [root.clean.css](https://ucss.unqa.dev/stable/lib/config/root.clean.css) | [root.min.css](https://ucss.unqa.dev/stable/lib/config/root.min.css) |
+| **Colors** | [colors.css](https://ucss.unqa.dev/stable/lib/config/root/colors.css) | [colors.clean.css](https://ucss.unqa.dev/stable/lib/config/root/colors.clean.css) | [colors.min.css](https://ucss.unqa.dev/stable/lib/config/root/colors.min.css) |
+| **Typography** | [typography.css](https://ucss.unqa.dev/stable/lib/config/root/typography.css) | [typography.clean.css](https://ucss.unqa.dev/stable/lib/config/root/typography.clean.css) | [typography.min.css](https://ucss.unqa.dev/stable/lib/config/root/typography.min.css) |
+
+### HTML Snippets
+
+#### Standard
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.min.css">
+```
+
+#### Prefixed (`/p/`)
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/p/lib/config/root.min.css">
+```
+
+---
+
+## 📂 Files Reference
+
+The `lib/config/root/` directory contains the core definitions.
+
+| File | Description | Key Variables |
+| :--- | :--- | :--- |
+| **`colors.css`** | Defines all HSL values. Includes semantic mapping (Success, Error, Info) and Brand colors. | `--p`, `--a`, `--bg`, `--srf`, `--tx` |
+| **`typography.css`** | Defines scale fluids. Uses `clamp()` to interpolate font-sizes between 320px and 1400px viewports. | `--t-fs-*`, `--tx-fs-*`, `--tx-lh`, `--t-fw` |
+| **`layout.css`** | Defines structural constants. Max widths, grid gaps, section paddings. | `--sc-max-w`, `--g-gap`, `--s-gap`, `--s-pb` |
+| **`patterns.css`** | Defines component-specific defaults (like button radius) that *inherit* from global values but can be partially overridden. | `--btn-rad`, `--crd-bg` |
+| **`base.css`** | Defines generic baseline vars usually used by `base/` module. | `--antialiased`, `--selection-bg` |
+| **`utilities.css`** | Defines spacer units. | `--sp-*` (Space) |
+
+---
+
+## 🧠 Deep Dive
+
+### The HSL Logic
+We use a specific pattern to enable "Opacity Modifiers" on CSS Variables.
+Standard Method (Bad):
+```css
+--p: #0000ff;
+/* Cannot change opacity of --p dynamically */
+```
+Our Method (Good):
+```css
+:root {
+  --p-h: 240;
+  --p-s: 100%;
+  --p-l: 50%;
+  --p: hsl(var(--p-h) var(--p-s) var(--p-l));
+}
+
+.transparent-btn {
+  /* We can now inject opacity without JS */
+  background: hsl(var(--p-h) var(--p-s) var(--p-l) / 0.5);
+}
+```
+This is why you see `*-h`, `*-s`, `*-l` variables. They are the atomic parts of the color.
+
+### The Fluid Equation (Clamp)
+We use the standard Linear Interpolation equation `y = mx + b` implemented via `clamp()`.
+Formula: `clamp(MIN_SIZE, Y_INTERCEPT + SLOPE * VW, MAX_SIZE)`
+
+Example (`--t-fs--m`):
+`clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)`
+*   **At 320px screen**: Font is `2.5rem`.
+*   **At 1400px screen**: Font is `3.5rem`.
+*   **In between**: It scales linearly based on viewport width (`vw`).
+
+This ensures typography is *always* perfectly sized for the device, without a single Media Query breakpoint.
+
+---
+
+## 📍 Variable Dictionary (Reference)
+
+Here is a comprehensive list of the variables you can override.
+
+### Colors (Core)
+*Located in `colors.css`*
+| Variable | Description | Default |
+| :--- | :--- | :--- |
+| **`--p`** | Primary. Brand Color. | Gold / Custom |
+| **`--a`** | Accent. Secondary / Highlight. | Bright Orange |
+| **`--d`** | Dark. Used for "Dark Mode" backgrounds and "Light Mode" text. | `hsl(0 0% 10%)` |
+| **`--l`** | Light. Used for "Light Mode" backgrounds and "Dark Mode" text. | `hsl(0 0% 98%)` |
+| **`--scs`** | Success. Positive actions (Green). | `hsl(140 ...)` |
+| **`--alr`** | Alert. Errors / Danger (Red). | `hsl(0 ...)` |
+| **`--inf`** | Info. Nuance / Help (Blue). | `hsl(210 ...)` |
+| **`--bg`** | Background. The current canvas color. | (Context Aware) |
+| **`--srf`** | Surface. Cards / elevated areas. | (Context Aware) |
+| **`--bd`** | Border. Default border color. | (Translucent) |
+
+### Typography
+*Located in `typography.css`*
+| Variable | Description |
+| :--- | :--- |
+| **`--t-fs-*`** | Title Font Size. mod: `xxxl, xxl, xl, lg, md, sm, xs`. |
+| **`--tx-fs-*`** | Text Font Size. mod: `lg, md, sm`. |
+| **`--t-fw`** | Title Font Weight. Default `700`. |
+| **`--tx-lh`** | Text Line Height. Default `1.5`. |
+| **`--t-lh`** | Title Line Height. Default `1.25`. |
+
+### Layout & Spacing
+*Located in `layout.css`, `utilities.css`*
+| Variable | Description |
+| :--- | :--- |
+| **`--sc-max-w`** | Scaffold Max Width. Default `1366px`. |
+| **`--sc-p`** | Scaffold Padding (Horizontal). Default `5%`. |
+| **`--s-gap`** | Section Gap (Vertical). Scales `2rem` -> `4rem`. |
+| **`--g-gap`** | Grid Gap. Default `3rem`. |
+| **`--g-min`** | Grid Item Min Width (for auto-fit). |
+| **`--sp-*`** | Spacing Units. mod: `xxxl ... xxs`. |
+| **`--rad`** | Global Radius. Default `0.25rem`. |
+
+---
+
+## 💡 Best Practices & Theming
+
+### 1. Don't edit files, Override Variables
+Never open `lib/config/root/colors.css` and change the code.
+Instead, in your project's main stylesheet:
+```css
+:root {
+  --p-h: 210; /* My brand is Blue */
+}
+```
+This keeps your uCss files clean and upgradable.
+
+### 2. Contextual Theming
+You can use variables to create "Themes" without new classes.
+```css
+/* Create a "Cyberpunk" theme class */
+.theme-cyberpunk {
+  --p: #f0f; /* Neon Pink */
+  --bg: #000; /* Black */
+  --rad: 0px; /* Sharp corners */
+  --tx-font-fam: 'Courier New', monospace;
+}
+```
+Now apply `<body class="theme-cyberpunk">` and the whole site re-skins.
+
+#### Extra example: Typography Scale
+Adjusting the base headings to be larger on mobile.
+```css
+:root {
+   /* Override the Medium heading clamp */
+   --t-fs--m: clamp(3rem, 4vw, 4.5rem); 
+}
+```
+
+### 3. Binding Custom Components
+When building your own components, always consume framework variables:
+```css
+.my-widget {
+  background: var(--srf); /* Use Surface color */
+  border-radius: var(--rad); /* Use Global Radius */
+  padding: var(--sp-m); /* Use Medium Spacing */
+}
+```
+This ensures your widgets look consistent with the rest of the site.
+
+---
+
+## The Config System overhaul
 
 ### 1. Structure (Sections & Groups)
 The `root.css` file is not a random list of variables. It is generated from the project folder structure.
-*   **Sections** (e.g., `General`, `Layout`): Correspond to the top-level directories in `src/lib/`.
-*   **Groups** (e.g., `Palette`, `Typography`): Correspond to individual CSS files within those directories.
-*   **Benefit**: This makes `root.css` "Self-Documenting". If you are looking for card variables, you scroll to the "Components" section.
+*   **Files** (e.g., `Base`, `Layout`, `Patterns`): Correspond to the top-level directories in `src/lib/`.
+*   **Group Name** (e.g., `Core Palette & Colors`, `Semantic & Extended Palette`): Correspond to the CSS semantic group name.
+*   **Group Level** (e.g., `Base`, `Advanced`, `Pro`): Correspond to the framework customization level.
+*   **Benefit**: This makes `config/root` self-documenting. If you are looking for card variables, you go to root/patterns.css.
 
 > [!TIP]
-> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
+> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn` and/or `--u-btn-bg`).
 
 ### 2. Deep Dive: How it Works
 uCss uses **Short Variables** mapped to **Bridge Variables** mapped to **Fallbacks**. We also split colors into H/S/L channels to support alpha transparency.
@@ -87,13 +310,13 @@ uCss uses **Short Variables** mapped to **Bridge Variables** mapped to **Fallbac
 --p-l: 62%;
 
 /* 2. Define the Variable (Short -> Bridge -> Fallback) */
-/* --[Short]: var(--[Bridge], hsl(var(--[H]) var(--[S]) var(--[L]))); */
---p: var(--theme-palette-color-1, hsl(var(--p-h) var(--p-s) var(--p-l)));
+/* --[Short]: var(--[Bridge, fallback]); */
+ --t: var(--alt-bd, hsl(0 0% 4%));
 ```
 
-*   **`--p` (Primary)**: The variable you use in your app. Short, easy to type.
-*   **`--theme-palette-color-1`**: The "Bridge". This is the variable name used by the **Blocksy** WordPress theme. If Blocksy is present, uCss automagically adopts its Primary color.
-*   **`hsl(...)`**: The default fallback if no theme is present. We use the split H/S/L channels so we can also generate `--op` (Overlay Primary) with opacity: `hsl(... / .64)`.
+*   **`--t` (Title)**: The variable you use in your app. Short, easy to type.
+*   **`--alt-bd`**: The "Bridge". This is the variable name mapped to your context-aware Dark / Light definitions. If config/{bridge}.css is present in project, uCss automatically adopts to its definitions.
+*   **`hsl(...)`**: The default fallback if no theme is present. On core palette, we use the split H/S/L channels so we can also generate `--op` (Overlay Primary) with opacity: `hsl(... / .64)`.
 
 #### Naming Convention
 We favor concise, logical abbreviations over verbose names to keep CSS payloads small and developer typing speed high.
@@ -105,10 +328,10 @@ We favor concise, logical abbreviations over verbose names to keep CSS payloads 
 
 ## Reference: Content Map
 
-### 1. General & Colors
+### 1. Colors
 Defines the palette and core global values.
 
-#### Brand Palette
+#### Core Palette & Colors: Brand
 | Variable | Description | Default Value | Fallback |
 | :--- | :--- | :--- | :--- |
 | **`--p`** | **Primary** | `hsl(43 83% 62%)` (#eec14c) | `var(--theme-palette-color-1)` |
@@ -116,7 +339,7 @@ Defines the palette and core global values.
 | `p-h`,`p-s`,`p-l` | Primary HSL components | - | - |
 | `a-h`,`a-s`,`a-l` | Accent HSL components | - | - |
 
-#### Base Palette (Dark/Light)
+#### Core Palette & Colors: Neutrals (Dark/Light)
 | Variable | Description | Default Value | Fallback |
 | :--- | :--- | :--- | :--- |
 | **`--d`** | **Dark** Base | `hsl(0 0% 8%)` (#141414) | `var(--theme-palette-color-3)` |
@@ -126,7 +349,7 @@ Defines the palette and core global values.
 | `--l-bd` | Light **Bold** (Whiter) | `hsl(0 0% 100%)` | `var(--theme-palette-color-8)` |
 | `--l-lt` | Light **Lite** (Darker) | `hsl(0 0% 93%)` | `var(--theme-palette-color-6)` |
 
-#### Contextual Surfaces
+#### Core Palette & Colors: Contextual Surfaces
 | Variable | Description | Mapped To |
 | :--- | :--- | :--- |
 | **`--bg`** | Page Background | `var(--l)` (Light Base) |
@@ -135,7 +358,7 @@ Defines the palette and core global values.
 | **`--tx`** | Body Text | `var(--d)` (Dark Base) |
 | **`--t`** | Headings / Titles | `var(--d-bd)` (Dark Bold) |
 
-#### Contrast Colors ("On" Colors)
+#### Detailed Contextual Colors: Contrast Colors ("On" Colors)
 Text colors guaranteed to be readable on their respective backgrounds.
 | Background | Variable | Value |
 | :--- | :--- | :--- |
@@ -145,13 +368,13 @@ Text colors guaranteed to be readable on their respective backgrounds.
 | On Light | `--on-l` | `var(--d)` |
 | On Surface | `--on-srf` | `var(--t)` |
 
-#### Secondary & Tertiary
+#### Semantic & Extended Palette: Secondary & Tertiary
 | Variable | Description | Default Value | Fallback |
 | :--- | :--- | :--- | :--- |
 | **`--sec`** | **Secondary** | `hsl(200 19% 18%)` (Gunmetal) | `var(--theme-palette-color-23)` |
 | **`--ter`** | **Tertiary** | `hsl(40 33% 93%)` (Sand) | `var(--theme-palette-color-24)` |
 
-#### Semantic / Notification
+#### Semantic & Extended Palette: Notifications
 | Variable | Description | Default Value | Fallback |
 | :--- | :--- | :--- | :--- |
 | **`--scs`** | **Success** | `hsl(137 65% 34%)` (#1E8E3E) | `var(--theme-palette-color-13)` |
@@ -162,7 +385,7 @@ Text colors guaranteed to be readable on their respective backgrounds.
 
 ---
 
-### 2. Animation & FX
+### 2. Base: Animation, Transform & FX
 Shared visual properties.
 
 | Category | Variable | Value |
@@ -201,7 +424,7 @@ Grid and Section defaults.
 
 ---
 
-### 5. Flow Spacing (Vertical Rhythm)
+### 5. Utilities: Flow Spacing (Vertical Rhythm)
 Variables that control the "Smart Flow" logic defined in `html.css`.
 
 | Variable | Description | Value |
@@ -214,52 +437,25 @@ Variables that control the "Smart Flow" logic defined in `html.css`.
 
 ---
 
-### 6. Components & Utilities
+### 6. Patterns
 Component-specific defaults.
 
-| Component | Variable | Description |
+| Pattern | Variable | Description |
 | :--- | :--- | :--- |
 | **Button** | `--btn-rad` | Border Radius (`4em` / Pill) |
 | | `--btn-bg` | Background (`--p`) |
 | **Card** | `--crd-rad` | Border Radius (`0.5rem`) |
 | | `--crd-bg` | Background (`--crd` / White) |
-| **Utilities** | `--rad` | Base Radius (`0.5em`) |
-| | `--gap` | Base Gap (`1.5rem`) |
 
 ---
 
-## Best Practices & Customization
+## 🔧 For Developers
 
-### The Power of Variables (Performance)
-uCss relies 100% on CSS Custom Properties. This means:
-*   **Zero Runtime**: There is no JavaScript to execute.
-*   **Instant Paint**: Valid changes happen at the compositor level.
-*   **Scope isolation**: You can override a variable for just one section (e.g., `<div style="--p: blue;">`) without affecting the rest of the site.
+*   **Prefixing**: If you run `npm run build v`, all these variables become `--u-p`, `--u-bg`, etc. Your overrides must match (`--u-p: ...`).
+*   **Performance**: CSS Variables are computed at runtime but are very fast. However, heavy use of `calc()` inside variables (like our fluid typography) can have a micro-cost on layout thrashing if abused. We optimize by keeping the formulas static in the config.
 
-### Customization Guide
-To customize the framework, you simply override these variables in your own CSS **after** loading uCss. You do not need to edit the source files.
+---
 
-### Example: Branding
-```css
-:root {
-    /* Change Brand Colors */
-    --p: #ff5722; /* Orange Primary */
-    --a: #2196f3; /* Blue Accent */
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Config](./)
 
-    /* Tighter Radius */
-    --rad: 2px;
-    --btn-rad: 2px;
-
-    /* Wider Content */
-    --sc-max-w: 1600px;
-}
-```
-
-### Example: Typography Scale
-Adjusting the base headings to be larger on mobile.
-```css
-:root {
-   /* Override the Medium heading clamp */
-   --t-fs--m: clamp(3rem, 4vw, 4.5rem); 
-}
-```
+[Back to top](#)

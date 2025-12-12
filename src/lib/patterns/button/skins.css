@@ -3,8 +3,8 @@
  * @description Predefined styles: Primary, Outlined, Simple, Secondary, Tertiary, Subtle, Plain, Dark, Light, Alt.
  */
 
-/* --- Primary (Default) --- */
-:where(.btn, [data-style="btn"], [data-variant="primary"], .btn.primary, [data-style="btn"].primary) {
+/* --- Primary (Default) (Applies accent on hover) --- */
+:where(.btn, [data-style="btn"], [data-variant="primary"], .btn.primary, [data-style="btn"].primary, .btn--primary) {
     --btn-c: var(--btn-primary-color, var(--btn-p-c, var(--on-p, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, currentColor))))));
     --btn-bg: var(--btn-primary-background, var(--btn-p-bg, var(--p, var(--theme-palette-color-1, #eec14c))));
     --btn-bc: var(--btn-primary-border-c, var(--btn-p-bc, var(--btn-bg, var(--out-p, var(--theme-palette-color-1, #eec14c)))));
@@ -14,8 +14,8 @@
     --btn-bc-hover: var(--btn-primary-border-c-hover, var(--btn-p-bc-hover, var(--btn-bg-hover, var(--out-a, var(--theme-palette-color-2, #ffb900)))));
 }
 
-/* --- Outlined --- */
-:where(.btn.outlined, [data-variant="outlined"], [data-style="btn"].outlined) {
+/* --- Outlined (Goes accent on hover) --- */
+:where(.btn.outlined, [data-variant="outlined"], [data-style="btn"].outlined, .btn--outlined) {
     --btn-color: var(--btn-outlined-color, var(--btn-out-c, var(--btn-bg, currentColor)));
     --btn-background: var(--btn-outlined-background, var(--btn-out-bg, transparent));
     --btn-border-c: var(--btn-outlined-border-c, var(--btn-out-bc, var(--btn-bg, currentColor)));
@@ -25,15 +25,15 @@
     --btn-border-c-hover: var(--btn-outlined-border-c-hover, var(--btn-bc-hover, var(--btn-background-hover, #ffb900)));
 }
 
-/* --- Outlined Simple --- */
-:where(.btn.outlined.simple, [data-variant="outlined-simple"], [data-style="btn"].outlined.simple) {
+/* --- Outlined Simple (Stays outlined on hover) --- */
+:where(.btn.outlined.simple, [data-variant="outlined-simple"], [data-style="btn"].outlined.simple, .btn--outlined-simple) {
     --btn-color-hover: var(--btn-outlined-simple-color-hover, var(--btn-outs-c-hover, var(--btn-bg-hover, currentColor)));
     --btn-background-hover: var(--btn-outlined-simple-bg-hover, var(--btn-outs-bg-hover, transparent));
     --btn-border-c-hover: var(--btn-outlined-simple-border-c-hover, var(--btn-outs-bc-hover, var(--btn-outs-c-hover, var(--btn-bg-hover, currentColor))));
 }
 
-/* --- Secondary --- */
-:where(.btn.secondary, [data-variant="secondary"], [data-style="btn"].secondary) {
+/* --- Secondary (Brand Dark) --- */
+:where(.btn.secondary, [data-variant="secondary"], [data-style="btn"].secondary, .btn--secondary) {
     --btn-c: var(--btn-secondary-color, var(--btn-sec-c, var(--on-sec, var(--theme-palette-color-27, var(--theme-palette-color-8, var(--l, #ffffff))))));
     --btn-bg: var(--btn-secondary-background, var(--btn-sec-bg, var(--sec, var(--theme-palette-color-23, var(--d, #263238)))));
     --btn-bc: var(--btn-secondary-border-c, var(--btn-sec-bc, var(--btn-bg, var(--out-sec, var(--theme-palette-color-23, var(--d, #263238))))));
@@ -43,8 +43,8 @@
     --btn-bc-hover: var(--btn-secondary-border-c-hover, var(--btn-sec-bc-hover, var(--btn-bg-hover, var(--out-a, var(--a, var(--theme-palette-color-2, #ffb900))))));
 }
 
-/* --- Tertiary --- */
-:where(.btn.tertiary, [data-variant="tertiary"], [data-style="btn"].tertiary) {
+/* --- Tertiary (Brand Light) --- */
+:where(.btn.tertiary, [data-variant="tertiary"], [data-style="btn"].tertiary, .btn--tertiary) {
     --btn-c: var(--btn-tertiary-color, var(--btn-ter-c, var(--on-ter, var(--theme-palette-color-23, var(--d, #263238)))));
     --btn-bg: var(--btn-tertiary-background, var(--btn-ter-bg, var(--ter, var(--theme-palette-color-24, var(--l-lt, #F5F0E6)))));
     --btn-bc: var(--btn-tertiary-border-c, var(--btn-ter-bc, var(--btn-bg, var(--ter, var(--theme-palette-color-24, var(--l-lt, #F5F0E6))))));
@@ -54,8 +54,8 @@
     --btn-bc-hover: var(--btn-tertiary-border-c-hover, var(--btn-ter-bc-hover, var(--btn-bg-hover, var(--out-a, var(--a, var(--theme-palette-color-2, #ffb900))))));
 }
 
-/* --- Subtle --- */
-:where(.btn.subtle, [data-variant="subtle"], [data-style="btn"].subtle) {
+/* --- Subtle (Semi-transparent) --- */
+:where(.btn.subtle, [data-variant="subtle"], [data-style="btn"].subtle, .btn--subtle) {
     --btn-c: var(--btn-subtle-color, var(--btn-sbt-c, var(--on-sbt, var(--on-p, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, #263238)))))));
     --btn-bg: var(--btn-subtle-background, var(--btn-sbt-bg, var(--sbt, var(--theme-palette-color-21, var(--op-lt, hsl(43 83% 62% / .32))))));
     --btn-bc: var(--btn-subtle-border-c, var(--btn-sbt-bc, var(--btn-bg, var(--sbt, var(--theme-palette-color-21, var(--op-lt, hsl(43 83% 62% / .32)))))));
@@ -65,8 +65,8 @@
     --btn-bc-hover: var(--btn-subtle-border-c-hover, var(--btn-sbt-bc-hover, var(--btn-bg-hover, var(--oa-lt, var(--oa, var(--theme-palette-color-22, hsl(43 83% 62% / .64)))))));
 }
 
-/* --- Plain --- */
-:where(.btn.plain, [data-variant="plain"], [data-style="btn"].plain) {
+/* --- Plain (Transparent) --- */
+:where(.btn.plain, [data-variant="plain"], [data-style="btn"].plain, .btn--plain) {
     --btn-c: var(--btn-plain-color, var(--btn-pln-c, var(--on-pln, var(--on-p, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, #263238)))))));
     --btn-bg: var(--btn-plain-background, var(--btn-pln-bg, var(--pln, transparent)));
     --btn-bc: var(--btn-plain-border-c, var(--btn-pln-bc, var(--btn-bg, transparent)));
@@ -76,8 +76,8 @@
     --btn-bc-hover: var(--btn-plain-border-c-hover, var(--btn-pln-bc-hover, var(--btn-bg-hover, var(--oa-lt, var(--oa, var(--theme-palette-color-22, hsl(43 83% 62% / .64)))))));
 }
 
-/* --- Dark --- */
-:where(.btn.dark, .btn[data-variant="dark"], [data-style="btn"].dark) {
+/* --- Dark (Always stays dark) --- */
+:where(.btn.dark, .btn[data-variant="dark"], [data-style="btn"].dark, .btn--dark) {
     --btn-c: var(--btn-dark-color, var(--btn-d-c, var(--on-d, var(--theme-palette-color-12, var(--theme-palette-color-7, var(--l, #f5f5f5))))));
     --btn-bg: var(--btn-dark-background, var(--btn-d-bg, var(--d, var(--theme-palette-color-11, var(--theme-palette-color-3, #141414)))));
     --btn-bc: var(--btn-dark-border-c, var(--btn-d-bc, var(--btn-bg, var(--out-d, var(--d, #141414)))));
@@ -87,8 +87,8 @@
     --btn-bc-hover: var(--btn-dark-border-c-hover, var(--btn-d-bc-hover, var(--btn-bg-hover, var(--d-bd, var(--theme-palette-color-25, var(--theme-palette-color-4, #000))))));
 }
 
-/* --- Light --- */
-:where(.btn.light, .btn[data-variant="light"], [data-style="btn"].light) {
+/* --- Light (Always stays light) --- */
+:where(.btn.light, .btn[data-variant="light"], [data-style="btn"].light, .btn--light) {
     --btn-c: var(--btn-light-color, var(--btn-l-c, var(--on-l, var(--theme-palette-color-11, var(--theme-palette-color-3, var(--d, #141414))))));
     --btn-bg: var(--btn-light-background, var(--btn-l-bg, var(--l, var(--theme-palette-color-12, var(--theme-palette-color-7, #f5f5f5)))));
     --btn-bc: var(--btn-light-border-c, var(--btn-l-bc, var(--btn-bg, var(--out-l, var(--l, #f5f5f5)))));
@@ -98,8 +98,8 @@
     --btn-bc-hover: var(--btn-light-border-c-hover, var(--btn-l-bc-hover, var(--btn-bg-hover, var(--l-bd, var(--theme-palette-color-27, var(--theme-palette-color-8, #fff))))));
 }
 
-/* --- Alt --- */
-:where(.btn.alt, .btn[data-variant="alt"], [data-style="btn"].alt) {
+/* --- Alternative (Auto-adjusts to current color scheme) --- */
+:where(.btn.alt, .btn[data-variant="alt"], [data-style="btn"].alt, .btn--alt) {
     --btn-c: var(--btn-alt-color, var(--btn-alt-c, var(--on-alt, var(--theme-palette-color-7, var(--bg, #f5f5f5)))));
     --btn-bg: var(--btn-alt-background, var(--btn-alt-bg, var(--alt, var(--theme-palette-color-3, var(--tx, #141414)))));
     --btn-bc: var(--btn-alt-border-c, var(--btn-alt-bc, var(--btn-bg, var(--out-alt, var(--alt, var(--theme-palette-color-3, var(--tx, #141414)))))));

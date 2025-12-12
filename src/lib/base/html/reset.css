@@ -38,7 +38,7 @@
     color: var(--tx, #000000);
 
     font-family: var(--tx-font-fam, system-ui, -apple-system, sans-serif);
-    font-size: var(--body-font-size, var(--body-fs, var(--tx-fs, var(--tx-fs--s, 1rem))));
+    font-size: var(--body-font-size, var(--body-fs, var(--tx-fs, 1rem)));
     line-height: var(--tx-lh, 1.5);
     font-weight: var(--tx-fw, 400);
 

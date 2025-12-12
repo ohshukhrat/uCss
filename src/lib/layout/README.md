@@ -1,89 +1,228 @@
 # Layout Module
 
-**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Layout](./) 
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Layout](./)
 
-**Modules**: [Config](../config/) | [Base](../base/) | [Layout](./) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](./) | [Theming](../theming/) | [Typography](../typography/) | [Patterns](../patterns/) | [Utilities](../utilities/)
 
-> **Context-Aware Layouts**. A powerful engine built on **Container Queries**. Includes a fluid Section (`.s`) wrapper, a variable-based Flexbox (`.f`) toolkit, and an Auto-Fit Grid (`.g`) system. Highly customizable and controllable per container size and property, it adapts layout based on *available space*, not viewport width.
-
----
-
-## 📑 Page Contents
-*   [Installation & Bundle Stats](#-installation-bundle-stats)
-*   [Section (`.s`)](#1-section-s)
-*   [Grid (`.g`)](#2-grid-g)
-*   [Flex (`.f`)](#3-flex-f)
+> **Context-Aware Layouts**. The Layout module is the structural backbone of uCss. It discards the obsolete "12-column global grid" for a modern, component-driven approach powered by **Container Queries**, **Fluid Spacing**, and **Implicit Grids**. It ensures your components look perfect whether they are on a 4K screen or squeezed into a 300px sidebar.
 
 ---
 
-## Layout Module
+## 📑 Contents
 
-The **Layout Module** provides the structural foundation for your application. It includes a robust **Grid** system, a comprehensive **Flexbox** utility, and a powerful **Section** component that handles container widths and spacing automatically. All layouts are fully responsive, leveraging container queries to adapt to their parent context rather than just the viewport.
-
-### Philosophy: The Container is King
-We heavily suppress the use of `@media` queries in favor of `@container` queries.
-*   **Why?**: Media queries make assumptions about the "Fold". They assume if the screen is 1200px, you have 1200px of space. But what if your component is in a sidebar split?
-*   **The Result**: A `.g-3` (3-column grid) will naturally collapse to 2 or 1 column *if the container it is in gets too small*, regardless of the window width. You don't have to manage this manually.
-
-### 🧠 Thinking in Layout
-1.  **Don't micromanage pixels**: Trust the `auto-fit` algorithms.
-2.  **Parent Controls Children**: In uCss, the parent (Grid/Flex) usually dictates the child's width. The child just exists.
-3.  **Implicit over Explicit**: Use `.g` (auto) first. Only reach for `.g-3` (fixed) if you absolutely need rigid columns.
-
-### Choosing the Right Tool
-*   **Use Grid (`.g`) when**: You want a 2D layout (rows AND columns). You want strict alignment. You want items to wrap onto new lines automatically with equal width.
-*   **Use Flex (`.f`) when**: You want a 1D layout (a row OR a column). You have content of varying sizes (like a navbar with a logo and links).
-*   **Use Section (`.s`) when**: You are defining the root wrapper of a page stripe.
-
-## 📦 Installation & Bundle Stats
-
-| File | Full | Clean | Min | Gzip | Brotli | Download |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`layout.css`** | ~70KB | ~67KB | ~57KB | ~7.1KB | ~5.2KB | [src](https://ucss.unqa.dev/stable/lib/layout.css) • [clean](https://ucss.unqa.dev/stable/lib/layout.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout.min.css) |
-| **`grid.css`** | ~36KB | ~35KB | ~29KB | ~3.8KB | ~2.8KB | [src](https://ucss.unqa.dev/stable/lib/layout/grid.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/grid.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/grid.min.css) |
-| **`flex.css`** | ~26KB | ~25KB | ~21KB | ~2.4KB | ~1.9KB | [src](https://ucss.unqa.dev/stable/lib/layout/flex.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/flex.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/flex.min.css) |
-| **`section.css`** | ~8.1KB | ~7.0KB | ~6.1KB | ~1.4KB | ~1.1KB | [src](https://ucss.unqa.dev/stable/lib/layout/section.css) • [clean](https://ucss.unqa.dev/stable/lib/layout/section.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout/section.min.css) |
-
-
-> [!TIP]
-> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
-
-### HTML Copy & Paste
-
-| File | HTML Snippet (Stable) |
-| :--- | :--- |
-| **`layout.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout.min.css">` |
-| **`grid.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout/grid.min.css">` |
-| **`flex.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout/flex.min.css">` |
-| **`section.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout/section.min.css">` |
+*   [🌟 Overview](#-overview)
+*   [🤯 Philosophy](#-philosophy)
+    *   [Viewport vs Container](#viewport-vs-container)
+    *   [Implicit vs Explicit](#implicit-vs-explicit)
+    *   [The Death of Media Queries](#the-death-of-media-queries)
+*   [🚀 Getting Started](#-getting-started)
+    *   [The "Clicked" Moment](#the-clicked-moment)
+    *   [Rollout in 5 Seconds](#rollout-in-5-seconds)
+*   [📦 Installation & Stats](#-installation--stats)
+    *   [Bundle Stats](#bundle-stats)
+    *   [Direct Links](#direct-links)
+    *   [HTML Snippets](#html-snippets)
+*   [📂 Files Reference](#-files-reference)
+*   [🧠 Deep Dive](#-deep-dive)
+    *   [1. The Logic of Container Queries](#1-the-logic-of-container-queries)
+    *   [2. Section Architecture (`.s`)](#2-section-architecture-s)
+    *   [3. Implicit Auto-Fit Grids (`.g`)](#3-implicit-auto-fit-grids-g)
+    *   [4. The Flex System (`.f`)](#4-the-flex-system-f)
+*   [📍 Reference: Content Map](#-reference-content-map)
+    *   [Section Classes (`.s`)](#section-classes-s)
+    *   [Grid Classes (`.g`)](#grid-classes-g)
+    *   [Flex Classes (`.f`)](#flex-classes-f)
+    *   [Alignment Cheatsheet](#alignment-cheatsheet)
+    *   [Spacing Scale](#spacing-scale)
+*   [💡 Best Practices & Customization](#-best-practices--customization)
+    *   [Grid vs Flex: The Golden Rule](#grid-vs-flex-the-golden-rule)
+    *   [Real World Examples](#real-world-examples)
+*   [🔧 For Developers](#-for-developers)
 
 ---
 
-## 1. Section (`.s`)
+## 🌟 Overview
+
+The **Layout Module** provides three core primitives that cover 99% of web layout needs.
+
+1.  **Section (`.s`)**: The outer wrapper. Handles max-widths, background inheritance, and vertical padding.
+2.  **Grid (`.g`)**: The 2D layout engine. Handles columns, rows, and heavy lifting.
+3.  **Flex (`.f`)**: The 1D layout engine. Handles alignment, bars, and stacking.
+
+### Top Features
+1.  **Container Query Native**: Every `.g` and `.f` element sets its parent as a container. Children can also query the parent's size to adjust their behavior.
+2.  **Zero-Config Auto-Fit**: The `.g` class automatically calculates how many columns fit based on the item's minimum width (`--g-min`, 256px by default).
+3.  **Fluid Spacing Engine**: All gaps (`--g-gap`, `--f-gap`) use `clamp()` functions. Layouts breathe on desktop and tighten on mobile automatically.
+4.  **Subgrid Support**: Use `.sg` to align grandchildren to the main grid, enabling complex layouts like card headers aligning across different cards.
+
+> [!LIGHTBULB]
+> **Why `auto-fit`?**
+> Traditional grids force you to write `.col-12 .col-md-6 .col-lg-4`.
+> uCss grids just need `<div class="g">`. The browser does the math.
+
+---
+
+## 🤯 Philosophy
+
+### Viewport vs Container
+*   **Viewport Thinking (Old)**: "I am on a phone, so this card should be full width."
+*   **Container Thinking (New)**: "I have less than 400px of space, so this card should be full width."
+
+This distinction is crucial. It means you can put a "Mobile Layout" card inside a "Desktop Sidebar" and it works perfectly without code duplication. It decouples the Component from the Page.
+
+### Implicit vs Explicit
+*   **Explicit**: You define every row and column manually. (Good for Art Direction).
+*   **Implicit**: You define the *constraints* (min-width, gap) and let the browser generate the rows/cols. (Good for Application UI).
+
+uCss defaults to **Implicit**, but allows Explicit overrides (`.g-3`) when you absolutely need them.
+
+### The Death of Media Queries
+Media queries are Global State. They are hard to maintain.
+Container Queries are Local State. They are easy to maintain.
+uCss aims to reduce your Media Query usage by 90%.
+
+---
+
+## 🚀 Getting Started
+
+### The "Clicked" Moment
+1.  Create a grid: `<div class="g">`.
+2.  Add 5 items.
+3.  Resize the window.
+4.  Notice how they flow from 5 columns -> 4 -> 3 -> 2 -> 1 automatically.
+5.  Now override it: `<div class="g" style="--g-min: 100px">`.
+6.  Notice they pack in tighter. You are controlling the *constraint*, not the column count.
+
+### You Can Literally Rollout in 1 Minnute
+1.  **Load**: `layout.min.css`.
+2.  **Structure**:
+    ```html
+    <section class="s cs">
+      <div class="g gap-xl">
+         <!-- Your content flows here -->
+         <div>Item 1</div>
+         <div>Item 2</div>
+      </div>
+    </section>
+    ```
+
+Done!
+
+---
+
+## 📦 Installation & Stats
+
+### Bundle Stats
+
+| File | Full (Raw) | Clean | Min | Gzip | Brotli |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`layout.css` (Aggregator)** | **~70 KB** | **~67 KB** | **~57 KB** | **~7.0 KB** | **~5.2 KB** |
+| `grid.css` | 36 KB | 35 KB | 29 KB | 3.8 KB | 2.8 KB |
+| `flex.css` | 26 KB | 25 KB | 21 KB | 2.4 KB | 1.9 KB |
+| `section.css` | 8 KB | 7 KB | 6 KB | 1.4 KB | 1.1 KB |
+
+### Direct Links
+
+| Module | Full Source | Clean Source | Minified (Prod) |
+| :--- | :--- | :--- | :--- |
+| **Layout** | [layout.css](https://ucss.unqa.dev/stable/lib/layout.css) | [layout.clean.css](https://ucss.unqa.dev/stable/lib/layout.clean.css) | [layout.min.css](https://ucss.unqa.dev/stable/lib/layout.min.css) |
+
+### HTML Snippets
+
+#### Standard
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout.min.css">
+```
+
+#### Prefixed (`/p/`)
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/p/lib/layout.min.css">
+```
+
+---
+
+## 📂 Files Reference
+
+| File | Description | Download |
+| :--- | :--- | :--- |
+| **`section.css`** | **Page Wrapper**. `.s` handles the root constraints, background inheritance, and vertical padding. | [src](https://ucss.unqa.dev/stable/lib/layout/section.css) |
+| **`grid/base.css`** | **Grid Engine**. The core logic for `.g` and `auto-fit`. | [src](https://ucss.unqa.dev/stable/lib/layout/grid/base.css) |
+| **`grid/columns.css`** | **Explicit Cols**. Classes like `.g-1` to `.g-12` that override auto-fit. | [src](https://ucss.unqa.dev/stable/lib/layout/grid/columns.css) |
+| **`grid/subgrid.css`** | **Subgrid**. `.sg`, `.sgc` to accept parent tracks. | [src](https://ucss.unqa.dev/stable/lib/layout/grid/subgrid.css) |
+| **`flex.css`** | **Flexbox**. `.f` toolkit for 1D arrays and alignment. | [src](https://ucss.unqa.dev/stable/lib/layout/flex.css) |
+
+---
+
+## 🧠 Deep Dive
+
+### 1. The Logic of Container Queries
+We use `container-type: inline-size` on `.g` and `.f` parents `.g{ :has(& > & {container-type: inline-size;})}`.
+This allows us to leverage **Container Query Units** (`cqw`) internally if needed, but primarily it enables children to query the parent.
+
+**Implementation**:
+```css
+.g, .f {
+    :where(:has(> &)) {
+        container-type: inline-size;
+        container-name: layout;
+    }
+}
+```
+*   **Safety**: We do *not* apply this indiscriminately. It is opt-in via these layout classes.
+*   **Recursion**: Be careful nesting generic containers. uCss handles standard nesting gracefully.
+
+### 2. Section Architecture (`.s`)
+The `.s` class employs a "Smart Wrapper" technique.
+*   **Background**: Inherited from `.set` (Theming).
+*   **Constraint**: It looks for a direct child.
+    *   `> *` (Direct Child) gets `max-width: var(--sc-max-w)`.
+    *   This centers content while allowing the Section background to span full-width.
+*   **(*Vertical*) Padding**: `padding-block: var(--s-pb)`. This variable scales with viewport size.
+
+### 3. Implicit Auto-Fit Grids (`.g`)
+The Core Formula:
+```css
+grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--g-min)), 1fr));
+```
+*   **`auto-fit`**: Create as many columns as possible.
+*   **`minmax(...)`**: Each column must be at least `--g-min` wide.
+*   **`1fr`**: If there is leftover space, share it equally.
+
+### 4. The Flex System (`.f`)
+While Grid handles structure, Flex handles *flow*.
+The `.f` class enables flexbox.
+It sets `gap: var(--f-gap)`.
+It defaults to `flex-wrap: wrap` on small containers (Safety First).
+
+---
+
+## 📍 Reference: Content Map
+
+### 1. Section (`.s`)
 The foundational building block for page structures. It manages:
 1.  **Vertical Padding**: Fluid `clamp()` padding (top/bottom) that scales with screen size.
 2.  **Horizontal Constraints**: Keeps content within a max-width (default `1366px`) while maintaining safe edges (default `5%`).
 3.  **Structure**: `.s` (Outer) -> `.sc` (Container) -> `.scc` (Child). If you omit the container, direct children are automatically treated as containers (exceptions: '.o', 'figure', 'img', 'style').
 
-### Modifiers
+#### Modifiers
 
 | Class | Description |
 | :--- | :--- |
-| `.s` | Base section. |
-| `.s__w` | Wide (.s > *) .sc container (1440px). |
-| `.s__xw` | Extra wide (.s > *) .sc container (1600px). |
-| `.s__uw` | Ultra wide (.s > *) .sc container (1920px). |
-| `.s__f` | Full width (.s > *) .sc container (100%). |
-| `.s__h` | Header medium width (.s > * > *) .scc container (64rem). |
-| `.s__hw` | Header wide (.s > * > *) .scc container (72rem). |
-| `.s__hn` | Header narrow (.s > * > *) .scc container (56rem). |
-| `.s__c` | Content medium width (.s > * > *) .scc container (48rem - blog posts). |
-| `.s__cw` | Content wide (.s > * > *) .scc container (56rem). |
-| `.s__cn` | Content narrow (.s > * > *) .scc container (40rem). |
+| `.s` | **Section** outer wrapper. 100% width. Fluid vertical padding. |
+| `.s__w` | Wide inner (.s > *) **Container**  (1440px). |
+| `.s__xw` | Extra wide inner (.s > *) **Container** (1600px). |
+| `.s__uw` | Ultra wide inner (.s > *) **Container** (1920px). |
+| `.s__f` | Full width inner (.s > *) **Container** (100%). |
+| `.s__c` | Inner container **Content** (.s > * > *) with medium width  (48rem - blog posts). |
+| `.s__cw` | Inner container **Content** (.s > * > *) with wide width (56rem). |
+| `.s__cn` | Inner container **Content** (.s > * > *) with narrow width (40rem). |
+| `.s__h` | Inner container **Header** (.s > * > *) content with medium width  (64rem). |
+| `.s__hw` | Inner container **Header** (.s > * > *) content with wide width (72rem). |
+| `.s__hn` | Inner container **Header** (.s > * > *) content with narrow width (56rem). |
 | `.pb--s`, `.pb--xs` | Reduced vertical padding. |
 | `.gap--s`, `.gap--xs` | Reduced gap. |
 
-### Reference: Variables
+#### Reference: Variables
 | Variable | Default | Description |
 | :--- | :--- | :--- |
 | `--s-bg` | `--set-bg` | Background color. |
@@ -94,9 +233,9 @@ The foundational building block for page structures. It manages:
 | `--sc-gap` | `clamp(...)` | Gap between direct children of `.s > *` (.sc). |
 | `--scc-gap` | `clamp(...)` | Gap between direct children of `.s > * > *` (.scc). |
 
-### Usage Examples
+#### Usage Examples
 
-#### Standard Section
+##### Standard Section
 ```html
 <section class="s">
   <!-- Content is automatically centered and constrained -->
@@ -109,7 +248,7 @@ The foundational building block for page structures. It manages:
 </section>
 ```
 
-#### Full Width Background, Constrained Content
+##### Full Width Background, Constrained Content
 ```html
 <section class="s set dark">
   <div class="sc">
@@ -118,31 +257,35 @@ The foundational building block for page structures. It manages:
 </section>
 ```
 
----
-
-## 2. Grid (`.g`)
+### Grid Classes (`.g`)
 A powerful, responsive grid system. Defaults to **Auto-Fit**, meaning columns naturally stretch to fill space.
 
-### Features
+#### Features
 *   **Auto-Fit**: Defined by minimum sizes (e.g., `256px`), not fixed columns. Items wrap automatically.
 *   **Fixed Columns**: Override auto-fit with `.g-1`, `.g-2`, `.g-3`, `.g-4`, `.g-1-2`, `.g-2-1`, `.g-3-2`, `.g-2-3`.
 *   **Smart Grid**: Support for subgrids (`.sg` for rows, `.sgc` for columns).
+*   **Adaptive**: Gap scales with viewport size.
 
-### Fixed Column Classes
+#### Responsive Column Classes
 Classes like `.g-2` or `.g-3` can take responsive suffixes (`--lg`, `--md`, `--sm`).
 
-| Class | Columns |
-| :--- | :--- |
-| `.g-1` | 1 Column |
-| `.g-2` | 2 Columns |
-| `.g-3` | 3 Columns |
-| `.g-4` | 4 Columns |
-| `.g-1-2` | 1/3 + 2/3 Split |
-| `.g-2-1` | 2/3 + 1/3 Split |
-| `.g-2-3` | 2/5 + 3/5 Split |
-| `.g-3-2` | 3/5 + 2/5 Split |
+| Class | Name | Behavior |
+| :--- | :--- | :--- |
+| **`.g`** | **Grid** | Auto-fit grid. |
+| **`.g-1`** | **1 Col** | Force 1 column. |
+| **`.g-2`** | **2 Cols (Predefined Behavior)** | Force 2 columns on large containers. |
+| **`.g-3`** | **3 Cols (Predefined Behavior)** | Force 3 columns on large containers. |
+| **`.g-4`** | **4 Cols (Predefined Behavior)** | Force 4 columns on large and 2 on medium containers. |
+| **`.g-12`** | **12 Cols (Predefined Behavior)** | Force 12 columns on large and 6 on medium containers (Complex layouts). |
+| **`.g-1-2`** | **1/3 - 2/3** | Asymmetrical layout. |
+| **`.g-2-1`** | **2/3 - 1/3** | Asymmetrical layout. |
+| **`.g-2--md`** | **2 Cols (Medium)** | Force 2 columns on medium containers only. |
+| **`.g-2--lg`** | **2 Cols (Large)** | Force 2 columns on large containers. |
+| **`.g-2--sm`** | **2 Cols (Small)** | Force 2 columns on small containers. |
+| **`.g-2--smd`** | **2 Cols (Small AND Medium)** | Force 2 columns on small and medium containers. |
+| **`.g-3--mdl`** | **3 Cols (Medium AND Large)** | Force 3 columns on medium and large containers. |
 
-### Reference: Variables
+#### Reference: Variables
 | Variable | Default | Description |
 | :--- | :--- | :--- |
 | `--g-cols-template` | repeat(var(--g-cols), minmax(var(--g-min), 1fr))` | Default grid-template-columns value. |
@@ -152,9 +295,9 @@ Classes like `.g-2` or `.g-3` can take responsive suffixes (`--lg`, `--md`, `--s
 | `--gi-col` | `auto` | Column span for a child item (e.g., `span 2`). |
 | `--gi-row` | `auto` | Row span for a child item. |
 
-### Usage Examples
+#### Usage Examples
 
-#### Auto-Responsive Card Grid
+##### Auto-Responsive Card Grid
 No media queries needed. Cards will be at least `256px` wide, filling the row.
 ```html
 <div class="g">
@@ -164,34 +307,48 @@ No media queries needed. Cards will be at least `256px` wide, filling the row.
 </div>
 ```
 
-#### Feature Layout (2 Columns on Large Parent (Desktop), 1 Column on Medium and Small Parents (Tablet and Mobile))
-```html
-<div class="g g-1--smd g-2--lg">
-  <div class="text">Left</div>
-  <div class="image">Right</div>
-</div>
-```
-
----
-
-## 3. Flex (`.f`)
+### Flex Classes (`.f`)
 A comprehensive flexbox utility toolkit.
 
-### Class Reference
-
-| Class | Property | Value |
+| Class | Name | Behavior |
 | :--- | :--- | :--- |
-| `.f`, `.row` | `display: flex` | Row direction (default). |
-| `.col` | `display: flex` | Column direction. |
-| `.wrap`, `.nowrap` | `flex-wrap` | Wrap control. |
-| `.ai-c`, `.ai-s`, `.ai-e` | `align-items` | Center, Start, End. |
-| `.jc-c`, `.jc-s`, `.jc-e`, `.jc-sb` | `justify-content` | Center, Start, End, Space Between. |
-| `.gap`, `.gap--s`, `.gap--xs` | `gap` | Fluid gap presets. |
+| **`.f`** | **Flex** (Row) | `display: flex`. Default `row`. |
+| **`.col`** | **Column** | `flex-direction: column`. |
+| **`.row`** | **Row** | `flex-direction: row`. |
+| **`.wrap`** | **Wrap** | `flex-wrap: wrap`. |
+| **`.nowrap`** | **No Wrap** | `flex-wrap: nowrap`. |
 
-### Responsive Suffixes
-All flex classes support `--sm`, `--md`, and `--lg` (e.g., `.col--sm`).
+#### Alignment Cheatsheet
+*Works on both Grid and Flex parents*
 
-### Reference: Variables
+| Class | CSS Property | Value | Visual Meaning |
+| :--- | :--- | :--- | :--- |
+| **`.ai-c`** | `align-items` | `center` | Center Vertical (in Row) |
+| **`.ai-s`** | `align-items` | `start` | Top (in Row) |
+| **`.ai-e`** | `align-items` | `end` | Bottom (in Row) |
+| **`.ai-st`** | `align-items` | `stretch` | Stretch to fill Height |
+| **`.jc-c`** | `justify-content` | `center` | Center Horizontal (in Row) |
+| **`.jc-sb`** | `justify-content` | `space-between` | Push to Edges |
+| **`.jc-sa`** | `justify-content` | `space-around` | Equal Distr. |
+| **`.jc-e`** | `justify-content` | `end` | Right Align |
+| **`.as-c`** | `align-self` | `center` | Center *Self* |
+| **`.as-s`** | `align-self` | `start` | Top *Self* |
+| **`.as-e`** | `align-self` | `end` | Bottom *Self* |
+
+#### Spacing Scale
+*Used for gaps (`.gap-*`)*
+
+| Mod | Variable | Default | Logic |
+| :--- | :--- | :--- | :--- |
+| **`--xxs`** | `--g-gap--xxs` | `2px` | Hairline |
+| **`--xs`** | `--g-gap--xs` | `0.25rem` | Tiny |
+| **`--s`** | `--g-gap--s` | `0.5rem` | Tight |
+| **Default** | `--g-gap` | `1.5rem` | Standard |
+| **`--l`** | `--g-gap--l` | `2.5rem` | Loose |
+| **`--xl`** | `--g-gap--xl` | `4rem` | Airy |
+| **`--xxl`** | `--g-gap--xxl` | `8rem` | Massive |
+
+#### Reference: Variables
 | Variable | Default | Description |
 | :--- | :--- | :--- |
 | `--f-d` | `flex` | Display type (flex). |
@@ -201,12 +358,15 @@ All flex classes support `--sm`, `--md`, and `--lg` (e.g., `.col--sm`).
 | `--f-jc` | `flex-start` | Justify content (main axis). |
 | `--fc-grow` | `0` | Child grow factor. |
 
-### Usage Examples
+#### Responsive Suffixes
+All flex variables and classes support `--sm`, `--md`, and `--lg` (e.g., `.col--sm`, `.col--md`, `.col--lg`, `--f-gap--sm`, `--f-gap--md`, `--f-gap--lg`).
 
-#### Navbar
+#### Usage Examples
+
+##### Navbar
 Row layout with space-between.
 ```html
-<nav class="f row jc-sb ai-c">
+<nav class="row jc-sb ai-c">
   <div class="logo">Logo</div>
   <div class="links f gap-m">
     <a href="#">Home</a>
@@ -215,9 +375,9 @@ Row layout with space-between.
 </nav>
 ```
 
-#### Media Object (Stack on Mobile, Row on Desktop)
+##### Media Object (Stack on Mobile, Row on Desktop)
 ```html
-<div class="f col row--md gap-m ai-c">
+<div class="f col row--mdl gap-m ai-c">
   <img src="avatar.jpg" alt="User">
   <div>
     <h3 class="t">User Name</h3>
@@ -225,3 +385,74 @@ Row layout with space-between.
   </div>
 </div>
 ```
+
+---
+
+## 💡 Best Practices & Customization
+
+### Grid vs Flex: The Golden Rule
+*   **Use Grid (`.g`)** when you want items to be **Columns**. You care about the *width* and *placement* of items (2D).
+*   **Use Flex (`.f`)** when you want items to be a **Stream**. You care about the *flow* and *alignment* of items (1D).
+
+**Example**:
+*   A Gallery of images: **Grid**.
+*   A Navigation Bar: **Flex**.
+*   A Media Object (Image + Text side-by-side): **Flex** (usually) or **Grid** (if strict sizing needed).
+
+### Real World Examples
+
+#### The Dashboard Shell (Holy Grail)
+```html
+<div class="g g-12 min-h-screen">
+  <!-- Sidebar: 3 cols -->
+  <aside style="grid-column: span 3" class="bg-dark">
+      <nav class="f col gap-m">...</nav>
+  </aside>
+
+  <!-- Main: 9 cols -->
+  <main style="grid-column: span 9" class="pd-l">
+      <h1>Dashboard</h1>
+      
+      <!-- Stats Row: Auto-Fit -->
+      <div class="g gap-m">
+         <div class="card">Stat 1</div>
+         <div class="card">Stat 2</div>
+         <div class="card">Stat 3</div>
+      </div>
+  </main>
+</div>
+```
+
+#### The "Split Hero"
+```html
+<section class="s">
+    <div class="g g-2-1 gap-xl ai-c">
+        <!-- Content Side (66%) -->
+        <div class="f col gap-m">
+            <h1 class="t xl">Headline</h1>
+            <p class="tx l">Subhead</p>
+        </div>
+        <!-- Image Side (33%) -->
+        <div class="f jc-c">
+            <img src="hero.png">
+        </div>
+    </div>
+</section>
+```
+
+---
+
+## 🔧 For Developers
+
+*   **Subgrid Note**: `.sg` (Subgrid) only works in browsers that support it (Firefox, Chrome 117+, Safari 16+). uCss does *not* provide a polyfill for subgrid as it would require heavy JS.
+*   **Variables**:
+    *   `--g-min`: Control auto-fit threshold. (Default: ~250px)
+    *   `--g-gap`: Control standard grid gap. (Default: Clamp)
+    *   `--f-gap`: Control standard flex gap. (Default: Clamp)
+    *   `--sc-max-w`: Section Box Width. (Default: ~1200px)
+
+---
+
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Layout](./) 
+
+[Back to top](#)

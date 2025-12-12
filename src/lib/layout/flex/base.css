@@ -1,0 +1,226 @@
+/**
+ * @file Flex Layout
+ * @description Comprehensive flexbox utility.
+ * Handles direction, alignment, wrapping, and responsive behavior.
+ * 
+ * @usage
+ * classes: .f (flex), .col (column), .row (row), .ai-c (align-items: center), etc.
+ * variables: --f-gap (gap), --f-ai (align-items), --f-jc (justify-content), --fi-grow (flex item grow), etc.
+ */
+
+/**
+ * @group Base Flex
+ * Sets display: flex and default behaviors.
+ * Manages responsive gaps and direction.
+ */
+:where(.f, .col, .row) {
+    display: var(--flex-d, var(--f-d, flex));
+
+    --f-fd: row;
+    --f-fd--sm: var(--f-fd);
+    --f-fd--md: var(--f-fd);
+    --f-fd--lg: var(--f-fd);
+    flex-direction: var(--flex-fd,
+            var(--f-fd--sm, var(--f-fd)));
+
+    --f-g: var(--f-gap, clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem));
+
+    /* Variable Chain Prevents Leaking from Utility Based Flex Gaps to other Nested Flexes */
+    --f-col-gap: var(--f-g);
+    --f-row-gap: var(--f-g);
+
+    --f-gap--sm: var(--f-g);
+    --f-gap--md: var(--f-g);
+    --f-gap--lg: var(--f-g);
+
+    --f-col-gap--sm: var(--f-col-gap);
+    --f-col-gap--md: var(--f-col-gap);
+    --f-col-gap--lg: var(--f-col-gap);
+
+    --f-row-gap--sm: var(--f-row-gap);
+    --f-row-gap--md: var(--f-row-gap);
+    --f-row-gap--lg: var(--f-row-gap);
+
+    column-gap:
+        var(--f-col-gap--sm,
+            var(--f-gap--sm,
+                var(--f-col-gap,
+                    var(--f-g,
+                        clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem)))));
+    row-gap:
+        var(--f-row-gap--sm,
+            var(--f-gap--sm,
+                var(--f-row-gap,
+                    var(--f-g,
+                        clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem)))));
+
+    --f-ai: normal;
+    --f-jc: normal;
+    --f-ac: normal;
+    align-items: var(--f-ai--sm, var(--f-ai));
+    justify-content: var(--f-jc--sm, var(--f-jc));
+    align-content: var(--f-ac--sm, var(--f-ac));
+
+    --f-fw: wrap;
+    flex-wrap: var(--f-fw--sm, var(--f-fw, wrap));
+
+    :where(:not(.g, .sg, .sgc):has(> &)) {
+        --f-c-name: var(--c-name, fp);
+        --f-c-type: var(--c-type, inline-size);
+        container: var(--f-c-name, fp) / var(--f-c-type, inline-size);
+
+        --f-c-min-w: var(--c-min-w, 0);
+        --f-c-max-w: var(--c-max-w, 100%);
+        --f-c-w: var(--c-w, 100%);
+        min-inline-size: var(--f-c-min-w);
+        max-inline-size: var(--f-c-max-w);
+        inline-size: var(--f-c-w);
+
+        box-sizing: border-box;
+    }
+
+    @container (669.99px <=width <=999.99px) {
+
+        flex-direction: var(--f-fd--md, var(--f-fd));
+
+        column-gap:
+            var(--f-col-gap--md,
+                var(--f-gap--md,
+                    var(--f-col-gap,
+                        var(--f-g,
+                            clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem)))));
+        row-gap:
+            var(--f-row-gap--md,
+                var(--f-gap--md,
+                    var(--f-row-gap,
+                        var(--f-g,
+                            clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem)))));
+
+        align-items: var(--f-ai--md, var(--f-ai));
+        justify-content: var(--f-jc--md, var(--f-jc));
+        align-content: var(--f-ac--md, var(--f-ac));
+
+        --f-fw: nowrap;
+        flex-wrap: var(--f-fw--md, var(--f-fw));
+    }
+
+    @container (width > 999.99px) {
+
+        flex-direction: var(--f-fd--lg, var(--f-fd));
+
+        column-gap:
+            var(--f-col-gap--lg,
+                var(--f-gap--lg,
+                    var(--f-col-gap,
+                        var(--f-g,
+                            clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem)))));
+        row-gap:
+            var(--f-row-gap--lg,
+                var(--f-gap--lg,
+                    var(--f-row-gap,
+                        var(--f-g,
+                            clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem)))));
+
+        align-items: var(--f-ai--lg, var(--f-ai));
+        justify-content: var(--f-jc--lg, var(--f-jc));
+        align-content: var(--f-ac--lg, var(--f-ac));
+
+        --f-fw: nowrap;
+        flex-wrap: var(--f-fw--lg, var(--f-fw));
+    }
+
+    /**
+   * @group Child API
+   * Controls flex child properties (grow, shrink, basis, order).
+   */
+    :where(& > *, & > .fi) {
+        --fi-grow: 0;
+        --fi-shrink: 1;
+        --fi-basis: auto;
+        flex-grow: var(--fi-grow--sm, var(--fi-grow));
+        flex-shrink: var(--fi-shrink--sm, var(--fi-shrink));
+        flex-basis: var(--fi-basis--sm, var(--fi-basis));
+
+        --fi-as: auto;
+        --fi-o: 0;
+        align-self: var(--fi-as--sm, var(--fi-as));
+        order: var(--fi-o--sm, var(--fi-o));
+
+        --fi-mi: 0;
+        margin-inline-start: var(--fi-mis--sm, var(--fi-mis, var(--fi-mi--sm, var(--fi-mi))));
+        margin-inline-end: var(--fi-mie--sm, var(--fi-mie, var(--fi-mi--sm, var(--fi-mi))));
+
+        --fi-mb: 0;
+        margin-block-start: var(--fi-mbs--sm, var(--fi-mbs, var(--fi-mb--sm, var(--fi-mb))));
+        margin-block-end: var(--fi-mbe--sm, var(--fi-mbe, var(--fi-mb--sm, var(--fi-mb))));
+
+        @container (669.99px <=width <=999.99px) {
+            flex-grow: var(--fi-grow--md, var(--fi-grow));
+            flex-shrink: var(--fi-shrink--md, var(--fi-shrink));
+            flex-basis: var(--fi-basis--md, var(--fi-basis));
+
+            align-self: var(--fi-as--md, var(--fi-as));
+            order: var(--fi-o--md, var(--fi-o));
+
+            margin-inline-start: var(--fi-mis--md, var(--fi-mis, var(--fi-mi--md, var(--fi-mi))));
+            margin-inline-end: var(--fi-mie--md, var(--fi-mie, var(--fi-mi--md, var(--fi-mi))));
+
+            margin-block-start: var(--fi-mbs--md, var(--fi-mbs, var(--fi-mb--md, var(--fi-mb))));
+            margin-block-end: var(--fi-mbe--md, var(--fi-mbe, var(--fi-mb--md, var(--fi-mb))));
+        }
+
+        @container (width > 999.99px) {
+            flex-grow: var(--fi-grow--lg, var(--fi-grow));
+            flex-shrink: var(--fi-shrink--lg, var(--fi-shrink));
+            flex-basis: var(--fi-basis--lg, var(--fi-basis));
+
+            align-self: var(--fi-as--lg, var(--fi-as));
+            order: var(--fi-o--lg, var(--fi-o));
+
+            margin-inline-start: var(--fi-mis--lg, var(--fi-mis, var(--fi-mi--lg, var(--fi-mi))));
+            margin-inline-end: var(--fi-mie--lg, var(--fi-mie, var(--fi-mi--lg, var(--fi-mi))));
+
+            margin-block-start: var(--fi-mbs--lg, var(--fi-mbs, var(--fi-mb--lg, var(--fi-mb))));
+            margin-block-end: var(--fi-mbe--lg, var(--fi-mbe, var(--fi-mb--lg, var(--fi-mb))));
+        }
+
+    }
+
+}
+
+
+/**
+ * @group Direction Modifiers
+ * .col, .row (and responsive variants).
+ */
+:where(.col) {
+    --f-fd: column;
+}
+
+:where(.col--lg, .col--mdl) {
+    --f-fd--lg: column;
+}
+
+:where(.col--md, .col--smd, .col--mdl) {
+    --f-fd--md: column;
+}
+
+:where(.col--sm, .col--smd) {
+    --f-fd--sm: column;
+}
+
+:where(.row) {
+    --f-fd: row;
+}
+
+:where(.row--lg, .row--mdl) {
+    --f-fd--lg: row;
+}
+
+:where(.row--md, .row--smd, .row--mdl) {
+    --f-fd--md: row;
+}
+
+:where(.row--sm, .row--smd) {
+    --f-fd--sm: row;
+}

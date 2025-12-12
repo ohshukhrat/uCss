@@ -1,0 +1,176 @@
+/*
+ * @file Flex Child Item
+ * @description Comprehensive flexbox child item utilities.
+ * Handles grow, shrink, basis, order, and margin.
+ */
+
+/**
+ * @group Flex Child Item Inputs
+ * @description Controls Grow, Shrink, Basis.
+ */
+
+/* --- Grow --- */
+:where(.grow-1) {
+    --fi-grow: 1;
+}
+
+:where(.grow-1--sm, .grow-1--smd) {
+    --fi-grow--sm: 1;
+}
+
+:where(.grow-1--md, .grow-1--smd, .grow-1--mdl) {
+    --fi-grow--md: 1;
+}
+
+:where(.grow-1--lg, .grow-1--mdl) {
+    --fi-grow--lg: 1;
+}
+
+:where(.grow-0) {
+    --fi-grow: 0;
+}
+
+:where(.grow-0--sm, .grow-0--smd) {
+    --fi-grow--sm: 0;
+}
+
+:where(.grow-0--md, .grow-0--smd, .grow-0--mdl) {
+    --fi-grow--md: 0;
+}
+
+:where(.grow-0--lg, .grow-0--mdl) {
+    --fi-grow--lg: 0;
+}
+
+/* --- Shrink --- */
+:where(.shrink-0) {
+    --fi-shrink: 0;
+}
+
+/* Vital for preventing squish */
+:where(.shrink-0--sm, .shrink-0--smd) {
+    --fi-shrink--sm: 0;
+}
+
+:where(.shrink-0--md, .shrink-0--smd, .shrink-0--mdl) {
+    --fi-shrink--md: 0;
+}
+
+:where(.shrink-0--lg, .shrink-0--mdl) {
+    --fi-shrink--lg: 0;
+}
+
+:where(.shrink-1) {
+    --fi-shrink: 1;
+}
+
+:where(.shrink-1--sm, .shrink-1--smd) {
+    --fi-shrink--sm: 1;
+}
+
+:where(.shrink-1--md, .shrink-1--smd, .shrink-1--mdl) {
+    --fi-shrink--md: 1;
+}
+
+:where(.shrink-1--lg, .shrink-1--mdl) {
+    --fi-shrink--lg: 1;
+}
+
+/* --- Basis --- */
+:where(.basis-0) {
+    --fi-basis: 0;
+}
+
+:where(.basis-auto) {
+    --fi-basis: auto;
+}
+
+:where(.basis-full) {
+    --fi-basis: 100%;
+}
+
+/**
+ * @group Order Modifiers
+ * Control visual order of flex children.
+ */
+
+:where(.f, .col, .row)> :where(.o-f, .o-s, .o-first) {
+    --fi-o: -69;
+}
+
+:where(.f, .col, .row)> :where(.o-f--lg, .o-s--lg, .o-first--lg) {
+    --fi-o--lg: -69;
+}
+
+:where(.f, .col, .row)> :where(.o-f--md, .o-s--md, .o-first--md) {
+    --fi-o--md: -69;
+}
+
+:where(.f, .col, .row)> :where(.o-f--sm, .o-s--sm, .o-first--sm) {
+    --fi-o--sm: -69;
+}
+
+
+:where(.f, .col, .row)> :where(.o-1) {
+    --fi-o: 1;
+}
+
+:where(.f, .col, .row)> :where(.o-1--lg, .o-1--mdl) {
+    --fi-o--lg: 1;
+}
+
+:where(.f, .col, .row)> :where(.o-1--md, .o-1--smd, .o-1--mdl) {
+    --fi-o--md: 1;
+}
+
+:where(.f, .col, .row)> :where(.o-1--sm, .o-1--smd) {
+    --fi-o--sm: 1;
+}
+
+:where(.f, .col, .row)> :where(.o-2) {
+    --fi-o: 2;
+}
+
+:where(.f, .col, .row)> :where(.o-2--lg, .o-2--mdl) {
+    --fi-o--lg: 2;
+}
+
+:where(.f, .col, .row)> :where(.o-2--md, .o-2--smd, .o-2--mdl) {
+    --fi-o--md: 2;
+}
+
+:where(.f, .col, .row)> :where(.o-2--sm, .o-2--smd) {
+    --fi-o--sm: 2;
+}
+
+:where(.f, .col, .row)> :where(.o-3) {
+    --fi-o: 3;
+}
+
+:where(.f, .col, .row)> :where(.o-3--lg, .o-3--mdl) {
+    --fi-o--lg: 3;
+}
+
+:where(.f, .col, .row)> :where(.o-3--md, .o-3--smd, .o-3--mdl) {
+    --fi-o--md: 3;
+}
+
+:where(.f, .col, .row)> :where(.o-3--sm, .o-3--smd) {
+    --fi-o--sm: 3;
+}
+
+:where(.f, .col, .row)> :where(.o-l, .o-e, .o-last) {
+    --fi-o: 420;
+}
+
+:where(.f, .col, .row)> :where(.o-l--lg, .o-e--lg, .o-last--lg) {
+    --fi-o--lg: 420;
+}
+
+:where(.f, .col, .row)> :where(.o-l--md, .o-e--md, .o-last--md) {
+    --fi-o--md: 420;
+}
+
+:where(.f, .col, .row)> :where(.o-l--sm, .o-e--sm, .o-last--sm) {
+    --fi-o--sm: 420;
+}

@@ -1,0 +1,40 @@
+/**
+ * @file Grid Recipies
+ * @description Smart snippets logic (.g, .sg, .sgc) allowing for grid customization.
+ */
+
+:where(.g) {
+    &:where(.g-d, .dense) {
+        --g-flow: dense;
+    }
+
+    &:where(.g-i, .inline) {
+        --g-d: inline-grid;
+    }
+
+    &:where(.g-r, .g-row) {
+        --g-flow: column;
+        --g-t-cols: none;
+        --g-a-cols: var(--g-r-col, 100%);
+
+        overflow-x: var(--g-ofx, auto);
+        overscroll-behavior-x: var(--g-ofbx, contain);
+        scroll-snap-type: var(--g-sst, var(--g-sst-ax, x) var(--g-sst-ay, mandatory));
+
+        scroll-padding-inline: var(--g-pd, var(--g-col-gap, var(--g-gap, clamp(1.75rem, 1.912vw + 1.368rem, 3rem))));
+
+        scrollbar-width: var(--g-sb-width, none);
+        scrollbar-color: var(--g-sb-color, transparent transparent);
+    }
+
+    &:where(.g-r, .g-row)::webkit-scrollbar {
+        display: var(--g-sb-display, none);
+    }
+
+    &:where(.g-r, .g-row)> :where(*) {
+        scroll-snap-align: var(--gc-align, start);
+        width: var(--gc-w, 100%);
+        max-width: var(--gc-max-w, none);
+    }
+
+}

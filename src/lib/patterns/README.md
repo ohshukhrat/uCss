@@ -1,92 +1,147 @@
-# Components Module
+# Patterns Module
 
-**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Components](./) 
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Patterns](./)
 
-**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](./) | [Utilities](../utilities/)
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Patterns](./) | [Utilities](../utilities/)
 
-> **Composite Primitives**. A collection of robust UI shells. Features **Buttons** (`.btn`) with extensive sizes and variants, and **Cards** (`.crd`) built with BEM-like slots and Subgrid capabilities for deep composition.
-
----
-
-## 📑 Page Contents
-*   [Installation & Bundle Stats](#-installation-bundle-stats)
-*   [Card (`.crd`)](#1-card-crd)
-*   [Button (`.btn`)](#2-button-btn)
-*   [Media (`.med`)](#3-media-med)
-*   [Link Wrapper (`.lnk`)](#4-link-wrapper-lnk)
+> **Interface Primitives**. The Patterns module contains the visual building blocks of uCss. Unlike traditional frameworks that ship rigid components (like a specific "Navbar" or "Jumbotron"), uCss Patterns provide flexible **Primitives**—Shells, Actions, and Wrappers—that you compose to build *any* UI element.
 
 ---
 
-## Components Module
+## 📑 Contents
 
-The **Components Module** contains the core UI building blocks of the framework. These components are designed to be composite, flexible, and heavily reliant on **Container Queries** to ensure they look perfect in any context (e.g., a Card in a sidebar vs. a Card in a main grid).
-
-### Philosophy: Composition Over Configuration
-We don't provide a "Profile Card Component" or a "Product Card Component". We provide a **Card Shell** and **Utility Blocks**.
-*   **The Old Way**: You search the docs for `.card-profile-horizontal`.
-*   **The uCss Way**: You build it. `<article class="crd f row">`.
-    *   Want it horizontal? Add `f row`.
-    *   Want a round picture? Add `.rad.rd` to the image.
-    *   Want the text centered? Add `.ta-c`.
-This makes the framework infinitely scalable without bloating the codebase with specific variations.
-
-### 🧠 Thinking in Components
-1.  **Slots are Structural hooks**: `.crd__header` isn't just for styling; it's a grid area. Use it to align content across different cards using subgrid (`.crd.sg`).
-2.  **Context Aware**: A component should look good *anywhere*. We use container queries so you can put a `.crd` in a `.sidebar` and it automatically adapts (e.g. stacks vertically) without you writing a single `@media` query.
-3.  **Variables First**: Don't override CSS manually. Set `--p: red` on a button to change its color. Set `--btn-rad: 0` to make it square. The component listens to the variables.
-
-## 📦 Installation & Bundle Stats
-
-| File | Full | Clean | Min | Gzip | Brotli | Download |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`components.css`** | ~50KB | ~45KB | ~40KB | ~6.5KB | ~5.6KB | [src](https://ucss.unqa.dev/stable/lib/components.css) • [clean](https://ucss.unqa.dev/stable/lib/components.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components.min.css) |
-| **`button.css`** | ~24KB | ~22KB | ~20KB | ~3.4KB | ~3.0KB | [src](https://ucss.unqa.dev/stable/lib/components/button.css) • [clean](https://ucss.unqa.dev/stable/lib/components/button.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/button.min.css) |
-| **`card.css`** | ~21KB | ~19KB | ~16KB | ~2.9KB | ~2.4KB | [src](https://ucss.unqa.dev/stable/lib/components/card.css) • [clean](https://ucss.unqa.dev/stable/lib/components/card.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/card.min.css) |
-| **`media.css`** | ~3.7KB | ~3.0KB | ~2.5KB | ~0.7KB | ~0.6KB | [src](https://ucss.unqa.dev/stable/lib/components/media.css) • [clean](https://ucss.unqa.dev/stable/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/media.min.css) |
-| **`link.css`** | ~1.4KB | ~0.8KB | ~0.7KB | ~0.3KB | ~0.3KB | [src](https://ucss.unqa.dev/stable/lib/components/link.css) • [clean](https://ucss.unqa.dev/stable/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/link.min.css) |
-
-
-> [!TIP]
-> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
-
-### HTML Copy & Paste
-
-| File | HTML Snippet (Stable) |
-| :--- | :--- |
-| **`components.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components.min.css">` |
-| **`button.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components/button.min.css">` |
-| **`card.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components/card.min.css">` |
-| **`media.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components/media.min.css">` |
-| **`link.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components/link.min.css">` |
+*   [🌟 Overview](#-overview)
+*   [🤯 Philosophy](#-philosophy)
+    *   [Patterns vs Components](#patterns-vs-components)
+    *   [The Slot Architecture](#the-slot-architecture)
+*   [🚀 Getting Started](#-getting-started)
+*   [📦 Installation & Stats](#-installation--stats)
+    *   [Bundle Stats](#bundle-stats)
+    *   [Direct Links](#direct-links)
+    *   [HTML Snippets](#html-snippets)
+*   [📂 Files Reference](#-files-reference)
+*   [🧠 Deep Dive](#-deep-dive)
+    *   [1. Slot Theory (Cards)](#1-slot-theory-cards)
+    *   [2. The Action System (Buttons)](#2-the-action-system-buttons)
+    *   [3. Safe Media Wrappers](#3-safe-media-wrappers)
+    *   [4. The Clickable Shell (`.lnk`)](#4-the-clickable-shell-lnk)
+*   [📍 Reference: Content Map](#-reference-content-map)
+    *   [Card (`.crd`)](#card-pattern-crd)
+    *   [Button (`.btn`)](#button-pattern-btn)
+    *   [Media (`.med`)](#media-pattern-med)
+    *   [Link Wrapper (`.lnk`)](#link-wrapper-lnk)
+*   [💡 Best Practices & Customization](#-best-practices--customization)
+    *   [Composition over Configuration](#composition-over-configuration)
+    *   [Real World Examples](#real-world-examples)
+*   [🔧 For Developers](#-for-developers)
 
 ---
 
-## 1. Card (`.crd`)
+## 🌟 Overview
+
+The **Patterns Module** provides the "Organs" of your application.
+If Layout is the Skeleton, Patterns are the Organs.
+
+### Top Features
+1.  **Subgrid-Ready Cards**: The `.crd` (eg. ul.cl > li > article.crd ) shell can optionally align its internal slots (Header, Body, Footer) to a parent Grid.
+2.  **Unbreakable Aspect Ratios**: The `.med` (eg. figure.med > img) wrapper prevents "Cumulative Layout Shift" (CLS) by reserving space for images before they load.
+3.  **Semantic Link Wrapping**: The `.lnk` utility (eg. ul.cl > li.lnk h3 > a::after ) allows you to make an entire complex card clickable without nesting 50 `<div>`s inside an `<a>` tag (which is invalid HTML for block elements).
+4.  **Skinnable**: Cards are skinnable with the `.set` utility, that automatically adapt to your Theme (`.set.dark` -> Card turns white/black automagically).
+
+> [!LIGHTBULB]
+> **Why "Patterns"?**
+> We call them patterns because they represent repeating behaviors. A "User Card", "Product Card", and "News Card" are all just implementations of the **Card Pattern**.
+
+---
+
+## 🤯 Philosophy
+
+### Patterns vs Components
+*   **Component**: "A Product Card with a Buy Button". (Specific)
+*   **Pattern**: "A Container with slots for media and data". (Abstract)
+
+uCss ships Patterns. You build Components.
+This means you never have to fight the framework to make a "Product Card" look different. You just compose the atoms differently.
+
+### The Slot Architecture
+We avoid the "Padding Trap".
+If you put padding on the card container, you can't have a full-bleed image.
+If you don't put padding on the card container, your text hits the edge.
+**Solution**: The Card Shell (`.crd`) handles the "Box" (Border, Shadow, Radius). The Content Slot (`.crd__content`: .crd > div.crd__content) handles the Padding. The Media Slot (`.crd__media`: .crd > figure.crd__media) handles the Image.
+
+---
+
+## 🚀 Getting Started
+
+### The "Clicked" Moment
+1.  Create a card: `<article class="crd">`.
+2.  Add content: `<div class="crd__content"><p>Text</p></div>`.
+3.  Add a hero image: `<figure class="crd__media ar-16-9"><img ...></figure>` (by default, it will have `order: -1` on it, so it will be the first child, but semantically it should be the last).
+4.  Notice how the image goes edge-to-edge (clean) but the text has breathing room? That logic is baked in.
+
+---
+
+## 📦 Installation & Stats
+
+### Bundle Stats
+
+| File | Full (Raw) | Clean | Min | Gzip | Brotli |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`patterns.css`** | **~50 KB** | **~45 KB** | **~40 KB** | **~6.5 KB** | **~5.6 KB** |
+| `button.css` | 24 KB | 22 KB | 20 KB | 3.4 KB | 3.0 KB |
+| `card.css` | 21 KB | 19 KB | 16 KB | 2.9 KB | 2.4 KB |
+| `media.css` | 3.7 KB | 3.0 KB | 2.5 KB | 0.7 KB | 0.6 KB |
+
+### Direct Links
+
+| Module | Full Source | Clean Source | Minified (Prod) |
+| :--- | :--- | :--- | :--- |
+| **Patterns** | [patterns.css](https://ucss.unqa.dev/stable/lib/patterns.css) | [patterns.clean.css](https://ucss.unqa.dev/stable/lib/patterns.clean.css) | [patterns.min.css](https://ucss.unqa.dev/stable/lib/patterns.min.css) |
+
+### HTML Snippets
+
+#### Standard
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/patterns.min.css">
+```
+
+#### Prefixed (`/p/`)
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/p/lib/patterns.min.css">
+```
+
+---
+
+## 📂 Files Reference
+
+| File | Description | Download |
+| :--- | :--- | :--- |
+| **`card.css`** | **The Shell**. Flexible container that handles "The Box Model" (shadows, borders, backgrounds) and "Slots" (Media, Content, Header). | [src](https://ucss.unqa.dev/stable/lib/patterns/card.css) |
+| **`button.css`** | **The Action**. [See Button Submodule](./button/README.md). A complete interactive ecosystem. | [src](https://ucss.unqa.dev/stable/lib/patterns/button.css) |
+| **`media.css`** | **The Visual**. Wrapper for `img`/`video` that enforces aspect ratios and object-fit to prevent layout shifts. | [src](https://ucss.unqa.dev/stable/lib/patterns/media.css) |
+| **`link.css`** | **The Interaction**. `.lnk` wrapper. Uses a pseudo-element technique to stretch a nested link over its parent container. | [src](https://ucss.unqa.dev/stable/lib/patterns/link.css) |
+
+---
+
+## 🧠 Deep Dive
+
+### 1. Card (`.crd`)  (Cards BEM-like Structure)
 The flagship component. A flexible, composite shell that serves as the foundation for posts, profiles, product listings, and more.
 
-### Slot Theory (BEM Structure)
+There is *No JavaScript*. This is pure CSS composition.
+
+
+#### Slot Theory (BEM Structure)
+The Card (`.crd`) is designed around "Slots".
 The Card is not just a div (or li, or article inside li); it is a grid-ready shell. We use BEM-like naming (`__`) to define **Slots**.
 *   **`.crd` (The Shell)**: The parent. It handles the "Box Model" stuff: Background, Border, Shadow, Radius. It does *not* handle internal padding, if there is .crd__content inside it.
-*   **`.crd__media` (The Edge)**: A full-bleed slot. It ignores padding. Use this for cover images or videos.
-*   **`.crd__content` (The Body)**: The padded interface. This is where your heading, link, text, and meta lives.
-    *   **`.crd__header`**, **`.crd__body`**, **`.crd__footer`**: These aren't just semantic decorations. When you use `.crd.sg` (Subgrid), these slots allow you to align headers across *multiple different cards* in a grid.
+*   **`.crd__media` (The Edge)**: A full-bleed slot. This slot ignores the card's padding. It goes edge-to-edge, and has `order: -1` by default. Perfect for cover images at the top of a card.
+*   **`.crd__content` (The Body)**: This is where your heading, link, text, and meta data live. This slot adds the standard card padding (`--crd-p`).
+    *   **`.crd__header`** (Card Title), **`.crd__body`** (Card Content / Meta Data), **`.crd__footer`** (Card Meta Data / CTA): These aren't just semantic decorations. When you use `.crd.sg` (Subgrid), these slots allow you to align headers across *multiple different cards* in a grid.
 
-### Modifiers
+#### Modifiers
 *   **Smart Grid**: `.crd.sg`, `.crd.sgc` allows content to align to a subgrid.
 *   **Contextual**: `.crd.set.dark` (inherits from Theming module).
-
-### Reference: Variables & Theme
-The Card shell exposes several CSS variables for easy theming without writing new CSS classes.
-
-| Variable | Default | Description |
-| :--- | :--- | :--- |
-| `--crd-bg` | `--crd` or `hsl(0 0% 100%)` | Background color. |
-| `--crd-rad` | `--rad` or `.5rem` | Border radius. |
-| `--crd-p` | `1.25rem 1.25rem` | Padding magnitude (inline & block). |
-| `--crd-gap` | `clamp(...)` | Gap between direct children (if flex/grid). |
-| `--crd-shd` | `--shd` (Shadow map) | Box shadow. |
-| `--crd-bw` | `0` | Border width. |
-| `--crd-bc` | `currentColor` | Border color. |
 
 ### Usage Examples
 
@@ -144,18 +199,18 @@ Using utility classes to force a horizontal layout if needed.
 
 ---
 
-## 2. Button (`.btn`)
-A robust button utility that supports variants, sizes, and icon integration.
+### 2. Button (`.btn`)
+The Action System. A robust visual button utility that supports variants, sizes, and icon integration.
 
-### Classes
-*   **Base**: `.btn` (Reset, pointer, Flex centered).
-*   **Variants**: `.btn.primary` (default colors), `.btn.accent`, `.btn.secondary`, `.btn.tertiary` (brand), `.btn.plain` (ghost), `.btn.outlined` (border only), `.btn.subtle` (transparent background), `.btn.alt` (alternative), `.btn.dark`, `.btn.light`.
-*   **Sizes**: `.btn.xsm`, `.btn.sm` (Small), `.btn.md` (Medium - default), `.btn.lg` (Large), `.btn.xlg`, `.btn.tiny`, `.btn.pill` (Almost no padding).
-*   **Radius**: `.btn.sq` (Square), `.btn.rd` (Circle), `.btn.lt` (Light radius), `.btn.pill` (Pill padding).
-*   **Shadow**: `.btn.shd` (Shadow), `.btn.shd-hover` (Shadow on hover).
-*   **State**: `.btn.is-loading` (Cursor wait), `.btn.is-disabled` (Opacity reduced).
+Buttons are composed of 4 layers:
+1.  **Base**: `.btn` (Structure, cursor, centering).
+2.  **Skin**: `.primary`, `.secondary` (Colors).
+3.  **Size**: `.sm`, `.lg` (Dimensions).
+4.  **Radius**: `.sq`, `.rd`, `.lt`, `.bd` (Corners).
 
-### Grouping (`.btns`)
+This combinatorial system allows for `2 (types) x 8 (skins) x 7 (sizes) x 4 (radiuses) = 448` unique button styles out of the box, all sharing the same DNA.
+
+#### Grouping (`.btns`)
 A container to organize multiple buttons. Handles spacing and wrapping automatically.
 
 | Class | Alignment |
@@ -172,19 +227,6 @@ A container to organize multiple buttons. Handles spacing and wrapping automatic
   <button class="btn plain" style="--btn-color: var(--alr);">Cancel</button>
 </div>
 ```
-
-### Reference: Variables & Theme
-Buttons are highly customizable via CSS variables.
-
-| Variable | Default | Description |
-| :--- | :--- | :--- |
-| `--btn-bg` | `--p` (Primary) | Background color. |
-| `--btn-c` | `--on-p` (On Primary) | Text color. |
-| `--btn-bc` | `--btn-bg` | Border color. |
-| `--btn-fs` | `1.125rem` | Font size. |
-| `--btn-p` | `.625em 1.325em` | Padding. |
-| `--btn-rad` | `4em` | Border radius. |
-| `--btn-gap` | `clamp(...)` | Gap between icon and text. |
 
 ### Usage Examples
 
@@ -204,16 +246,107 @@ SVG icons inside `.btn` are automatically sized and colored.
 </button>
 ```
 
----
-
-## 3. Media (`.med`)
+### 3. Safe Media Wrappers (`.med`)
 A wrapper for `img` or `video` elements to handle aspect ratios and responsive behaviors consistently.
 
-### Modifiers
+Browsers don't know the height of an image until it downloads. This causes the page to "jump" (CLS).
+The `.med` wrapper fixes this by applying a default `aspect-ratio` to the container *before* the image loads.
+The image inside is set to `object-fit: cover; position: absolute; size: 100%`.
+This guarantees rock-solid layouts even on slow connections.
+
+#### Modifiers
 *   **Aspect Ratio**: `.ar-1` (Square), `.ar-16-9` (Video), `.ar-4-3`, `.ar-2-3` (Portrait).
 *   **Radius**: `.rd` (Circle), `.sq` (Square corner), `.lt`, `.bd`.
 
-### Reference: Variables
+### 4. The Clickable Shell (`.lnk`)
+The "Card Link" problem: You want the whole card to be clickable, but you have buttons inside it.
+If you wrap the card in `<a>`, the nested buttons break validation.
+**Solution**:
+1.  Add `.lnk` to the Card (`.crd.lnk`).
+2.  Add a standard link inside the title: `<h3><a href="...">Title</a></h3>`.
+3.  The `.lnk` class finds that `<a>` and expands its `::after` pseudo-element to cover the *relative parent* (the card).
+4.  Z-Index magic ensures real buttons inside the card sit *above* the pseudo-link, so they remain independently clickable.
+
+---
+
+## 📍 Reference: Content Map
+
+### Card Pattern (`.crd`)
+
+| Class | Variable | Default | Description |
+| :--- | :--- | :--- | :--- |
+| **Shell** | | | |
+| **`.crd`** | `--crd-bg` | `--set-bg` | Card Background. |
+| | `--crd-rad` | `0.25rem` | Border Radius. |
+| | `--crd-shadow` | `0 1px 3px...`| Box Shadow. |
+| **Slots** | | | |
+| **`.crd__media`** | `--crd-med-ar` | `1.91/1` | Media Aspect Ratio. |
+| **`.crd__content`**| `--crd-p` | `1.25rem` | Content Padding. |
+| **`.crd__header`** | | | Header Slot. |
+| **`.crd__footer`** | | | Footer Slot. |
+
+#### Variables & Theme
+The Card shell exposes several CSS variables for easy theming without writing new CSS classes.
+
+| Variable | Default | Description |
+| :--- | :--- | :--- |
+| `--crd-bg` | `--crd` or `hsl(0 0% 100%)` | Background color. |
+| `--crd-rad` | `--rad` or `.5rem` | Border radius. |
+| `--crd-p` | `1.25rem 1.25rem` | Padding magnitude (inline & block). |
+| `--crd-gap` | `clamp(...)` | Gap between direct children (if flex/grid). |
+| `--crd-shd` | `--shd` (Shadow map) | Box shadow. |
+| `--crd-bw` | `0` | Border width. |
+| `--crd-bc` | `currentColor` | Border color. |
+
+### Button Pattern (`.btn`)
+
+| Class | Description |
+| :--- | :--- |
+| **`.btn`** | Base Button. |
+| **`.primary`** | Uses Brand Primary color. |
+| **`.secondary`** | Uses Brand Secondary color. |
+| **`.outlined`** | Transparent background, colored border. |
+| **`.plain`** | Transparent background, colored text. |
+| **`.sm`** | Small size (compact). |
+| **`.lg`** | Large size (hero). |
+| **`.xl`** | Extra Large size. |
+| **`.tiny`** | Tiny utility button. |
+| **`.is-loading`** | Shows spinner, hides text. |
+
+#### Variables & Theme
+Buttons are highly customizable via CSS variables.
+
+| Variable | Default | Description |
+| :--- | :--- | :--- |
+| `--btn-bg` | `--p` (Primary) | Background color. |
+| `--btn-c` | `--on-p` (On Primary) | Text color. |
+| `--btn-bc` | `--btn-bg` | Border color. |
+| `--btn-fs` | `1.125rem` | Font size. |
+| `--btn-p` | `.625em 1.325em` | Padding. |
+| `--btn-rad` | `4em` | Border radius. |
+| `--btn-gap` | `clamp(...)` | Gap between icon and text. |
+
+#### Button Classes Usage Explained
+*   **Base**: `.btn` (Reset, pointer, Flex centered).
+*   **Variants**: `.btn.primary` (default colors), `.btn.secondary` (brand dark), `.btn.tertiary` (brand light), `.btn.plain` (transparent background), `.btn.outlined` (border only), `.btn.subtle` (semi-transparent background), `.btn.alt` (alternative to current theme), `.btn.dark` (always dark), `.btn.light` (always light).
+*   **Sizes**: `.btn.xsm` (Extra Small), `.btn.sm` (Small), `.btn.md` (Medium - default), `.btn.lg` (Large), `.btn.xlg` (Extra Large), `.btn.tiny`, `.btn.pill` (Almost no padding).
+*   **Radius**: `.btn.sq` (Square), `.btn.rd` (Circle), `.btn.lt` (Lite radius), `.btn.bd` (Bold radius).
+*   **Shadow**: `.btn.shd` (Shadow), `.btn.shd-hover` (Shadow on hover).
+*   **State**: `.btn.is-loading` (Cursor wait), `.btn.is-disabled` (Opacity reduced).
+
+### Media Pattern (`.med`)
+
+| Class | Description | Ratio |
+| :--- | :--- | :--- |
+| **`.med`** | Media Container | |
+| **`.ar-1`** | Square | 1:1 |
+| **`.ar-16-9`** | Video / Hero | 16:9 |
+| **`.ar-4-3`** | Photo | 4:3 |
+| **`.ar-2-1`** | Panorama | 2:1 |
+| **`.rd`** | Round | 50% (Circle) |
+| **`.sq`** | Square Radius | 0px |
+
+#### Variables
 | Variable | Default | Description |
 | :--- | :--- | :--- |
 | `--med-ar` | `auto` | Aspect ratio (e.g., `16/9`). |
@@ -221,59 +354,70 @@ A wrapper for `img` or `video` elements to handle aspect ratios and responsive b
 | `--med-bg` | `transparent` | Background color. |
 | `--med-border-r` | `0` | Border radius. |
 
-### Usage Examples
+### Link Wrapper (`.lnk`)
 
-#### User Avatar
+| Class | Logic |
+| :--- | :--- |
+| **`.lnk`** | Looks for the *first* `<a>` tag inside itself, and stretches a pseudo-element `::after` to cover the entire container. |
+
+---
+
+## 💡 Best Practices & Customization
+
+### Composition over Configuration
+Don't create a `.product-card` class.
+Compose it using Patterns + Utilities.
+*   **Bad**:
+    ```css
+    .product-card { padding: 20px; border-radius: 8px; box-shadow: ... }
+    ```
+*   **Good**:
+    ```html
+    <article class="crd p-m shadow-lg rad-m">...</article>
+    ```
+
+### Real World Examples
+
+#### 1. Clickable Article Teaser
 ```html
-<figure class="med rd ar-1" style="width: 64px;">
-  <img src="user.jpg" alt="Top G">
-</figure>
+<article class="crd lnk">
+    <div class="crd__content">
+        <h2 class="t m">
+            <a href="/post/1">My Great Post</a>
+     </h2>
+     <p class="tx s">A short excerpt...</p>
+  </div>
+  <figure class="crd__media ar-16-9">
+    <img src="post.jpg" alt="Post">
+  </figure>
+</article>
 ```
 
-#### Video Embed Wrapper
+#### 2. Media Object (The "Tweet" Layout)
+Using Card + Layout together.
 ```html
-<figure class="med ar-16-9">
-  <iframe src="..."></iframe>
-</figure>
+<div class="crd f row ai-s gap-s p-s">
+   <figure class="med rd ar-1" style="--med-w: 48px">
+      <img src="avatar.jpg">
+   </figure>
+   <div class="f col">
+      <h3 class="t s">User Name</h3>
+      <p>This is the content of the tweet.</p>
+   </div>
+</div>
 ```
 
 ---
 
-## 4. Link Wrapper (`.lnk`)
-A specialized utility for the "Clickable Card" pattern.
+## 🔧 For Developers
 
-### The Problem
-You want an entire card to be clickable, but wrapping a `<div>` in an `<a>` is not ideal for semantics (and illegal if the card contains other interactive elements like buttons).
+*   **Subgrid integration**: You can use `.crd.sg` to opt-into subgrid. The card formatting context will respect the parent grid's rows/tracks.
+*   **Variables**:
+    *   Buttons use `--btn-bg`, `--btn-c` (color), `--btn-bd` (border).
+    *   Cards use `--crd-bg`, `--crd-rad`.
 
-### The Solution (`.lnk`)
-1.  Apply `.lnk` to the container (e.g., the Card).
-2.  Place your main link inside (e.g., in the title).
-3.  The `.lnk` class sets position relative on the container and creates a `::after` pseudo-element on the **first link** it finds, stretching it to cover the specific `.lnk` container. It also handles focus outlines and a full-size click overlay mechanism for cards.
+---
 
-### Reference: Variables
-| Variable | Default | Description |
-| :--- | :--- | :--- |
-| `--lnk-outline-c` | `currentColor` | Color of the focus outline. |
-| `--lnk-outline-w` | `.25rem` | Width of the focus outline. |
-| `--lnk-rad` | `inherit` | Radius of the focus outline (matches card radius). |
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Patterns](./) 
 
-### Usage Example
-
-```html
-<!-- The user acts as if they clicked the whole card, but semantically they clicked the H3 link -->
-<article class="crd lnk">
-  <div class="crd__content">
-    <h3 class="t">
-      <!-- This link's hit area is stretched to cover the entire card with default z-index of 3 -->
-      <a href="/post/1">Read Article</a>
-    </h3>
-    <p>Excerpt...</p>
-    
-    <!-- This button sits z-index higher, so it remains clickable separately -->
-    <button class="btn sm" style="z-index: 4; position: relative;">Save</button>
-  </div>
-  <figure class="crd__media">
-    <img src="thumb.jpg" alt="">
-  </figure>
-</article>
-```
+[Back to top](#)

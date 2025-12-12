@@ -1,212 +1,286 @@
 # Typography Module
 
-**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Typography](./) 
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Typography](./)
 
-**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](./) | [Components](../components/) | [Utilities](../utilities/)
-
+**Modules**: [Config](../config/) | [Base](../base/) | [Layout](../layout/) | [Theming](../theming/) | [Typography](./) | [Patterns](../patterns/) | [Utilities](../utilities/)
 > **Fluid Typography**. A system where semantics (`h1`) and style (`.t`) are decoupled. Features smooth `clamp()`-based scaling for both Headings (`.t`) and Body Text (`.tx`), covering a massive range (from `xxl` down to `xxs+`) to ensure perfect readability on every device.
 
 ---
 
-## 📑 Page Contents
-*   [Installation](#-installation)
-*   [Title (`.t`)](#1-title-t)
-*   [Text (`.tx`)](#2-text-tx)
-*   [Text Align (`.ta`)](#3-text-align-ta)
+## 📑 Contents
+
+*   [🌟 Overview](#-overview)
+*   [🤯 Philosophy](#-philosophy)
+    *   [The Death of Breakpoints](#the-death-of-breakpoints)
+    *   [Semantics First, Visuals Second](#semantics-first-visuals-second)
+*   [🚀 Getting Started](#-getting-started)
+*   [📦 Installation & Stats](#-installation--stats)
+    *   [Bundle Stats](#bundle-stats)
+    *   [Direct Links](#direct-links)
+    *   [HTML Snippets](#html-snippets)
+*   [📂 Files Reference](#-files-reference)
+*   [🧠 Deep Dive](#-deep-dive)
+    *   [1. Fluid Scaling Mathematics (`clamp`)](#1-fluid-scaling-mathematics-clamp)
+    *   [2. The Title System (`.t`)](#2-the-title-system-t)
+    *   [3. The Text System (`.tx`)](#3-the-text-system-tx)
+*   [📍 Reference: Content Map](#-reference-content-map)
+    *   [Title Sizes (`.t`)](#title-sizes-t)
+    *   [Text Sizes (`.tx`)](#text-sizes-tx)
+    *   [Font Weights](#font-weights)
+    *   [Alignment (`.ta`)](#alignment-ta)
+    *   [Line Heights](#line-heights)
+*   [💡 Best Practices & Customization](#-best-practices--customization)
+    *   [Binding to Semantics](#binding-to-semantics)
+    *   [Responsive Alignment](#responsive-alignment)
+    *   [The "Hero" Header Pattern](#the-hero-header-pattern)
+*   [🔧 For Developers](#-for-developers)
 
 ---
 
-## Typography Module
+## 🌟 Overview
 
-The **Typography Module** provides a comprehensive, responsive type system. It separates "semantic HTML tags" from "visual styles", allowing any element to look like a heading or body text. It relies heavily on **fluid typography** (`clamp()`) to ensure text scales perfectly from mobile to ultra-wide displays without requiring a dozen breakpoints.
+The **Typography Module** handles the size, weight, line-height, and alignment of text.
+It separates **Headings** (`.t`, Title) from **Body Copy** (`.tx`, Text) to allow for distinct font-family and scaling logic.
 
-### Philosophy: Semantic Decoupling
-In traditional CSS, `<h1>` means "Big Text". In uCss, `<h1>` means "Top Level Heading".
-*   **The visual style** is controlled by the `.t` (Title) class.
-*   **The semantics** are controlled by the HTML tag.
-This means you can have a visually small `<h1>` (for a minor page) or a visually huge `<p>` (for a marketing slogan) without hurting SEO or Accessibility.
+### Top Features
+1.  **Fluid Scaling**: A `.t--xl` isn't `4rem`. It's `clamp(3rem, 1.5vw + 2.6rem, 4rem)`. It truly scales linearly with the viewport width.
+2.  **Container Aware Alignment**: `.ta-c--lg` centers text only when the *container* is large, not when the screen is large.
+3.  **Decoupled Weights**: Use `.xb` (Extra Bold) or `.lt` (Light) independent of the heading level.
+4.  **Semantic Mapping**: You can make a `<span class="t--h1">` look like an H1, or an `<h1 class="t--h4">` look like an H4. Note: uCss separates *semantics* (HTML tag) from *visuals* (Classes).
 
-### 🧠 Thinking in Typography
-1.  **Clamp is King**: Stop writing `@media (min-width: 768px) { font-size: ... }`. Our variables use `clamp()`. They are small on mobile and big on desktop *automatically*.
-2.  **Tag Agnosticism**: Never assume an `<h2>` has a size. An `<h2>` is just a semantic node. You must give it a `.t` class to give it a visual hierarchy.
-3.  **Readability**: We default to `1.5` line-height for body text (`.tx`). Don't tight-pack text unless it's a headline (`.t`).
+> [!LIGHTBULB]
+> **Why separate `.t` and `.tx`?**
+> Because Titles usually have tight line-heights (1.1 - 1.25) and display fonts. Body text needs looser line-heights (1.5 - 1.6) and readable serif/sans fonts. Separating them allows global tuning.
 
-## 📦 Installation
+---
 
-| Bundle | Stable | Latest |
-| :--- | :--- | :--- |
-| **`typography`** | [src](https://ucss.unqa.dev/stable/lib/typography.css) • [clean](https://ucss.unqa.dev/stable/lib/typography.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography.css) • [clean](https://ucss.unqa.dev/latest/lib/typography.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography.min.css) |
+## 🤯 Philosophy
 
-### Individual Files
+> **Computed Fluidity**. `typography.css` is a typesetting engine that abandons static pixel values for fluid mathematics. Using `clamp()` functions, typography in uCss scales smoothly between a minimum viewport size and a maximum viewport size, ensuring perfect legibility on any device without media query "jumps".
 
-| File | Description | Stable | Latest |
+### The Death of Breakpoints
+Traditional frameworks use "breakpoints".
+*   Mobile: 16px.
+*   Tablet: 18px.
+*   Desktop: 20px.
+
+This causes:
+1.  **Jumps**: As you resize, the text snaps awkwardly.
+2.  **Orphans**: A perfectly wrapped headline on 1000px might break into an orphan word on 999px.
+
+**uCss Fluidity**:
+We define a start point (2.5rem at 320px) and an end point (3.5rem at 1366px container width). The browser calculates the perfect pixel value for every single pixel in between.
+
+### Semantics First, Visuals Second
+Don't abuse `<h1>` just to get big text. Use `<p class="t--xxl">`.
+Don't abuse `<h6>` just to get small text. Use `<p class="t--xs">`.
+Keep your document outline (H1 -> H2 -> H3) clean for screen readers and SEO, and use uCss classes to style them to match your design.
+
+---
+
+## 🚀 Getting Started
+
+### The "Clicked" Moment
+1.  Type `<h1>Hello World</h1>`. It sizes itself based on defaults.
+2.  Add class `.t--xxxl`. Watch it become massive.
+3.  Add class `.ta-c`. It centers.
+4.  Add class `.up`. It becomes UPPERCASE.
+5.  Resize the window. Watch it shrink smoothly, maintaining proportionality.
+
+### Rollout in 5 Seconds
+1.  **Load the module**: `typography.min.css`.
+2.  **Style a Hero**: `<h1 class="t t--xxxl ta-c lh--xs">Big Title</h1>`.
+3.  **Style a Caption**: `<p class="tx tx--s ta-c--md lt">Small centered light text</p>`.
+
+---
+
+## 📦 Installation & Stats
+
+### Bundle Stats
+
+| File | Full (Raw) | Clean | Min | Gzip | Brotli |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`typography.css` (Aggregator)** | **~15 KB** | **~10 KB** | **~8.6 KB** | **~1.6 KB** | **~1.3 KB** |
+| `title.css` | 6.1 KB | 4.2 KB | 3.4 KB | 0.8 KB | 0.7 KB |
+| `text.css` | 6.4 KB | 4.6 KB | 3.8 KB | 0.8 KB | 0.7 KB |
+| `text-align.css` | 2.1 KB | 1.4 KB | 1.2 KB | 0.3 KB | 0.3 KB |
+
+### Direct Links
+
+| Module | Full Source | Clean Source | Minified (Prod) |
 | :--- | :--- | :--- | :--- |
-| `title.css` | Headings (`.t`) | [src](https://ucss.unqa.dev/stable/lib/typography/title.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/title.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/title.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/title.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/title.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/title.min.css) |
-| `text.css` | Body Text (`.tx`) | [src](https://ucss.unqa.dev/stable/lib/typography/text.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text.min.css) |
-| `text-align.css` | Alignment (`.ta`) | [src](https://ucss.unqa.dev/stable/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/stable/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography/text-align.min.css) | [src](https://ucss.unqa.dev/latest/lib/typography/text-align.css) • [clean](https://ucss.unqa.dev/latest/lib/typography/text-align.clean.css) • [min](https://ucss.unqa.dev/latest/lib/typography/text-align.min.css) |
+| **Typography** | [typography.css](https://ucss.unqa.dev/stable/lib/typography.css) | [typography.clean.css](https://ucss.unqa.dev/stable/lib/typography.clean.css) | [typography.min.css](https://ucss.unqa.dev/stable/lib/typography.min.css) |
 
+### HTML Snippets
 
-> [!TIP]
-> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
-
-### HTML Copy & Paste
-
-| File | HTML Snippet (Stable) |
-| :--- | :--- |
-| **`typography`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography.min.css">` |
-| `title.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography/title.min.css">` |
-| `text.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography/text.min.css">` |
-| `text-align.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography/text-align.min.css">` |
-
----
-
-## 1. Title (`.t`)
-Structural headings and display text.
-
-### Features
-*   **Fluid Scaling**: All sizes use `clamp()` logic. A `.t` heading is smaller on mobile and automatically grows on desktop.
-*   **Tag Agnostic**: Use `.t` on `<div>`, `<span>`, or `p` to give them heading styling without affecting SEO semantics.
-*   **Smart Defaults**: Default weight is **800** (Extra Bold) for strong visual hierarchy.
-
-### The Mathematics of Clamp
-We use `clamp(min, val, max)` to generate fluid sizes.
-*   **Min**: The size on a narrow mobile phone (e.g., `2.5rem` for Medium).
-*   **Max**: The size on a wide desktop monitor (e.g., `3.5rem`).
-*   **Val**: A calculated slope (e.g., `1.5vh + 1rem`) that scales linearly between them.
-This removes the "step effect" where font size jumps suddenly at a breakpoint. It is always the perfect size for the container width.
-
-### Sizes
-
-| Size | Class | Clamp Logic (Mobile -> Desktop) |
-| :--- | :--- | :--- |
-| **xxxl** | `.t.xxxl`, `.t--3xl` | `3.5rem` → `5rem` |
-| **xxl** | `.t.xxl`, `.t--2xl` | `3.25rem` → `4.5rem` |
-| **xl** | `.t.xl` | `3rem` → `4rem` |
-| **l** | `.t.l` | `2.75rem` → `3.75rem` |
-| **m** | `.t.m` (Default) | `2.5rem` → `3.5rem` |
-| **s** | `.t.s` | `2.25rem` → `3rem` |
-| **xs** | `.t.xs` | `2rem` → `2.5rem` |
-| **xxs** | `.t.xxs`, `.t--2xs` | `1.75rem` → `2.25rem` |
-| **xxxs** | `.t.xxxs`, `.t--3xs` | `1.5rem` → `2rem` |
-
-### Weights & Styles
-
-| Class | Appearance | Weight |
-| :--- | :--- | :--- |
-| `.ub`, `.hl` | Ultra-Bold (Headline) | 900 |
-| `.xb` | Extra-Bold | 800 |
-| `.bd` | Bold | 700 |
-| `.sb` | Semi-Bold | 600 |
-| `.md` | Medium | 500 |
-| `.rg` | Regular | 400 |
-| `.lt` | Light | 300 |
-| `.up` | UPPERCASE | - |
-
-### Usage Examples
-
-#### Standard H1
+#### Standard
 ```html
-<!-- Uses default Medium size (2.5rem-3.5rem) and 800 weight -->
-<h1 class="t">Page Title</h1>
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography.min.css">
 ```
 
-#### Hero Section Display
+#### Prefixed (`/p/`)
 ```html
-<!-- Massive 3.5rem-5rem text, uppercase, 900 weight -->
-<h1 class="t xxxl hl">
-  We Build the Future
+<link rel="stylesheet" href="https://ucss.unqa.dev/p/lib/typography.min.css">
+```
+
+---
+
+## 📂 Files Reference
+
+| File | Description | Download |
+| :--- | :--- | :--- |
+| **`title.css`** | **Headings**. The `.t` class system. Handles `h1`-`h6` sizing logic and weight modifiers. Sets `font-family: var(--title-font)`. | [src](https://ucss.unqa.dev/stable/lib/typography/title.css) |
+| **`text.css`** | **Body**. The `.tx` class system. Handles paragraphs, captions, and generic text sizing. Sets `font-family: var(--text-font)`. | [src](https://ucss.unqa.dev/stable/lib/typography/text.css) |
+| **`text-align.css`** | **Alignment**. The `.ta` class system. Handles responsive alignment (`start`, `center`, `end`). | [src](https://ucss.unqa.dev/stable/lib/typography/text-align.css) |
+
+---
+
+## 🧠 Deep Dive
+
+### 1. Fluid Scaling Mathematics (`clamp`)
+The formula looks like this: `clamp(MIN, SLOPE + INTERCEPT, MAX)`.
+*   **MIN**: The font size on a 320px screen (e.g., 2rem).
+*   **MAX**: The font size on a 1366px screen (e.g., 4rem).
+*   **SLOPE**: The rate of growth (e.g., 5vw).
+
+**Example**:
+`clamp(2rem, 5vw + 1rem, 4rem)`
+*   At 320px viewport: `5vw` is small. Result -> `2rem`.
+*   At 800px viewport: `5vw` is bigger. Result -> `3rem`.
+*   At 1920px viewport: `5vw` is huge. Result -> `4rem` (Capped).
+
+uCss creates a hierarchy of these scales so that XXS text grows slowly, but XXXL text grows rapidly.
+
+### 2. The Title System (`.t`)
+The `.t` class essentially "activates" the Title Variable System on an element.
+*   **Variables**: It exposes `--t-fs` (Size), `--t-fw` (Weight), `--t-lh` (Line Height).
+*   **Base Styles**: It applies `font-family: var(--title-font)` and reset margins.
+*   **Modifiers**: Classes like `.xxl` then update the `--t-fs` variable to a specific fluid value.
+
+### 3. The Text System (`.tx`)
+The `.tx` system works identically to `.t`, but for body copy.
+*   **Variables**: `--tx-fs`, `--tx-fw`, `--tx-lh`.
+*   **Base Styles**: It applies `font-family: var(--text-font)`.
+*   **Defaults**: Uses a generous line-height (`1.5`) for readability, whereas Title uses a tight one (`1.25`).
+
+---
+
+## 📍 Reference: Content Map
+
+### Title Sizes (`.t`)
+
+| Class | Variable | Min Size | Max Size | Use Case |
+| :--- | :--- | :--- | :--- | :--- |
+| **`.t--xxxl`** | `--t-fs--xxxl` | `3.5rem` | `6rem` | Hero Titles |
+| **`.t--xxl`** | `--t-fs--xxl` | `3rem` | `5rem` | Page Titles |
+| **`.t--xl`** | `--t-fs--xl` | `2.5rem` | `4rem` | Section Headers |
+| **`.t--l`** | `--t-fs--l` | `2rem` | `3rem` | Card Titles |
+| **`.t--m`** | `--t-fs--m` | `1.75rem` | `2.5rem` | Subtitles |
+| **`.t--s`** | `--t-fs--s` | `1.5rem` | `2rem` | Widget Headers |
+| **`.t--xs`** | `--t-fs--xs` | `1.25rem` | `1.5rem` | Meta labels |
+
+### Text Sizes (`.tx`)
+
+| Class | Variable | Min Size | Max Size | Use Case |
+| :--- | :--- | :--- | :--- | :--- |
+| **`.tx--xxl`** | `--tx-fs--xxl` | `1.5rem` | `1.75rem` | Lead Paragraphs |
+| **`.tx--xl`** | `--tx-fs--xl` | `1.375rem` | `1.5rem` | Intro Text |
+| **`.tx--l`** | `--tx-fs--l` | `1.25rem` | `1.375rem` | Article Body (Large) |
+| **`.tx--m`** | `--tx-fs--m` | `1.125rem` | `1.25rem` | Default Body |
+| **`.tx--s`** | `--tx-fs--s` | `1rem` | `1.125rem` | UI Text / Captions |
+
+### Font Weights
+*Applies to both `.t` and `.tx`*
+
+| Class | Name | Weight |
+| :--- | :--- | :--- |
+| **`.ub`, `.hl`** | Ultra Bold / Headline | `900` |
+| **`.xb`, `.tb`** | Extra Bold / Title Bold | `800` |
+| **`.bd`** | Bold | `700` |
+| **`.sb`** | Semi Bold | `600` |
+| **`.md`** | Medium | `500` |
+| **`.rg`** | Regular | `400` |
+| **`.lt`** | Light | `300` |
+
+### Alignment (`.ta`)
+
+| Class | Logic | Responsive Modifiers |
+| :--- | :--- | :--- |
+| **`.ta`** | Base Toggle | |
+| **`.ta-s`** | Start (Left) | `.ta-s--sm`, `.ta-s--md`, `.ta-s--lg` |
+| **`.ta-c`** | Center | `.ta-c--sm`, `.ta-c--md`, `.ta-c--lg` |
+| **`.ta-e`** | End (Right) | `.ta-e--sm`, `.ta-e--md`, `.ta-e--lg` |
+| **`.ta-j`** | Justify | |
+
+### Line Heights
+
+| Class | Value | Usage |
+| :--- | :--- | :--- |
+| **`.lh--xs`** | `1` | Headings / Tiles. Tight packing. |
+| **`.lh--s`** | `1.125` | Tight text. |
+| **`.lh--m`** | `1.25` | Default Title LH. |
+| **`.lh--l`** | `1.375` | Relaxed. |
+| **`.lh--xl`** | `1.5` | Default Body LH. Max readability. |
+
+---
+
+## 💡 Best Practices & Customization
+
+### Binding to Semantics
+Don't write `<h2 class="t--xl">` everywhere.
+If your design system says H2s should always be XL, configure it in your theme:
+```css
+:root {
+  /* Re-bind the H2 variable to the XL sizing variable */
+  --h2-fs: var(--t-fs--xl);
+}
+```
+Now `<h2 class="t">` is automatically XL.
+Only use the classes (`.t--xl`) for **exceptions** (e.g., a specific marketing hero title that deviates from the system).
+
+### Responsive Alignment
+A common pattern is "Center on mobile, Left on desktop".
+```html
+<h1 class="t ta-c ta-s--lg">
+    I am Center on small screens, Left on large screens.
+</h1>
+```
+This reads: "Align Center by default. Align (Start) Left when container is Large."
+
+### The "Hero" Header Pattern
+For giant marketing headers, you often want:
+1.  Massive Size (`.t--xxxl`)
+2.  Tight Line Height (`.lh--xs`)
+3.  Heavy styling (`.up` uppercase, `.hl` headline weight)
+
+```html
+<h1 class="t t--xxxl lh--xs up hl ta-c">
+   The Future is Fluid
 </h1>
 ```
 
-#### Semantic Decoupling
-Styling a visual "heading" that is semantically just a subtitle.
-```html
-<h2 class="t l">Our Benefits</h2>
-<!-- Looks like a heading (h3 size), but is a paragraph -->
-<p class="t s lt">Why choose us?</p>
-```
+---
+
+## 🔧 For Developers
+
+*   **Custom Fonts**: To change the font family, override `--title-font` and `--text-font`.
+    ```css
+    :root {
+       --title-font: 'Outfit', sans-serif;
+       --text-font: 'Inter', sans-serif;
+    }
+    ```
+*   **Extending Sizes**: If you need a `.massive` class:
+    ```css
+    .t.massive {
+      --t-fs: 10rem; /* Static override */
+      --t-lh: 1;
+    }
+    ```
+    Just set the variable; the `.t` class handles the application.
 
 ---
 
-## 2. Text (`.tx`)
-Body copy, captions, and standard reading text.
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Typography](./) 
 
-### Features
-*   **Readability First**: Default line-height is `1.5` and weight is `400`.
-*   **Separate Scale**: The `.tx` size scale is much smaller and granular than `.t`, designed for long-form reading.
-
-### Sizes
-
-| Suffix | Class | Clamp Logic (Mobile -> Desktop) |
-| :--- | :--- | :--- |
-| **xxl** | `.tx.xxl`, `.tx--2xl` | `1.5rem` → `1.75rem` |
-| **xl** | `.tx.xl` | `1.375rem` → `1.5rem` |
-| **l** | `.tx.l` | `1.25rem` → `1.375rem` |
-| **m** | `.tx.m` (Default) | `1.125rem` → `1.25rem` |
-| **s** | `.tx.s` | `1rem` → `1.125rem` |
-| **xs** | `.tx.xs` | `0.875rem` → `1rem` |
-| **xxs** | `.tx.xxs` | `0.75rem` → `0.875rem` |
-| **xxxs** | `.tx.xxxs` | `0.625rem` → `0.75rem` |
-
-### Weights
-Supports the same weights as specificed in **Title** (`.bd`, `.sb`, `.md`, `.rg`, `.lt`).
-
-### Usage Examples
-
-#### Long Form Article
-```html
-<article>
-  <!-- Lead paragraph: Larger size -->
-  <p class="tx l">
-    This is an introduction paragraph that needs more emphasis.
-  </p>
-  
-  <!-- Standard body text -->
-  <p class="tx">
-     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  </p>
-  
-  <!-- Small metadata -->
-  <span class="tx xs lt">Posted on Dec 7th</span>
-</article>
-```
-
----
-
-## 3. Text Align (`.ta`)
-Responsive text alignment utilities using container queries.
-
-### Class Reference
-
-| Class | Property | Value |
-| :--- | :--- | :--- |
-| `.ta-s` | `text-align` | `start` (Left in LTR) |
-| `.ta-c` | `text-align` | `center` |
-| `.ta-e` | `text-align` | `end` (Right in LTR) |
-
-### Responsive Modifiers
-All alignment classes support `--sm`, `--md`, and `--lg` suffixes to apply styles only at specific container widths.
-
-*   `--sm`: Small containers (< 670px)
-*   `--md`: Medium containers (670px - 1000px)
-*   `--lg`: Large containers (> 1000px)
-
-### Usage Examples
-
-#### Responsive Card
-Text is centered on mobile (default), but left-aligned on desktop (`.ta-s--lg`).
-```html
-<div class="card ta-c ta-s--lg">
-  <h2 class="t m">Feature Name</h2>
-  <p class="tx">Description text explaining the feature.</p>
-</div>
-```
-
-#### Toolbar
-Right-aligned actions on desktop, centered on mobile.
-```html
-<div class="toolbar ta-c ta-e--md">
-    <button>Settings</button>
-    <button>Logout</button>
-</div>
-```
+[Back to top](#)

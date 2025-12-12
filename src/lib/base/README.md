@@ -1,65 +1,152 @@
 # Base Module
 
-**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Base](./) 
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Base](./)
 
-**Modules**: [Config](../config/) | [Base](./) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Components](../components/) | [Utilities](../utilities/)
+**Modules**: [Config](../config/) | [Base](./) | [Layout](../layout/) | [Theming](../theming/) | [Typography](../typography/) | [Patterns](../patterns/) | [Utilities](../utilities/)
 
-> **The Surgical Reset**. A lightweight foundation that normalizes browser inconsistencies without nuking useful defaults. Features the unique **Smart Flow** engine (`html.css`) for effortless vertical rhythm and the **Content Controller** (`content.css`) to seamlessly manage "App Layouts" vs "Article Content".
-
----
-
-## 📑 Page Contents
-*   [Installation](#-installation)
-*   [Smart Flow (`html.css`)](#1-smart-flow-htmlcss)
-*   [Content Controller (`.cs` / `.csc`)](#2-content-controller-cs--csc)
-*   [Clear List (`.cl`)](#3-clear-list-cl)
+> **The Surgical Reset**. A powerful normalization engine that creates a "Smart Flow" environment. Unlike traditional resets that just strip styles to zero, the Base module establishes a sophisticated system for **Vertical Rhythm** that works automatically using Lobotomized Owl selectors (`* + *`) and CSS Variables.
 
 ---
 
-## Base Module
+## 📑 Contents
 
-The **Base Module** provides the foundational resets and normalizations. Unlike aggressive resets that strip everything (like traditional Eric Meyer resets), this module is surgical—it normalizes behavior while offering sophisticated tools to manage "Content vs. App" spacing logic.
+*   [🌟 Overview](#-overview)
+*   [🤯 Philosophy](#-philosophy)
+    *   [Beyond "Resetting"](#beyond-resetting)
+    *   [The "Flow" Concept](#the-flow-concept)
+*   [🚀 Getting Started](#-getting-started)
+*   [📦 Installation & Stats](#-installation--stats)
+    *   [Bundle Stats](#bundle-stats)
+    *   [Direct Links](#direct-links)
+    *   [HTML Snippets](#html-snippets)
+*   [📂 Files Reference](#-files-reference)
+*   [🧠 Deep Dive](#-deep-dive)
+    *   [The Smart Flow Engine (`* + *`)](#the-smart-flow-engine---)
+    *   [Flow Controllers (`.s` vs `.sf`)](#flow-controllers-s-vs-sf)
+    *   [Focus & Accessibility](#focus--accessibility)
+*   [📍 Reference: Content Map](#-reference-content-map)
+    *   [Flow Variables](#flow-variables)
+    *   [Flow Classes](#flow-classes)
+    *   [Tag Logic Table](#tag-logic-table)
+*   [💡 Best Practices & Customization](#-best-practices--customization)
+    *   [App Mode vs Content Mode](#app-mode-vs-content-mode)
+    *   [Customizing Rhythm](#customizing-rhythm)
+*   [🔧 For Developers](#-for-developers)
 
-### Philosophy of Reset: "Smart Flow"
-We believe that `<p>` tags should have bottom margins and `<h1>` tags should have top margins *by default*, because that's how legibility works.
-*   **The Engine (`html.css`)**: We moved the "Smart Flow" logic directly into the global scope. "Naked" HTML elements (`p`, `h1`, `ul`) now have intelligent spacing relationships (e.g., using "Lobotomized Owl" style adjacent sibling selectors) powered by variables.
-*   **The Controller (`content.css`)**: We introduce a "Controller" file that simply *toggles* these variables on or off depending on the context (`.cs` vs `.csc`).
+---
 
-### 🧠 Thinking in Resets
-1.  **App vs Content**: Web apps need "Resets" (no margins) for precise layouts. Blog posts need "Typography" (rich margins) for reading. uCss handles both.
-2.  **The `.cs` Pattern**: If you are building a layout (columns, cards), wrap it in `.cs` (App Mode). This sets all flow variables to `0`, effectively neutralizing the Smart Flow engine.
-3.  **The `.csc` Restore**: If you drop a blog post inside that layout, wrap it in `.csc` (Content Mode) to restore the flow variables. The engine wakes up and spacing returns.
+## 🌟 Overview
 
-## 📦 Installation
+The **Base Module** is the foundation that ensures your HTML looks good "naked".
+It handles normalization, accessibility, and content flow.
 
-| Bundle | Stable | Latest |
-| :--- | :--- | :--- |
-| **`base`** | [src](https://ucss.unqa.dev/stable/lib/base.css) • [clean](https://ucss.unqa.dev/stable/lib/base.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base.min.css) | [src](https://ucss.unqa.dev/latest/lib/base.css) • [clean](https://ucss.unqa.dev/latest/lib/base.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base.min.css) |
+### Top Features
+1.  **Smart Flow Engine**: Margins are injected *between* elements automatically using `margin-block-start`. You rarely need utility classes for spacing in text content.
+2.  **Context Switching**: Easily toggle between "App Mode" (No automatic margins) and "Content Mode" (Automatic margins) with a single class.
+3.  **Semantic Mapping**: HTML tags (`h1`, `p`, `small`) are bound to Configuration variables. Change the config, and the base elements update.
+4.  **A11y First**: Strong, high-contrast focus rings for keyboard navigation by default.
 
-### Individual Files
+> [!LIGHTBULB]
+> **Why `margin-block-start`?**
+> We use Logical Properties (`block-start` instead of `top`) so that if you change your site's language direction (e.g., Vertical Japanese), the spacing remains logically correct up-down or right-left automatically.
 
-| File | Description | Stable | Latest |
+---
+
+## 🤯 Philosophy
+
+### Beyond "Resetting"
+Traditional resets (like Eric Meyer's reset) strip everything to zero.
+`h1 { font-size: 100%; margin: 0; }`
+This is great for consistency, but terrible for productivity. You immediately have to re-declare styles for every H1.
+uCss takes a "Normalize + Enhance" approach. We strip the *inconsistent* browser defaults, but we *add back* a consistent, variable-driven baseline.
+
+### The "Flow" Concept
+In the uCss philosophy, **Vertical Rhythm** is the default state of content.
+*   **Without uCss**: You manually calculate and add margin-bottom to every paragraph.
+*   **With uCss**: The system assumes everything flows vertically and needs space, unless you tell it otherwise.
+
+---
+
+## 🚀 Getting Started
+
+### The "Clicked" Moment
+Create a raw HTML file with no classes:
+```html
+<article>
+  <h1>My Journey</h1>
+  <p>It started on a Tuesday.</p>
+  <blockquote>"Code is Poetry"</blockquote>
+  <p>Then I wrote some more.</p>
+</article>
+```
+With uCss Base, this renders perfectly.
+*   Space between `h1` and `p`.
+*   Space between `p` and `blockquote`.
+*   Space within the blockquote.
+All without a single utility class.
+
+### Rollout in 5 Seconds
+1.  **Include**: `<link ... base.min.css>`.
+2.  **Reset**: Add `<body class="s">` (Sets global default to "Section" / App Mode).
+3.  **Enable**: Add `<main class="sf">` (Sets main content to "Start Flow" / Article Mode).
+
+---
+
+## 📦 Installation & Stats
+
+### Bundle Stats
+
+| File | Full (Raw) | Clean | Min | Gzip | Brotli |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`html.css` (Aggregator)** | **~8 KB** | **~6 KB** | **~4 KB** | **~1.0 KB** | **~1.0 KB** |
+| `flow.css` | 4.0 KB | 3.0 KB | 2.0 KB | 0.8 KB | 0.6 KB |
+| `reset.css` | 1.5 KB | 1.2 KB | 1.0 KB | 0.4 KB | 0.3 KB |
+| `typography.css` | 1.0 KB | 0.8 KB | 0.6 KB | 0.2 KB | 0.2 KB |
+
+### Direct Links
+
+| Module | Full Source | Clean Source | Minified (Prod) |
 | :--- | :--- | :--- | :--- |
-| `html.css` | **Engine**. Global Reset & Smart Flow Logic | [src](https://ucss.unqa.dev/stable/lib/base/html.css) • [clean](https://ucss.unqa.dev/stable/lib/base/html.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/html.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/html.css) • [clean](https://ucss.unqa.dev/latest/lib/base/html.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/html.min.css) |
-| `content.css` | **Controller**. App Mode / Content Mode | [src](https://ucss.unqa.dev/stable/lib/base/content.css) • [clean](https://ucss.unqa.dev/stable/lib/base/content.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/content.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/content.css) • [clean](https://ucss.unqa.dev/latest/lib/base/content.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/content.min.css) |
+| **html.css** | [html.css](https://ucss.unqa.dev/stable/lib/base/html.css) | [html.clean.css](https://ucss.unqa.dev/stable/lib/base/html.clean.css) | [html.min.css](https://ucss.unqa.dev/stable/lib/base/html.min.css) |
 
+### HTML Snippets
 
-> [!TIP]
-> **Encapsulation**: uCss supports automatic prefixing (e.g., `.u-btn`). See [Encapsulation & Prefixing](../../../README.md#encapsulation--prefixing-new) for build instructions.
+#### Standard
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/base.min.css">
+```
 
-### HTML Copy & Paste
+#### Prefixed (`/p/`)
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/p/lib/base.min.css">
+```
 
-| File | HTML Snippet (Stable) |
-| :--- | :--- |
-| **`base`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/base.min.css">` |
-| `content.css` | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/base/content.min.css">` |
+#### Only Variables (`/v/`)
+```html
+<link rel="stylesheet" href="https://ucss.unqa.dev/v/lib/base.min.css">
+```
+
 
 ---
 
-## 1. Smart Flow (`html.css`)
-This is the invisible engine of uCss. It ensures that standard HTML elements stack with perfect vertical rhythm without you adding any classes.
+## 📂 Files Reference
 
-### How it Works
+| File | Description |
+| :--- | :--- |
+| **`html.css`** | The **Controller**. Imports all partials below. Use this file to load the module. |
+| **`flow.css`** | The **Engine**. Contains the Lobotomized Owl (`* + *`) selectors and the `.s` (design *section*) / `.sf` (*smart flow*) logic. |
+| **`reset.css`** | The **Normalizer**. Sets `box-sizing: border-box`, standardizes input fonts, removes default margins. |
+| **`typography.css`** | The **Binder**. Maps semantic tags (`h1`-`h6`, `small`, `code`) to Config variables. |
+| **`lists.css`** | The **Cleaner**. specific logic for `ul` and `ol` spacing and markers. |
+| **`forms.css`** | The **Basics**. Minimal styling for `input` and `textarea` to make them usable (standardized font, box model). |
+| **`media.css`** | The **Media**. Sets `img`, `video` to `max-width: 100%` and `height: auto` to prevent layout blowouts. |
+
+---
+
+## 🧠 Deep Dive
+The `html.css` is the invisible engine of uCss. It ensures that standard HTML elements stack with perfect vertical rhythm without you adding any classes.
+
+### The Smart Flow Engine (`* + *`)
 Instead of `p { margin-bottom: 1em }`, we use **Adjacent Sibling Selectors** (`* + *`) and **Variables**.
 
 ```css
@@ -80,73 +167,116 @@ This means:
 *   Last child elements have **0 bottom margin** (perfect container sizing).
 *   Everything in between flows naturally.
 
+**How it works**:
+1.  **`*` (Universal)**: Select everything...
+2.  **`+ *` (Adjacent Sibling)**: ...that comes immediately after another element.
+3.  **Result**: The *first* child gets no margin (flush top). Every subsequent child gets a top margin.
+
+**Why this is genius**:
+*   It respects the container. If you have a card with padding, the first text element inside sits right at the top of the padding.
+*   It collapses cleanly.
+
+### Flow Controllers (`.s` vs `.sf`)
+These classes are technically "Variable Re-definers".
+
+**`.s` (Design *Section*)**
+*   Used for: Layouts, Grids, Dashboards, Toolbars.
+*   Logic: Sets `--p-flow` (and others) to `0`.
+*   Result: Elements stack with 0px space. You must use utility classes (`gap`, `mgb`) to inspect spacing.
+
+**`.sf` (*Smart Flow*)**
+*   Used for: Articles, Docs, Blog Posts, Bios inside a `.s` (Section).
+*   Logic: Resets `--p-flow` to `0.75em`, `--h-flow` to `1em`, etc.
+*   Result: Elements space themselves out naturally based on text size.
+
+### Focus & Accessibility
+We remove the default browser outline (`outline: none`) ONLY to replace it immediately with a better one.
+```css
+:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+}
+```
+*   **Variable Driven**: You can change `--focus-ring-color` globally or locally (e.g., distinct focus color on a dark background).
+*   **Keyboard Only**: We mainly target `:focus-visible` so mouse users aren't annoyed by clicking buttons and seeing rings, but tab-users get clear indicators.
+
 ---
 
-## 2. Content Controller (`.cs` / `.csc`)
-One of the hardest parts of CSS is managing margins on typography. You often end up with "double margins" or fighting specificity. `content.css` helps you control the Smart Flow variables.
+## 📍 Reference: Content Map
 
-### App vs Content Mode
-*   **Default Browser Behavior**: Margins are everywhere.
-*   **The Problem**: In a custom web app (like a dashboard), these default margins fight against your layout.
-*   **The Solution (`.cs`)**: The `.cs` class sets all flow variables (`--p-flow`, `--t-flow-s`, etc.) to **0**. The Smart Flow engine is still running, but it's adding "0px" of margin.
-*   **The Re-Application (`.csc`)**: The `.csc` class restores those variables to their defaults from `root.css`.
+### Flow Variables (`flow.css`)
+These control the `* + *` spacing.
 
-### Logic Summary
-1.  **Wrapper**: `<section class=".cs">` (App Mode) -> Variables are `0`. Use this for your layout shell.
-2.  **Inner Content**: `<div class=".csc">` (Content Mode) -> Variables are `1em`. Use this for the inner blog post text.
+| Variable | Default Value | Context |
+| :--- | :--- | :--- |
+| **`--p-flow`** | `0.75em` | Standard text flow (paragraph to paragraph). |
+| **`--el-flow`** | `1.25em` | Element flow (text to list, text to table). |
+| **`--t-flow-s`** | `1em` | Title Start. Space *before* a heading. |
+| **--t-flow-e`** | `0.375em` | Title End. Space *after* a heading (Heading to Text). |
+| **`--li-flow`** | `0.5em` | List Item flow (space between `<li>`). |
 
-### Classes
+### Flow Classes
 
 | Class | Name | Behavior |
 | :--- | :--- | :--- |
-| `.cs` | **Content Spacing (Reset)** | **Kills** flow variables. Effectively removes default margins from children. Use on containers. |
-| `.csc` | **Content Spacing Child (Restore)** | **Restores** flow variables. Re-activates vertical rhythm. Use inside `.cs` |
-| `.cnt` | **Contents** | `display: contents` utility. |
+| **`.s`** | **Section** | Kills flow. Use for structures. |
+| **`.sf`** | **Smart Flow** | Enables smart flow. Use for copy. |
+| **`.cl`** | **Clear List** | Removes bullets/numbers from `ul`/`ol`. |
 
-### Usage Examples
+### Tag Logic Table
 
-#### App Shell + Blog Post
-```html
-<!-- 1. Outer Shell: .cs sets flow vars to 0. We control layout with GRID/FLEX gaps. -->
-<section class="cs f col gap-xl">
-    
-    <!-- Header: No random margins interfering here -->
-    <header>
-        <h1>Custom Page Title</h1>
-    </header>
-
-    <!-- 2. Inner Content: .csc restores flow vars for readability -->
-    <div class="csc">
-        <!-- Everything here will have nice vertical rhythm again -->
-        <p>This is paragraph text from the CMS.</p>
-        <ul>
-            <li>List item</li>
-        </ul>
-        <p>More text.</p>
-    </div>
-    
-</section>
-```
+| Tag | Bound Variable |
+| :--- | :--- |
+| `h1` | `--t-fs--s` (via `--h-fs`) |
+| `h2` | `--t-fs--xs` |
+| `h3` | `--t-fs--xxs` |
+| `p` | `--tx-fs--s` |
+| `small`| `--tx-fs--xs` |
+| `code` | `--mono-font` |
+| `pre` | `--mono-font` + `--d-lt` (Always dark lite) |
 
 ---
 
-## 3. Clear List (`.cl`)
-A utility to strip default list styling, useful for navigation menus or grids.
+## 💡 Best Practices & Customization
 
-### Features
-*   Removes `list-style-type`.
-*   Removes `padding-inline`.
-*   Sets `--list-flow: 0` (integrates with Smart Flow).
-
-### Usage Examples
-
-#### Navigation Menu
+### App (Design) Mode vs Content (Smart Flow) Mode
+A common architecture pattern in uCss:
 ```html
-<nav>
-  <!-- Clean semantic list without bullets or indent -->
-  <ul class="cl f row gap-m">
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About</a></li>
-  </ul>
-</nav>
+<!-- Outer Shell: App Mode (.s) -->
+<div class="s">
+    
+    <!-- Header: App Mode (Manual spacing) -->
+    <header class="f row jc-sb">...</header>
+
+    <!-- Main Content: Content Mode (.sf) -->
+    <main class="sf article-body">
+        <h1>Title</h1>
+        <p>Text...</p>
+    </main>
+</div>
 ```
+Use `.s` for the layout, `.sf` for the content.
+
+### Customizing Rhythm
+Sometimes you want a "Relaxed" read mode.
+```css
+.long-form-article {
+    /* Increase spacing locally */
+    --p-flow: 1.5em; 
+    --t-flow-s: 3em; 
+}
+```
+Apply this class to your `<article>` and the entire document rhythm expands loosely.
+
+---
+
+## 🔧 For Developers
+
+*   **Specificty Hack**: `html.css` uses specificty-leveling tricks (like `:where()`) to ensure that your Utility classes (`.mgb-0`) always win against the automatic Flow margins.
+*   **Debugging**: If an element isn't spacing correctly, inspect the `margin-block-start`. If it's `0`, check if you are accidentally inside a `.s` container.
+
+---
+
+**Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Base](./) 
+
+[Back to top](#)

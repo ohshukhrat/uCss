@@ -42,12 +42,13 @@
 
 /* Paragraphs & Text */
 :where(p) {
+    font-size: var(--paragraph-font-size, var(--p-fs, var(--tx-fs, var(--tx-fs--s, 1rem))));
     margin-block: 0;
     max-width: var(--flow-max-width, 65ch);
 }
 
 :where(small) {
-    font-size: 0.875em;
+    font-size: var(--small-font-size, var(--tx-fs--xs, 0.875em));
 }
 
 :where(b, strong) {
@@ -57,10 +58,10 @@
 
 /* Links */
 :where(a) {
-    color: var(--link, var(--alt-bd, var(--p, #eec14c)));
-    text-decoration: underline;
-    text-decoration-thickness: var(--a-td-t, var(--bd-w, 1px));
-    text-underline-offset: var(--a-td-o, 0.125em);
+    color: var(--link, var(--alt-bd, var(--p, #000)));
+    text-decoration: var(--link-text-decoration, var(--a-td, underline));
+    text-decoration-thickness: var(--link-text-decoration-thickness, var(--a-td-t, var(--bd-w, 1px)));
+    text-underline-offset: var(--link-text-decoration-offset, var(--a-td-o, 0.125em));
     transition: color var(--trans-d, 0.16s) ease, text-decoration-color var(--trans-d, 0.16s) ease;
 }
 
@@ -68,11 +69,12 @@
     outline: var(--link-focus-ring, 0.125rem solid var(--p, currentColor));
     outline-offset: var(--link-focus-offset, 0.125rem);
     text-decoration: none;
-    border-radius: var(--rad--xs, 0.125em);
+    border-radius: var(--link-focus-radius, var(--rad--xs, 0.125em));
 }
 
 :where(a:hover) {
     color: var(--link-hover, var(--a, #eec14c));
+    text-decoration: var(--link-hover-text-decoration, var(--a-td, underline));
 }
 
 /* Inline Code */
@@ -81,19 +83,20 @@
     font-size: var(--code-fs, 0.9em);
     padding: var(--code-pd, 0.1em 0.3em);
     border-radius: var(--code-rad, var(--rad--xs, 0.25em));
-    background-color: var(--code-bg, var(--srf, #eee));
-    color: var(--code-tx, var(--t, #000));
+    background-color: var(--code-bg, var(--d, #eee));
+    color: var(--code-tx, var(--l-lt, #ececec));
 }
 
 /* Preformatted blocks */
 :where(pre) {
-    background-color: var(--pre-bg, var(--d, #222));
-    color: var(--pre-tx, var(--l, #fff));
+    background-color: var(--pre-bg, var(--d-lt, #141414));
+    color: var(--pre-tx, var(--l, #f5f5f5));
     padding: var(--pre-pd, var(--gap, 1.5rem));
     border-radius: var(--rad--xs, 0.5rem);
     overflow-x: auto;
     font-family: var(--mono-font, monospace);
     font-size: var(--pre-fs, 0.9em);
+    line-height: var(--pre-lh, 1.375em);
     /* Margin handled by Smart Flow */
     margin-block: 0;
 }
@@ -118,6 +121,6 @@
 
 /* Selection Color */
 ::selection {
-    background-color: var(--p, #eec14c);
-    color: var(--on-p, #000);
+    background-color: var(--selection-bg, var(--p, #eec14c));
+    color: var(--selection-text-color, var(--on-p, #000));
 }

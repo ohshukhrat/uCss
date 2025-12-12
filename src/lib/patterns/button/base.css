@@ -63,6 +63,21 @@ a.btn {
     min-block-size: var(--btn-min-height, var(--btn-min-h,
                 calc(var(--btn-fs, 1.125rem) * var(--btn-lh, 1.5) + var(--btn-pb, var(--btn-p, .625em)) * 2 + var(--btn-border-w, var(--btn-bw, .125rem)) * 2)));
 
+    :not(.g, .sg, .sgc, .f, .row, .col, .crd .block-library-block__reusable-block-container):has(> &) {
+        --btn-c-name: var(--c-name, btnsp);
+        --btn-c-type: var(--c-type, inline-size);
+        container: var(--btn-c-name, btnsp) / var(--btn-c-type, inline-size);
+
+        --btn-c-min-w: var(--c-min-w, 0);
+        --btn-c-max-w: var(--c-max-w, 100%);
+        --btn-c-w: var(--c-w, 100%);
+        min-inline-size: var(--btn-c-min-w, 0);
+        max-inline-size: var(--btn-c-max-w, 100%);
+        inline-size: var(--btn-c-w, 100%);
+
+        box-sizing: border-box;
+    }
+
     &:where([data-size="full"], .full) {
         --btn-w: 100%;
     }

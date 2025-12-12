@@ -14,8 +14,13 @@
    * The outer wrapper. Configured as a flex container by default.
    * Handles positioning, dimensions, background, and borders.
    */
-  display: var(--crd-d, flex);
-  flex-direction: var(--crd-fd--sm, var(--crd-fd, column));
+  display: var(--card-display, var(--crd-d, flex));
+
+  --f-fd: var(--crd-fd, column);
+  --f-fd--sm: var(--f-fd);
+  --f-fd--md: var(--f-fd);
+  --f-fd--lg: var(--f-fd);
+  flex-direction: var(--card-flex-direction, var(--crd-fd--sm, var(--f-fd--sm)));
 
   align-items: var(--crd-ai--sm, var(--crd-ai));
   justify-content: var(--crd-jc--sm, var(--crd-jc));
@@ -53,7 +58,9 @@
 
   text-align: var(--card-text-align, var(--crd-ta--sm, var(--crd-ta)));
 
-  color: var(--card-color, var(--crd-color, var(--card-text-c, var(--crd-tx-c, var(--set-tx, var(--set-c, var(--on-crd, var(--theme-palette-color-3, currentColor))))))));
+  color: var(--card-color, var(--crd-color, var(--card-text-c, var(--crd-tx-c,
+          var(--set-tx, var(--set-c, var(--on-crd,
+                var(--theme-palette-color-3, currentColor))))))));
   background-color: var(--card-background, var(--crd-bg));
 
   border-width: var(--card-border-w, var(--crd-border-w, 0));
@@ -94,26 +101,39 @@
   }
 
   /* --- Container Query Setup --- */
-  :not(.g, .sg, .sgc, .f):has(> &) {
-    container-name: crdp;
-    container-type: inline-size;
-    contain: inline-size layout;
+  :not(.g, .sg, .sgc, .block-library-block__reusable-block-container):has(> &) {
+    --crd-c-name: var(--c-name, crdp);
+    --crd-c-type: var(--c-type, inline-size);
+    container: var(--crd-c-name, crdp) / var(--crd-c-type, inline-size);
+
+    --crd-c-min-w: var(--c-min-w, 0);
+    --crd-c-max-w: var(--c-max-w, 100%);
+    --crd-c-w: var(--c-w, 100%);
+    min-inline-size: var(--crd-c-min-w, 0);
+    max-inline-size: var(--crd-c-max-w, 100%);
+    inline-size: var(--crd-c-w, 100%);
+
+    box-sizing: border-box;
   }
 
-  container: crd / inline-size;
-  contain: inline-size layout;
+  :where(&) {
+    --crd-c-name: var(--c-name, crd);
+    --crd-c-type: var(--c-type, inline-size);
+    container: var(--crd-c-name, crd) / var(--crd-c-type, inline-size);
 
-  &:where(.f, .row, .col) {
-    flex-direction: var(--crd-fd--sm, var(--crd-fd, var(--f-fd--sm, var(--f-fd))));
-    align-items: var(--crd-ai--sm, var(--crd-ai, var(--f-ai--sm, var(--f-ai))));
-    justify-content: var(--crd-jc--sm, var(--crd-jc, var(--f-jc--sm, var(--f-jc))));
-    align-content: var(--crd-ac--sm, var(--crd-ac, var(--f-ac--sm, var(--f-ac))));
-    gap: var(--card-gap, var(--crd-gap--sm, var(--crd-gap, var(--f-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
+    --crd-c-min-w: var(--c-min-w, 0);
+    --crd-c-max-w: var(--c-max-w, 100%);
+    --crd-c-w: var(--c-w, 100%);
+    min-inline-size: var(--crd-c-min-w, 0);
+    max-inline-size: var(--crd-c-max-w, 100%);
+    inline-size: var(--crd-c-w, 100%);
+
+    box-sizing: border-box;
   }
 
   /* --- 'md' CONTAINER (Ranged) --- */
   @container (669.99px <=width <=999.99px) {
-    flex-direction: var(--crd-fd--md, var(--crd-fd, column));
+    flex-direction: var(--crd-fd--md, var(--f-fd--md, column));
 
     align-items: var(--crd-ai--md, var(--crd-ai));
     justify-content: var(--crd-jc--md, var(--crd-jc));
@@ -129,18 +149,11 @@
     padding-inline: var(--crd-pi--md, var(--crd-pi, var(--crd-p--md, var(--crd-p, 1.25em))));
 
     text-align: var(--crd-ta--md, var(--crd-ta));
-
-    &:where(.f, .row, .col) {
-      flex-direction: var(--crd-fd--md, var(--crd-fd, var(--f-fd--md, var(--f-fd))));
-      align-items: var(--crd-ai--md, var(--crd-ai, var(--f-ai--md, var(--f-ai))));
-      justify-content: var(--crd-jc--md, var(--crd-jc, var(--f-jc--md, var(--f-jc))));
-      align-content: var(--crd-ac--md, var(--crd-ac, var(--f-ac--md, var(--f-ac))));
-    }
   }
 
   /* --- 'lg' CONTAINER (Ranged) --- */
   @container (width > 999.99px) {
-    flex-direction: var(--crd-fd--lg, var(--crd-fd, column));
+    flex-direction: var(--crd-fd--lg, var(--f-fd--lg, column));
 
     align-items: var(--crd-ai--lg, var(--crd-ai));
     justify-content: var(--crd-jc--lg, var(--crd-jc));
@@ -156,14 +169,6 @@
     padding-inline: var(--crd-pi--lg, var(--crd-pi, var(--crd-p--lg, var(--crd-p, 1.25em))));
 
     text-align: var(--crd-ta--lg, var(--crd-ta));
-
-
-    &:where(.f, .row, .col) {
-      flex-direction: var(--crd-fd--lg, var(--crd-fd, var(--f-fd--lg, var(--f-fd))));
-      align-items: var(--crd-ai--lg, var(--crd-ai, var(--f-ai--lg, var(--f-ai))));
-      justify-content: var(--crd-jc--lg, var(--crd-jc, var(--f-jc--lg, var(--f-jc))));
-      align-content: var(--crd-ac--lg, var(--crd-ac, var(--f-ac--lg, var(--f-ac))));
-    }
   }
 
   /**
@@ -173,12 +178,21 @@
    */
   :where(& > *) {
     /* 'sm' defaults */
+    --cc-o: 0;
     order: var(--cc-o--sm, var(--cc-o));
+
+    --cc-grow: 1;
+    --cc-shrink: 1;
+    --cc-basis: auto;
     flex-grow: var(--cc-grow--sm, var(--cc-grow));
     flex-shrink: var(--cc-shrink--sm, var(--cc-shrink));
     flex-basis: var(--cc-basis--sm, var(--cc-basis));
+
+    --cc-as: stretch;
     align-self: var(--cc-as--sm, var(--cc-as));
 
+    --cc-mbs: 0;
+    --cc-mbe: 0;
     margin-block-start: var(--cc-mbs--sm, var(--cc-mbs));
     margin-block-end: var(--cc-mbe--sm, var(--cc-mbe));
 
@@ -207,17 +221,7 @@
     }
   }
 
-  /**
-   * @group Content Typography
-   * Default styles for text elements inside the card.
-   */
-  :not(.btn, [data-style="btn"])> :where(p, span, div, button, a) {
-    color: var(--card-text-c, var(--crd-tx-c, var(--set-tx, var(--set-c, var(--on-crd, var(--theme-palette-color-3, currentColor))))));
-    font-size: var(--card-text-font-s, var(--crd-tx-fs, var(--crd-tx-fs-m, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)))));
-    font-weight: var(--card-text-font-w, var(--crd-tx-fw, var(--crd-fw, 400)));
-    line-height: var(--card-text-line-h, var(--crd-tx-lh, var(--crd-lh, 1.375)));
-    text-transform: var(--card-text-text-t, var(--crd-tx-tt, var(--crd-tt, none)));
-  }
+
 
   /**
    * @group Slots
@@ -311,7 +315,11 @@
   /* .crd__content is the primary PADDED wrapper for flex mode */
   :where(.crd__content) {
     display: var(--crd-content-d, flex);
-    flex-direction: var(--crd-content-fd--sm, var(--crd-content-fd, column));
+    --f-fd: var(--crd-content-fd, column);
+    --f-fd--sm: var(--f-fd);
+    --f-fd--md: var(--f-fd);
+    --f-fd--lg: var(--f-fd);
+    flex-direction: var(--crd-content-fd--sm, var(--f-fd--sm));
     gap: var(--crd-content-gap--sm, var(--crd-content-gap,
           var(--crd-gap--sm, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
 
@@ -331,9 +339,23 @@
   /* Granular slots (header, body, footer) for semantic structure */
   :where(.crd__header, .crd__body, .crd__footer) {
     display: var(--crd-slot-d, flex);
-    flex-direction: var(--crd-slot-fd--sm, var(--crd-slot-fd, column));
+    --f-fd: var(--crd-slot-fd, column);
+    --f-fd--sm: var(--f-fd);
+    --f-fd--md: var(--f-fd);
+    --f-fd--lg: var(--f-fd);
+    flex-direction: var(--crd-slot-fd--sm, var(--f-fd--sm));
     gap: var(--crd-slot-gap--sm, var(--crd-slot-gap, .75rem));
     flex-wrap: var(--crd-slot-fw--sm, var(--crd-slot-fw));
+
+    :where(>:not(svg, figure, img, picture, .btn)) {
+      display: var(--crd-slot-c-d, flex);
+      --f-fd: var(--crd-slot-c-fd, row);
+      flex-direction: var(--crd-slot-c-fd);
+      flex-wrap: var(--crd-slot-c-fw, wrap);
+      inline-size: var(--crd-slot-c-w, var(--crd-slot-c-size, 100%));
+      --f-gap: var(--crd-slot-c-gap, .75rem);
+      gap: var(--f-gap, .75rem);
+    }
   }
 
   :where(.crd__body) {
@@ -346,14 +368,6 @@
     margin-inline: var(--crd-slot-f-mi, var(--crd-slot-f-mis) var(--crd-slot-f-mie));
   }
 
-  :where(.f, .row, .col):where(.crd__content) {
-    flex-direction: var(--crd-content-fd--sm, var(--crd-content-fd, var(--f-fd--sm, var(--f-fd))));
-  }
-
-  :where(.f, .row, .col):where(.crd__header, .crd__body, .crd__footer) {
-    flex-direction: var(--crd-slot-fd--sm, var(--crd-slot-fd, var(--f-fd--sm, var(--f-fd))));
-  }
-
   /* --- 'md' Slot Overrides --- */
   @container (669.99px <=width <=999.99px) {
     :where(.crd__media) {
@@ -363,29 +377,22 @@
     }
 
     :where(.crd__content) {
-      flex-direction: var(--crd-content-fd--md, var(--crd-content-fd, column));
-      align-items: var(--crd-content-ai--md, var(--crd-content-ai, var(--crd-ai--md, var(--crd-ai))));
-      justify-content: var(--crd-content-jc--md, var(--crd-content-jc, var(--crd-jc--md, var(--crd-jc))));
-      align-content: var(--crd-content-ac--md, var(--crd-content-ac, var(--crd-ac--md, var(--crd-ac))));
-      gap: var(--crd-content-gap--md, var(--crd-content-gap,
+      flex-direction: var(--crd-con-fd--md, var(--f-fd--md));
+      align-items: var(--crd-con-ai--md, var(--crd-con-ai, var(--crd-ai--md, var(--crd-ai))));
+      justify-content: var(--crd-con-jc--md, var(--crd-con-jc, var(--crd-jc--md, var(--crd-jc))));
+      align-content: var(--crd-con-ac--md, var(--crd-con-ac, var(--crd-ac--md, var(--crd-ac))));
+      gap: var(--crd-con-gap--md, var(--crd-con-gap,
             var(--crd-gap--md, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
-      padding-block: var(--crd-content-pb--md, var(--crd-content-pb, var(--crd-content-p--md, var(--crd-content-p, 1.25rem))));
-      padding-inline: var(--crd-content-pi--md, var(--crd-content-pi, var(--crd-content-p--md, var(--crd-content-p, 1.25rem))));
-      flex-wrap: var(--crd-content-fw--md, var(--crd-content-fw, var(--crd-fw--md, var(--crd-fw))));
-      text-align: var(--crd-content-ta--md, var(--crd-content-ta, var(--crd-ta--md, var(--crd-ta))));
+      padding-block: var(--crd-con-pb--md, var(--crd-con-pb, var(--crd-con-p--md, var(--crd-con-p, 1.25rem))));
+      padding-inline: var(--crd-con-pi--md, var(--crd-con-pi, var(--crd-con-p--md, var(--crd-con-p, 1.25rem))));
+      flex-wrap: var(--crd-con-fw--md, var(--crd-con-fw, var(--crd-fw--md, var(--crd-fw))));
+      text-align: var(--crd-con-ta--md, var(--crd-con-ta, var(--crd-ta--md, var(--crd-ta))));
     }
 
     :where(.crd__header, .crd__body, .crd__footer) {
+      flex-direction: var(--crd-slot-fd--md, var(--f-fd--md));
       gap: var(--crd-slot-gap--md, var(--crd-slot-gap, .75rem));
       flex-wrap: var(--crd-slot-fw--md, var(--crd-slot-fw));
-    }
-
-    :where(.f, .row, .col):where(.crd__content) {
-      flex-direction: var(--crd-content-fd--md, var(--crd-content-fd, var(--f-fd--md, var(--f-fd))));
-    }
-
-    :where(.f, .row, .col):where(.crd__header, .crd__body, .crd__footer) {
-      flex-direction: var(--crd-slot-fd--md, var(--crd-slot-fd, var(--f-fd--md, var(--f-fd))));
     }
   }
 
@@ -398,32 +405,27 @@
     }
 
     :where(.crd__content) {
-      flex-direction: var(--crd-content-fd--lg, var(--crd-content-fd, column));
-      align-items: var(--crd-content-ai--lg, var(--crd-content-ai, var(--crd-ai--lg, var(--crd-ai))));
-      justify-content: var(--crd-content-jc--lg, var(--crd-content-jc, var(--crd-jc--lg, var(--crd-jc))));
-      align-content: var(--crd-content-ac--lg, var(--crd-content-ac, var(--crd-ac--lg, var(--crd-ac))));
-      gap: var(--crd-content-gap--lg, var(--crd-content-gap,
+      flex-direction: var(--crd-con-fd--lg, var(--f-fd--lg));
+      align-items: var(--crd-con-ai--lg, var(--crd-con-ai, var(--crd-ai--lg, var(--crd-ai))));
+      justify-content: var(--crd-con-jc--lg, var(--crd-con-jc, var(--crd-jc--lg, var(--crd-jc))));
+      align-content: var(--crd-con-ac--lg, var(--crd-con-ac, var(--crd-ac--lg, var(--crd-ac))));
+      gap: var(--crd-con-gap--lg, var(--crd-con-gap,
             var(--crd-gap--lg, var(--crd-gap, clamp(1rem, 0.382vw + 0.924rem, 1.25rem)))));
-      padding-block: var(--crd-content-pb--lg, var(--crd-content-pb, var(--crd-content-p--lg, var(--crd-content-p, 1.25rem))));
-      padding-inline: var(--crd-content-pi--lg, var(--crd-content-pi, var(--crd-content-p--lg, var(--crd-content-p, 1.25rem))));
-      flex-wrap: var(--crd-content-fw--lg, var(--crd-content-fw, var(--crd-fw--lg, var(--crd-fw))));
-      text-align: var(--crd-content-ta--lg, var(--crd-content-ta, var(--crd-ta--lg, var(--crd-ta))));
+      padding-block: var(--crd-con-pb--lg, var(--crd-con-pb, var(--crd-con-p--lg, var(--crd-con-p, 1.25rem))));
+      padding-inline: var(--crd-con-pi--lg, var(--crd-con-pi, var(--crd-con-p--lg, var(--crd-con-p, 1.25rem))));
+      flex-wrap: var(--crd-con-fw--lg, var(--crd-con-fw, var(--crd-fw--lg, var(--crd-fw))));
+      text-align: var(--crd-con-ta--lg, var(--crd-con-ta, var(--crd-ta--lg, var(--crd-ta))));
     }
 
     :where(.crd__header, .crd__body, .crd__footer) {
+      flex-direction: var(--crd-slot-fd--lg, var(--f-fd--lg));
       gap: var(--crd-slot-gap--lg, var(--crd-slot-gap, .75rem));
       flex-wrap: var(--crd-slot-fw--lg, var(--crd-slot-fw));
     }
-
-    :where(.f, .row, .col):where(.crd__content) {
-      flex-direction: var(--crd-content-fd--lg, var(--crd-content-fd, var(--f-fd--lg, var(--f-fd))));
-    }
-
-    :where(.f, .row, .col):where(.crd__header, .crd__body, .crd__footer) {
-      flex-direction: var(--crd-slot-fd--lg, var(--crd-slot-fd, var(--f-fd--lg, var(--f-fd))));
-    }
   }
 }
+
+/* Typography */
 
 .crd {
   :is(h2, h3, h4) {
@@ -433,6 +435,14 @@
     line-height: var(--card-title-line-h, var(--crd-t-lh, var(--crd-h-lh, 1.25)));
     letter-spacing: var(--card-title-letter-s, var(--crd-t-ls, var(--crd-h-ls)));
     text-transform: var(--card-title-text-t, var(--crd-t-tt, var(--crd-h-tt, none)));
+  }
+
+  :not(.btn, [data-style="btn"])> :where(p, span, div, button, a) {
+    color: var(--card-text-c, var(--crd-tx-c, var(--set-tx, var(--set-c, var(--on-crd, var(--theme-palette-color-3, currentColor))))));
+    font-size: var(--card-text-font-s, var(--crd-tx-fs, var(--crd-tx-fs-m, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)))));
+    font-weight: var(--card-text-font-w, var(--crd-tx-fw, var(--crd-fw, 400)));
+    line-height: var(--card-text-line-h, var(--crd-tx-lh, var(--crd-lh, 1.375)));
+    text-transform: var(--card-text-text-t, var(--crd-tx-tt, var(--crd-tt, none)));
   }
 
   a:not(.btn, [data-style="btn"]) {

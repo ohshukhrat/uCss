@@ -43,6 +43,7 @@
     --p-flow: var(--flow--m, 0.75em);
     --list-flow: var(--flow--s, 0.5em);
     --li-flow: var(--flow--s, 0.5em);
+    --el-flow: var(--flow--xl, 1.25em);
 
     --t-flow-s: var(--flow--l, 1em);
     --t-flow-e: var(--flow--xs, 0.375em);

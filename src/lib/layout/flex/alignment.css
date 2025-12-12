@@ -1,0 +1,316 @@
+/**
+ * @file Alignment Modifiers
+ * .ai-* (align-items), .jc-* (justify-content), .ac-* (align-content).
+ */
+
+/** Align Items */
+:where(.ai-s) {
+    --f-ai: flex-start;
+}
+
+:where(.ai-s--lg, .ai-s--mdl) {
+    --f-ai--lg: flex-start;
+}
+
+:where(.ai-s--md, .ai-s--smd, .ai-s--mdl) {
+    --f-ai--md: flex-start;
+}
+
+:where(.ai-s--sm, .ai-s--smd) {
+    --f-ai--sm: flex-start;
+}
+
+:where(.ai-c) {
+    --f-ai: center;
+}
+
+:where(.ai-c--lg, .ai-c--mdl) {
+    --f-ai--lg: center;
+}
+
+:where(.ai-c--md, .ai-c--smd, .ai-c--mdl) {
+    --f-ai--md: center;
+}
+
+:where(.ai-c--sm, .ai-c--smd) {
+    --f-ai--sm: center;
+}
+
+:where(.ai-c) {
+    --f-ai: center;
+}
+
+:where(.ai-c--lg, .ai-c--mdl) {
+    --f-ai--lg: center;
+}
+
+:where(.ai-e) {
+    --f-ai: flex-end;
+}
+
+:where(.ai-e--lg, .ai-e--mdl) {
+    --f-ai--lg: flex-end;
+}
+
+:where(.ai-e--md, .ai-e--smd, .ai-e--mdl) {
+    --f-ai--md: flex-end;
+}
+
+:where(.ai-e--sm, .ai-e--smd) {
+    --f-ai--sm: flex-end;
+}
+
+/** Justify Content */
+:where(.jc-s) {
+    --f-jc: start;
+}
+
+:where(.jc-s--lg, .jc-s--mdl) {
+    --f-jc--lg: start;
+}
+
+:where(.jc-s--md, .jc-s--smd, .jc-s--mdl) {
+    --f-jc--md: start;
+}
+
+:where(.jc-s--sm, .jc-s--smd) {
+    --f-jc--sm: start;
+}
+
+:where(.jc-c) {
+    --f-jc: center;
+}
+
+:where(.jc-c--lg, .jc-c--mdl) {
+    --f-jc--lg: center;
+}
+
+:where(.jc-c--md, .jc-c--smd, .jc-c--mdl) {
+    --f-jc--md: center;
+}
+
+:where(.jc-c--sm, .jc-c--smd) {
+    --f-jc--sm: center;
+}
+
+:where(.jc-e) {
+    --f-jc: end;
+}
+
+:where(.jc-e--lg, .jc-e--mdl) {
+    --f-jc--lg: end;
+}
+
+:where(.jc-e--md, .jc-e--smd, .jc-e--mdl) {
+    --f-jc--md: end;
+}
+
+:where(.jc-e--sm, .jc-e--smd) {
+    --f-jc--sm: end;
+}
+
+:where(.jc-sb) {
+    --f-jc: space-between;
+}
+
+:where(.jc-sb--lg, .jc-sb--mdl) {
+    --f-jc--lg: space-between;
+}
+
+:where(.jc-sb--md, .jc-sb--smd, .jc-sb--mdl) {
+    --f-jc--md: space-between;
+}
+
+:where(.jc-sb--sm, .jc-sb--smd) {
+    --f-jc--sm: space-between;
+}
+
+/**
+ * @group Wrap Modifiers
+ * .nowrap, .wrap.
+ */
+:where(.nowrap) {
+    --f-fw: nowrap;
+}
+
+:where(.nowrap--lg, .nowrap--mdl) {
+    --f-fw--lg: nowrap;
+}
+
+:where(.nowrap--md, .nowrap--smd, .nowrap--mdl) {
+    --f-fw--md: nowrap;
+}
+
+:where(.nowrap--sm, .nowrap--smd) {
+    --f-fw--sm: nowrap;
+}
+
+:where(.wrap) {
+    --f-fw: wrap;
+}
+
+:where(.wrap--lg, .wrap--mdl) {
+    --f-fw--lg: wrap;
+}
+
+:where(.wrap--md, .wrap--smd, .wrap--mdl) {
+    --f-fw--md: wrap;
+}
+
+:where(.wrap--sm, .wrap--smd) {
+    --f-fw--sm: wrap;
+}
+
+
+
+
+/**
+ * @group Child Alignment
+ * .as-* (align-self) for direct children.
+ */
+/** Align Self */
+:where(.as-s) {
+    --fi-as: flex-start;
+}
+
+:where(.as-s--lg, .as-s--mdl) {
+    --fi-as--lg: flex-start;
+}
+
+:where(.as-s--md, .as-s--smd, .as-s--mdl) {
+    --fi-as--md: flex-start;
+}
+
+:where(.as-s--sm, .as-s--smd) {
+    --fi-as--sm: flex-start;
+}
+
+:where(.as-c) {
+    --fi-as: center;
+}
+
+:where(.as-c--lg, .as-c--mdl) {
+    --fi-as--lg: center;
+}
+
+:where(.as-c--md, .as-c--smd, .as-c--mdl) {
+    --fi-as--md: center;
+}
+
+:where(.as-c--sm, .as-c--smd) {
+    --fi-as--sm: center;
+}
+
+:where(.as-e) {
+    --fi-as: flex-end;
+}
+
+:where(.as-e--lg, .as-e--mdl) {
+    --fi-as--lg: flex-end;
+}
+
+:where(.as-e--md, .as-e--smd, .as-e--mdl) {
+    --fi-as--md: flex-end;
+}
+
+:where(.as-e--sm, .as-e--smd) {
+    --fi-as--sm: flex-end;
+}
+
+/** Margin Inline */
+:where(.mi-as) {
+    --fi-mi: auto 0;
+}
+
+:where(.mi-as--lg, .mi-as--mdl) {
+    --fi-mi--lg: auto 0;
+}
+
+:where(.mi-as--md, .mi-as--smd, .mi-as--mdl) {
+    --fi-mi--md: auto 0;
+}
+
+:where(.mi-as--sm, .mi-as--smd) {
+    --fi-mi--sm: auto 0;
+}
+
+:where(.mi-a) {
+    --fi-mi: auto;
+}
+
+:where(.mi-a--lg, .mi-a--mdl) {
+    --fi-mi--lg: auto;
+}
+
+:where(.mi-a--md, .mi-a--smd, .mi-a--mdl) {
+    --fi-mi--md: auto;
+}
+
+:where(.mi-a--sm, .mi-a--smd) {
+    --fi-mi--sm: auto;
+}
+
+:where(.mi-ae) {
+    --fi-mi: 0 auto;
+}
+
+:where(.mi-ae--lg, .mi-ae--mdl) {
+    --fi-mi--lg: 0 auto;
+}
+
+:where(.mi-ae--md, .mi-ae--smd, .mi-ae--mdl) {
+    --fi-mi--md: 0 auto;
+}
+
+:where(.mi-ae--sm, .mi-ae--smd) {
+    --fi-mi--sm: 0 auto;
+}
+
+/** Margin Block */
+:where(.mb-as) {
+    --fi-mb: auto 0;
+}
+
+:where(.mb-as--lg, .mb-as--mdl) {
+    --fi-mb--lg: auto 0;
+}
+
+:where(.mb-as--md, .mb-as--smd, .mb-as--mdl) {
+    --fi-mb--md: auto 0;
+}
+
+:where(.mb-as--sm, .mb-as--smd) {
+    --fi-mb--sm: auto 0;
+}
+
+:where(.mb-a) {
+    --fi-mb: auto;
+}
+
+:where(.mb-a--lg, .mb-a--mdl) {
+    --fi-mb--lg: auto;
+}
+
+:where(.mb-a--md, .mb-a--smd, .mb-a--mdl) {
+    --fi-mb--md: auto;
+}
+
+:where(.mb-a--sm, .mb-a--smd) {
+    --fi-mb--sm: auto;
+}
+
+:where(.mb-ae) {
+    --fi-mb: 0 auto;
+}
+
+:where(.mb-ae--lg, .mb-ae--mdl) {
+    --fi-mb--lg: 0 auto;
+}
+
+:where(.mb-ae--md, .mb-ae--smd, .mb-ae--mdl) {
+    --fi-mb--md: 0 auto;
+}
+
+:where(.mb-ae--sm, .mb-ae--smd) {
+    --fi-mb--sm: 0 auto;
+}

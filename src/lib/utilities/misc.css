@@ -57,6 +57,10 @@
     display: var(--display, grid);
 }
 
+:where(.cn, .contents, .dis-cn) {
+    display: var(--display, contents);
+}
+
 :where(.ovf, .overflow) {
     overflow: var(--overflow, var(--ovf, auto));
 }
