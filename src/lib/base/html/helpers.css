@@ -16,13 +16,13 @@
 }
 
 :where(html)::-webkit-scrollbar {
-    width: var(--scrollbar-w, 0.5rem);
+    width: var(--scrollbar-w, 0.875rem);
     transition: width 0.16s ease-in-out;
     will-change: width;
 }
 
 :where(html)::-webkit-scrollbar:hover {
-    width: var(--scrollbar-w-hover, 0.75rem);
+    width: var(--scrollbar-w-hover, 1.25rem);
 }
 
 :where(html)::-webkit-scrollbar-track {

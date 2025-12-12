@@ -44,6 +44,14 @@
     --l-bd: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%));
     --l-lt: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%));
 
+    /* Grays hsl(0 0% 50%) / hsl(0 0% 64%) / hsl(0 0% 32%) */
+    --g-h: 0;
+    --g-s: 0%;
+    --g-l: 50%;
+    --g: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%));
+    --g-bd: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 32%));
+    --g-lt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 64%));
+
     /* Backgrounds: Base Contexts */
     --bg: var(--l, hsl(0 0% 96%));
     --bg-bd: var(--l-bd, hsl(0 0% 100%));

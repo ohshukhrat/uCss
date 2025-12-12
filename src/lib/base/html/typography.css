@@ -83,8 +83,8 @@
     font-size: var(--code-fs, 0.875em);
     padding: var(--code-pd, 0.1em 0.3em);
     border-radius: var(--code-rad, var(--rad--xs, 0.25em));
-    background-color: var(--code-bg, var(--d, #141414));
-    color: var(--code-tx, var(--l-lt, #ececec));
+    background-color: var(--code-bg, var(--od-lt, #141414));
+    color: var(--bg-bd, var(--base-bd, #ececec));
 }
 
 /* Preformatted blocks */

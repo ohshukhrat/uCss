@@ -4,17 +4,17 @@
  */
 
 /* 1. Standard Flow (Paragraphs, Lists) */
-:where(p, ul, ol, blockquote, figure, pre, table, form, image, video, iframe, canvas, div, h1, h2, h3, h4, h5, h6)+ :where(p, pre) {
+:where(p, ul, ol, blockquote, figure, pre, table, form, image, video, iframe, canvas, div, a, h1, h2, h3, h4, h5, h6)+ :where(p, pre) {
     margin-block-start: var(--p-flow, 0.75em);
 }
 
-:where(p, ul, ol, blockquote, figure, pre, table, form, image, video, iframe, canvas, div, h1, h2, h3, h4, h5, h6)+ :where(ul, ol, blockquote, figure, pre, table) {
+:where(p, ul, ol, blockquote, figure, pre, table, form, image, video, iframe, canvas, div, a, h1, h2, h3, h4, h5, h6)+ :where(ul, ol, blockquote, figure, pre, table) {
     margin-block-start: var(--el-flow, 1.25em);
 }
 
 /* 2. Heading Flow */
 /* Space BEFORE headings (if not first child) */
-:where(p, ul, ol, blockquote, figure, pre, table, form, image, video, iframe, canvas, div, h1, h2, h3, h4, h5, h6)+ :where(h1, h2, h3, h4, h5, h6) {
+:where(p, ul, ol, blockquote, figure, pre, table, form, image, video, iframe, canvas, div, a, h1, h2, h3, h4, h5, h6)+ :where(h1, h2, h3, h4, h5, h6) {
     margin-block-start: var(--t-flow-s, 1em);
 }
 
@@ -24,7 +24,7 @@
 }
 
 /* 3. List Item Flow */
-:where(li)+ :where(li) {
+:where(li, a, div)+ :where(li) {
     margin-block-start: var(--li-flow, 0.5em);
 }
 

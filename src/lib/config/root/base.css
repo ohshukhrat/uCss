@@ -35,8 +35,8 @@
     --mono-font: monospace;
 
     /* Scrollbar (html.css) */
-    --scrollbar-w: 0.5rem;
-    --scrollbar-w-hover: 0.75rem;
+    --scrollbar-w: 0.875rem;
+    --scrollbar-w-hover: 1.25rem;
 
     /* Selection (html.css) */
     --selection-bg: var(--p, #eec14c);
@@ -89,8 +89,8 @@
     --bq-pdy: 1.5em;
 
     /* HTML: Code / KBD (html.css) */
-    --code-bg: var(--d, #141414);
-    --code-tx: var(--l-lt, #ececec);
+    --code-bg: var(--od-lt, #141414);
+    --code-tx: var(--bg-bd, var(--base-bd, #ececec));
     --code-rad: var(--rad-xs, 0.25em);
 
     /* HTML: Preformatted (html.css) */

@@ -547,13 +547,14 @@ async function main() {
         .s { min-height: 100vh; }
     </style>
 </head>
-<body>
-    <section class="s set dark" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
+</head>
+<body class="set base">
+    <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
         <div class="sf"><div>${htmlContent}</div></div>
     </section>
 
     <!-- Theme Toggle -->
-    <button onclick="const s = document.querySelector('.s'); s.classList.toggle('dark'); s.classList.toggle('light');" class="btn subtle icn blr rd" style="position: fixed; bottom: 2rem; left: 2rem; z-index: 999; --btn-c: var(--tx);">
+    <button onclick="const b = document.body; b.classList.toggle('base'); b.classList.toggle('alt');" class="btn subtle icn blr rd" style="position: fixed; bottom: 2rem; left: 2rem; z-index: 999; --btn-c: var(--tx);">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
