@@ -20,7 +20,9 @@
     white-space: nowrap;
 
     padding: var(--btn-pd, var(--btn-pb, var(--btn-p, 0.625em)) var(--btn-pi, var(--btn-p, 1.325em)));
-    color: var(--btn-c, var(--on-p, var(--d, #000)));
+
+    --btn-c: var(--d, #000);
+    color: var(--btn-c);
     background-color: var(--btn-bg, var(--p, #eec14c));
 
     border: var(--btn-bw, 0.125rem) solid var(--btn-bc, var(--btn-bg, #eec14c));

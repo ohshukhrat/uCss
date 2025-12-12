@@ -99,10 +99,10 @@
     line-height: var(--pre-lh, 1.375em);
     /* Margin handled by Smart Flow */
     margin-block: 0;
+}
 
-    & :where(code, kbd, samp) {
-        color: var(--pre-tx, var(--l, #f5f5f5));
-    }
+:where(pre) :where(code, kbd, samp) {
+    color: var(--pre-tx, var(--l, #f5f5f5));
 }
 
 :where(hr) {

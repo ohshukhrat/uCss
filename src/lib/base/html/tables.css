@@ -17,7 +17,7 @@
     font-weight: var(--tbl-th-fw, var(--t-fw, 700));
     color: var(--t, #000);
     --set-bg: var(--bg-lt, var(--base-lt, #ececec));
-    background-color: var(--tbl-bg-head, var(--set-bg, #ececec));
+    background-color: var(--tbl-bg-head, var(--og-bd, hsl(0 0% 50% / .8)));
     padding: var(--tbl-pd, 0.75em);
 }
 
