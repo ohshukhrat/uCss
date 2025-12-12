@@ -25,7 +25,22 @@ src/lib/
 │   │   └── helpers.css      #    - HTML Utilities
 │   └── html.css             #    - Entry Point
 │
-├── layout/                  # 3. LAYOUT (The Skeleton)
+├── patterns/                # 3. PATTERNS (The Components)
+│   ├── button/              #    - Atomic Component
+│   │   ├── base.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
+│   └── patterns.css         #    - Entry Point
+│
+├── layout/                  # 4. LAYOUT (The Skeleton)
 │   ├── grid/                #    - Grid Engine
 │   │   ├── base.css         #    - Core Logic
 │   │   ├── columns.css      #    - Presets
@@ -42,29 +57,14 @@ src/lib/
 │   ├── grid.css             #    - Entry Point
 │   └── section.css          #    - Structural Layout
 │
-├── theming/                 # 4. THEMING (The Skin)
+├── theming/                 # 5. THEMING (The Skin)
 │   ├── set.css
 │   └── overlay.css
 │
-├── typography/              # 5. TYPOGRAPHY (The Voice)
+├── typography/              # 6. TYPOGRAPHY (The Voice)
 │   ├── title.css
 │   ├── text.css
 │   └── text-align.css
-│
-├── patterns/                # 6. PATTERNS (The Components)
-│   ├── button/              #    - Atomic Component
-│   │   ├── base.css
-│   │   └── group.css
-│   ├── card/                #    - Card Component
-│   │   ├── base.css
-│   │   ├── content.css      #    - Slots & Padding
-│   │   ├── media.css        #    - Full-bleed Media
-│   │   └── subgrid.css      #    - Subgrid Support
-│   ├── button.css           #    - Aggregator
-│   ├── card.css             #    - Aggregator
-│   ├── media.css            #    - Media Wrapper
-│   ├── link.css             #    - Link Wrapper
-│   └── patterns.css         #    - Entry Point
 │
 └── utilities/               # 7. UTILITIES (The Tools)
     ├── display.css
@@ -77,14 +77,14 @@ src/lib/
     └── utilities.css
 ```
 
-## Layers Description
+## Layering Order
 
 1.  **Config**: Pure definition. No selectors. defines `--vars` that drive the system.
 2.  **Base**: Global resets and element defaults (`html`, `body`, `p`).
-3.  **Layout**: Macro layout systems (`.g`, `.flex`).
-4.  **Theming**: Visual styles not tied to components (Design Tokens).
-5.  **Typography**: Text utility classes (`.h1`, `.text-l`).
-6.  **Patterns**: Complex UI components (`.btn`, `.card`).
+3.  **Patterns**: Complex UI components (`.btn`, `.crd`).
+4.  **Layout**: Macro layout systems (`.g`, `.flex`).
+5.  **Theming**: Visual styles not tied to components (Design Tokens).
+6.  **Typography**: Text utility classes (`.h1`, `.text-l`).
 7.  **Utilities**: Single-purpose helper classes (`.m-0`, `.hidden`).
 
 ## Key Principles

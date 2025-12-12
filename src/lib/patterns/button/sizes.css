@@ -43,6 +43,11 @@
     --btn-pd: var(--btn-pill-pd, var(--btn-pill-p, 0.125em 0.25em));
 }
 
+:where(.btn[data-size="icn"], .btn.icn, [data-style="btn"].icn) {
+    --btn-pd: var(--btn-icn-pd, var(--btn-icn-p, 0.25em 0.25em));
+}
+
+
 /**
  * @group Radius Modifiers
  * SQ (Square), LT (Light), BD (Bold), RD (Rounded/Pill).

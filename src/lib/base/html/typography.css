@@ -83,7 +83,7 @@
     font-size: var(--code-fs, 0.9em);
     padding: var(--code-pd, 0.1em 0.3em);
     border-radius: var(--code-rad, var(--rad--xs, 0.25em));
-    background-color: var(--code-bg, var(--d, #eee));
+    background-color: var(--code-bg, var(--d, #0a0a0a));
     color: var(--code-tx, var(--l-lt, #ececec));
 }
 
@@ -113,8 +113,9 @@
     padding-inline: var(--bq-pdi, 1.5em);
     padding-block: var(--bq-pdb, .5em);
     font-style: italic;
-    color: var(--tx, var(--on-srf, var(--alt-bd, currentColor)));
-    background-color: var(--bq-bg, var(--oter, var(--ontf, var(--srf, #eee))));
+    color: var(--bq-tx, var(--set-c, var(--alt-bd, var(--on-srf, var(--tx, currentColor)))));
+    --set-bg: var(--op-lt, var(--oter, var(--ontf, var(--srf, hsl(0 0% 93% / .08)))));
+    background-color: var(--bq-bg, var(--set-bg));
     /* Margin handled by Smart Flow */
     margin-block: 0;
 }
