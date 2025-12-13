@@ -99,11 +99,11 @@
     --pre-pd: var(--gap, 1.5rem);
 
     /* HTML: Tables (html.css) */
-    --tbl-bd-w: var(--bd-w, 1px);
-    --tbl-bd-c: var(--out, #ccc);
+    --tbl-bd-w: var(--bd-w, .125rem);
+    --tbl-bd-c: var(--out, #131313);
     --tbl-pd: .75em;
-    --tbl-bg-head: var(--srf, #eee);
-    --tbl-bg-hover: var(--srf, #fafafa);
+    --tbl-bg-head: var(--og-bd, hsl(0 0% 50% / .8));
+    --tbl-bg-hover: var(--og-lt, hsl(0 0% 50% / .32));
 
     /* HTML: Horizontal Rule (html.css) */
     --hr-h: 1px;

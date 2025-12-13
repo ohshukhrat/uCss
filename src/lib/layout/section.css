@@ -249,7 +249,7 @@
 }
 
 :where(.s.pb--xs) {
-  --s-pb: var(--s-pb--xs, clamp(2rem, 1.53vw + 1.694rem, 3rem));
+  --s-pb: var(--s-pb--xs, clamp(1.5rem, 1.147vw + 1.271rem, 2.25rem));
 }
 
 :where(.s.pb-0, .s.pb--0) {

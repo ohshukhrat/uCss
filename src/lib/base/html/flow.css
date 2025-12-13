@@ -28,6 +28,10 @@
     margin-block-start: var(--li-flow, 0.5em);
 }
 
+:where(li)+ :where(ul, ol) {
+    margin-block-start: var(--li-flow, 0.5em);
+}
+
 /* 4. Button/Link After Flow */
 :where(p)+ :where(a, button, .btn) {
     margin-block-start: var(--p-flow, 0.75em);
