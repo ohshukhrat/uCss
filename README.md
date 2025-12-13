@@ -1,91 +1,105 @@
-# uCss Framework
+# uCss: The Container-First CSS Framework
 
-**Navigation**: [uCss](./) > [Source](./src/) > [Modules](./src/lib/) 
+**Navigation**: [uCss](./) > [Source](./src/) > [Modules](./src/lib/)
 
-**Modules**: [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Theming](./src/lib/theming/) | [Typography](./src/lib/typography/) | [Components](./src/lib/components/) | [Utilities](./src/lib/utilities/)
+**Modules**: [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Theming](./src/lib/theming/) | [Typography](./src/lib/typography/) | [Patterns](./src/lib/patterns/) | [Utilities](./src/lib/utilities/)
 
-> **The Container-First CSS Framework**. uCss is a modern, 10KB lightweight framework designed to solve component portability. It leverages **Container Queries** and **CSS Variables** to create resilient UI components that adapt to their *context*, not just the screen size. No build step required.
-
----
-
-## 📑 Page Contents
-*   [Why uCss?](#-why-ucss)
-*   [Thinking in uCss](#-thinking-in-ucss-philosophy)
-*   [The Ecosystem](#-the-ecosystem)
-*   [Installation & Usage](#-installation--usage)
-*   [Configuration](#-configuration-optional)
-*   [Documentation & Modules](#-documentation--modules)
-*   [See it in Action](#-see-it-in-action)
+> **The logical evolution of CSS**. uCss is a modern, 15KB lightweight framework designed to solve exactly one problem: **Component Portability**. It leverages **Container Queries** and **CSS Variables** to create resilient UI components that adapt to their *context*, not just the screen size. No build step required.
 
 ---
 
-**uCss** is a modern, mobile-first, **pure CSS framework** designed for granular control, responsiveness, and flexibility. It leverages **CSS Variables** and **Container Queries** to provide a highly adaptable styling API without the need for complex build steps, JavaScript runtimes, or utility-class bloat.
+## 📑 Contents
 
-## 🌟 Why uCss?
-
-**uCss** is not just another CSS framework. It is a **system** designed to solve the "Component Portability" crisis.
-
-### 1. The "Component Portability" Crisis (vs Tailwind)
-*   **Problem**: In frameworks like **Tailwind**, you write `w-1/2 md:w-1/4`. If you move that component to a sidebar, it breaks because `md` refers to the *screen*, not the sidebar.
-*   **Solution**: **uCss** uses **Container Queries**. You write `.g` (Grid). It automatically detects if it's in a sidebar or a main area and adjusts itself. No modifiers needed.
-
-### 2. The "Classless-ish" API
-We hate class bloat. Instead of `text-lg font-bold text-center text-blue-500 p-4 rounded-xl shadow-lg`, uCss relies on **HTML Semantics** and **CSS Variables**.
-*   **Tailwind**: `<button class="bg-blue-500 text-white px-4 py-2 rounded">`
-*   **uCss**: `<button class="btn primary">` (Then customize with `--btn-bg: blue` if needed).
-
-### 3. Zero Build Step Required
-uCss is written in pure, highly-optimized CSS. You can drop the CDN link in your `<head>` and start building. No `npm install`, no `postcss.config.js`, no 5-minute compile times.
-*   **Dev**: Use `/src/` for debugging.
-*   **Prod**: Use `/dist/u.min.css` (~100KB Minified, ~15KB Gzipped).
-
-### 4. Variable-First Architecture
-We expose **CSS Variables** as our public API.
-*   Want a different primary color? `:root { --p: #ff0000; }`
-*   Want tighter spacing in just one section? `.my-section { --s-gap: 1rem; }`
-*   The entire framework cascades these values instantly.
-
----
-
-### 🚀 More Features
-
-*   **Granular Control**: Modify specific properties for specific breakpoints using structured variable suffixes (e.g., `--gap--md`).
-*   **Advanced Fallbacks**: All variables resolve to "Pretty Out-of-the-Box" defaults (using `clamp()` for responsiveness) if undefined, ensuring layouts look great immediately.
-*   **Themeable defaults**: We developed and included a `root.css` file that already holds all properties with their global fallback values. Change one variable there (e.g., `--p`) to instantly re-theme the entire application, comment what you don't need to reduce the bundle size.
-*   **Mobile-First**: All utilities start from mobile defaults and expand upwards.
-*   **Responsive**: All components and layouts are responsive by default.
-*   **Logical Properties**: All styles use logical properties (e.g., `margin-inline` instead of `margin-left` and `margin-right`).
-*   **Compatibility**: uCss is tested and fully compatible with **WordPress**, specifically the **Greenlight Builder** and **Blocksy Theme**.
-
-
-> [!CAUTION]
-> **Container Query Gotcha**:
-> Do not apply `@container` context to an element that is *itself* a grid item or part of a complex layout unless necessary. Setting `container-type` on a grid item can sometimes break implicit grid auto-sizing (`auto-fit`) because the container needs definite dimensions to resolve its queries.
->
-> **Safety Mechanism**: The framework automatically skips container deployment on critical parents (like `.g`) to prevent layout breakage.
-
-> [!NOTE]
-> **Compatibility**:
-> uCss is tested and fully compatible with **WordPress**, specifically the **Greenlight Builder** and **Blocksy Theme**.
+*   [🌟 Overview](#-overview)
+    *   [The "Un-Framework" Concept](#the-un-framework-concept)
+    *   [Top Features](#top-features)
+*   [🤯 Philosophy: The 4 Pillars](#-philosophy-the-4-pillars)
+    *   [1. Context is King](#1-context-is-king-container--media)
+    *   [2. Variables are the API](#2-variables-are-the-api)
+    *   [3. Implicit by Default](#3-implicit-by-default)
+    *   [4. Composition over Inheritance](#4-composition-over-inheritance)
+*   [🚀 Getting Started](#-getting-started)
+    *   [The "Clicked" Moment](#the-clicked-moment)
+    *   [A 5-Minute Tutorial](#a-5-minute-tutorial)
+*   [📦 Installation & Files Stats](#-installation--files-stats)
+    *   [Stats Table](#stats-table)
+    *   [Direct Links](#direct-links-table)
+    *   [HTML Snippets](#html-snippets)
+*   [📂 Full Files Reference](#-full-files-reference)
+*   [🧠 Deep Dive](#-deep-dive)
+    *   [Logic & Architecture: The 7 Layers](#logic--architecture-the-7-layers)
+    *   [Under the Hood: How it Works](#under-the-hood-how-it-works)
+    *   [Naming Convention: The "Smart BEM"](#naming-convention-the-smart-bem)
+*   [📍 Reference](#-reference)
+    *   [Comparison Matrix: uCss vs The World](#comparison-matrix-ucss-vs-the-world)
+    *   [The Glossary](#the-glossary)
+*   [💡 Best Practices & Customization](#-best-practices--customization)
+    *   [Anti-Patterns (What NOT to do)](#anti-patterns-what-not-to-do)
+    *   [Migration Guide](#migration-guide)
+    *   [A Day in the Life](#a-day-in-the-life-developer-story)
+*   [🔧 For Developers](#-for-developers)
+    *   [Contribution](#contribution)
+    *   [Build System](#build-system)
 
 ---
 
-## 🧠 Thinking in uCss (Philosophy)
-uCss is not just a collection of classes; it is a system that demands a slight shift in mindset. If you fight it, it will feel restrictive. If you embrace it, it feels like a superpower.
+## 🌟 Overview
 
-### 1. The Container is King (Context > Viewport)
+**uCss** is not just another CSS framework. It is a reaction to the last decade of web development.
+
+We went from **Semantic CSS** (Zen Garden) to **Bootstrap** (Component Monoliths) to **Tailwind** (Utility Soup).
+uCss represents the next step: **Context-Aware Semantics**.
+
+It is a modern, mobile-first, **pure CSS framework** designed for granular control, responsiveness, and flexibility. It leverages **CSS Variables** and **Container Queries** to provide a highly adaptable styling API without the need for complex build steps, JavaScript runtimes, or utility-class bloat.
+
+### The "Un-Framework" Concept
+Most frameworks try to do too much. They ship with accordions, carousels, date-pickers, and massive JavaScript blobs.
+uCss strips it all back.
+*   **No JavaScript**: We don't touch your DOM.
+*   **No Build Step**: Works raw in the browser.
+*   **No Opinionated UI**: We give you the "Organs" (Cards, Buttons, Inputs), you build the "Body".
+
+### Top Features
+
+1.  **Container Queries Core**: Components respond to their *container's width*, not the viewport. A card looks perfect whether it's in a sidebar or the main content area.
+2.  **Variable-First API**: Modify a single CSS variable (e.g., `--p: blue`) and watch it cascade through specific scopes or the entire application instantly.
+3.  **Zero Build Step**: No `npm install`, no `PostCSS` config mess. Just a `<link>` tag and you are production-ready.
+4.  **Semantic & Accessible**: Encourages standard HTML tags (`<nav>`, `<button>`) enhanced by classes, rather than `div` soup.
+5.  **Smart Flow Engine**: Our `html.css` module handles vertical rhythm automatically using `* + *` selectors, so you stop writing `margin-bottom` everywhere.
+6.  **Themeable & Scoped**: Apply dark mode (`.set.dark`) or brand themes to any section of your page, and nested components adapt automatically.
+
+> [!LIGHTBULB]
+> **Who is this for?**
+> Developers who are tired of "Utility Soup" (Tailwind) but find BEM too verbose. uCss sits in the "Goldilocks Zone": Semantic components with utility-power when you need it.
+
+---
+
+## 🤯 Philosophy: The 4 Pillars
+
+uCss is built on four unshakable pillars. Understanding these is the key to unlocking the framework's power.
+
+### 1. Context is King (Container > Media)
 Stop thinking about "Mobile Screen" vs "Desktop Screen". Think about **Available Space**.
 *   **The Old Way**: "At 768px screen width, make this card horizontal."
 *   **The uCss Way**: "If this card has > 600px of space, make it horizontal."
-This means you can drop the *same* card component into a narrow sidebar or a wide main area, and it fits perfectly in both. You don't write overrides for the sidebar; the component effectively "self-heals" based on its container.
 
-### 2. Semantics ≠ Visuals (Decoupling)
-In standard CSS, `<h1>` usually means "Big Text". In uCss, `<h1>` means "Top Level Heading". The two are unrelated.
-*   **HTML controls Meaning**: Use `<button>`, `<nav>`, `<h1>` for accessibility and SEO.
-*   **Classes control Look**: Use `.btn`, `.f`, `.t` for style.
-This allows you to have a marketing tagline that looks like a massive headline (`<p class="t xxxl">`) without ruining your document outline, or a sidebar heading that is semantically important but visually tiny (`<h2 class="t xxs">`).
+This helps component portability. You can drop the *same* card component into a narrow sidebar or a wide main area, and it fits perfectly in both. You don't write overrides for the sidebar; the component effectively "self-heals" based on its container.
 
-### 3. Composition (LEGOs > Monoliths)
+### 2. Variables are the API
+If you find yourself writing `!important` or complex CSS selectors to override a color, you are fighting the framework.
+*   **The Wrong Way**: `.my-card h3 { color: red; }`
+*   **The Right Way**: `.my-card { --t: red; }`
+
+uCss components are "listening" for variables. If you change the signal (`--t` for title color), the component updates itself. This is how theming (`.set.dark`) works—it just changes the signals.
+
+### 3. Implicit by Default
+We believe the browser is smarter than you.
+*   **Explicit**: `grid-template-columns: 1fr 1fr 1fr;` (You assume 3 columns fits).
+*   **Implicit**: `grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));` (You let the browser decide).
+
+uCss layouts (`.g`) are implicit. They define the *constraints* (min-width, gap) and let the browser calculate the optimal number of columns. This makes your layouts unbreakable.
+
+### 4. Composition over Inheritance
 We don't provide a "Profile Card" component. We provide primitives (`Card Shell`, `Media Wrapper`, `Flexbox`, `Radius`) that you compose.
 *   **Don't Search**: "Do they have a horizontal profile card class?"
 *   **Do Build**: `<article class="crd f row ai-c gap-m">`
@@ -93,55 +107,152 @@ We don't provide a "Profile Card" component. We provide primitives (`Card Shell`
     *   `.f.row`: The layout.
     *   `.ai-c`: The alignment.
     *   `.gap-m`: The spacing.
-You are constructing UI from atoms. This reduces the need to memorize thousands of specific component names.
+You are constructing UI from atoms. This reduces the need to maintain thousands of specific component names.
 
-### 4. Variables are the API
-If you find yourself writing `!important` or complex CSS selectors to override a color, you are fighting the framework.
-*   **The Wrong Way**: `.my-card h3 { color: red; }`
-*   **The Right Way**: `.my-card { --t: red; }`
-uCss components are "listening" for variables. If you change the signal (`--t` for title color), the component updates itself. This is how theming (`.set.dark`) works—it just changes the signals.
+### 5. Semantics ≠ Visuals (Decoupling)
+In standard CSS, `<h1>` usually means "Big Text". In uCss, `<h1>` means "Top Level Heading". The two are unrelated.
+*   **HTML controls Meaning**: Use `<button>`, `<nav>`, `<h1>` for accessibility and SEO.
+*   **Classes control Look**: Use `.btn`, `.f`, `.t` for style.
+This allows you to have a marketing tagline that looks like a massive headline (`<p class="t xxxl">`) without ruining your document outline, or a sidebar heading that is semantically important but visually tiny (`<h2 class="t xxs">`).
 
+### 6. Responsive Suffixes
+Every class in this module supports standard suffix modifiers.
+*   `--sm`: Small container (Mobile) (0 <= 669.99px)
+*   `--md`: Medium container (Tablet) (669.99px <= 999.99px)
+*   `--lg`: Large container (Desktop) (999.99px <)
 
----
+Example: `.dn--sm` -> `display: none` ONLY in small containers.
 
-## 🌍 The Ecosystem
-
-uCss is modular by design. You can use the full framework or just the parts you need.
-
-| Module | What it does |
-| :--- | :--- |
-| **[Layout](./src/lib/layout/)** | **The Core Engine**. Grid (`.g`), Flex (`.f`), and Section (`.s`). Powered by Container Queries. |
-| **[Components](./src/lib/components/)** | **Interaction**. Cards (`.crd`), Buttons (`.btn`), and Media (`.med`). |
-| **[Typography](./src/lib/typography/)** | **Fluid Text**. Headings (`.t`) and body text (`.tx`) that scale automatically. |
-| **[Theming](./src/lib/theming/)** | **Context**. Dark mode, brand themes (`.set`), and overlays (`.o`). |
-| **[Utilities](./src/lib/utilities/)** | **Polish**. Margins (`.mg`) and Padding (`.pd`) with logical properties. |
-| **[Config](./src/lib/config/)** | **Control Center**. The CSS variables that drive the system. |
-
-> 👉 **Explore the source**: Check out the [Source Map](./src/).
+> [!CAUTION]
+> **Container Query Gotcha**:
+> Do not apply `@container` context to an element that is *itself* a grid item or part of a complex layout unless necessary. Setting `container-type` on a grid item can sometimes break implicit grid auto-sizing (`auto-fit`) because the container needs definite dimensions to resolve its queries.
+>
+> **Safety Mechanism**: The framework automatically skips container deployment on critical parents (like `.g`, `.sg`, `.sgc`) to prevent layout breakage.
 
 ---
 
-## 📦 Installation & Usage
+## 🚀 Getting Started
 
-### 1. Quick Start (CDN)
-The easiest way to use uCss is via our edge CDN.
+### The "Clicked" Moment
+It happens when you add `.set.dark` to a Section (`<section class="s set dark">`) and suddenly:
+1.  The background turns dark.
+2.  The text turns light.
+3.  If you apply `.set.light` to the inner element, it reverts the inner element to light mode.
+4.  Nested descendants inherit the theme.
+All without writing a single line of CSS override. That is when it clicks: **This isn't CSS; this is a System.**
 
-#### **Full Framework**
-Includes everything.
-| Env | URL | Size (Min / Gz / Br) |
-| :--- | :--- | :--- |
-| **Stable** | `https://ucss.unqa.dev/stable/u.min.css` | 101KB / 14.8KB / 11.4KB |
-| **Latest** | `https://ucss.unqa.dev/latest/u.min.css` | 101KB / 14.8KB / 11.4KB |
+### A 5-Minute Tutorial
+
+**Goal**: Build a Responsive Hero Section.
+
+1.  **Paste the Link**:
+    Add the CDN link to your `<head>`.
+    
+2.  **Create the Container**:
+    ```html
+    <section class="s">
+       <!-- .s: Section Wrapper (Fluid Padding) -->
+    </section>
+    ```
+
+3.  **Add the Grid**:
+    ```html
+    <div class="g g-2-1 gap-xl ai-c">
+       <!-- .g: Grid -->
+       <!-- .g-2-1: 66% Left, 33% Right -->
+       <!-- .gap-xl: Big gap -->
+       <!-- .ai-c: Vertically Center -->
+    </div>
+    ```
+
+4.  **Add Content (Left)**:
+    ```html
+    <div class="f col gap-m">
+       <h1 class="t xxl">Welcome to Future</h1>
+       <p class="tx l">This is a lead text.</p>
+       <div class="btns">
+           <button class="btn primary lg">Get Started</button>
+           <button class="btn outlined lg">Docs</button>
+       </div>
+    </div>
+    ```
+
+5.  **Add Image (Right)**:
+    ```html
+    <figure class="med rad-l">
+       <img src="hero.jpg" alt="Hero">
+    </figure>
+    ```
+
+**Result**: A fully responsive, dark-mode ready hero section in ~15 lines of HTML.
+
+---
+
+## 📦 Installation & Files Stats
+
+We provide multiple bundles to suit your needs. From the "Full Framework" to specific "Micro-Modules".
+
+### Stats Table
+
+| File | Full (Raw) | Clean | Min | Gzip (Min) | Brotli (Min) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`u.css` (Complete)** | **166 KB** | **147 KB** | **123 KB** | **21 KB** | **16.5 KB** |
+| `base.css` | 16 KB | 13 KB | 11 KB | 3.1 KB | 2.7 KB |
+| `patterns.css` | 29 KB | 26 KB | 22 KB | 3.8 KB | 3.1 KB |
+| `layout.css` | 71 KB | 68 KB | 56 KB | 7.0 KB | 5.1 KB |
+| `theming.css` | 17 KB | 15 KB | 14 KB | 2.5 KB | 2.1 KB |
+| `typography.css` | 16 KB | 12 KB | 10 KB | 1.8 KB | 1.5 KB |
+| `utilities.css` | 15 KB | 11 KB | 10 KB | 1.7 KB | 1.4 KB |
+
+> [!NOTE]
+> **Clean vs Min**: `*.clean.css` has comments removed but keeps indentation (good for dev). `*.min.css` is compressed (production).
+
+### Direct Links Table
+
+| Module | Full Source | Clean Source | Minified (Prod) | Docs |
+| :--- | :--- | :--- | :--- | :--- |
+| **Full Framework** | [u.css](https://ucss.unqa.dev/stable/u.css) | [u.clean.css](https://ucss.unqa.dev/stable/u.clean.css) | [u.min.css](https://ucss.unqa.dev/stable/u.min.css) | [Root Docs](./) |
+| **Base** | [base.css](https://ucss.unqa.dev/stable/lib/base.css) | [base.clean.css](https://ucss.unqa.dev/stable/lib/base.clean.css) | [base.min.css](https://ucss.unqa.dev/stable/lib/base.min.css) | [Docs](./src/lib/base/) |
+| **Patterns** | [patterns.css](https://ucss.unqa.dev/stable/lib/patterns.css) | [patterns.clean.css](https://ucss.unqa.dev/stable/lib/patterns.clean.css) | [patterns.min.css](https://ucss.unqa.dev/stable/lib/patterns.min.css) | [Docs](./src/lib/patterns/) |
+| **Layout** | [layout.css](https://ucss.unqa.dev/stable/lib/layout.css) | [layout.clean.css](https://ucss.unqa.dev/stable/lib/layout.clean.css) | [layout.min.css](https://ucss.unqa.dev/stable/lib/layout.min.css) | [Docs](./src/lib/layout/) |
+| **Theming** | [theming.css](https://ucss.unqa.dev/stable/lib/theming.css) | [theming.clean.css](https://ucss.unqa.dev/stable/lib/theming.clean.css) | [theming.min.css](https://ucss.unqa.dev/stable/lib/theming.min.css) | [Docs](./src/lib/theming/) |
+| **Typography** | [typography.css](https://ucss.unqa.dev/stable/lib/typography.css) | [typography.clean.css](https://ucss.unqa.dev/stable/lib/typography.clean.css) | [typography.min.css](https://ucss.unqa.dev/stable/lib/typography.min.css) | [Docs](./src/lib/typography/) |
+| **Utilities** | [utilities.css](https://ucss.unqa.dev/stable/lib/utilities.css) | [utilities.clean.css](https://ucss.unqa.dev/stable/lib/utilities.clean.css) | [utilities.min.css](https://ucss.unqa.dev/stable/lib/utilities.min.css) | [Docs](./src/lib/utilities/) |
+
+### HTML Snippets
+
+#### 1. Standard (Recommended)
+This uses the standard namespace. Drop this in your `<head>`.
 
 ```html
-<!-- 1. Configuration (Optional) -- copy, configure and enqueue this file to your project for customizing defaults -->
-<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">
-
-<!-- 2. Framework -->
+<!-- Recommended: Full Framework -->
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
+
+<!-- Optional: Our Pre-configured Variables set (Load this BEFORE u.min.css if possible) -->
+<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">
 ```
 
-### 2. Installation (NPM)
+#### 2. Prefixed `/p/` (Collision Safe)
+Useful if you are mixing uCss with another framework (like Bootstrap or Tailwind). All classes are prefixed with `.u-` (e.g., `.u-btn`, `.u-g`) and variables with `--u-`.
+
+```html
+<!-- Prefixed Version -->
+<link rel="stylesheet" href="https://ucss.unqa.dev/p/u.min.css">
+```
+
+#### 3. Variable-Safe `/v/` (Vars Prefix Only)
+Classes remain standard (`.btn`, `.g`), but CSS Variables are namespaced (`--u-p`, `--u-gap`). Good if you have variable name conflicts but want clean HTML.
+
+```html
+<!-- Vars-Prefix Version -->
+<link rel="stylesheet" href="https://ucss.unqa.dev/v/u.min.css">
+```
+
+---
+
+## 📦 Advanced Usage
+
+### 1. Installation (NPM)
 You can install uCss via npm for use in build systems or JavaScript projects.
 
 ```bash
@@ -164,10 +275,10 @@ npm install @unqa/ucss
 import '@unqa/ucss'; // Imports dist/stable/u.min.css
 ```
 
-### 3. Modular Imports
+### 2. Modular Imports
 If you don't need the full framework, you can import specific modules. See the **Documentation** section below for direct links to every module.
 
-### 4. Manual / Local Installation
+### 3. Manual / Local Installation
 1.  Clone the repository or download the `dist` folder.
 2.  Copy `lib/config/root.css` to your project and update with your colors/fonts.
 3.  Import `u.min.css` or specific modules from `dist/lib/` locally.
@@ -176,29 +287,17 @@ If you don't need the full framework, you can import specific modules. See the *
 > **Server Configuration**:
 > If you are hosting uCss yourself, we provide an optimized `.htaccess` template in the `dist/` folder. This ensures your server serves the pre-compressed `.gz` (Gzip) and `.br` (Brotli) files with the correct headers for maximum performance.
 
-### 5. File Types Explanation
-We provide three variations for every file:
-
-*   **`*.css`** (138KB): Full source with extensive JSDoc-like comments. Best for debugging or learning the codebase.
-*   **`*.clean.css`** (120KB): Cleaned source. Comments removed but formatting preserved. Ideal for local development if you don't need minification.
-*   **`*.min.css`** (101KB / 15KB Gzip / 11KB Brotli): Minified and optimized for production. Use this for live sites.
-
 ---
 
 ## 🎨 Configuration (Optional)
 uCss is built to work out-of-the-box. Every component has a "graceful fallback".
 *   **Default Behavior**: If you don't define any variables, uCss uses its internal defaults (e.g., sensible greys, system fonts).
-*   **Customization**: You *can* include `root.css` (found in `src/lib/config/root.css`) to override these defaults globally. This file is **not required**, but it is the recommended way to manage your design tokens.
+*   **Customization**: You *can* include `config.css` or `root.css` (found in `https://ucss.unqa.dev/stable/lib/config/root.css`) to override these defaults globally. This file is **not required**, but it is the recommended way to manage your design tokens.
 
 **Example `root.css`:**
 
 ```css
 :root {
-  /* ==========================================================================
-     SECTION: GENERAL / CONFIGURATION
-     Mapping: src/lib/config & src/lib/theming
-     ========================================================================== */
-
   /**
    * @group Theming: Palette
    */
@@ -216,11 +315,6 @@ uCss is built to work out-of-the-box. Every component has a "graceful fallback".
    */
   --trans-d: 0.32s;
 
-  /* ==========================================================================
-     SECTION: TYPOGRAPHY
-     Mapping: src/lib/typography
-     ========================================================================== */
-
   /**
    * @group Typography: Headings (title.css)
    */
@@ -231,21 +325,12 @@ uCss is built to work out-of-the-box. Every component has a "graceful fallback".
    */
   --tx-fs--m: clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem);
   
-  /* ==========================================================================
-     SECTION: LAYOUT
-     Mapping: src/lib/layout
-     ========================================================================== */
-  
   /**
    * @group Layout: Section
    */
   --sc-max-w: 1366px; /* Scaffold Max Width */
   --s-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
 
-  /* ==========================================================================
-     SECTION: COMPONENTS
-     Mapping: src/lib/components
-     ========================================================================== */
 
   /**
    * @group Components: Button (button.css)
@@ -274,7 +359,130 @@ uCss is built to work out-of-the-box. Every component has a "graceful fallback".
 
 ---
 
-## 📚 Documentation & Modules
+
+## 📂 Modules Reference
+
+Detailed breakdown of every file in the framework.
+
+| Module | File | Description |
+| :--- | :--- | :--- |
+| **Base** | `html.css` | **Smart Flow Engine**. The heart of vertical rhythm. Handles spacing recursively. |
+| **Base** | `reset.css` | Aggressive normalization of default browser styles. |
+| **Base** | `content.css` | Controller for "Content Mode" (`.csc`) vs "App Mode" (`.cs`). |
+| **Patterns** | `media.css` | Media wrappers (`figure`) ensuring responsive images/video. |
+| **Patterns** | `link.css` | Turns current container into clickable are with focus state using first `<a>` tag. |
+| **Patterns** | `button.css` | Feature-rich buttons with loading states, sizes, and skins. |
+| **Patterns** | `card.css` | Layout-agnostic cards that adapt to their container grid. |
+| **Layout** | `grid.css` | **Auto-Responsive Grid**. No media queries needed. Uses `auto-fit` & `minmax`. |
+| **Layout** | `section.css` | Root structural elements. Handles max-widths and edge padding. |
+| **Layout** | `flex.css` | Flexbox utilities with gap support (`.f.row`, `.f.col`). |
+| **Theming** | `set.css` | Contextual themes (`.set.dark`). Changes semantic variables for children. |
+| **Theming** | `overlay.css` | Absolute positioned overlays for modals, cards, etc. |
+| **Typography** | `title.css` | Heading styles (`.t`) decoupled from tags (`h1`-`h6`). |
+| **Typography** | `text.css` | Body text styles (`.tx`) for paragraphs and spans. |
+| **Utilities** | `margin.css` | `.mg` classes. Logical properties (`mgb` = margin-bottom). |
+| **Utilities** | `padding.css` | `.pd` classes. Fluid clamp-based padding. |
+| **Utilities** | `radius.css` | Border radius utilities (`.rad`). |
+
+> [!INFO]
+> You can mix and match these files locally. For example, if you just want the **Grid** system, you can pull `grid.css` and use it standalone!
+
+---
+
+## 🧠 Deep Dive
+
+### Logic & Architecture: The 7 Layers
+
+uCss follows a **7-Layer Architecture** (Config -> Base -> Layout -> Theming -> Typography -> Patterns -> Utilities). This is known as the "Onion Model".
+
+1.  **Config**: The "Brain". Pure variables. No CSS output. Defines the DNA (Colors, Spacing, Typography scales).
+2.  **Base**: The "Foundation". HTML tag resets. Sets up the "Smart Flow" environment where elements space themselves automatically.
+3.  **Layout**: The "Skeleton". Macro structures (`.s`, `.g`). Covers the page structure and large grid systems.
+4.  **Theming**: The "Skin". Contextual colors and modes. Handles light/dark switching and brand themes.
+5.  **Typography**: The "Voice". Fluid text. Decouples semantics from visuals.
+6.  **Patterns**: The "Organs". Complex CSS components (`.btn`, `.crd`). These are the reusable UI bits.
+7.  **Utilities**: The "Tools". Micro-adjustments. High specificity overrides for when you need a "little more margin".
+
+### Under the Hood: How it Works
+
+uCss creates a **Reactive Style Graph** in the browser.
+Most frameworks are static maps: Class X = Property Y.
+uCss is a dynamic graph: Variable X -> Calculation Y -> Property Z.
+
+**Example**: Spacing.
+`--g-gap` is not `20px`. It is `clamp(1rem, 5vw, 2rem)`.
+When you use `.gap`, it references this variable.
+Therefore, *all* gaps in your application breathe with the viewport.
+
+### Naming Convention: The "Smart BEM"
+
+We use a compressed, logical BEM-like syntax.
+BEM (Block Element Modifier) is great but verbose (`.block__element--modifier`).
+uCss compresses this:
+
+*   **Block**: `.crd` (Card), `.btn` (Button). *ALWAYS* 3-4 letters.
+*   **Element**: `.crd__header` (Double underscore). Standard BEM.
+*   **Modifier**: `.btn.primary` (Chained class). *Or* `--primary`.
+    *   *Why use Chained?* Because it increases specificity slightly (good for overrides) and reads naturally (`btn primary`).
+*   **Helpers**: `.ta-c` (Text Align Center), `.ai-c` (Align Items Center). Two letters, hyphen, value.
+
+---
+
+## 📍 Reference
+
+### Comparison Matrix: uCss vs The World
+
+| Feature | **uCss** | Tailwind CSS | Bootstrap |
+| :--- | :--- | :--- | :--- |
+| **Paradigm** | Context-First (Hybrid) | Utility-First | Component-First |
+| **Build Step** | Optional (Zero) | Required (PostCSS) | Optional (Sass) |
+| **Responsiveness** | **Container Queries** | Media Queries | Media Queries |
+| **Class Strategy** | Semantic + Utility | Utility Soup | Semantic Classes |
+| **Logic** | CSS Variables | Compiler Logic | Sass Logic |
+| **Bundle Size** | 21KB (Gzip) / 16.5KB (Brotli) | ~5KB (Gzip, Purged) | ~20KB (Gzip) |
+| **Dark Mode** | `.set.dark` (Scopeable) | `dark:` (Global) | Data Attributes |
+| **HTML Cleanliness** | ⭐⭐⭐⭐⭐ (Clean) | ⭐ (Class Soup) | ⭐⭐⭐ (Moderate) |
+
+### The Glossary
+
+*   **Smart Flow**: The system (`* + *`) that adds top margins to elements to create vertical rhythm.
+*   **Set**: A group of variables (Theme) applied to a scope.
+*   **Pattern**: A reusable component structure (Card, Button).
+*   **Utility**: A single-purpose class (Margin, Padding).
+
+---
+
+## 💡 Best Practices & Customization
+
+### Anti-Patterns (What NOT to do)
+
+1.  **Don't build everything with Utilities**.
+    *   *Bad*: `<div class="p-m rad-m shadow-m flex row...">`
+    *   *Good*: `<article class="crd">`
+    *   *Why?* You lose the ability to update all cards at once.
+
+2.  **Don't hardcode pixel values**.
+    *   *Bad*: `width: 640px`
+    *   *Good*: `width: 40rem` or `.s_cn`
+    *   *Why?* Pixels don't scale with user font settings (Accessibility).
+
+3.  **Don't fight the Cascade**.
+    *   *Bad*: `.btn { color: red !important }`
+    *   *Good*: `.btn { --btn-c: red }`
+    *   *Why?* `!important` breaks the theming engine.
+
+### Migration Guide
+
+**From Bootstrap**:
+*   Replace `.container` with `.s`.
+*   Replace `.row` / `.col-md-6` with `.g` / `.g-2`.
+*   Replace `.btn-primary` with `.btn.primary`.
+
+**From Tailwind**:
+*   Stop writing `hover:bg-blue-500`. Start using `.btn` which handles states.
+*   Stop writing `w-1/2 md:w-1/3`. Start using `.g` which fits content auto-magically.
+
+## 📚 Detailed Documentatio
 
 ### 1. Base
 Core resets and normalizers.
@@ -289,7 +497,6 @@ Core resets and normalizers.
 
 | File | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `content.css` | [src](https://ucss.unqa.dev/stable/lib/base/content.css) • [clean](https://ucss.unqa.dev/stable/lib/base/content.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/content.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/content.css) • [clean](https://ucss.unqa.dev/latest/lib/base/content.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/content.min.css) | 2.1KB / 1.3KB / 0.9KB / 0.3KB / 0.3KB | **Content Controller**. Toggles flow variables ("App Mode" `.cs` vs "Content Mode" `.csc`). |
 | `html.css` | [src](https://ucss.unqa.dev/stable/lib/base/html.css) • [clean](https://ucss.unqa.dev/stable/lib/base/html.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base/html.min.css) | [src](https://ucss.unqa.dev/latest/lib/base/html.css) • [clean](https://ucss.unqa.dev/latest/lib/base/html.clean.css) • [min](https://ucss.unqa.dev/latest/lib/base/html.min.css) | 8KB / 6KB / 4KB / 1KB / 1KB | **Smart Flow Engine**. Global Reset + Smart vertical rhythm using `* + *` logic. |
 
 ---
@@ -367,7 +574,7 @@ Flexible box layout with gap intelligence.
 *   **Alignment Helpers**:
     *   `.ai-c` (align-items: center), `.jc-sb` (justify-content: space-between), `.jc-c` (center).
 *   **Child Props**:
-    *   `--fc-grow`, `--fc-shrink`, `--fc-basis`: Standard flex controls.
+    *   `--fi-grow`, `--fi-shrink`, `--fi-basis`, `--fi-o`: Standard flex controls.
     *   `.mi-a` (margin-inline: auto) for pushing items (like `margin-left: auto`).
 *   **Responsive**: Suffixes supported (e.g., `.col--md` switches to column on medium screens).
 
@@ -418,23 +625,23 @@ Responsive text alignment.
 
 ---
 
-### 4. Components
+### 4. Patterns
 UI Elements and interactive patterns.
 
 | Bundle | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) |
 | :--- | :--- | :--- | :--- |
-| **`components`** | [src](https://ucss.unqa.dev/stable/lib/components.css) • [clean](https://ucss.unqa.dev/stable/lib/components.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components.min.css) | [src](https://ucss.unqa.dev/latest/lib/components.css) • [clean](https://ucss.unqa.dev/latest/lib/components.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components.min.css) | 36KB / 32KB / 27KB / 4.8KB / 4.1KB |
+| **`patterns`** | [src](https://ucss.unqa.dev/stable/lib/patterns.css) • [clean](https://ucss.unqa.dev/stable/lib/patterns.clean.css) • [min](https://ucss.unqa.dev/stable/lib/patterns.min.css) | [src](https://ucss.unqa.dev/latest/lib/patterns.css) • [clean](https://ucss.unqa.dev/latest/lib/patterns.clean.css) • [min](https://ucss.unqa.dev/latest/lib/patterns.min.css) | 36KB / 32KB / 27KB / 4.8KB / 4.1KB |
 
 | Bundle | HTML Snippet (Stable) |
 | :--- | :--- |
-| **`components`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components.min.css">` |
+| **`patterns`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/patterns.min.css">` |
 
 | File | Stable | Latest | Size (Raw / Clean / Min / Gz / Br) | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `button.css` | [src](https://ucss.unqa.dev/stable/lib/components/button.css) • [clean](https://ucss.unqa.dev/stable/lib/components/button.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/button.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/button.css) • [clean](https://ucss.unqa.dev/latest/lib/components/button.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/button.min.css) | 15KB / 13KB / 11KB / 2.3KB / 2.0KB | `.btn` |
-| `card.css` | [src](https://ucss.unqa.dev/stable/lib/components/card.css) • [clean](https://ucss.unqa.dev/stable/lib/components/card.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/card.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/card.css) • [clean](https://ucss.unqa.dev/latest/lib/components/card.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/card.min.css) | 17KB / 15KB / 13KB / 2.3KB / 2.0KB | `.crd` |
-| `media.css` | [src](https://ucss.unqa.dev/stable/lib/components/media.css) • [clean](https://ucss.unqa.dev/stable/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/media.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/media.css) • [clean](https://ucss.unqa.dev/latest/lib/components/media.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/media.min.css) | 3.6KB / 3.0KB / 2.4KB / 0.7KB / 0.6KB | `.med` |
-| `link.css` | [src](https://ucss.unqa.dev/stable/lib/components/link.css) • [clean](https://ucss.unqa.dev/stable/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components/link.min.css) | [src](https://ucss.unqa.dev/latest/lib/components/link.css) • [clean](https://ucss.unqa.dev/latest/lib/components/link.clean.css) • [min](https://ucss.unqa.dev/latest/lib/components/link.min.css) | 1.1KB / 0.6KB / 0.5KB / 0.3KB / 0.2KB | `.lnk` |
+| `button.css` | [src](https://ucss.unqa.dev/stable/lib/patterns/button.css) • [clean](https://ucss.unqa.dev/stable/lib/patterns/button.clean.css) • [min](https://ucss.unqa.dev/stable/lib/patterns/button.min.css) | [src](https://ucss.unqa.dev/latest/lib/patterns/button.css) • [clean](https://ucss.unqa.dev/latest/lib/patterns/button.clean.css) • [min](https://ucss.unqa.dev/latest/lib/patterns/button.min.css) | 15KB / 13KB / 11KB / 2.3KB / 2.0KB | `.btn` |
+| `card.css` | [src](https://ucss.unqa.dev/stable/lib/patterns/card.css) • [clean](https://ucss.unqa.dev/stable/lib/patterns/card.clean.css) • [min](https://ucss.unqa.dev/stable/lib/patterns/card.min.css) | [src](https://ucss.unqa.dev/latest/lib/patterns/card.css) • [clean](https://ucss.unqa.dev/latest/lib/patterns/card.clean.css) • [min](https://ucss.unqa.dev/latest/lib/patterns/card.min.css) | 17KB / 15KB / 13KB / 2.3KB / 2.0KB | `.crd` |
+| `media.css` | [src](https://ucss.unqa.dev/stable/lib/patterns/media.css) • [clean](https://ucss.unqa.dev/stable/lib/patterns/media.clean.css) • [min](https://ucss.unqa.dev/stable/lib/patterns/media.min.css) | [src](https://ucss.unqa.dev/latest/lib/patterns/media.css) • [clean](https://ucss.unqa.dev/latest/lib/patterns/media.clean.css) • [min](https://ucss.unqa.dev/latest/lib/patterns/media.min.css) | 3.6KB / 3.0KB / 2.4KB / 0.7KB / 0.6KB | `.med` |
+| `link.css` | [src](https://ucss.unqa.dev/stable/lib/patterns/link.css) • [clean](https://ucss.unqa.dev/stable/lib/patterns/link.clean.css) • [min](https://ucss.unqa.dev/stable/lib/patterns/link.min.css) | [src](https://ucss.unqa.dev/latest/lib/patterns/link.css) • [clean](https://ucss.unqa.dev/latest/lib/patterns/link.clean.css) • [min](https://ucss.unqa.dev/latest/lib/patterns/link.min.css) | 1.1KB / 0.6KB / 0.5KB / 0.3KB / 0.2KB | `.lnk` |
 
 #### **Buttons (`.btn`)**
 A complete button system with built-in states and variants.
@@ -752,7 +959,7 @@ Our CI/CD pipeline (GitHub Actions) automatically deploys based on branch push:
 | :--- | :--- | :--- |
 | Branch | Output URL | Configuration |
 | :--- | :--- | :--- |
-| **`main`** | `.../stable/` & `.../p/` | **Production**. Stable release (root) + Encapsulated build (`/p/`). |
+| **`main`** | `.../stable/`, `.../p/` & `.../v/` | **Production**. Stable (root) + Encapsulated (`/p/`) + Variables Only (`/v/`). |
 | **`dev`** | `.../latest/` | **Development**. Bleeding-edge code. |
 | **`*`** (Other) | `.../preview-.../` | **Preview**. Timestamped deployments (e.g., `preview-2025-12-08...`). Auto-deleted after 7 days. |
 
@@ -760,6 +967,12 @@ Our CI/CD pipeline (GitHub Actions) automatically deploys based on branch push:
 
 ## 🤝 Contributing
 1.  Make changes in `src/lib`.
-2.  Run `npm run build` locally to verify imports, bundling, and header generation.
+2.  Run `npm run build full` locally to verify imports, bundling, and header generation.
 3.  Check `dist/stable/u.min.css` to confirm your changes are present and correct.
 4.  Push to `dev` branch.
+
+---
+
+**Navigation**: [uCss](./) > [Source](./src/) > [Modules](./src/lib/)
+
+[Back to top](#)

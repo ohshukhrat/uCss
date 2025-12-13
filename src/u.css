@@ -1,6 +1,6 @@
 @import "lib/base.css";
+@import "lib/patterns.css";
 @import "lib/layout.css";
-@import "lib/theming.css";
 @import "lib/typography.css";
-@import "lib/components.css";
+@import "lib/theming.css";
 @import "lib/utilities.css";

@@ -1,0 +1,10 @@
+/**
+ * @file Button Pattern
+ * @description Aggregator for all button partials.
+ */
+
+@import "button/base.css";
+@import "button/skins.css";
+@import "button/sizes.css";
+@import "button/group.css";
+@import "button/blocksy.css";

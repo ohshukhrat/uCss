@@ -1,0 +1,58 @@
+:where(.nn, .dis-none) {
+    display: var(--display, none);
+}
+
+:where(.bl, .block, .dis-bl) {
+    display: var(--display, block);
+}
+
+:where(.ib, .inline-block, .dis-ib) {
+    display: var(--display, inline-block);
+}
+
+:where(.il, .inline, .dis-il) {
+    display: var(--display, inline);
+}
+
+:where(.if, .inline-flex, .dis-if) {
+    display: var(--display, inline-flex);
+}
+
+:where(.f, .flex, .dis-f) {
+    display: var(--display, flex);
+}
+
+:where(.ig, .inline-grid, .dis-ig) {
+    display: var(--display, inline-grid);
+}
+
+:where(.g, .grid, .dis-g) {
+    display: var(--display, grid);
+}
+
+:where(.cn, .contents, .dis-cn) {
+    display: var(--display, contents);
+}
+
+:where(.tb, .table, .dis-tb) {
+    display: var(--display, table);
+}
+
+:where(.tr, .table-row, .dis-tr) {
+    display: var(--display, table-row);
+}
+
+:where(.td, .table-cell, .dis-td) {
+    display: var(--display, table-cell);
+}
+
+:where(.hidden, .hide):has(:not(.editor-styles-wrapper)) {
+    display: var(--hidden-display, none);
+    opacity: var(--hidden-opacity, 0);
+    visibility: var(--hidden-visibility, hidden);
+}
+
+.editor-styles-wrapper :is(.hidden, .hide) {
+    opacity: var(--hidden-opacity, 0.48);
+    transform: scale(.96);
+}

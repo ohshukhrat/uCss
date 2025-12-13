@@ -2,7 +2,7 @@
 
 **Navigation**: [uCss](../../) > [Source](../) > [Modules](./) 
 
-**Modules**: [Config](./config/) | [Base](./base/) | [Layout](./layout/) | [Theming](./theming/) | [Typography](./typography/) | [Components](./components/) | [Utilities](./utilities/)
+**Modules**: [Config](./config/) | [Base](./base/) | [Layout](./layout/) | [Theming](./theming/) | [Typography](./typography/) | [Patterns](./patterns/) | [Utilities](./utilities/)
 
 > **Modular by Design**. uCss is composed of loosely coupled, independent modules. Use the full framework for maximum power, or cherry-pick individual folders (like `Layout` or `Typography`) to build your own lightweight custom stack.
 
@@ -43,11 +43,11 @@ We enforce a strict dependency graph:
 
 | Module | Directory | Description | Connections |
 | :--- | :--- | :--- | :--- |
-| **Config** | [`/config`](./config/) | **(Optional)**: CSS Variables, design tokens, and global settings. Provides the defaults, but components will work without it using internal fallbacks. | General, Typography, Layout, Components, Theming |
+| **Config** | [`/config`](./config/) | **(Optional)**: CSS Variables, design tokens, and global settings. Provides the defaults, but components will work without it using internal fallbacks. | General, Typography, Layout, Patterns, Theming |
 | **Base** | [`/base`](./base/) | Resets and normalizations. Handles clearing default content spacing (`.cs`) and clear lists (`.cl`). | None |
 | **Typography** | [`/typography`](./typography/) | Fluid type scales for Headings (`.t`) and Body text (`.tx`), plus alignment (`.ta`). | Base, Config |
-| **Layout** | [`/layout`](./layout/) | Structural engines: Grid (`.g`), Flex (`.f`), and Section (`.s`). | Config, Components |
-| **Components** | [`/components`](./components/) | Interactive UI blocks: Cards (`.crd`), Buttons (`.btn`), Media (`.med`), Links (`.lnk`). | Layout, Typography, Theming, Config |
+| **Layout** | [`/layout`](./layout/) | Structural engines: Grid (`.g`), Flex (`.f`), and Section (`.s`). | Config, Patterns |
+| **Patterns** | [`/patterns`](./patterns/) | Interactive UI blocks: Cards (`.crd`), Buttons (`.btn`), Media (`.med`), Links (`.lnk`). | Layout, Typography, Theming, Config |
 | **Theming** | [`/theming`](./theming/) | Visual layers: Contextual themes (`.set`), Overlays (`.o`). | Config |
 | **Utilities** | [`/utilities`](./utilities/) | Helper classes: Margin (`.mg`), Padding (`.pd`), Radius (`.rad`). | None |
 
@@ -61,7 +61,7 @@ All modules are available individually or as a single bundle.
 | **`base.css`** | ~2.1KB | ~1.3KB | ~0.9KB | ~0.3KB | ~0.3KB | [src](https://ucss.unqa.dev/stable/lib/base.css) • [clean](https://ucss.unqa.dev/stable/lib/base.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base.min.css) |
 | **`layout.css`** | ~70KB | ~67KB | ~57KB | ~7.1KB | ~5.2KB | [src](https://ucss.unqa.dev/stable/lib/layout.css) • [clean](https://ucss.unqa.dev/stable/lib/layout.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout.min.css) |
 | **`typography.css`** | ~15KB | ~10KB | ~8.6KB | ~1.6KB | ~1.3KB | [src](https://ucss.unqa.dev/stable/lib/typography.css) • [clean](https://ucss.unqa.dev/stable/lib/typography.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography.min.css) |
-| **`components.css`** | ~50KB | ~45KB | ~40KB | ~6.5KB | ~5.6KB | [src](https://ucss.unqa.dev/stable/lib/components.css) • [clean](https://ucss.unqa.dev/stable/lib/components.clean.css) • [min](https://ucss.unqa.dev/stable/lib/components.min.css) |
+| **`patterns.css`** | ~50KB | ~45KB | ~40KB | ~6.5KB | ~5.6KB | [src](https://ucss.unqa.dev/stable/lib/patterns.css) • [clean](https://ucss.unqa.dev/stable/lib/patterns.clean.css) • [min](https://ucss.unqa.dev/stable/lib/patterns.min.css) |
 | **`theming.css`** | ~17KB | ~15.6KB | ~14KB | ~3.3KB | ~2.8KB | [src](https://ucss.unqa.dev/stable/lib/theming.css) • [clean](https://ucss.unqa.dev/stable/lib/theming.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming.min.css) |
 | **`utilities.css`** | ~10KB | ~7.3KB | ~6.2KB | ~1.1KB | ~0.9KB | [src](https://ucss.unqa.dev/stable/lib/utilities.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities.min.css) |
 
@@ -78,7 +78,7 @@ All modules are available individually or as a single bundle.
 | **`base.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/base.min.css">` |
 | **`layout.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout.min.css">` |
 | **`typography.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography.min.css">` |
-| **`components.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/components.min.css">` |
+| **`patterns.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/patterns.min.css">` |
 | **`theming.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/theming.min.css">` |
 | **`utilities.css`** | `<link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/utilities.min.css">` |
 
@@ -167,10 +167,10 @@ For granular control, you can import specific single-file bundles. All individua
 | | `layout/flex.css` | Flex (`.f`) Utilities | [link](https://ucss.unqa.dev/stable/lib/layout/flex.min.css) |
 | **Typography** | `typography/title.css` | Headings (`.t`) | [link](https://ucss.unqa.dev/stable/lib/typography/title.min.css) |
 | | `typography/text.css` | Body Text (`.tx`) | [link](https://ucss.unqa.dev/stable/lib/typography/text.min.css) |
-| **Components** | `components/button.css` | Buttons (`.btn`) | [link](https://ucss.unqa.dev/stable/lib/components/button.min.css) |
-| | `components/card.css` | Cards (`.crd`) | [link](https://ucss.unqa.dev/stable/lib/components/card.min.css) |
-| | `components/media.css` | Media (`.med`) | [link](https://ucss.unqa.dev/stable/lib/components/media.min.css) |
-| | `components/link.css` | Link Wrapper (`.lnk`) | [link](https://ucss.unqa.dev/stable/lib/components/link.min.css) |
+| **Patterns** | `patterns/button.css` | Buttons (`.btn`) | [link](https://ucss.unqa.dev/stable/lib/patterns/button.min.css) |
+| | `patterns/card.css` | Cards (`.crd`) | [link](https://ucss.unqa.dev/stable/lib/patterns/card.min.css) |
+| | `patterns/media.css` | Media (`.med`) | [link](https://ucss.unqa.dev/stable/lib/patterns/media.min.css) |
+| | `patterns/link.css` | Link Wrapper (`.lnk`) | [link](https://ucss.unqa.dev/stable/lib/patterns/link.min.css) |
 | **Theming** | `theming/set.css` | Contextual Sets (`.set`) | [link](https://ucss.unqa.dev/stable/lib/theming/set.min.css) |
 | | `theming/overlay.css` | Overlays (`.o`) | [link](https://ucss.unqa.dev/stable/lib/theming/overlay.min.css) |
 | **Utilities** | `utilities/padding.css` | Padding (`.pd`) | [link](https://ucss.unqa.dev/stable/lib/utilities/padding.min.css) |

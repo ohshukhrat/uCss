@@ -257,6 +257,7 @@ async function main() {
         const steps = [
             { id: 'latest', args: ['latest'] },
             { id: 'prefixed', args: ['p'] },
+            { id: 'variables', args: ['v'] },
             { id: 'stable', args: ['stable'] }
         ];
 
@@ -406,27 +407,51 @@ async function main() {
             ]);
 
             // Copy Sub-files (Individual component files)
-            const subDirRel = `src / lib / ${modName} `;
+            const subDirRel = `src/lib/${modName}`;
             // ... (Logic to copy indiv files same as before) ...
             // Simplified for brevity in JSDoc update task, but retaining logic
+            // Helper: Recursive file walker
+            async function getFiles(dir) {
+                const dirents = await fs.readdir(dir, { withFileTypes: true });
+                const files = await Promise.all(dirents.map((dirent) => {
+                    const res = path.resolve(dir, dirent.name);
+                    return dirent.isDirectory() ? getFiles(res) : res;
+                }));
+                return Array.prototype.concat(...files).filter(f => f.endsWith('.css') && path.basename(f) !== 'index.css');
+            }
+
             let individualFiles = [];
             if (sourceRef) {
-                individualFiles = exec(`git ls - tree - r--name - only "${sourceRef}"`)
-                    .split('\n').filter(l => l.startsWith(subDirRel) && l.endsWith('.css')).map(l => path.join(PROJECT_ROOT, l));
+                individualFiles = exec(`git ls-tree -r --name-only "${sourceRef}"`)
+                    .split('\n')
+                    .filter(l => l.startsWith(subDirRel) && l.endsWith('.css'))
+                    .map(l => path.join(PROJECT_ROOT, l));
             } else {
                 const subDirPath = path.join(PROJECT_ROOT, subDirRel);
                 if (existsSync(subDirPath)) {
-                    individualFiles = (await fs.readdir(subDirPath)).filter(f => f.endsWith('.css')).map(f => path.join(subDirPath, f));
+                    individualFiles = await getFiles(subDirPath);
                 }
             }
 
             await Promise.all(individualFiles.map(async leaf => {
-                const name = path.basename(leaf);
-                let raw = await readFile(leaf, sourceRef);
+                // Calculate relative path from module root to leaf to preserve structure
+                // e.g. leaf = .../src/lib/patterns/button/skins.css
+                // subDirRel = src/lib/patterns
+                // rel = button/skins.css
+                const subDirPath = path.join(PROJECT_ROOT, subDirRel);
+                const rel = path.relative(subDirPath, leaf);
+
+                const leafTarget = path.join(targetLibDir, rel);
+                const leafDir = path.dirname(leafTarget);
+
+                if (!existsSync(leafDir)) {
+                    await fs.mkdir(leafDir, { recursive: true });
+                }
+
+                let raw = await bundleCss(leaf, sourceRef);
 
                 if (validMode) raw = prefixCss(raw, validMode, prefixString);
 
-                const leafTarget = path.join(targetLibDir, name);
                 await fs.writeFile(leafTarget, raw);
                 await fs.writeFile(leafTarget.replace('.css', '.clean.css'), cleanCss(raw));
                 await fs.writeFile(leafTarget.replace('.css', '.min.css'), minifyCss(raw));
@@ -462,8 +487,9 @@ async function main() {
             const renderer = {
                 heading({ tokens, depth }) {
                     const text = this.parser.parseInline(tokens);
-                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-                    return `< h${depth} id = "${id}" > ${text}</h${depth}> `;
+                    // Match marked default slugger: replace non-word chars with dash
+                    const id = text.toLowerCase().replace(/[^\w]+/g, '-');
+                    return `<h${depth} id="${id}">${text}</h${depth}>`;
                 },
                 link({ href, title, tokens }) {
                     const text = this.parser.parseInline(tokens);
@@ -478,7 +504,7 @@ async function main() {
                     // e.g. "src/lib/components/" -> "./stable/lib/components/"
                     if (mdPath === path.join(PROJECT_ROOT, 'README.md')) {
                         if (hrefStr.startsWith('./src/') || hrefStr.startsWith('src/')) {
-                            hrefStr = hrefStr.replace(/^(\.\/)?src\//, `./ ${outputDirName}/`);
+                            hrefStr = hrefStr.replace(/^(\.\/)?src\//, `./${outputDirName}/`);
                         }
                     }
 
@@ -489,6 +515,17 @@ async function main() {
 
             let htmlContent;
             try { htmlContent = marked.parse(md, { gfm: true, breaks: false }); } catch (e) { return; }
+
+            // Wrap tables for scrollability
+            htmlContent = htmlContent.replace(/<table>/g, '<div class="of-x"><table>').replace(/<\/table>/g, '</table></div>');
+
+            // Dynamic CDN Replacement in Content
+            // Replaces "ucss.unqa.dev/stable" with "ucss.unqa.dev/[current-build]" in the text
+            // checking if outputDirName is 'p' or 'latest' or 'preview*'.
+            const cdnSegment = outputDirName.startsWith('preview') ? outputDirName : (['p', 'latest'].includes(outputDirName) ? outputDirName : 'stable');
+            if (cdnSegment !== 'stable') {
+                htmlContent = htmlContent.replace(/ucss\.unqa\.dev\/stable/g, `ucss.unqa.dev/${cdnSegment}`);
+            }
 
             // TEMPLATE: Minimal HTML wrapper
             const relRoot = path.relative(path.dirname(outPath), outputDir);
@@ -503,32 +540,33 @@ async function main() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="uCss - Modern, mobile-first, pure CSS framework with zero dependencies">
     <title>${title}</title>
-    <link rel="stylesheet" href="${configPath}">
-    <link rel="stylesheet" href="${corePath}">
+    <link rel="stylesheet" href="https://ucss.unqa.dev/${cdnSegment === 'stable' ? 'stable' : cdnSegment}/lib/config.css">
+    <link rel="stylesheet" href="https://ucss.unqa.dev/${cdnSegment === 'stable' ? 'stable' : cdnSegment}/u.min.css">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.5; color: var(--tx); }
-        code { background: var(--srf); padding: 0.2em 0.4em; border-radius: 0.375rem; font-family: ui-monospace, monospace; font-size: 0.875em; }
-        pre { background: var(--srf); padding: 1rem; overflow-x: auto; border-radius: 0.375rem; border: 1px solid var(--out); }
-        pre code { background: none; padding: 0; font-size: 0.875rem; }
-        table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
-        th, td { border: 1px solid var(--out); padding: 0.5rem 1rem; text-align: left; }
-        th { background: var(--srf); font-weight: 600; }
-        .alert { padding: 1rem; margin: 1rem 0; border-left: 4px solid; border-radius: 0.375rem; }
-        .alert strong { display: block; margin-bottom: 0.5rem; }
-        .alert-note { background: var(--sp-lt); border-color: var(--out); }
-        .alert-tip { background: var(--sp); border-color: var(--out); }
-        .alert-important { background: var(--sp-bd); border-color: var(--out); }
-        .alert-warning { background: var(--alr); border-color: var(--out); }
-        .alert-caution { background: var(--alr); border-color: var(--out); }
-        a { color: var(--t); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        hr { border: none; border-top: 1px solid var(--out); margin: 2rem 0; }
+        /* Documentation specific overrides */
+        .s { min-height: 100vh; }
     </style>
 </head>
-<body>
+</head>
+<body class="set base">
     <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
-        <div class="sc"><div>${htmlContent}</div></div>
+        <div class="sf"><div>${htmlContent}</div></div>
     </section>
+
+    <!-- Theme Toggle -->
+    <button onclick="const b = document.body; b.classList.toggle('base'); b.classList.toggle('alt');" class="btn subtle icn blr rd" style="position: fixed; bottom: 2rem; left: 2rem; z-index: 999; --btn-c: var(--tx);">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
 </body>
 </html>`;
             await fs.writeFile(outPath, template);
@@ -536,8 +574,14 @@ async function main() {
 
         const docTasks = [];
         // Root README -> dist/index.html
+        // Root README -> dist/[target]/index.html (Self-contained)
         if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) {
-            docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
+            docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(outputDir, 'index.html'), 'uCss Documentation - Root'));
+
+            // Only update root dist/index.html if we are building stable
+            if (outputDirName === 'stable') {
+                docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
+            }
         }
 
         // Subproject READMEs -> dist/lib/*/index.html
@@ -583,8 +627,11 @@ async function main() {
         };
         verify(path.join(outputDir, 'u.css'), 5000);
         verify(path.join(outputDir, 'u.min.css'), 3000);
-        if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) verify(path.join(DIST_ROOT, 'index.html'), 1000);
-        verify(path.join(outputDir, 'lib/components.min.css'), 500);
+        if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) {
+            verify(path.join(outputDir, 'index.html'), 1000);
+            if (outputDirName === 'stable') verify(path.join(DIST_ROOT, 'index.html'), 1000);
+        }
+        verify(path.join(outputDir, 'lib/patterns.min.css'), 500);
     } catch (e) {
         console.error(`❌ Verification Failed: ${e.message}`);
         process.exit(1);

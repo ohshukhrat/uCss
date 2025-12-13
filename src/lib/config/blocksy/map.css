@@ -1,0 +1,94 @@
+/*
+ * @file Blocksy Theme Color Palette Adapter
+ * @description Maps uCss tokens to Blocksy's native Custom Properties.
+ * Enables uCss to be driven by Blocksy's theme engine.
+ */
+
+:root body {
+    /* 1. Primary / Brand (#eec14c, hsl(43 83% 62%) */
+    --p: var(--theme-palette-color-1, #eec14c);
+    /* 2. Accent / Brand (#ffb900, hsl(44 100% 50%)) */
+    --a: var(--theme-palette-color-2, #ffb900);
+    /* 3. Text / Body (Dark) (#141414, hsl(0 0% 8%)) */
+    --tx: var(--theme-palette-color-3, #141414);
+    --alt: var(--theme-palette-color-3, #141414);
+    /* 4. Title / Heading (Darker) (#0a0a0a, hsl(0 0% 4%)) */
+    --t: var(--theme-palette-color-4, #0a0a0a);
+    --alt-bd: var(--theme-palette-color-4, #0a0a0a);
+    /* 5. Outline / Border (Less Dark) (#1f1f1f, hsl(0 0% 12%)) */
+    --out: var(--theme-palette-color-5, #1f1f1f);
+    --alt-lt: var(--theme-palette-color-5, #1f1f1f);
+    /* 6. Lite Background / Surface (Less White) (#ececec, hsl(0 0% 93%)) */
+    --base-lt: var(--theme-palette-color-6, #ececec);
+    --bg-lt: var(--theme-palette-color-6, #ececec);
+    /* 7. Background / Body (White) (#f5f5f5, hsl(0 0% 96%)) */
+    --base: var(--theme-palette-color-7, #f5f5f5);
+    --bg: var(--theme-palette-color-7, #f5f5f5);
+    /* 8. Bold Background / Cards (Whiter) (#fff, hsl(0 0% 100%)) */
+    --base-bd: var(--theme-palette-color-8, #fff);
+    --bg-bd: var(--theme-palette-color-8, #fff);
+    /* 9. Overlay / Tint (Opace White) */
+    --ol: var(--theme-palette-color-9, hsl(0 0% 96% / .64));
+    /* 10.Overlay Dark Shade (Opace Black) */
+    --od: var(--theme-palette-color-10, hsl(0 0% 8% / .64));
+    /* 11. Always Dark #141414 */
+    --d: var(--theme-palette-color-11, var(--theme-palette-color-3, #141414));
+    /* 12. Always Light #f5f5f5 */
+    --l: var(--theme-palette-color-12, var(--theme-palette-color-7, #f5f5f5));
+    /* 13. Notification: Success Green #1E8E3E */
+    --scs: var(--theme-palette-color-13, #1E8E3E);
+    /* 14. Notification: Alert Red #D93025 */
+    --alr: var(--theme-palette-color-14, #D93025);
+    /* 15. Notification: Info Blue #1A73E8 */
+    --inf: var(--theme-palette-color-15, #1A73E8);
+    /* 16. Notification: Tip Purple #8E24AA*/
+    --tip: var(--theme-palette-color-16, #8E24AA);
+    /* 17. Overlay Light Bold */
+    --ol-bd: var(--theme-palette-color-17, hsl(0 0% 96% / .8));
+    /* 18. Overlay Light Lite */
+    --ol-lt: var(--theme-palette-color-18, hsl(0 0% 96% / .32));
+    /* 19. Overlay Dark Bold */
+    --od-bd: var(--theme-palette-color-19, hsl(0 0% 8% / .8));
+    /* 20. Overlay Dark Lite */
+    --od-lt: var(--theme-palette-color-20, hsl(0 0% 8% / .32));
+    /* 21. Overlay Primary */
+    --op: var(--theme-palette-color-21, hsl(43 83% 62% / .64));
+    /* 22. Overlay Accent */
+    --oa: var(--theme-palette-color-22, hsl(44 100% 50% / .64));
+    /* 23. Secondary / Brand Contrast (#263238, hsl(200 19% 18%)) */
+    --sec: var(--theme-palette-color-23, var(--theme-palette-color-11, var(--theme-palette-color-3, #263238)));
+    /* 24. Tertiary / Brand Base (#F5F0E6, hsl(40 33% 93%)) */
+    --ter: var(--theme-palette-color-24, var(--theme-palette-color-12, var(--theme-palette-color-7, #F5F0E6)));
+    /* 25. Always Dark Bold (#0a0a0a, hsl(0 0% 4%)) */
+    --d-bd: var(--theme-palette-color-25, var(--theme-palette-color-5, #0a0a0a));
+    /* 26. Always Dark Lite (#1f1f1f, hsl(0 0% 12%)) */
+    --d-lt: var(--theme-palette-color-26, var(--theme-palette-color-5, #1f1f1f));
+    /* 27. Always Light Bold (#ffffff, hsl(0 0% 100%)) */
+    --l-bd: var(--theme-palette-color-27, var(--theme-palette-color-8, #ffffff));
+    /* 28. Always Light Lite (#ececec, hsl(0 0% 93%)) */
+    --l-lt: var(--theme-palette-color-28, var(--theme-palette-color-6, #ececec));
+    /* 29. Overlay Primary Bold */
+    --op: var(--theme-palette-color-29, hsl(43 83% 62% / .8));
+    /* 30. Overlay Primary Lite */
+    --op-lt: var(--theme-palette-color-30, hsl(43 83% 62% / .32));
+    /* 31. Overlay Accent Bold */
+    --oa: var(--theme-palette-color-31, hsl(44 100% 50% / .8));
+    /* 32. Overlay Accent Lite */
+    --oa-lt: var(--theme-palette-color-32, hsl(44 100% 50% / .32));
+    /* 33. Overlay Success */
+    --oscs: var(--theme-palette-color-33, var(--theme-palette-color-9, hsl(137 65% 34% / .32)));
+    /* 34. Overlay Alert */
+    --oalr: var(--theme-palette-color-34, var(--theme-palette-color-9, hsl(4 71% 50% / .32)));
+    /* 35. Overlay Info */
+    --oinf: var(--theme-palette-color-35, var(--theme-palette-color-9, hsl(214 82% 51% / .32)));
+    /* 36. Overlay Tip */
+    --otip: var(--theme-palette-color-36, var(--theme-palette-color-9, hsl(287 65% 40% / .32)));
+    /* 37. Notification: Spotlight Yellow */
+    --ntf: var(--theme-palette-color-37, hsl(43 83% 62%));
+    /* 38. Overlay Spotlight */
+    --ontf: var(--theme-palette-color-38, var(--theme-palette-color-21, var(--theme-palette-color-9, hsl(43 83% 62% / .64))));
+    /* 39. Overlay Secondary */
+    --osec: var(--theme-palette-color-39, var(--theme-palette-color-10, hsl(200 19% 18%)));
+    /* 40. Overlay Tertiary */
+    --oter: var(--theme-palette-color-40, var(--theme-palette-color-9, hsl(40 33% 93%)));
+}

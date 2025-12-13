@@ -1,0 +1,172 @@
+/**
+ * @file Position & Inset Utilities
+ * @description Atomic positioning, logical insets, and Z-index management.
+ * STATUS: Production Ready.
+ */
+
+:where(.pos, .position),
+:where(.stc, .static, .pos-st),
+:where(.rel, .relative, .pos-r),
+:where(.abs, .absolute, .pos-a),
+:where(.fxd, .fixed, .pos-f),
+:where(.stk, .sticky, .pos-s) {
+    --pos: var(--position, relative);
+    position: var(--pos);
+    --ins: var(--ins-t, auto) var(--ins-r, auto) var(--ins-b, auto) var(--ins-l, auto);
+    inset: var(--inset, var(--ins));
+    --z: var(--z-index, auto);
+    z-index: var(--z);
+}
+
+:where(.stc, .static, .pos-st) {
+    --pos: static;
+}
+
+:where(.rel, .relative, .pos-r) {
+    --pos: relative;
+}
+
+:where(.abs, .absolute, .pos-a) {
+    --pos: absolute;
+}
+
+:where(.fxd, .fixed, .pos-f) {
+    --pos: fixed;
+}
+
+:where(.stk, .sticky, .pos-s) {
+    --pos: sticky;
+}
+
+:where(.ins, .inset),
+:where(.ins-0, .inset-0),
+:where(.ins-c, .inset-c, .center),
+:where(.ins-t, .inset-t),
+:where(.ins-r, .inset-r),
+:where(.ins-b, .inset-b),
+:where(.ins-l, .inset-l) {
+    --ins-t: var(--i-t, auto);
+    --ins-r: var(--i-r, auto);
+    --ins-b: var(--i-b, auto);
+    --ins-l: var(--i-l, auto);
+    --ins: var(--ins-t, auto) var(--ins-r, auto) var(--ins-b, auto) var(--ins-l, auto);
+    inset: var(--inset, var(--ins));
+
+    /* Default margin */
+    --margin: 0;
+    margin: var(--margin);
+    /* Margin Single Value */
+    --mg: var(--margin);
+    /* Margin Block */
+    --mgb: var(--mg);
+    /* Margin Block Start */
+    --mgbs: var(--mgb);
+    /* Margin Block End */
+    --mgbe: var(--mg);
+    /* Chained Declaration (for ease of computation) */
+    margin-block:
+        var(--mgbs, var(--mgb, var(--mg))) var(--mgbe, var(--mgb, var(--mg)));
+    /* Margin Inline */
+    --mgi: var(--mg);
+    /* Margin Inline Start */
+    --mgis: var(--mgi);
+    /* Margin Inline End */
+    --mgie: var(--mgi);
+    /* Chained Declaration (for ease of computation) */
+    margin-inline:
+        var(--mgis, var(--mgi, var(--mg))) var(--mgie, var(--mgi, var(--mg)));
+
+    --size: auto;
+    --sz: var(--size);
+    --szi: var(--sz);
+    --szb: var(--sz);
+    inline-size: var(--inline-size, var(--szi));
+    block-size: var(--block-size, var(--szb));
+}
+
+:where(.ins-0, .inset-0),
+:where(.ins-c, .inset-c, .center) {
+    --ins: 0;
+}
+
+:where(.ins-c, .inset-c, .center),
+:where(.ins-tc, .inset-tc),
+:where(.ins-bc, .inset-bc) {
+    --mgb: auto;
+    --szb: fit-content;
+}
+
+:where(.ins-c, .inset-c, .center),
+:where(.ins-lc, .inset-lc),
+:where(.ins-rc, .inset-rc) {
+    --mgi: auto;
+    --szi: fit-content;
+}
+
+:where(.ins-t, .inset-t),
+:where(.ins-tc, .inset-tc) {
+    --ins-t: 0;
+    --ins-r: 0;
+    --ins-l: 0;
+}
+
+:where(.ins-r, .inset-r),
+:where(.ins-rc, .inset-rc) {
+    --ins-t: 0;
+    --ins-r: 0;
+    --ins-b: 0;
+}
+
+:where(.ins-b, .inset-b),
+:where(.ins-bc, .inset-bc) {
+    --ins-r: 0;
+    --ins-b: 0;
+    --ins-l: 0;
+}
+
+:where(.ins-l, .inset-l),
+:where(.ins-lc, .inset-lc) {
+    --ins-t: 0;
+    --ins-b: 0;
+    --ins-l: 0;
+}
+
+:where(.ins-tl, .inset-tl) {
+    --ins-t: 0;
+    --ins-l: 0;
+}
+
+:where(.ins-tr, .inset-tr) {
+    --ins-t: 0;
+    --ins-r: 0;
+}
+
+:where(.ins-bl, .inset-bl) {
+    --ins-b: 0;
+    --ins-l: 0;
+}
+
+:where(.ins-br, .inset-br) {
+    --ins-b: 0;
+    --ins-r: 0;
+}
+
+:where(.z-f, .z-index-f, .z-t) {
+    --z: var(--z-index, 420);
+}
+
+:where(.z-1, .z-index-1, .z-1) {
+    --z: var(--z-index, 1);
+}
+
+:where(.z-2, .z-index-2, .z-2) {
+    --z: var(--z-index, 2);
+}
+
+:where(.z-3, .z-index-3, .z-3) {
+    --z: var(--z-index, 3);
+}
+
+:where(.z-l, .z-index-l, .z-b) {
+    --z: var(--z-index, -69);
+}

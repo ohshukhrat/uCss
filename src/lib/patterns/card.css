@@ -1,0 +1,9 @@
+/**
+ * @file Card Pattern
+ * @description Aggregator for all card partials.
+ */
+
+@import "./base.css";
+@import "./content.css";
+@import "./media.css";
+@import "./subgrid.css";

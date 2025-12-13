@@ -36,8 +36,8 @@
   margin-inline: var(--s-md, var(--s-mi,
         var(--s-mis) var(--s-mie)));
 
-  overflow-x: var(--s-of-x, var(--s-of, clip));
-  overflow-y: var(--s-of-y, var(--s-of, clip));
+  overflow-x: var(--s-ofx, var(--s-of, clip));
+  overflow-y: var(--s-ofy, var(--s-of, clip));
 
   background-color: var(--s-bg--sm, var(--s-bg, var(--set-bg)));
 
@@ -81,16 +81,18 @@
  * @group Content Container
  * The inner wrapper (.sc or direct child of .s). Handles max-inline-size (max-width) and centering.
  */
-:where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc) {
+:where(.s > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc) {
   display: var(--sc-d, flex);
   flex-direction: var(--sc-fd, column);
+  flex-wrap: var(--sc-fw);
+
   align-items: var(--sc-ai, stretch);
   align-content: var(--sc-ac);
   justify-content: var(--sc-jc);
-  gap: var(--sc-gap, clamp(2rem, 3.059vw + 1.388rem, 4rem));
-  flex-wrap: var(--sc-fw);
 
   align-self: var(--sc-as);
+
+  gap: var(--sc-gap, clamp(2rem, 3.059vw + 1.388rem, 4rem));
 
   inline-size: var(--sc-w--sm, var(--sc-w, 100%));
   max-inline-size: var(--sc-max-w--sm, var(--sc-max-w, 1366px));
@@ -103,6 +105,9 @@
   padding-inline: var(--sc-pis, var(--sc-pi)) var(--sc-pie, var(--sc-pi));
   margin-block: var(--sc-mbs, var(--sc-mb)) var(--sc-mbe, var(--sc-mb));
   margin-inline: var(--sc-mis, var(--sc-mi)) var(--sc-mie, var(--sc-mi));
+
+  overflow-x: var(--sc-ofx, var(--sc-of, visible));
+  overflow-y: var(--sc-ofy, var(--sc-of, visible));
 
   background-color: var(--sc-bg--sm, var(--sc-bg));
 
@@ -158,7 +163,7 @@
  * @group Inner Container Child Items (.scc)
  * API for third-level items (Section > Container > Child).
  */
-:where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc)>:where(*, .scc) {
+:where(.s > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc)>:where(*, .scc) {
   inline-size: var(--scc-w--sm, var(--scc-w, 100%));
   max-inline-size: var(--scc-max-w--sm, var(--scc-max-w));
 
@@ -188,12 +193,12 @@
   }
 }
 
-:where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc)>:where(.as-c),
+:where(.s > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc)>:where(.as-c),
 :where(.scc-as-c, .scc.as-c) {
   --scc-as: center;
 }
 
-:where(.s > *:not(.o, figure, img, .block-list-appender, style), .sc)>:where(.as-s),
+:where(.s > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc)>:where(.as-s),
 :where(.scc-as-s, .scc.as-s) {
   --scc-as: stretch;
 }
@@ -226,26 +231,47 @@
  * @group Spacing Modifiers
  * Overrides for padding (pb) and gap values.
  */
+
+:where(.s.pb--xl) {
+  --s-pb: var(--s-pb--xl, clamp(4rem, 3.059vw + 3.388rem, 6rem));
+}
+
+:where(.s.pb--l) {
+  --s-pb: var(--s-pb--l, clamp(3rem, 3.059vw + 2.388rem, 5rem));
+}
+
+:where(.s.pb--m) {
+  --s-pb: var(--s-pb--m, clamp(2.5rem, 2.294vw + 2.041rem, 4rem));
+}
+
 :where(.s.pb--s) {
-  --s-pb: clamp(3rem, 3.059vw + 2.388rem, 5rem);
+  --s-pb: var(--s-pb--s, clamp(2rem, 1.53vw + 1.694rem, 3rem));
 }
 
 :where(.s.pb--xs) {
-  --s-pb: clamp(2.5rem, 2.294vw + 2.041rem, 4rem);
+  --s-pb: var(--s-pb--xs, clamp(2rem, 1.53vw + 1.694rem, 3rem));
+}
+
+:where(.s.pb-0, .s.pb--0) {
+  --s-pb: 0;
+}
+
+:where(.s.gap--l) {
+  --s-gap: var(--s-gap--l, clamp(4rem, 3.059vw + 3.388rem, 6rem));
 }
 
 :where(.s.gap--s) {
-  --s-gap: clamp(1.75rem, 1.912vw + 1.368rem, 3rem);
+  --s-gap: var(--s-gap--s, clamp(1.75rem, 1.912vw + 1.368rem, 3rem));
 }
 
 :where(.s.gap--xs) {
-  --s-gap: clamp(1.375rem, 0.956vw + 1.184rem, 2rem);
+  --s-gap: var(--s-gap--xs, clamp(1.375rem, 0.956vw + 1.184rem, 2rem));
 }
 
+:where(.s.gap--xxs) {
+  --s-gap: var(--s-gap--xxs, clamp(1rem, 0.765vw + 0.847rem, 1.5rem));
+}
 
-/* WordPress Gutenberg Fix */
-:is(.is-layout-flow, .is-layout-constrained)>.s {
-  margin-block-start: var(--s-mbs, var(--s-mb, 0));
-  margin-block-end: var(--s-mbe, var(--s-mb, 0));
-  --theme-content-spacing: var(--s-mb, var(--content-mb, 0));
+:where(.s.gap-0, .s.gap--0) {
+  --s-gap: 0;
 }

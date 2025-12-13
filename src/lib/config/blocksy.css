@@ -1,0 +1,7 @@
+/**
+ * @file Blocksy Configuration Entry
+ * @description Imports the modular configuration system.
+ */
+
+@import "blocksy/map.css";
+@import "blocksy/bridge.css";

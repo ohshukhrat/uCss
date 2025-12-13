@@ -1,0 +1,50 @@
+/**
+ * @file HTML Reset
+ * @description Global element normalization and focus defaults.
+ */
+
+/* Focus Styles (A11y) */
+:where(*:focus-visible) {
+    outline: var(--focus-ring, 0.125rem solid var(--p, #eec14c));
+    outline-offset: var(--focus-offset, var(--out-of, 0.125rem));
+}
+
+:where(*:focus:not(:focus-visible)) {
+    outline: none;
+}
+
+:where(*),
+:where(*::before),
+:where(*::after) {
+    box-sizing: var(--box-sizing, border-box);
+    background-repeat: no-repeat;
+}
+
+:where(html) {
+    scroll-behavior: var(--scroll-behavior, smooth);
+    -webkit-text-size-adjust: var(--text-size-adjust, 100%);
+    -moz-tab-size: var(--tab-size, 4);
+    tab-size: var(--tab-size, 4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :where(html) {
+        scroll-behavior: auto;
+    }
+}
+
+:where(body) {
+    background-color: var(--bg, #ffffff);
+    color: var(--tx, #000000);
+
+    font-family: var(--tx-font-fam, system-ui, -apple-system, sans-serif);
+    font-size: var(--body-font-size, var(--body-fs, var(--tx-fs, 1rem)));
+    line-height: var(--tx-lh, 1.5);
+    font-weight: var(--tx-fw, 400);
+
+    margin: 0;
+    padding: 0;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

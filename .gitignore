@@ -59,3 +59,6 @@ local/temp/
 # 9. NPM Pack
 # ===========================
 *.tgz
+
+# Private Notes
+notes/private/

@@ -1,0 +1,45 @@
+/**
+ * @group Subgrid
+ * .sg (Subgrid Row) and .sgc (Subgrid Column) modifiers.
+ * Enables subgrid layout for card content.
+ */
+.crd.sg,
+.crd.sgc {
+    display: var(--crd-d, grid);
+
+    .sg,
+    .sgc {
+        display: var(--sgi-d, grid);
+    }
+
+    .crd__content {
+        padding-block: var(--sgi-pb, var(--sgi-p));
+        padding-inline: var(--sgi-pi, var(--sgi-p, 1.25rem));
+    }
+
+    &> :is(.crd__header, .crd__body, .crd__footer) {
+        padding-inline: var(--sgi-pi, var(--sgi-p, 1.25rem));
+    }
+
+    * :where(.crd__header, .crd__body, .crd__footer) {
+        padding-block: var(--crd-slot-pb, var(--crd-slot-p));
+        padding-inline: var(--crd-slot-pi, var(--crd-slot-p));
+    }
+
+    & .crd__header {
+        padding-block-start: var(--crd-slot-pbs, 1.25rem);
+    }
+
+    & .crd__footer {
+        padding-block-end: var(--crd-slot-pbe, 1.25rem);
+    }
+}
+
+.crd.sg>*,
+.crd.sgc>* {
+    flex-grow: initial;
+    flex-shrink: initial;
+    flex-basis: initial;
+    margin-block-start: initial;
+    margin-block-end: initial;
+}

@@ -1,0 +1,62 @@
+/**
+ * @file Layout Configuration
+ * @description Global layout engines, grids, sections, and flex defaults.
+ */
+
+:where(:root) {
+    /**
+   * @group Base: Main Layout Structure
+   */
+
+    /* Global: Section Container Max Width */
+    --sc-max-w: 1366px;
+
+    /* Section: Spacing & Gaps (section.css) */
+    --s-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
+    --s-pb: clamp(4rem, 3.059vw + 3.388rem, 6rem);
+    --s-pi: var(--pdw--m, 5%);
+    --sc-gap: clamp(2rem, 3.059vw + 1.388rem, 4rem);
+
+    /**
+   * @group Advanced: Layout Engines
+   */
+
+    /* Grid: Defaults (grid.css) */
+    --g-gap: clamp(1.75rem, 1.912vw + 1.368rem, 3rem);
+    --g-min: 256px;
+
+    /* Flex: Defaults (flex.css) */
+    --f-gap: clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem);
+
+    /**
+   * @group Pro: Layout Variants
+   */
+
+    /* Section: Width Variants (section.css) */
+    --s-h-max-w: 64rem;
+    --s-hw-max-w: 72rem;
+    --s-hn-max-w: 56rem;
+    --s-c-max-w: 48rem;
+    --s-cw-max-w: 56rem;
+    --s-cn-max-w: 40rem;
+
+    /* Grid: Gap Variants (grid.css) */
+    --g-gap--m: clamp(1.75rem, 1.912vw + 1.368rem, 3rem);
+    --g-gap--s: clamp(1.5rem, 0.769vw + 1.346rem, 2rem);
+    --g-gap--xs: clamp(1.25rem, 0.769vw + 1.096rem, 1.75rem);
+    --g-gap--xxs: clamp(1rem, 0.765vw + 0.847rem, 1.5rem);
+    --g-gap--xxxs: clamp(0.875rem, 0.574vw + 0.76rem, 1.25rem);
+    --g-gap--l: clamp(2rem, 3.077vw + 1.385rem, 4rem);
+    --g-gap--xl: clamp(2.5rem, 3.824vw + 1.735rem, 5rem);
+    --g-gap--xxl: clamp(3rem, 4.589vw + 2.082rem, 6rem);
+
+    /* Flex: Gap Variants (flex.css) */
+    --f-gap--m: clamp(1.25rem, 0.765vw + 1.097rem, 1.75rem);
+    --f-gap--s: clamp(1.125rem, 0.574vw + 1.01rem, 1.5rem);
+    --f-gap--xs: clamp(1rem, 0.382vw + 0.924rem, 1.25rem);
+    --f-gap--xxs: clamp(0.875rem, 0.191vw + 0.837rem, 1rem);
+    --f-gap--xxxs: clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem);
+    --f-gap--l: clamp(1.5rem, 0.765vw + 1.347rem, 2rem);
+    --f-gap--xl: clamp(2rem, 0.765vw + 1.847rem, 2.5rem);
+    --f-gap--xxl: clamp(2.5rem, 0.765vw + 2.347rem, 3rem);
+}

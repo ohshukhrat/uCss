@@ -9,70 +9,94 @@
  */
 
 /**
- * @group Block Start
- * Controls margin-block-start (top).
+ * @group BMargin block
+ * Controls margin-block.
  * Fallback chain: mgbs -> mgb -> mg
  */
-:where(.mg, .mgb, .mgbs) {
-    margin-block-start: var(--mgbs--sm, var(--mgbs, var(--mgb--sm, var(--mgb, var(--mg--sm, var(--mg))))));
+:where(.mg, .mgb, .mgbs, .mgbe) {
+    /* Default margin */
+    --margin: 0;
+    margin: var(--margin);
+    /* Margin Single Value */
+    --mg: var(--margin);
+    --mg--sm: var(--mg);
+    /* Margin Block */
+    --mgb: var(--mg--sm);
+    --mgb--sm: var(--mgb);
+    /* Margin Block Start */
+    --mgbs: var(--mgb--sm);
+    --mgbs--sm: var(--mgbs);
+    /* Margin Block End */
+    --mgbe: var(--mg--sm);
+    --mgbe--sm: var(--mgbe);
+    /* Chained Declaration (for ease of computation) */
+    margin-block:
+        var(--mgbs--sm, var(--mgbs, var(--mgb--sm, var(--mgb, var(--mg--sm, var(--mg)))))) var(--mgbe--sm, var(--mgbe, var(--mgb--sm, var(--mgb, var(--mg--sm, var(--mg))))));
 
     @container (669.99px <=width <=999.99px) {
-        margin-block-start: var(--mgbs--md, var(--mgbs, var(--mgb--md, var(--mgb, var(--mg--md, var(--mg))))));
+        --mg--md: var(--mg);
+        --mgb: var(--mg--md);
+        --mgb--md: var(--mgb);
+        --mgbs: var(--mgb--md);
+        --mgbs--md: var(--mgbs);
+        --mgbe: var(--mg--md);
+        --mgbe--md: var(--mgbe);
+        margin-block:
+            var(--mgbs--md, var(--mgbs, var(--mgb--md, var(--mgb, var(--mg--md, var(--mg)))))) var(--mgbe--md, var(--mgbe, var(--mgb--md, var(--mgb, var(--mg--md, var(--mg))))));
     }
 
-    @container (width >=1000px) {
-        margin-block-start: var(--mgbs--lg, var(--mgbs, var(--mgb--lg, var(--mgb, var(--mg--lg, var(--mg))))));
+    @container (width >999.99px) {
+        --mg--lg: var(--mg);
+        --mgb: var(--mg--lg);
+        --mgb--lg: var(--mgb);
+        --mgbs: var(--mgb--lg);
+        --mgbs--lg: var(--mgbs);
+        --mgbe: var(--mg--lg);
+        --mgbe--lg: var(--mgbe);
+        margin-block:
+            var(--mgbs--lg, var(--mgbs, var(--mgb--lg, var(--mgb, var(--mg--lg, var(--mg)))))) var(--mgbe--lg, var(--mgbe, var(--mgb--lg, var(--mgb, var(--mg--lg, var(--mg))))));
     }
 }
 
-/**
- * @group Block End
- * Controls margin-block-end (bottom).
- * Fallback chain: mgbe -> mgb -> mg
- */
-:where(.mg, .mgb, .mgbe) {
-    margin-block-end: var(--mgbe--sm, var(--mgbe, var(--mgb--sm, var(--mgb, var(--mg--sm, var(--mg))))));
+:where(.mg, .mgi, .mgis, .mgie) {
+    /* Margin Single Value */
+    --mg: var(--margin);
+    --mg--sm: var(--mg);
+    /* Margin Inline */
+    --mgi: var(--mg--sm);
+    --mgi--sm: var(--mgi);
+    /* Margin Inline Start */
+    --mgis: var(--mgi--sm);
+    --mgis--sm: var(--mgis);
+    /* Margin Inline End */
+    --mgie: var(--mg--sm);
+    --mgie--sm: var(--mgie);
+    /* Chained Declaration (for ease of computation) */
+    margin-inline:
+        var(--mgis--sm, var(--mgis, var(--mgi--sm, var(--mgi, var(--mg--sm, var(--mg)))))) var(--mgie--sm, var(--mgie, var(--mgi--sm, var(--mgi, var(--mg--sm, var(--mg))))));
 
     @container (669.99px <=width <=999.99px) {
-        margin-block-end: var(--mgbe--md, var(--mgbe, var(--mgb--md, var(--mgb, var(--mg--md, var(--mg))))));
+        --mg--md: var(--mg);
+        --mgi: var(--mg--md);
+        --mgi--md: var(--mgi);
+        --mgis: var(--mgi--md);
+        --mgis--md: var(--mgis);
+        --mgie: var(--mg--md);
+        --mgie--md: var(--mgie);
+        margin-inline:
+            var(--mgis--md, var(--mgis, var(--mgi--md, var(--mgi, var(--mg--md, var(--mg)))))) var(--mgie--md, var(--mgie, var(--mgi--md, var(--mgi, var(--mg--md, var(--mg))))));
     }
 
-    @container (width >=1000px) {
-        margin-block-end: var(--mgbe--lg, var(--mgbe, var(--mgb--lg, var(--mgb, var(--mg--lg, var(--mg))))));
-    }
-}
-
-/**
- * @group Inline Start
- * Controls margin-inline-start (left in LTR).
- * Fallback chain: mgis -> mgi -> mg
- */
-:where(.mg, .mgi, .mgis) {
-    margin-inline-start: var(--mgis--sm, var(--mgis, var(--mgi--sm, var(--mgi, var(--mg--sm, var(--mg))))));
-
-    @container (669.99px <=width <=999.99px) {
-        margin-inline-start: var(--mgis--md, var(--mgis, var(--mgi--md, var(--mgi, var(--mg--md, var(--mg))))));
-    }
-
-    @container (width >=1000px) {
-        margin-inline-start: var(--mgis--lg, var(--mgis, var(--mgi--lg, var(--mgi, var(--mg--lg, var(--mg))))));
-    }
-}
-
-/**
- * @group Inline End
- * Controls margin-inline-end (right in LTR).
- * Fallback chain: mgie -> mgi -> mg
- */
-:where(.mg, .mgi, .mgie) {
-    margin-inline-end: var(--mgie--sm, var(--mgie, var(--mgi--sm, var(--mgi, var(--mg--sm, var(--mg))))));
-
-    @container (669.99px <=width <=999.99px) {
-        margin-inline-end: var(--mgie--md, var(--mgie, var(--mgi--md, var(--mgi, var(--mg--md, var(--mg))))));
-    }
-
-    @container (width >=1000px) {
-        margin-inline-end: var(--mgie--lg, var(--mgie, var(--mgi--lg, var(--mgi, var(--mg--lg, var(--mg))))));
+    @container (width >999.99px) {
+        --mg--lg: var(--mg);
+        --mgi: var(--mg--lg);
+        --mgi--lg: var(--mgi);
+        --mgis: var(--mgi--lg);
+        --mgis--lg: var(--mgis);
+        --mgie: var(--mg--lg);
+        --mgie--lg: var(--mgie);
+        margin-inline:
+            var(--mgis--lg, var(--mgis, var(--mgi--lg, var(--mgi, var(--mg--lg, var(--mg)))))) var(--mgie--lg, var(--mgie, var(--mgi--lg, var(--mgi, var(--mg--lg, var(--mg))))));
     }
 }
 
@@ -85,12 +109,8 @@
     --mg: auto;
 }
 
-:where(.mgis.auto) {
-    --mgis: auto;
-}
-
-:where(.mgie.auto) {
-    --mgie: auto;
+:where(.mgb.auto) {
+    --mgb: auto;
 }
 
 :where(.mgbs.auto) {
@@ -100,6 +120,20 @@
 :where(.mgbe.auto) {
     --mgbe: auto;
 }
+
+:where(.mgi.auto) {
+    --mgi: auto;
+}
+
+:where(.mgis.auto) {
+    --mgis: auto;
+}
+
+:where(.mgie.auto) {
+    --mgie: auto;
+}
+
+
 
 /**
  * @group Block Margin Presets

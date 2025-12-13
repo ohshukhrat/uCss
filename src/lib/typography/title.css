@@ -13,18 +13,24 @@
  * Applies standard font properties to heading elements.
  * Includes responsive container queries for font-size and alignment.
  */
-:where(.t, [class^="t--"]):is(h1, h2, h3, h4),
-:where(.t, [class^="t--"]):is(p, span, div) {
-    color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))))));
+:where(.t, .hl, .tb):is(h1, h2, h3, h4, h5, h6, p, span, div),
+:where(.t--xxxl, .t--3xl, .t--xxl, .t--2xl, .t--xl, .t--l, .t--m, .t--s, .t--xs, .t--xxs, .t--2xs, .t--xxxs, .t--3xs) {
+    color: var(--title-color, var(--t-color, var(--t-c,
+                    var(--set-t, var(--set-h, var(--set-c, var(--t, currentColor)))))));
 
-    font-family: var(--title-font-family, var(--t-font-f, var(--t-font-fam, var(--theme-font-family, inherit))));
+    font-family: var(--title-font-family, var(--t-font-f, var(--theme-font-family, var(--t-font-fam, inherit))));
 
-    font-size: var(--title-font-size, var(--t-font-s--sm, var(--t-font-s,
-                    var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem))))));
+    --t-fs: var(--t-fs-m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem));
+    --t-font-s: var(--t-fs);
+    --t-font-s--sm: var(--t-font-s);
+    --t-font-s--md: var(--t-font-s);
+    --t-font-s--lg: var(--t-font-s);
+    font-size: var(--title-font-size, var(--t-font-s--sm, var(--t-font-s)));
     line-height: var(--title-line-height, var(--t-line-h--sm, var(--t-line-h, var(--t-lh, 1.25))));
-    font-weight: var(--title-font-weight, var(--t-font-w, var(--t-fw, var(--t-fw--m, 800))));
+    font-weight: var(--title-font-weight, var(--t-font-w, var(--t-fw, var(--t-fw-d, 700))));
 
-    text-align: var(--title-text-align, var(--t-text-a--sm, var(--t-text-a, var(--ta--sm, var(--ta)))));
+    --t-ta: var(--ta--sm, var(--ta));
+    text-align: var(--title-text-align, var(--t-text-a--sm, var(--t-text-a, var(--t-ta))));
 
     font-style: var(--title-font-style, var(--t-font-st, var(--t-fst)));
     text-transform: var(--title-text-transform, var(--t-text-tf, var(--t-tt)));
@@ -40,13 +46,15 @@
     word-spacing: var(--title-word-spacing, var(--t-word-s, var(--t-ws)));
 
     @container (669.99px <=width <=999.99px) {
-        font-size: var(--t-font-s--md, var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));
-        text-align: var(--t-text-a--md, var(--t-text-a, var(--ta--md, var(--ta))));
+        font-size: var(--title-font-size, var(--t-font-s--md));
+        --t-ta: var(--ta--md, var(--ta));
+        text-align: var(--title-text-align, var(--t-text-a--md, var(--t-text-a, var(--t-ta))));
     }
 
     @container (width >999.99px) {
-        font-size: var(--t-font-s--lg, var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));
-        text-align: var(--t-text-a--lg, var(--t-text-a, var(--ta--lg, var(--ta))));
+        font-size: var(--title-font-size, var(--t-font-s--lg));
+        --t-ta: var(--ta--lg, var(--ta));
+        text-align: var(--title-text-align, var(--t-text-a--lg, var(--t-text-a, var(--t-ta))));
     }
 
     /* Font Weights */
@@ -57,7 +65,7 @@
     }
 
     /** @group Weight: Extra Bold (800) */
-    &:where(.xb) {
+    &:where(.xb, .tb) {
         --t-fw: 800;
     }
 
@@ -87,7 +95,7 @@
     }
 
     /** @group Transform: Uppercase */
-    &:where(.up, .hl) {
+    &:where(.up, .hl, .tb) {
         --t-tt: uppercase;
     }
 
@@ -97,47 +105,52 @@
      * @group Size: XXXL (Display)
      * clamp(3.5rem ... 5rem) 
      */
-    &:where(.t--xxxl, .xxxl, .t--3xl) {
+    &:where(.t--xxxl, .t.xxxl, .t--3xl) {
         --t-fs: var(--t-fs--xxxl, clamp(3.5rem, 2.294vw + 3.041rem, 5rem));
+        --t-fw-d: 900;
     }
 
     /** 
      * @group Size: XXL (Display)
      * clamp(3.25rem ... 4.5rem) 
      */
-    &:where(.t--xxl, .xxl, .t--2xl) {
+    &:where(.t--xxl, .t.xxl, .t--2xl) {
         --t-fs: var(--t-fs--xxl, clamp(3.25rem, 1.912vw + 2.868rem, 4.5rem));
+        --t-fw-d: 900;
     }
 
     /** 
      * @group Size: XL
      * clamp(3rem ... 4rem) 
      */
-    &:where(.t--xl, .xl) {
+    &:where(.t--xl, .t.xl) {
         --t-fs: var(--t-fs--xl, clamp(3rem, 1.53vw + 2.694rem, 4rem));
+        --t-fw-d: 800;
     }
 
     /** 
      * @group Size: Large
      * clamp(2.75rem ... 3.75rem) 
      */
-    &:where(.t--l, .l) {
+    &:where(.t--l, .t.l) {
         --t-fs: var(--t-fs--l, clamp(2.75rem, 1.53vw + 2.444rem, 3.75rem));
+        --t-fw-d: 800;
     }
 
     /** 
      * @group Size: Medium (Default)
      * clamp(2.5rem ... 3.5rem) 
      */
-    &:where(.t--m, .m) {
+    &:where(.t--m, .t.m) {
         --t-fs: var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem));
+        --t-fw-d: 800;
     }
 
     /** 
      * @group Size: Small
      * clamp(2.25rem ... 3rem) 
      */
-    &:where(.t--s, .s) {
+    &:where(.t--s, .t.s) {
         --t-fs: var(--t-fs--s, clamp(2.25rem, 1.147vw + 2.021rem, 3rem));
     }
 
@@ -145,7 +158,7 @@
      * @group Size: XS
      * clamp(2rem ... 2.5rem) 
      */
-    &:where(.t--xs, .xs) {
+    &:where(.t--xs, .t.xs) {
         --t-fs: var(--t-fs--xs, clamp(2rem, 0.765vw + 1.847rem, 2.5rem));
     }
 
@@ -153,7 +166,7 @@
      * @group Size: XXS
      * clamp(1.75rem ... 2.25rem) 
      */
-    &:where(.t--xxs, .xxs, .t--2xs) {
+    &:where(.t--xxs, .t.xxs, .t--2xs) {
         --t-fs: var(--t-fs--xxs, clamp(1.75rem, 0.765vw + 1.597rem, 2.25rem));
     }
 
@@ -161,7 +174,7 @@
      * @group Size: XXXS
      * clamp(1.5rem ... 2rem) 
      */
-    &:where(.t--xxxs, .xxxs, .t--3xs) {
+    &:where(.t--xxxs, .t.xxxs, .t--3xs) {
         --t-fs: var(--t-fs--xxxs, clamp(1.5rem, 0.765vw + 1.347rem, 2rem));
     }
 
@@ -192,21 +205,4 @@
         --t-lh: var(--t-lh-xs, 1);
     }
 
-}
-
-/**
- * @group Blocksy Compatibility
- * Maps uCss variables to Blocksy theme properties if present.
- */
-:is(.t, [class^="t-"]):is(h1, h2, h3, h4),
-:is(.t, [class^="t-"]):where(p, span, div) {
-    --theme-heading-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))))));
-    --theme-text-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor))))))));
-    --theme-font-size: var(--title-font-size, var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));
-    --theme-font-weight: var(--title-font-weight, var(--t-font-w, var(--t-fw, 800)));
-    --theme-font-style: var(--title-font-style, var(--t-font-s, var(--t-fst)));
-    --theme-line-height: var(--title-line-height, var(--t-line-h, var(--t-lh, 1.25)));
-    --theme-letter-spacing: var(--title-letter-spacing, var(--t-letter-s, var(--t-ls, calc(var(--t-ls-base, 1em) / var(--t-ls-ratio, 64)))));
-    --theme-text-transform: var(--title-text-transform, var(--t-text-tf, var(--t-tt)));
-    --theme-text-decoration: var(--title-text-decoration, var(--t-text-dec, var(--t-dec)));
 }

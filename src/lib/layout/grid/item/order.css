@@ -1,0 +1,89 @@
+/**
+ * @file Grid Order
+ * @description Visual order manipulation utilities.
+ */
+
+/* At very start in Order*/
+:where(.g, .sg, .sgc)> :where(.o-f, .o-s, .o-first) {
+    --gi-o: -69;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-f--lg, .o-f--mdl, .o-s--lg, .o-s--mdl) {
+    --gi-o--lg: -69;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-f--md, .o-f--smd, .o-f--mdl, .o-s--md, .o-s--smd, .o-s--mdl) {
+    --gi-o--md: -69;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-f--sm, .o-f--smd, .o-s--sm, .o-s--smd) {
+    --gi-o--sm: -69;
+}
+
+/* First in Order*/
+:where(.g, .sg, .sgc)> :where(.o-1) {
+    --gi-o: 1;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-1--lg, .o-1--mdl) {
+    --gi-o--lg: 1;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-1--md, .o-1--smd, .o-1--mdl) {
+    --gi-o--md: 1;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-1--sm, .o-1--smd) {
+    --gi-o--sm: 1;
+}
+
+/* Second in Order*/
+:where(.g, .sg, .sgc)> :where(.o-2) {
+    --gi-o: 2;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-2--lg, .o-2--mdl) {
+    --gi-o--lg: 2;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-2--md, .o-2--smd, .o-2--mdl) {
+    --gi-o--md: 2;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-2--sm, .o-2--smd) {
+    --gi-o--sm: 2;
+}
+
+/* Third in Order*/
+:where(.g, .sg, .sgc)> :where(.o-3) {
+    --gi-o: 3;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-3--lg, .o-3--mdl) {
+    --gi-o--lg: 3;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-3--md, .o-3--smd, .o-3--mdl) {
+    --gi-o--md: 3;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-3--sm, .o-3--smd) {
+    --gi-o--sm: 3;
+}
+
+/* Last in Order*/
+:where(.g, .sg, .sgc)> :where(.o-l, .o-e) {
+    --gi-o: 420;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-l--lg, .o-l--mdl, .o-e--lg, .o-e--mdl) {
+    --gi-o--lg: 420;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-l--md, .o-l--smd, .o-l--mdl, .o-e--md, .o-e--smd, .o-e--mdl) {
+    --gi-o--md: 420;
+}
+
+:where(.g, .sg, .sgc)> :where(.o-l--sm, .o-l--smd, .o-e--sm, .o-e--smd) {
+    --gi-o--sm: 420;
+}

@@ -1,0 +1,195 @@
+/**
+ * @file Blocksy Theme Color Palette Adapter
+ * @description Maps uCss tokens to Blocksy's native Custom Properties.
+ * Enables uCss to drive Blocksy's theme engine.
+ */
+
+:root body {
+    /* 1. Primary / Brand (#eec14c, hsl(43 83% 62%) */
+    --theme-palette-color-1: var(--p, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%)));
+    /* 2. Accent / Brand (#ffb900, hsl(44 100% 50%)) */
+    --theme-palette-color-2: var(--a, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%)));
+    /* 3. Text / Body (Dark) (#141414, hsl(0 0% 8%)) */
+    --theme-palette-color-3: var(--tx, var(--alt, var(--neutral, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))));
+    /* 4. Title / Heading (Darker) (#0a0a0a, hsl(0 0% 4%)) */
+    --theme-palette-color-4: var(--t, var(--alt-bd, var(--neutral-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))));
+    /* 5. Outline / Border (Less Dark) (#1f1f1f, hsl(0 0% 12%)) */
+    --theme-palette-color-5: var(--out, var(--alt-lt, var(--neutral-lt, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-lt, 12%)))));
+    /* 6. Lite Background / Surface (Less White) (#f5f5f5, hsl(0 0% 93%)) */
+    --theme-palette-color-6: var(--bg-lt, var(--base-lt, var(--l-lt, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%)))));
+    /* 7. Background / Body (White) (#f5f5f5, hsl(0 0% 96%)) */
+    --theme-palette-color-7: var(--bg, var(--base, var(--l, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)))));
+    /* 8. Bold Background / Cards (Whiter) (#fff, hsl(0 0% 100%)) */
+    --theme-palette-color-8: var(--bg-bd, var(--base-bd, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)))));
+    /* 9. Overlay / Tint (Opace White) */
+    --theme-palette-color-9: var(--ol, hsl(var(--ol-h, 0) var(--ol-s, 0%) var(--ol-l, 96% / var(--al, .64))));
+    /* 10.Overlay Dark Shade (Opace Black) */
+    --theme-palette-color-10: var(--od, hsl(var(--od-h, 0) var(--od-s, 0%) var(--od-l, 8% / var(--al, .64))));
+    /* 11. Always Dark #141414 */
+    --theme-palette-color-11: var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)));
+    /* 12. Always Light #f5f5f5 */
+    --theme-palette-color-12: var(--l, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)));
+    /* 13. Notification: Success Green #1E8E3E */
+    --theme-palette-color-13: var(--scs, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%)));
+    /* 14. Notification: Alert Red #D93025 */
+    --theme-palette-color-14: var(--alr, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%)));
+    /* 15. Notification: Info Blue #1A73E8 */
+    --theme-palette-color-15: var(--inf, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%)));
+    /* 16. Notification: Tip Purple #8E24AA*/
+    --theme-palette-color-16: var(--tip, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 40%)));
+    /* 17. Overlay Light Bold */
+    --theme-palette-color-17: var(--ol-bd, hsl(var(--ol-h, 0) var(--ol-s, 0%) var(--ol-l, 96% / var(--al-bd, .8))));
+    /* 18. Overlay Light Lite */
+    --theme-palette-color-18: var(--ol-lt, hsl(var(--ol-h, 0) var(--ol-s, 0%) var(--ol-l, 96% / var(--al-lt, .32))));
+    /* 19. Overlay Dark Bold */
+    --theme-palette-color-19: var(--od-bd, hsl(var(--od-h, 0) var(--od-s, 0%) var(--od-l, 8% / var(--al-bd, .8))));
+    /* 20. Overlay Dark Lite */
+    --theme-palette-color-20: var(--od-lt, hsl(var(--od-h, 0) var(--od-s, 0%) var(--od-l, 8% / var(--al-lt, .32))));
+    /* 21. Overlay Primary */
+    --theme-palette-color-21: var(--op, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al, .64)));
+    /* 22. Overlay Accent */
+    --theme-palette-color-22: var(--oa, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al, .64)));
+    /* 23. Secondary / Brand Contrast (#eec14c, hsl(43 83% 62%) */
+    --theme-palette-color-23: var(--sec, hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%))));
+    /* 24. Tertiary / Brand Base (#ffb900, hsl(44 100% 50%)) */
+    --theme-palette-color-24: var(--ter, hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%))));
+    /* 25. Always Dark Bold (#0a0a0a, hsl(0 0% 4%)) */
+    --theme-palette-color-25: var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)));
+    /* 26. Always Dark Lite (#1f1f1f, hsl(0 0% 12%)) */
+    --theme-palette-color-26: var(--d-lt, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-lt, 12%)));
+    /* 27. Always Light Bold (#ffffff, hsl(0 0% 100%)) */
+    --theme-palette-color-27: var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)));
+    /* 28. Always Light Lite (#ececec, hsl(0 0% 93%)) */
+    --theme-palette-color-28: var(--l-lt, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%)));
+    /* 29. Overlay Primary Bold */
+    --theme-palette-color-29: var(--op-bd, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-bd, .8)));
+    /* 30. Overlay Primary Lite */
+    --theme-palette-color-30: var(--op-lt, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-lt, .32)));
+    /* 31. Overlay Accent Bold */
+    --theme-palette-color-31: var(--oa-bd, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-bd, .8)));
+    /* 32. Overlay Accent Lite */
+    --theme-palette-color-32: var(--oa-lt, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-lt, .32)));
+    /* 33. Overlay Success */
+    --theme-palette-color-33: var(--oscs, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%) / var(--ntf-al, .32)));
+    /* 34. Overlay Alert */
+    --theme-palette-color-34: var(--oalr, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%) / var(--ntf-al, .32)));
+    /* 35. Overlay Info */
+    --theme-palette-color-35: var(--oinf, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%) / var(--ntf-al, .32)));
+    /* 36. Overlay Tip */
+    --theme-palette-color-36: var(--otip, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 40%) / var(--ntf-al, .32)));
+    /* 37. Notification: Spotlight Yellow */
+    --theme-palette-color-37: var(--ntf, var(--p, hsl(var(--ntf-h, 43) var(--ntf-s, 83%) var(--ntf-l, 62%))));
+    /* 38. Overlay Spotlight */
+    --theme-palette-color-38: var(--ontf, hsl(var(--ntf-h, 43) var(--ntf-s, 83%) var(--ntf-l, 62%) / var(--ntf-al, .32)));
+    /* 39. Overlay Secondary */
+    --theme-palette-color-39: var(--osec, hsl(var(--sec-h, 200) var(--sec-s, 19%) var(--sec-l, 18%) / var(--st-al, .32)));
+    /* 40. Overlay Tertiary */
+    --theme-palette-color-40: var(--oter, hsl(var(--ter-h, 40) var(--ter-s, 33%) var(--ter-l, 93%) / var(--st-al, .32)));
+}
+
+/**
+ * @file Button Blocksy Adapter
+ * @description Maps uCss button variables to Blocksy theme custom properties.
+ * Enables buttons to inherit from or drive Blocksy's theme settings.
+ */
+
+:where(a.btn, a[data-style="btn"]),
+:where(.btn>a, [data-style="btn"] > a) {
+    --theme-button-text-initial-color: var(--btn-color, var(--btn-c, var(--on-p, var(--d, currentColor))));
+    --theme-button-background-initial-color: var(--btn-background, var(--btn-bg, var(--p, #eec14c)));
+    --theme-button-border-initial-color: var(--btn-border-c, var(--btn-bc, var(--btn-bg, var(--out-p, var(--p, #eec14c)))));
+
+    --theme-button-text-hover-color: var(--btn-color-hover, var(--btn-c-hover, var(--on-a, var(--d-bd, currentColor))));
+    --theme-button-background-hover-color: var(--btn-background-hover, var(--btn-bg-hover, var(--a, #ffb900)));
+    --theme-button-border-hover-color: var(--btn-border-c-hover, var(--btn-bc-hover, var(--btn-background-hover, var(--btn-bg-hover, var(--out-a, var(--a, #ffb900))))));
+
+    --theme-button-border-radius: var(--btn-border-r, var(--btn-rad, 4em));
+
+    --theme-link-initial-color: var(--btn-color, var(--btn-c, var(--on-p, var(--d, currentColor))));
+    --theme-link-hover-color: var(--btn-color-hover, var(--btn-c-hover, var(--on-a, var(--d-bd, currentColor))));
+    --theme-transition: var(--btn-transition, var(--btn-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out)));
+
+    &:hover {
+        --theme-transition: var(--btn-transition-hover, var(--btn-trans-hover, var(--trans-d-hover, 0.16s) var(--trans-t, ease-in-out)));
+    }
+}
+
+/**
+ * @group Blocksy Compatibility
+ * Maps uCss variables to Blocksy theme properties if present.
+ */
+:is(.tx, .shl, .st),
+:is(.tx, .shl, .st):is(p, span, div, li, ul, ol, label, a, button, caption, h6, h5, h4, h3, h2, h1),
+:is(.tx, .shl, .st)> :is(p, span, div, li, label, a, button, caption),
+:where(.tx--xxl, .tx--2xl, .tx--xl, .tx--l, .tx--m, .tx--s, .tx--xs, .tx--xxs, .tx--2xs, .tx--xxxs, .tx--3xs) {
+    --theme-font-family: var(--text-font-family, var(--tx-font-f, var(--theme-font-family, var(--tx-font-fam, system-ui, -apple-system, sans-serif))));
+    --theme-heading-color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-c, var(--tx-c, var(--theme-palette-color-4, currentColor)))))));
+    --theme-text-color: var(--text-color, var(--tx-color, var(--tx-c, var(--set-tx, var(--set-c, var(--tx-c, var(--theme-palette-color-4, currentColor)))))));
+    --theme-font-size: var(--text-font-size, var(--tx-font-s, var(--tx-fs, var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem)))));
+    --theme-font-weight: var(--text-font-weight, var(--tx-font-w, var(--tx-fw, 400)));
+    --theme-font-style: var(--text-font-style, var(--tx-font-s, var(--tx-fst)));
+    --theme-line-height: var(--text-line-height, var(--tx-line-h, var(--tx-lh, 1.5)));
+    --theme-letter-spacing: var(--text-letter-spacing, var(--tx-letter-s, var(--tx-ls)));
+    --theme-text-transform: var(--text-transform, var(--tx-text-t, var(--tx-tt)));
+    --theme-text-decoration: var(--text-decoration, var(--tx-text-dec, var(--tx-dec)));
+}
+
+/**
+ * @group Blocksy Compatibility
+ * Maps uCss variables to Blocksy theme properties if present.
+ */
+:where(.t, .hl, .tb):is(h1, h2, h3, h4, h5, h6, p, span, div),
+:where(.t--xxxl, .t--3xl, .t--xxl, .t--2xl, .t--xl, .t--l, .t--m, .t--s, .t--xs, .t--xxs, .t--2xs, .t--xxxs, .t--3xs) {
+    --theme-font-family: var(--title-font-family, var(--t-font-f, var(--theme-font-family, var(--t-font-fam, inherit))));
+    --theme-heading-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
+    --theme-text-color: var(--title-color, var(--t-color, var(--t-c, var(--set-t, var(--set-h, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
+    --theme-font-size: var(--title-font-size, var(--t-font-s, var(--t-fs, var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem)))));
+    --theme-font-weight: var(--title-font-weight, var(--t-font-w, var(--t-fw, 800)));
+    --theme-font-style: var(--title-font-style, var(--t-font-s, var(--t-fst)));
+    --theme-line-height: var(--title-line-height, var(--t-line-h, var(--t-lh, 1.25)));
+    --theme-letter-spacing: var(--title-letter-spacing, var(--t-letter-s, var(--t-ls, calc(var(--t-ls-base, 1em) / var(--t-ls-ratio, 64)))));
+    --theme-text-transform: var(--title-text-transform, var(--t-text-tf, var(--t-tt)));
+    --theme-text-decoration: var(--title-text-decoration, var(--t-text-dec, var(--t-dec)));
+}
+
+:is(.crd, [class^="crd-"]) {
+    --theme-heading-color: var(--card-title-c, var(--crd-t-c, var(--crd-h-c, var(--set-st, var(--set-h, var(--set-c, var(--alt-bd, var(--t, var(--theme-palette-color-4, currentColor)))))))));
+    --theme-font-size: var(--card-title-font-s, var(--crd-t-fs, var(--crd-h-fs, clamp(1.375rem, 0.417vw + 1.292rem, 1.625rem))));
+    --theme-font-weight: var(--card-title-font-w, var(--crd-t-fw, var(--crd-h-fw, 700)));
+    --theme-font-style: var(--crd-t-font-s, var(--crd-t-fst));
+    --theme-line-height: var(--card-title-line-h, var(--crd-t-lh, var(--crd-h-lh, 1.25)));
+    --theme-letter-spacing: var(--card-title-letter-s, var(--crd-t-ls, var(--crd-h-ls)));
+    --theme-text-transform: var(--card-title-text-t, var(--crd-t-tt, var(--crd-h-tt, none)));
+
+    --theme-text-decoration: var(--card-title-text-dec, var(--crd-t-text-d, var(--crd-t-td, var(--crd-h-td, none))));
+    --theme-link-initial-color: var(--card-title-c, var(--crd-t-c, var(--crd-h-c, var(--set-st, var(--set-h, var(--set-c, var(--alt-bd, var(--t, var(--theme-palette-color-4, currentColor)))))))));
+}
+
+:is(.crd):hover a:not(.btn) {
+    --theme-link-hover-color: var(--card-title-c-hover, var(--crd-t-c-hover, var(--crd-h-c-hover, var(--set-a, var(--set-st, var(--set-h, var(--set-c, var(--p, var(--alt-bd, var(--t, var(--theme-palette-color-2, #ffb900)))))))))));
+}
+
+:is(.crd) :is(p, span, div, a, button) {
+    --theme-text-color: var(--card-text-c, var(--crd-tx-c, var(--set-tx, var(--set-c, var(--on-crd, var(--theme-palette-color-3, currentColor))))));
+    --theme-font-size: var(--card-text-font-s, var(--crd-tx-fs, var(--crd-tx-fs-m, var(--crd-fs, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)))));
+    --theme-font-weight: var(--card-text-font-w, var(--crd-tx-fw, var(--crd-fw, 400)));
+    --theme-line-height: var(--crd-tx-line-h, var(--crd-tx-lh, 1.5));
+    --theme-text-transform: var(--card-text-text-t, var(--crd-tx-tt, var(--crd-tt, none)));
+}
+
+.set {
+    --theme-text-color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
+
+    :is(h1, h2) {
+        --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+    }
+
+    :is(h3, h4, h5, h6) {
+        --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+    }
+
+    :is(a):not(.btn, [data-style="btn"]) {
+        --theme-link-initial-color: var(--set-link, var(--set-lnk, var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))))));
+        --theme-link-hover-color: var(--set-link-hover, var(--set-lnk-hover, var(--a, var(--theme-palette-color-2))));
+    }
+}

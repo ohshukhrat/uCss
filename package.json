@@ -31,6 +31,8 @@
     "build:latest": "node scripts/build.js latest",
     "build:preview": "node scripts/build.js preview",
     "build:prefixed": "node scripts/build.js p",
+    "build:c": "node scripts/build.js c",
+    "build:v": "node scripts/build.js v",
     "clean": "node scripts/clean.js",
     "clean:safe": "node scripts/clean.js safe",
     "clean:preview": "node scripts/clean.js preview",

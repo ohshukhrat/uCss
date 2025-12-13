@@ -1,0 +1,138 @@
+/**
+ * @file HTML Forms
+ * @description Input, textarea, select, button, and fieldset styling.
+ */
+
+:where(input, button, textarea, select) {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+}
+
+/* Button (Minimal .btn mapping) */
+:where(button, input[type="button"], input[type="submit"], input[type="reset"]) {
+    cursor: var(--btn-cursor, pointer);
+    display: var(--btn-display, inline-block);
+
+    font-weight: var(--btn-fw, 600);
+    line-height: var(--btn-lh, 1.5);
+    text-decoration: none;
+    white-space: nowrap;
+
+    padding: var(--btn-pd, var(--btn-pb, var(--btn-p, 0.625em)) var(--btn-pi, var(--btn-p, 1.325em)));
+
+    --btn-c: var(--d, #000);
+    color: var(--btn-c);
+    background-color: var(--btn-bg, var(--p, #eec14c));
+
+    border: var(--btn-bw, 0.125rem) solid var(--btn-bc, var(--btn-bg, #eec14c));
+    border-radius: var(--btn-rad, 4em);
+
+    transform: var(--btn-tf, none);
+    transition: var(--btn-trans, var(--trans-d, 0.32s) ease-in-out);
+    transition-property: var(--btn-trans-p, background-color, border-color, color, opacity, transform);
+}
+
+:where(button, input[type="button"], input[type="submit"], input[type="reset"]):hover {
+    --btn-c-hover: var(--on-a, var(--f-bd, #000));
+    color: var(--btn-c-hover);
+    --btn-bg-hover: var(--a, #ffb900);
+    background-color: var(--btn-bg-hover);
+    border-color: var(--btn-bc-hover, var(--btn-bg-hover, #ffb900));
+
+    transform: var(--btn-tf-hover, translatey(var(--tf-translatey, -0.125em)));
+    transition: var(--btn-trans-hover, var(--trans-d-hover, 0.16s) ease-in-out);
+}
+
+:where(button:active, input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active) {
+    transform: var(--btn-tf-active, translatey(var(--tf-translatey-active, 0.0625em)));
+}
+
+:where(button:focus-visible, input[type="button"]:focus-visible, input[type="submit"]:focus-visible, input[type="reset"]:focus-visible) {
+    outline: var(--btn-outline, .25rem solid var(--btn-outline-c, currentColor));
+    outline-offset: var(--btn-outline-offset, var(--btn-o-o, .125rem));
+}
+
+/* Inputs & Selects */
+:where(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"]), select, textarea) {
+    display: block;
+    width: var(--input-w, 100%);
+    padding: var(--input-pd, 0.625em 1em);
+    background-color: var(--input-bg, var(--bg-lt, #f5f5f5));
+    border: var(--input-bd-w, 1px) solid var(--input-bd-c, var(--out, #141414));
+    border-radius: var(--input-rad, calc(var(--rad, 0.25rem) / 4));
+    color: var(--tx, var(--on-bg, #000));
+    caret-color: var(--p, currentColor);
+    transition: border-color var(--trans-d, 0.2s), box-shadow var(--trans-d, 0.2s);
+}
+
+:where(select) {
+    appearance: none;
+    background-image: var(--select-arrow, url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E"));
+    background-position: right 0.5em center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5em;
+}
+
+:where(input:focus-visible, select:focus-visible, textarea:focus-visible) {
+    outline: none;
+    border-color: var(--input-focus-bd-c, var(--p, #eec14c));
+    box-shadow: 0 0 0 var(--input-focus-ring-w, 3px) var(--input-focus-ring-c, var(--op-lt, rgba(238, 193, 76, 0.3)));
+}
+
+:where(input:focus, select:focus, textarea:focus) {
+    outline: none;
+    /* Legacy focus for non-visible interaction should handle same style */
+    border-color: var(--input-focus-bd-c, var(--p, #eec14c));
+}
+
+:where(textarea) {
+    resize: vertical;
+    min-height: 5em;
+}
+
+:where(label) {
+    display: block;
+    font-weight: 600;
+    margin-block-end: var(--label-mbe, 0.5em);
+    color: var(--t, #000);
+}
+
+:where(input[type="checkbox"], input[type="radio"]) {
+    accent-color: var(--p, #eec14c);
+    width: var(--chk-s, 1.25em);
+    height: var(--chk-s, 1.25em);
+    vertical-align: middle;
+    margin-inline-end: var(--chk-mie, 0.5em);
+    cursor: pointer;
+}
+
+/* Fieldset & Legend */
+:where(fieldset) {
+    border: var(--fieldset-bd-w, 1px) solid var(--fieldset-bd-c, var(--out, #ccc));
+    border-radius: var(--fieldset-rad, var(--rad, 0.5rem));
+    padding: var(--fieldset-pd, 1em);
+    margin-inline: 0;
+}
+
+:where(legend) {
+    padding-inline: 0.5em;
+    font-weight: 600;
+    color: var(--t, currentColor);
+}
+
+:where(summary) {
+    cursor: pointer;
+    list-style: none;
+}
+
+:where(summary:focus-visible) {
+    outline: var(--focus-ring, 0.125rem solid var(--p, #eec14c));
+    outline-offset: var(--focus-offset, 0.125rem);
+    border-radius: var(--rad--xs, 0.25rem);
+}
+
+:where(summary)::-webkit-details-marker {
+    display: none;
+}
