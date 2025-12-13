@@ -63,7 +63,7 @@
  */
 
 /* Primary Theme */
-:where(.set.primary, .set-primary) {
+:where(.set.primary, .set-primary, .set.p, .set-p) {
     --set-h: var(--set-primary-heading, var(--set-p-h, var(--t, hsl(0 0% 4%))));
     --set-c: var(--set-primary-color, var(--set-p-c, var(--tx, hsl(0 0% 8%))));
     --set-bg: var(--set-primary-background, var(--set-p-bg, var(--op-lt, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-lt, .32)))));
@@ -71,12 +71,16 @@
     --set-a: var(--alt-bd, var(--contrast, #000));
 }
 
-:where(.set.primary.bd, .set-primary.bd) {
+:where(.set.primary, .set-primary, .p, .set-p):where(.bd, .bold) {
     --set-bg: var(--set-primary-bold-background, var(--set-pb-bg, var(--op, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al, .64)))));
 }
 
+:where(.set.primary, .set-primary, .p, .set-p):where(.sl, .solid) {
+    --set-bg: var(--set-primary-solid-background, var(--set-ps-bg, var(--p, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%)))));
+}
+
 /* Accent Theme */
-:where(.set.accent, .set-accent) {
+:where(.set.accent, .set-accent, .set.a, .set-a) {
     --set-h: var(--set-accent-heading, var(--set-a-h, var(--t, hsl(0 0% 4%))));
     --set-c: var(--set-accent-color, var(--set-a-c, var(--tx, hsl(0 0% 8%))));
     --set-bg: var(--set-accent-background, var(--set-a-bg, var(--oa-lt, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-lt, .32)))));
@@ -84,40 +88,44 @@
     --set-a: var(--alt-bd, var(--contrast, #000));
 }
 
-:where(.set.accent.bd, .set-accent.bd) {
+:where(.set.accent, .set-accent, .set.a, .set-a):where(.bd, .bold) {
     --set-bg: var(--set-accent-bold-background, var(--set-ab-bg, var(--oa, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al, .64)))));
 }
 
+:where(.set.accent, .set-accent, .set.a, .set-a):where(.sl, .solid) {
+    --set-bg: var(--set-accent-solid-background, var(--set-as-bg, var(--a, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%)))));
+}
+
 /* Secondary Theme */
-:where(.set.secondary, .set-secondary) {
+:where(.set.secondary, .set-secondary, .set.sec, .set-sec) {
     --set-h: var(--set-secondary-heading, var(--set-sec-h, var(--on-sec, var(--l-bd, var(--bg-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)))))));
     --set-c: var(--set-secondary-color, var(--set-sec-c, var(--l, var(--on-sec, var(--bg, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)))))));
     --set-bg: var(--set-secondary-background, var(--set-sec-bg, var(--sec, var(--alt-lt, hsl(var(--sec-h, 200) var(--sec-s, 19%) var(--sec-l, 18%))))));
 }
 
 /* Tertiary Theme */
-:where(.set.tertiary, .set-tertiary) {
+:where(.set.tertiary, .set-tertiary, .set.ter, .set-ter) {
     --set-h: var(--set-tertiary-heading, var(--set-ter-h, var(--d, var(--on-ter, var(--t, hsl(var(--sec-h, 200) var(--sec-s, 19%) var(--sec-l, 18%)))))));
     --set-c: var(--set-tertiary-color, var(--set-ter-c, var(--on-ter, var(--sec, var(--d-lt, ar(--tx, hsl(var(--sec-h, 200) var(--sec-s, 19%) var(--sec-l, 18%))))))));
     --set-bg: var(--set-tertiary-background, var(--set-ter-bg, var(--ter, var(--bg-lt, hsl(var(--ter-h, 200) var(--ter-s, 19%) var(--ter-l, 18%))))));
 }
 
 /* Dark Theme (Inverted) */
-:where(.set.dark, .set-dark) {
+:where(.set.dark, .set-dark, .set.d, .set-d) {
     --set-h: var(--set-dark-heading, var(--set-d-h, var(--l-bd, var(--bg-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%))))));
     --set-c: var(--set-dark-color, var(--set-d-c, var(--l, var(--on-d, var(--bg, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)))))));
     --set-bg: var(--set-dark-background, var(--set-d-bg, var(--d, var(--alt, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))));
 }
 
 /* Light Theme */
-:where(.set.light, .set-light) {
+:where(.set.light, .set-light, .set.l, .set-l) {
     --set-h: var(--set-light-heading, var(--set-l-h, var(--d-bd, var(--on-l, var(--t, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))));
     --set-c: var(--set-light-color, var(--set-l-c, var(--d, var(--on-l, var(--tx, hsl(var(--d-h, 200) var(--d-s, 19%) var(--d-l, 8%)))))));
     --set-bg: var(--set-light-background, var(--set-l-bg, var(--l, var(--bg, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%))))));
 }
 
 /* Alt Theme */
-:where(.set.alt, .set-alt, .set.alternative, .set.contrast, .set.cst) {
+:where(.set.alt, .set-alt, .set.alternative, .set.contrast, .set-contrast, .set.cts, .set-cts) {
     --set-h: var(--set-alternative-heading, var(--set-alt-h, var(--base-bd, var(--bg-bd, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)))))));
     --set-c: var(--set-alternative-color, var(--set-alt-c, var(--base, var(--bg, var(--l, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)))))));
     --set-bg: var(--set-alternative-background, var(--set-alt-bg, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))));
@@ -131,28 +139,28 @@
 }
 
 /* Base Theme */
-:where(.set.gray, .set-gray, .set.neutral, .set.neu) {
+:where(.set.gray, .set-gray, .set.neutral, .set.neu, .set-g) {
     --set-h: var(--set-base-heading, var(--set-base-h, var(--contrast-bd, var(--t, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))));
     --set-c: var(--set-base-color, var(--set-base-c, var(--contrast, var(--tx, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))));
     --set-bg: var(--set-base-background, var(--set-base-bg, var(--g, var(--neu, hsl(var(--neu-h, 0) var(--neu-s, 0%) var(--neu-l, 50%))))));
 }
 
 /* Surface Theme */
-:where(.set.surface, .set-surface) {
+:where(.set.surface, .set-surface, .set.srf, .set-srf) {
     --set-h: var(--set-surface-heading, var(--set-srf-h, var(--on-srf, var(--t, var(--alt-bd, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%))))))));
     --set-c: var(--set-surface-color, var(--set-srf-c, var(--tx, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))))));
     --set-bg: var(--set-surface-background, var(--set-srf-bg, var(--srf, var(--base-lt, var(--bg-lt, var(--l-lt, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%))))))));
 }
 
 /* Card Theme */
-:where(.set.card, .set-card) {
+:where(.set.card, .set-card, .set.crd, .set-crd) {
     --set-h: var(--set-card-heading, var(--set-crd-h, var(--t, var(--alt-bd, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))));
     --set-c: var(--set-card-color, var(--set-crd-c, var(--on-crd, var(--tx, var(--alt-lt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
     --set-bg: var(--set-card-background, var(--set-crd-bg, var(--crd, var(--base-bd, var(--bg-bd, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%))))))));
 }
 
 /* Success Theme */
-:where(.set.success, .set-success, .set.green, .set-green) {
+:where(.set.success, .set-success, .set.green, .set-green, .set.scs, .set-scs) {
     --set-h: var(--set-success-heading, var(--set-scs-h, var(--scs, var(--t, var(--alt-bd, var(--d-bd, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%))))))));
     --set-c: var(--set-success-color, var(--set-scs-c, var(--on-ntf, var(--t, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
     --set-bg: var(--set-success-background, var(--set-scs-bg, var(--oscs, var(--o-lt, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%) / var(--ntf-al, .32))))));
@@ -162,7 +170,7 @@
 }
 
 /* Alert Theme */
-:where(.set.alert, .set.error, .set.warning, .set-alert, .set-error, .set-warning, .set.red, .set-red) {
+:where(.set.alert, .set-error, .set-warning, .set-alert, .set-error, .set-warning, .set.red, .set-red, .set.alr, .set-alr) {
     --set-h: var(--set-alert-heading, var(--set-alr-h, var(--alr, var(--t, var(--alt-bd, var(--d-bd, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%))))))));
     --set-c: var(--set-alert-color, var(--set-alr-c, var(--on-ntf, var(--t, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
     --set-bg: var(--set-alert-background, var(--set-alr-bg, var(--oalr, var(--o-lt, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%) / var(--ntf-al, .32))))));
@@ -172,7 +180,7 @@
 }
 
 /* Info Theme */
-:where(.set.info, .set-info, .set.blue, .set-blue) {
+:where(.set.info, .set-info, .set.blue, .set-blue, .set.inf, .set-inf) {
     --set-h: var(--set-info-heading, var(--set-inf-h, var(--inf, var(--t, var(--alt-bd, var(--d-bd, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%))))))));
     --set-c: var(--set-info-color, var(--set-inf-c, var(--on-ntf, var(--t, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
     --set-bg: var(--set-info-background, var(--set-inf-bg, var(--oinf, var(--o-lt, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%) / var(--ntf-al, .32))))));
@@ -182,7 +190,7 @@
 }
 
 /* Tip Theme */
-:where(.set.tip, .set-tip, .set.purple, .set-purple) {
+:where(.set.tip, .set-tip, .set.purple, .set-purple, .set.tip, .set-tip) {
     --set-h: var(--set-tip-heading, var(--set-tip-h, var(--tip, var(--t, var(--alt-bd, var(--d-bd, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 51%))))))));
     --set-c: var(--set-tip-color, var(--set-tip-c, var(--on-ntf, var(--t, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
     --set-bg: var(--set-tip-background, var(--set-tip-bg, var(--otip, var(--o-lt, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 51%) / var(--ntf-al, .32))))));
@@ -192,7 +200,7 @@
 }
 
 /* Notification Theme */
-:where(.set.notification, .set.note, .set.notice, .set.spotlight, .set-notification, .set-note, .set-notice, .set-spotlight, .set.yellow, .set-yellow) {
+:where(.set.notification, .set.note, .set.notice, .set.spotlight, .set-notification, .set-note, .set-notice, .set-spotlight, .set.yellow, .set-yellow, .set.ntf, .set-ntf) {
     --set-h: var(--set-notification-heading, var(--set-ntf-h, var(--ntf, var(--t, var(--alt-bd, var(--d-bd, hsl(var(--ntf-h, 56) var(--ntf-s, 100%) var(--ntf-l, 50%))))))));
     --set-c: var(--set-notification-color, var(--set-ntf-c, var(--on-ntf, var(--t, var(--alt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
     --set-bg: var(--set-notification-background, var(--set-ntf-bg, var(--ontf, var(--op, hsl(var(--ntf-h, 56) var(--ntf-s, 100%) var(--ntf-l, 50%) / var(--ntf-al, .32))))));
@@ -204,7 +212,7 @@
 }
 
 /* Alt for Notification Themes */
-:where(.set.success, .set-success, .set.green, .set-green, .set.alert, .set.error, .set.warning, .set-alert, .set-error, .set-warning, .set.red, .set-red, .set.info, .set-info, .set.blue, .set-blue, .set.tip, .set-tip, .set.purple, .set-purple, .set.notification, .set.note, .set.notice, .set.spotlight, .set-notification, .set-note, .set-notice, .set-spotlight, .set.yellow, .set-yellow):where(.neu, .neutral, .alt, .alternative, .set-alt) {
+:where(.set.success, .set-success, .set.green, .set-green, .set.alert, .set.error, .set.warning, .set-alert, .set-error, .set-warning, .set.red, .set-red, .set.info, .set-info, .set.blue, .set-blue, .set.tip, .set-tip, .set.purple, .set-purple, .set.notification, .set.note, .set.notice, .set.spotlight, .set-notification, .set-note, .set-notice, .set-spotlight, .set.yellow, .set-yellow, .set.scs, .set.alr, .set.inf, .set.tip, .set.ntf, .set-scs, .set-alr, .set-inf, .set-tip, .set-ntf):where(.alt, .alternative, .set-alt, .contrast, .set-contrast, .cts, .set-cts) {
     --set-h: var(--set-alternative-heading, var(--set-alt-h, var(--base-bd, var(--bg-bd, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)))))));
     --set-bf: var(--blr--l, calc(var(--blr--m, 0.25rem) * 2));
 }

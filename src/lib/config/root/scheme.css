@@ -1,0 +1,191 @@
+/**
+ * @file Color Scheme Switching Configuration
+ * @description Switches core palette color, alphas, overlays, and semantic colors between light and dark modes.
+ */
+
+@media (prefers-color-scheme: dark) {
+
+    :where(:root),
+    :where(:root [data-scheme="dark"]),
+    :where(:root [data-scheme="os"]),
+    :where(:root [data-scheme="auto"]) {
+        /**
+         * @group Base: Core Palette & Colors
+         */
+        /* Backgrounds: Dark Contexts */
+        --bg: var(--d, hsl(0 0% 8%));
+        --bg-bd: var(--d-bd, hsl(0 0% 4%));
+        --bg-lt: var(--d-lt, hsl(0 0% 12%));
+
+        /* Contrast: Light Contexts */
+        --alt: var(--l, hsl(0 0% 96%));
+        --alt-bd: var(--l-bd, hsl(0 0% 100%));
+        --alt-lt: var(--l-lt, hsl(0 0% 93%));
+
+        /* Backgrounds: Dark Contexts */
+        /* --base: var(--d, hsl(0 0% 8%));
+        --base-bd: var(--d-bd, hsl(0 0% 4%));
+        --base-lt: var(--d-lt, hsl(0 0% 12%)); */
+
+        /* Contrast: Light Contexts */
+        /* --contrast: var(--l, hsl(0 0% 96%));
+        --contrast-bd: var(--l-bd, hsl(0 0% 100%));
+        --contrast-lt: var(--l-lt, hsl(0 0% 93%)); */
+
+        /**
+         * @group Advanced: Semantic & Extended Palette
+         */
+
+        /* Overlays: Contextual Swaps */
+        --obg: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
+        --oalt: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64));
+
+        /* Overlays: Contextual Swaps */
+        /* --obase: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
+        --ocontrast: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64)); */
+
+        /* Secondary Brand Colors */
+        --sec-h: 40;
+        --sec-s: 33%;
+        --sec-l: 93%;
+        --sec: hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%)));
+        --osec: hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%)) / var(--st-al, .32));
+
+
+        --ter-h: 200;
+        --ter-s: 19%;
+        --ter-l: 18%;
+        --ter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)));
+        --oter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)) / var(--st-al, .32));
+
+
+        /**
+        * @group Pro: Detailed Contextual Colors
+        */
+
+        --on-p: var(--ter, var(--d, hsl(0 0% 8%)));
+
+    }
+}
+
+[data-scheme="dark"] {
+    /**
+    * @group Base: Core Palette & Colors
+    */
+    /* Backgrounds: Dark Contexts */
+    --bg: var(--d, hsl(0 0% 8%));
+    --bg-bd: var(--d-bd, hsl(0 0% 4%));
+    --bg-lt: var(--d-lt, hsl(0 0% 12%));
+
+    /* Contrast: Light Contexts */
+    --alt: var(--l, hsl(0 0% 96%));
+    --alt-bd: var(--l-bd, hsl(0 0% 100%));
+    --alt-lt: var(--l-lt, hsl(0 0% 93%));
+
+    /* Backgrounds: Dark Contexts */
+    /* --base: var(--d, hsl(0 0% 8%));
+    --base-bd: var(--d-bd, hsl(0 0% 4%));
+    --base-lt: var(--d-lt, hsl(0 0% 12%)); */
+
+    /* Contrast: Light Contexts */
+    /* --contrast: var(--l, hsl(0 0% 96%));
+    --contrast-bd: var(--l-bd, hsl(0 0% 100%));
+    --contrast-lt: var(--l-lt, hsl(0 0% 93%)); */
+
+    /**
+    * @group Advanced: Semantic & Extended Palette
+    */
+
+    /* Overlays: Contextual Swaps */
+    --obg: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
+    --oalt: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64));
+
+    /* Overlays: Contextual Swaps */
+    /* --obase: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
+    --ocontrast: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64)); */
+
+    /* Secondary Brand Colors */
+    --sec-h: 40;
+    --sec-s: 33%;
+    --sec-l: 93%;
+    --sec: hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%)));
+    --osec: hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%)) / var(--st-al, .32));
+
+    --ter-h: 200;
+    --ter-s: 19%;
+    --ter-l: 18%;
+    --ter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)));
+    --oter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)) / var(--st-al, .32));
+
+    /**
+     * @group Pro: Detailed Contextual Colors
+     */
+
+    --on-p: var(--ter, var(--d, hsl(0 0% 8%)));
+}
+
+@media (prefers-color-scheme: light) {
+
+    :where(:root),
+    :where(:root [data-scheme="light"]),
+    :where(:root [data-scheme="os"]),
+    :where(:root [data-scheme="auto"]) {
+        /**
+         * @group Base: Core Palette & Colors
+         */
+
+        /* Backgrounds: Base Contexts */
+        --bg: var(--l, hsl(0 0% 96%));
+        --bg-bd: var(--l-bd, hsl(0 0% 100%));
+        --bg-lt: var(--l-lt, hsl(0 0% 93%));
+
+        /* Alternative: Contrast Contexts */
+        --alt: var(--d, hsl(0 0% 8%));
+        --alt-bd: var(--d-bd, hsl(0 0% 4%));
+        --alt-lt: var(--d-lt, hsl(0 0% 12%));
+
+        /* Backgrounds: Dark Contexts */
+        /* --base: var(--d, hsl(0 0% 8%));
+            --base-bd: var(--d-bd, hsl(0 0% 4%));
+            --base-lt: var(--d-lt, hsl(0 0% 12%)); */
+
+        /* Contrast: Light Contexts */
+        /* --contrast: var(--l, hsl(0 0% 96%));
+            --contrast-bd: var(--l-bd, hsl(0 0% 100%));
+            --contrast-lt: var(--l-lt, hsl(0 0% 93%)); */
+
+
+
+        /**
+         * @group Advanced: Semantic & Extended Palette
+         */
+
+        /* Overlays: Contextual Swaps */
+        --obg: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64));
+        --oalt: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
+
+        /* Overlays: Contextual Swaps */
+        /* --obase: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
+        --ocontrast: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64)); */
+
+        /* Secondary Brand Colors */
+        --sec-h: 40;
+        --sec-s: 33%;
+        --sec-l: 93%;
+        --sec: hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%)));
+        --osec: hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%)) / var(--st-al, .32));
+
+        --ter-h: 200;
+        --ter-s: 19%;
+        --ter-l: 18%;
+        --ter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)));
+        --oter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)) / var(--st-al, .32));
+
+        /**
+        * @group Pro: Detailed Contextual Colors
+        */
+
+        --on-p: var(--ter, var(--d, hsl(0 0% 8%)));
+
+    }
+}

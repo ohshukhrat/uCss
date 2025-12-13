@@ -34,6 +34,7 @@
     --tx-fs--xxxs: clamp(0.625rem, 0.191vw + 0.587rem, 0.75rem);
 
     /* Text: Main Properties */
+    --tx-fs: var(--tx-fs--m, 1.125rem);
     --tx-lh: 1.5;
     --tx-fw: 400;
 

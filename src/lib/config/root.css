@@ -6,6 +6,7 @@
 @import "root/base.css";
 @import "root/layout.css";
 @import "root/colors.css";
+@import "root/scheme.css";
 @import "root/typography.css";
 @import "root/patterns.css";
 @import "root/utilities.css";
