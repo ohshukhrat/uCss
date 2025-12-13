@@ -950,29 +950,43 @@ npm run clean dist         # Delete dist/ folder
 npm run clean stable       # Delete only dist/stable
 npm run clean latest       # Delete only dist/latest
 npm run clean preview      # Delete all dist/preview-* folders
+npm run clean my-folder    # Delete dist/my-folder (Custom target)
 ```
 
 ### Deployment Strategy
 Our CI/CD pipeline (GitHub Actions) automatically deploys based on branch push:
 
-| Branch | Output URL | Configuration |
-| :--- | :--- | :--- |
-| Branch | Output URL | Configuration |
-| :--- | :--- | :--- |
-| **`main`** | `.../stable/`, `.../p/` & `.../v/` | **Production**. Stable (root) + Encapsulated (`/p/`) + Variables Only (`/v/`). |
-| **`dev`** | `.../latest/` | **Development**. Bleeding-edge code. |
-| **`*`** (Other) | `.../preview-.../` | **Preview**. Timestamped deployments (e.g., `preview-2025-12-08...`). Auto-deleted after 7 days. |
+### Build System
+uCss uses a custom zero-dependency Node.js build script.
 
----
+*   `npm run build`: Builds production `stable` channel.
+*   `npm run build:preview`: Generates timestamped preview.
+*   `npm run build:prefixed`: Generates `/dist/p/` (prefixed version).
+*   `npm run build:full`: Builds ALL channels (stable, latest, p, v).
 
-## 🤝 Contributing
-1.  Make changes in `src/lib`.
-2.  Run `npm run build full` locally to verify imports, bundling, and header generation.
-3.  Check `dist/stable/u.min.css` to confirm your changes are present and correct.
-4.  Push to `dev` branch.
+### Deployment & Maintenance
+
+We provide a robust suite of tools for managing deployments to our FTP staging environment.
+
+**Deployment Replicas:**
+*   `npm run deploy stable`: Builds `stable` and deploys to root `/` (Production).
+*   `npm run deploy latest`: Builds `latest` (Dev) and deploys to `/latest/`.
+*   `npm run deploy preview`: Creates a unique snapshot URL (e.g. `/preview-2024-12-13.../`) for pull requests.
+*   `npm run deploy p latest`: Deploys the **prefixed** version of `latest` to `/latest/`.
+*   `npm run deploy c stable`: Deploys the **clean** version of `stable` to `/`.
+
+**Cleaning & Nuking:**
+*   `npm run clean`: **Local Reset**. Nukes `dist/` and rebuilds the full project state.
+*   `npm run clean:nuke`: **Local Nuke**. Deletes `dist/` completely (empty state).
+*   `npm run remote:wipe`: **Remote Clean**. Deletes ephemeral previews and dev builds. **Keeps** Production (`stable`, `p`, `v`).
+*   `npm run remote:nuke`: **Remote Nuke**. Wipes the entire remote server.
+*   `npm run nuke`: **Total System Wipe**. Cleans everything locally and remotely. Use with caution.
 
 ---
 
 **Navigation**: [uCss](./) > [Source](./src/) > [Modules](./src/lib/)
 
 [Back to top](#)
+
+**License**: MIT
+**Copyright**: © 2024 UNQA.

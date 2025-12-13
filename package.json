@@ -27,18 +27,30 @@
     "security": "npm audit",
     "build": "node scripts/build.js",
     "build:full": "node scripts/build.js full",
+    "build:all": "node scripts/build.js all",
     "build:stable": "node scripts/build.js stable",
     "build:latest": "node scripts/build.js latest",
     "build:preview": "node scripts/build.js preview",
     "build:prefixed": "node scripts/build.js p",
     "build:c": "node scripts/build.js c",
     "build:v": "node scripts/build.js v",
-    "clean": "node scripts/clean.js",
+    "clean": "node scripts/clean.js && npm run build:full",
+    "clean:all": "node scripts/clean.js all",
+    "clean:nuke": "npm run clean:all",
     "clean:safe": "node scripts/clean.js safe",
     "clean:preview": "node scripts/clean.js preview",
     "clean:latest": "node scripts/clean.js latest",
     "watch": "node scripts/watch.js",
     "remote:cleanup": "node scripts/remote.js --cleanup",
+    "remote:wipe": "node scripts/remote.js --wipe",
+    "remote:nuke": "node scripts/remote.js --wipe all",
+    "remote:wipe:all": "node scripts/remote.js --wipe all",
+    "remote:wipe:safe": "node scripts/remote.js --wipe safe",
+    "remote:wipe:preview": "node scripts/remote.js --wipe preview",
+    "remote:wipe:stable": "node scripts/remote.js --wipe stable",
+    "wipe": "npm run remote:wipe",
+    "nuke": "npm run clean:nuke && npm run remote:nuke",
+    "deploy": "node scripts/deploy.js stable",
     "prepublishOnly": "node scripts/build.js stable"
   },
   "repository": {
@@ -72,7 +84,8 @@
     "README.md"
   ],
   "devDependencies": {
-    "marked": "17.0.1",
-    "basic-ftp": "^5.0.4"
+    "basic-ftp": "^5.0.4",
+    "dotenv": "^17.2.3",
+    "marked": "17.0.1"
   }
 }

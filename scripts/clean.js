@@ -2,52 +2,39 @@
  * @fileoverview uCss Workspace Cleanup Utility
  * 
  * @description
- * This script is the "Garbage Collector" for the project. It provides granular control over
- * removing build artifacts without accidentally deleting something important (like your source code).
+ * The "Janitor". Keeps your workspace pristine.
+ * Unlike `rm -rf`, this is context-aware and safe.
  * 
  * ---------------------------------------------------------------------------------------------
- * 🛡️ SAFETY MECHANISMS
+ * 🧹 MODES
  * ---------------------------------------------------------------------------------------------
  * 
- * 1. SCOPED DELETION
- *    This script ONLY operates on specific paths:
- *    - `dist/` (The build output directory)
- *    - Root-level log files (`*.log`)
- *    - Root-level tarballs (`*.tgz`)
- *    - OS junk (`.DS_Store`, `thumbs.db`)
- *    It will NEVER touch `src/` or `server/`.
+ * 1. DEFAULT (`npm run clean`)
+ *    - Action: Nukes `dist/`.
+ *    - Follow-up: Rebuilds `stable` + `latest` + `p` + `v` (via `npm run build:full`).
+ *    - Goal: "Reset to a working state".
  * 
- * 2. THE "SAFE" MODE
- *    Running `npm run clean safe` is a special mode designed for developers who switch branches often.
- *    It deletes `dist/` but *PRESERVES* `dist/stable` and `dist/latest`.
- *    WHY? Because you might have a local valid build of the stable release that you don't want to rebuild
- *    every time you clean up a feature branch's preview files.
+ * 2. ALL / NUKE (`npm run clean:all`)
+ *    - Action: Nukes `dist/`.
+ *    - Follow-up: NONE. Leaves directory empty.
+ *    - Goal: "Kill it with fire".
+ * 
+ * 3. SAFE (`npm run clean:safe`)
+ *    - Action: Deletes `dist/` content EXCEPT `stable` and `latest`.
+ *    - Goal: "Clear disk space (previews) without breaking my local dev server".
+ * 
+ * 4. TARGETED (`npm run clean [target]`)
+ *    - Action: Deletes specifically `dist/[target]`.
+ *    - Example: `npm run clean my-test-build`.
  * 
  * ---------------------------------------------------------------------------------------------
- * 🎯 USAGE & TARGETS
+ * 💻 EXAMPLES
  * ---------------------------------------------------------------------------------------------
  * 
- * @usage npm run clean [target] [subtarget]
- * 
  * @example
- * // 1. Full Nuclear Clean (Default)
- * // Deletes dist/, *.tgz, *.log. Resets repo to "just cloned" state (regarding artifacts).
- * npm run clean
- * 
- * @example
- * // 2. Clean Specific Release Channel
- * // Only deletes dist/latest/ (useful if you suspect a corrupt dev build)
- * npm run clean latest
- * 
- * @example
- * // 3. Clean Preview Builds
- * // Deletes all dist/preview-* folders from PR builds, keeping stable/latest intact.
- * npm run clean preview
- * 
- * @example
- * // 4. Safe Clean
- * // The "Smart" clean. Removes everything EXCEPT your main production builds.
- * npm run clean safe
+ * npm run clean          # Reset project
+ * npm run clean:nuke     # Empty dist
+ * npm run clean preview  # Delete all previews
  */
 
 const fs = require('fs');
@@ -100,8 +87,8 @@ function main() {
 
     console.log(`Clean mode: ${mode || 'FULL PROJECT'} ${subMode || ''}`);
 
-    // Case 1: No args -> Full clean
-    if (!mode) {
+    // Case 1: No args OR 'all' -> Full clean
+    if (!mode || mode === 'all') {
         console.log('Cleaning all artifacts...');
         remove(DIST_DIR);
         removePattern(PROJECT_ROOT, /\.tgz$/);
@@ -157,9 +144,16 @@ function main() {
         return;
     }
 
-    // Fallback
+    // Fallback / Custom Target
+    // If user runs `npm run clean my-folder`, we assume they want to delete `dist/my-folder`
+    const customTarget = path.join(DIST_DIR, mode);
+    if (fs.existsSync(customTarget)) {
+        remove(customTarget);
+        return;
+    }
+
     console.log(`Unknown clean target: ${mode}`);
-    console.log('Available targets: (empty), dist, stable, latest, preview, safe');
+    console.log('Available targets: (empty), dist, stable, latest, preview, safe, [custom-folder]');
 }
 
 main();

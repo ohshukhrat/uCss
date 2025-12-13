@@ -2,82 +2,44 @@
  * @fileoverview uCss Build System Core
  * 
  * @description
- * This script is the "compiler" for the uCss framework. Unlike modern web projects that rely on 
- * heavy bundlers like Webpack, Vite, or Parcel, uCss uses this bespoke procedural build script.
+ * The compiler. Converts `src/` -> `dist/`.
+ * Handles bundling, inlining, minification, documentation generation, and file prefixing.
  * 
  * ---------------------------------------------------------------------------------------------
- * 🧠 ARCHITECTURE & PHILOSOPHY
+ * ⚡ BUILD MODES
  * ---------------------------------------------------------------------------------------------
  * 
- * 1. ZERO DEPENDENCIES (ALMOST)
- *    uCss is designed to be a lightweight, zero-dependency CSS framework. adhering to this,
- *    its build system only depends on 'marked' (for generating docs) and 'basic-ftp' (for deploy).
- *    We do not use PostCSS, Sass, Less, or any other preprocessors.
+ * 1. FULL / ALL (`node build.js full` | `node build.js all`)
+ *    - Builds everything: `latest` -> `p` -> `v` -> `stable`.
+ *    - `all` mode explicitly includes `c` (Clean version) as well.
  * 
- * 2. REGEX OVER AST
- *    Why do we parse CSS with Regex instead of a proper Abstract Syntax Tree (AST) parser like postcss?
- *    - Speed: For simple import inlining and minification, Regex is orders of magnitude faster.
- *    - Simplicity: The uCss syntax is strict. We don't need to support every edge case of CSS, only
- *      what we write in `src/`. This allows us to write a 10-line minifier instead of a 10k-line parser.
+ * 2. CHANNEL (`node build.js stable` | `latest`)
+ *    - Builds standard distribution for that channel.
  * 
- * 3. ASYNC PARALLELISM
- *    Node.js is single-threaded but has non-blocking I/O. We leverage this heavily.
- *    - File Reads: All reads are async `fs.readFile`.
- *    - Processing: Independent modules (base, components, layout) are built in parallel `Promise.all`.
- *    - Docs: All 20+ markdown files are rendered to HTML concurrently.
+ * 3. PREVIEW (`node build.js preview`)
+ *    - Generates a timestamped build `dist/preview-YYYY...`.
  * 
- * 4. THE "LIB" PATTERN
- *    The `src/lib/` directory contains isolated modules. This script treats each folder in `lib/` as
- *    a standalone package. It builds `lib/components` into `dist/lib/components.css` automatically.
- *    This means adding a new module requires ZERO configuration. Just create the folder, and it builds.
+ * 4. PREFIXED (`node build.js p` | `v`)
+ *    - `p` (Prefixed): Adds `.u-` to classes and `--u-` to vars.
+ *    - `v` (Variables): Adds `--u-` to vars only.
  * 
  * ---------------------------------------------------------------------------------------------
- * ⚙️ HOW IT WORKS (THE RECURSIVE BUNDLER)
+ * 🧩 FEATURES
  * ---------------------------------------------------------------------------------------------
  * 
- * The heart of this script is `bundleCss()`.
- * 1. It takes an entry file (e.g., `src/u.css`).
- * 2. It scans for `@import "..."`.
- * 3. It recursively resolves that file.
- * 4. If it finds a cycle (A imports B imports A), it halts and warns.
- * 5. It replaces the `@import` line with the actual file content.
+ * - **Regex Bundler**: Fast, zero-dep recursive `@import` handling.
+ * - **Auto-Doc**: Generates `index.html` documentation for every module from READMEs.
+ * - **Smart Verification**: Checks artifact sizes to ensure no empty files are shipped.
+ * - **Git Aware**: Can build from git history if `--source` is provided.
  * 
  * ---------------------------------------------------------------------------------------------
- * 📦 OUTPUT ARTIFACTS
- * ---------------------------------------------------------------------------------------------
- * 
- * For every input file (e.g. `components.css`), we generate THREE outputs:
- * 1. `components.css`: The "Bundle". All imports inlined, but comments and formatting preserved.
- *    USE CASE: Dev inspection, debugging.
- * 
- * 2. `components.clean.css`: The "Clean". Comments removed, excessive whitespace stripped, but still readable.
- *    USE CASE: Production where you might want to read the source code in DevTools.
- * 
- * 3. `components.min.css`: The "Min". Aggressively compacted. No spaces, no newlines.
- *    USE CASE: Production.
- * 
- * ---------------------------------------------------------------------------------------------
- * 🚀 USAGE EXAMPLES
+ * 💻 USAGE
  * ---------------------------------------------------------------------------------------------
  * 
  * @example
- * // 1. Build for Production (infers 'stable' if on main branch, 'latest' if on dev)
- * node scripts/build.js
- * 
- * @example
- * // 2. Force a specific build target (e.g. for testing 'latest' locally)
- * node scripts/build.js latest
- * 
- * @example
- * // 3. Build a Preview (Timestamped)
- * // Useful for CI/CD to generate unique preview URLs for Pull Requests
- * node scripts/build.js preview
- * 
- * @example
- * // 4. Build from Git History (CI/CD Magic)
- * // This is powerful. It allows building the site as it looked 10 commits ago without checking out.
- * // We use `git show` under the hood to read file contents from the git object database.
- * node scripts/build.js --source origin/main stable
+ * node scripts/build.js all
+ * node scripts/build.js latest p
+ * node scripts/build.js stable
  */
 
 const fs = require('fs').promises;
@@ -250,16 +212,21 @@ async function bundleCss(entryFile, sourceRef) {
 async function main() {
     const args = process.argv.slice(2);
 
-    // --- FULL BUILD WORKFLOW ---
-    if (args.includes('full')) {
-        console.log('🚀 Starting FULL build (latest, stable, p)...');
-        // We use spawnSync to run the builds sequentially so they don't race
+    // --- FULL/ALL BUILD WORKFLOW ---
+    if (args.includes('full') || args.includes('all')) {
+        const isAll = args.includes('all');
+        console.log(`🚀 Starting ${isAll ? 'ALL' : 'FULL'} build...`);
+
         const steps = [
             { id: 'latest', args: ['latest'] },
             { id: 'prefixed', args: ['p'] },
             { id: 'variables', args: ['v'] },
             { id: 'stable', args: ['stable'] }
         ];
+
+        if (isAll) {
+            steps.splice(2, 0, { id: 'clean-ver', args: ['c'] }); // Insert 'c' after 'p' or wherever appropriate behaviorally
+        }
 
         for (const step of steps) {
             console.log(`\n👉 Task: ${step.id}`);
@@ -269,7 +236,7 @@ async function main() {
                 process.exit(1);
             }
         }
-        console.log('\n✨ All full build tasks completed!');
+        console.log(`\n✨ All ${isAll ? 'all' : 'full'} build tasks completed!`);
         return;
     }
 
@@ -578,10 +545,8 @@ async function main() {
         if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) {
             docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(outputDir, 'index.html'), 'uCss Documentation - Root'));
 
-            // Only update root dist/index.html if we are building stable
-            if (outputDirName === 'stable') {
-                docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
-            }
+            // Always update root dist/index.html so it can be used for bootstrapping if needed
+            docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
         }
 
         // Subproject READMEs -> dist/lib/*/index.html
