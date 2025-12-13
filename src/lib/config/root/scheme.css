@@ -58,6 +58,13 @@
         --ter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)));
         --oter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)) / var(--st-al, .32));
 
+
+        /**
+        * @group Pro: Detailed Contextual Colors
+        */
+
+        --on-p: var(--ter, var(--d, hsl(0 0% 8%)));
+
     }
 }
 
@@ -110,6 +117,11 @@
     --ter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)));
     --oter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)) / var(--st-al, .32));
 
+    /**
+     * @group Pro: Detailed Contextual Colors
+     */
+
+    --on-p: var(--ter, var(--d, hsl(0 0% 8%)));
 }
 
 @media (prefers-color-scheme: light) {
@@ -168,6 +180,12 @@
         --ter-l: 18%;
         --ter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)));
         --oter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)) / var(--st-al, .32));
+
+        /**
+        * @group Pro: Detailed Contextual Colors
+        */
+
+        --on-p: var(--ter, var(--d, hsl(0 0% 8%)));
 
     }
 }

@@ -65,18 +65,32 @@ jobs:
       # 2. The Build Process (3 Files Generated)
       - name: 🏗️ Build & Optimize
         run: |
-          # Run the build script with target arg
-          node scripts/build.js "${{ steps.target.outputs.build_arg }}"
+          # Robust Build with Retry
+          for i in {1..3}; do
+            node scripts/build.js "${{ steps.target.outputs.build_arg }}" && break || sleep 5;
+          done
 
           # If main branch (stable), also build prefixed versions (dist/p, dist/v)
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            node scripts/build.js p
-            node scripts/build.js v
+            for i in {1..3}; do
+              node scripts/build.js p && break || sleep 5;
+            done
+            for i in {1..3}; do
+              node scripts/build.js v && break || sleep 5;
+            done
           fi
 
-      # 3. Cleanup Old Previews (Remote)
-      - name: 🧹 Cleanup Old Previews
-        run: node scripts/cleanup-remote.js
+      # 3. Remote Prep (Cleanup & Mirroring)
+      - name: 🧹 Remote Setup (Cleanup & Mirror)
+        run: |
+           # Run remote manager with retries
+           # --cleanup: Removes old previews
+           # --ensure: Ensures target directory structure exists (Mirror Mode)
+           TARGET_DIR="${{ steps.target.outputs.local_dir }}"
+           
+           for i in {1..3}; do
+             node scripts/remote.js --cleanup --ensure "$TARGET_DIR" && break || sleep 5;
+           done
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}

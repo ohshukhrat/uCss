@@ -38,6 +38,7 @@
     "clean:preview": "node scripts/clean.js preview",
     "clean:latest": "node scripts/clean.js latest",
     "watch": "node scripts/watch.js",
+    "remote:cleanup": "node scripts/remote.js --cleanup",
     "prepublishOnly": "node scripts/build.js stable"
   },
   "repository": {

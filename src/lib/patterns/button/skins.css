@@ -119,3 +119,14 @@
     --btn-bg-hover: var(--btn-alt-background-hover, var(--btn-alt-bg-hover, var(--bg-bd, var(--base-bd, #000))));
     --btn-bc-hover: var(--btn-alt-border-c-hover, var(--btn-alt-bc-hover, var(--btn-bg-hover, var(--bg-bd, var(--base-bd, #000)))));
 }
+
+/* --- Dark (Always stays dark) --- */
+:where(.btn.set, .btn[data-variant="set"], [data-style="btn"].set, .btn--set) {
+    --btn-c: var(--btn-set-color, var(--btn-set-c, var(--set-c, var(--d, #000))));
+    --btn-bg: var(--btn-set-background, var(--btn-set-bg, var(--set-bg, var(--p, #eec14c))));
+    --btn-bc: var(--btn-set-border-c, var(--btn-set-bc, var(--btn-bg, var(--set-bg, var(--out-p, var(--p, #eec14c))))));
+
+    --btn-c-hover: var(--btn-set-color-hover, var(--btn-set-c-hover, var(--set-c, var(--d, #000))));
+    --btn-bg-hover: var(--btn-set-background-hover, var(--btn-set-bg-hover, var(--set-h, var(--a, #ffb900))));
+    --btn-bc-hover: var(--btn-set-border-c-hover, var(--btn-set-bc-hover, var(--btn-bg-hover, var(--set-h, var(--a, #ffb900)))));
+}

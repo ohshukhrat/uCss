@@ -15,7 +15,7 @@
 :where(th) {
     text-align: var(--tbl-th-ta, start);
     font-weight: var(--tbl-th-fw, var(--t-fw, 700));
-    color: var(--t, #000);
+    color: var(--tbl-th-c, var(--set-h, var(--t, currentColor)));
     background-color: var(--tbl-bg-head, var(--og-bd, hsl(0 0% 50% / .8)));
     padding: var(--tbl-pd, 0.75em);
 }
@@ -23,12 +23,11 @@
 :where(td) {
     padding: var(--tbl-pd, 0.75em);
     border-bottom: var(--tbl-bd-w, 1px) solid var(--tbl-bd-c, var(--out, #131313));
-    color: var(--tx, #333);
+    color: var(--tbl-c, var(--set-c, var(--t, #333)));
 }
 
 :where(tr:hover td) {
     --set-bg: var(--og-bd, hsl(0 0% 50% / .8));
     background-color: var(--tbl-bg-hover, var(--set-bg, var(--og-lt, hsl(0 0% 50% / .32))));
-    --set-c: var(--tx, currentColor);
-    color: var(--tbl-color-hover, var(--set-c, currentColor));
+    color: var(--tbl-c-hover, var(--set-c, var(--tx, currentColor)));
 }

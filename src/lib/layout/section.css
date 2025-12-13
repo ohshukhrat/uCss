@@ -12,7 +12,7 @@
  * The outer shell (.s). Handles background, full-bleed behavior, and vertical spacing (padding-block).
  * Configured as a flex container by default.
  */
-:where(.s:not(.s .s)) {
+:where(.s):where(:not(.s *.s)) {
   display: var(--s-d, flex);
   flex-direction: var(--s-fd, column);
   align-items: var(--s-ai, center);
@@ -252,8 +252,24 @@
   --s-pb: var(--s-pb--xs, clamp(1.5rem, 1.147vw + 1.271rem, 2.25rem));
 }
 
+:where(.s.pb--xxs, .s.pb-2xs) {
+  --s-pb: var(--s-pb--xxs, clamp(1.25rem, 1.147vw + 1.021rem, 2rem));
+}
+
+:where(.s.pb--xxxs, .s.pb-3xs, .s.h, .s-h) {
+  --s-pb: var(--s-pb--xxxs, clamp(1rem, 0.765vw + 0.847rem, 1.5rem));
+}
+
 :where(.s.pb-0, .s.pb--0) {
   --s-pb: 0;
+}
+
+:where(.s.pi--l) {
+  --s-pi: var(--s-pi--l, 7%);
+}
+
+:where(.s.pi--l) {
+  --s-pi: var(--s-pi--s, 3%);
 }
 
 :where(.s.gap--l) {

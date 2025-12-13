@@ -28,7 +28,7 @@
     margin-block-start: var(--li-flow, 0.5em);
 }
 
-:where(li)+ :where(ul, ol) {
+:where(li, li > *)+ :where(ul, ol) {
     margin-block-start: var(--li-flow, 0.5em);
 }
 
