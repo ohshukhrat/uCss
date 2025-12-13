@@ -2,47 +2,40 @@
  * @fileoverview Static Asset Compression Utility
  * 
  * @description
- * This script is responsible for generating the pre-compressed variants of our static assets.
- * In a modern web stack, serving raw CSS/HTML is inefficient. We want to serve:
- * - Brotli (.br) for modern browsers (approx 20% smaller than Gzip)
- * - Gzip (.gz) for older compatible clients
- * - Raw files as a fallback
+ * The "Zipper". Generates Brotli and Gzip variants of assets.
+ * Crucial for high-performance production delivery.
  * 
  * ---------------------------------------------------------------------------------------------
- * ⚙️ TECHNICAL IMPLEMENTATION
+ * ⚙️ ALGORITHMS
  * ---------------------------------------------------------------------------------------------
  * 
- * 1. SIDE-CAR ASSETS
- *    We do not modify the original file. We create "side-cars".
- *    `u.min.css` -> `u.min.css.br` + `u.min.css.gz`
- *    This allows the web server (Apache/Nginx/Caddy) to pick the best file based on the
- *    `Accept-Encoding` request header using the `MultiViews` or `gzip_static` modules.
+ * 1. BROTLI (`.br`)
+ *    - Level: BROTLI_MAX_QUALITY (11).
+ *    - Speed: Slowest to compress, Fastest to decompress. Smallest file size.
+ *    - Use Case: Modern Browsers (Chrome, Firefox, Edge).
  * 
- * 2. PARALLELISM WITH BACKPRESSURE
- *    Compression is CPU intensive. If we naively fired off 1000 promises for 1000 files,
- *    we would crash the process or run out of file descriptors (EMFILE error).
+ * 2. GZIP (`.gz`)
+ *    - Level: Z_BEST_COMPRESSION (9).
+ *    - Speed: Fast.
+ *    - Use Case: Compatibility (Older clients, some proxies).
  * 
- *    SOLUTION: A "Worker Pool" pattern.
- *    - We default to `os.cpus().length` concurrency.
- *    - We only start a new compression job when one finishes.
+ * ---------------------------------------------------------------------------------------------
+ * 🧠 CONCURRENCY PATTERN
+ * ---------------------------------------------------------------------------------------------
  * 
- * 3. ALGORITHMS
- *    - Brotli: We use `BROTLI_MAX_QUALITY` (Level 11). It's slow to compress but max decompression speed.
- *      Since we compress at build time (once), we can afford the CPU cycle cost.
- *    - Gzip: We use `Z_BEST_COMPRESSION` (Level 9).
+ * Compressing 1000 files at once would crash the OS (EMFILE).
+ * We use a **Worker Pool** limited by CPU cores (`os.cpus().length`).
+ * - Workers = Core Count.
+ * - Queue = All files.
+ * - As one worker finishes, it grabs the next file.
  * 
  * ---------------------------------------------------------------------------------------------
  * 🚀 USAGE
  * ---------------------------------------------------------------------------------------------
  * 
- * @usage node scripts/compress.js <directory>
- * 
  * @example
- * // Compress everything in dist/latest
+ * // Usually called automatically by build.js
  * node scripts/compress.js dist/latest
- * 
- * @note This script is automatically invoked by `scripts/build.js` at the end of the build process.
- * You rarely need to run it manually unless testing compression ratios.
  */
 
 const fs = require('fs');

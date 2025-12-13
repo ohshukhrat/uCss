@@ -2,42 +2,34 @@
  * @fileoverview Local Development Watcher
  * 
  * @description
- * This script turns the passive build system into an active dev environment.
- * It monitors the `src/` directory for any file changes and triggers a rebuild of `dist/stable`.
+ * The "Hot Reloader" for uCss.
+ * Turns the passive build system into an active, listening dev environment.
+ * Monitors `src/` for changes and triggers incremental(ish) builds.
  * 
  * ---------------------------------------------------------------------------------------------
- * ⚙️ TECHNICAL IMPLEMENTATION
+ * ⚙️ TECHNICAL ARCHITECTURE
  * ---------------------------------------------------------------------------------------------
  * 
- * 1. DEBOUNCING (THE 300MS RULE)
- *    Editors often save files in chunks or trigger multiple OS events for a single "Save".
- *    Without debouncing, a single `Ctrl+S` could trigger 3 builds in 10ms.
- *    We wait for 300ms of silence before triggering the build to act as a "buffer".
+ * 1. DEBOUNCING (300ms)
+ *    - Problem: "Save All" in VS Code fires 10 events in 10ms.
+ *    - Solution: Wait for silence (300ms) before building.
  * 
- * 2. PROCESS ISOLATION (SPAWN vs IMPORT)
- *    We do NOT import `build.js` directly. Instead, we `spawn` it as a separate child process.
- *    WHY?
- *    - Memory Leaks: Requiring and re-running a script in the same Node process can leak memory.
- *    - Crash Safety: If `build.js` crashes (syntax error), we don't want the watcher to die.
- *      The child dies, the watcher logs the error, and keeps watching.
- *    - Clean Environment: Each build starts with a fresh V8 context.
+ * 2. PROCESS ISOLATION
+ *    - We `spawn` the build script (`node scripts/build.js`) instead of importing it.
+ *    - Benefit 1: Memory Safety. No leaks from repeated execution.
+ *    - Benefit 2: Crash Resilience. If build crashes, watcher stays alive.
+ *    - Benefit 3: Fresh Context. Every build starts clean.
  * 
  * 3. ATOMICITY
- *    We use an `isBuilding` mutex flag. If a build is currently running, new build requests
- *    are ignored until the current one finishes.
+ *    - Uses a `isBuilding` mutex.
+ *    - If a build is in progress, new changes are queued/ignored until it finishes.
  * 
  * ---------------------------------------------------------------------------------------------
  * 🚀 USAGE
  * ---------------------------------------------------------------------------------------------
  * 
- * @usage npm run watch
- * 
  * @example
- * // Terminal 1
  * npm run watch
- * 
- * // Terminal 2
- * npm start (or your http server)
  */
 
 const fs = require('fs');

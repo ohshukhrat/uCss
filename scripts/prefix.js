@@ -1,15 +1,34 @@
 /**
  * @fileoverview CSS Prefixing Utility
- * A robust Regex-based tool to encapsulate CSS by prefixing classes and variables.
  * 
- * STRATEGY:
- * 1. Mask comments and strings to prevent false positives.
- * 2. Regex replace classes and variables on the "safe" content.
- * 3. Unmask original comments and strings.
- */
-
-/**
- * Prefixes CSS classes and variables.
+ * @description
+ * A robust Regex-based tool to encapsulate CSS by prefixing classes and variables.
+ * Essential for the "Prefixed" build channel (`/p/`).
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * 🛡️ STRATEGY
+ * ---------------------------------------------------------------------------------------------
+ * 
+ * 1. MASKING
+ *    - First, we identify and "hide" all strings (`"..."`, `'...'`) and comments (`/ * ... * /`).
+ *    - This prevents accidental replacement of content inside strings or comments.
+ * 
+ * 2. VARIABLE PREFIXING (`--var` -> `--prefix -var`)
+ *    - Replaces all CSS custom properties.
+ *    - EXCLUDES: standard uCss globals like `--theme -* `, `--block -* `, `--editor -* `.
+ * 
+ * 3. CLASS PREFIXING (`.class` -> `.prefix - class`)
+ *    - Replaces all class selectors.
+ *    - EXCLUDES: standard WordPress/Gutenberg classes (`.wp -* `, `.block -* `).
+ * 
+ * 4. UNMASKING
+ *    - Restores the original strings and comments.
+ * 
+ * ---------------------------------------------------------------------------------------------
+ * 🔧 EXPORTS
+ * ---------------------------------------------------------------------------------------------
+ * @exports prefixCss
+ * 
  * @param {string} css - The raw CSS content.
  * @param {'p'|'c'|'v'} mode - Mode: 'p' (all), 'c' (classes), 'v' (variables).
  * @param {string} prefix - The prefix string (e.g., 'unqa', 'ucss').
