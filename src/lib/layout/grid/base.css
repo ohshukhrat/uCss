@@ -9,35 +9,62 @@
  * Defines auto-column/row sizing and gap variables.
  */
 :where(.g) {
+    --g-d: grid;
     display: var(--grid-display, var(--g-d, grid));
     position: var(--g-pos, relative);
 
+    --g-areas: none;
+    --g-areas--sm: var(--g-areas);
     grid-template-areas: var(--g-areas--sm, var(--g-areas));
 
-    --g-m: var(--g-min, 256px);
-    --g-cols: auto-fit;
-    grid-template-columns: var(--g-t-cols--sm, var(--g-t-cols,
-                repeat(var(--g-cols--sm, var(--g-cols, auto-fit)),
-                    var(--g-col--sm, var(--g-col,
-                            minmax(var(--g-min--sm, var(--g-m, 256px)),
-                                var(--g-max--sm, var(--g-max, 1fr))))))));
 
+    --g-m: var(--g-min, 256px);
+    --g-mins--sm: var(--g-m);
+    --g-cols: auto-fit;
+    --g-cols--sm: var(--g-cols);
+    --g-t-cols: repeat(var(--g-cols--sm, var(--g-cols, auto-fit)), var(--g-col--sm, var(--g-col,
+                    minmax(var(--g-min--sm, var(--g-m, 256px)),
+                        var(--g-max--sm, var(--g-max, 1fr))))));
+    --g-t-cols--sm: var(--g-t-cols);
+    grid-template-columns: var(--g-t-cols--sm, var(--g-t-cols));
+
+    --g-rows: none;
+    --g-rows--sm: var(--g-rows);
     grid-template-rows: var(--g-t-rows--sm, var(--g-t-rows, none));
 
 
+    --g-row: 0;
+    --g-row--sm: var(--g-row);
+    --g-rows: minmax(var(--g-row--sm, var(--g-row, 0)), auto);
+    --g-rows--sm: var(--g-rows);
     grid-auto-rows: var(--g-rows--sm, var(--g-rows, minmax(var(--g-row--sm, var(--g-row, 0)), auto)));
+
+    --g-a-col: 1fr;
+    --g-a-col--sm: var(--g-a-col);
+    --g-a-cols: minmax(var(--g-a-col--sm, var(--g-a-col, 1fr)), auto);
+    --g-a-cols--sm: var(--g-a-cols);
     grid-auto-columns: var(--g-a-cols--sm, var(--g-a-cols, minmax(var(--g-a-col--sm, var(--g-a-col, 1fr)), auto)));
 
     --g-ai: normal;
-    --g-ac: normal;
-    --g-ji: normal;
-    --g-jc: normal;
+    --g-ai--sm: var(--g-ai);
+    --g-ai--md: var(--g-ai);
+    --g-ai--lg: var(--g-ai);
     align-items: var(--g-ai--sm, var(--g-ai));
+
+    --g-ac: normal;
+    --g-ac--sm: var(--g-ac);
     align-content: var(--g-ac--sm, var(--g-ac));
+
+    --g-ji: normal;
+    --g-ji--sm: var(--g-ji);
     justify-items: var(--g-ji--sm, var(--g-ji));
+
+    --g-jc: normal;
+    --g-jc--sm: var(--g-jc);
     justify-content: var(--g-jc--sm, var(--g-jc));
 
     --g-flow: row;
+    --g-flow--sm: var(--g-flow);
     grid-auto-flow: var(--g-flow--sm, var(--g-flow));
 
     :where(:not(.g):has(> &)) {
@@ -56,58 +83,101 @@
     }
 
     @container (669.99px <=width <=999.99px) {
+        --g-areas--md: var(--g-areas);
         grid-template-areas: var(--g-areas--md, var(--g-areas));
 
         --g-m: var(--g-min, 288px);
-        grid-template-columns: var(--g-t-cols--md, var(--g-t-cols,
-                    repeat(var(--g-cols--md, var(--g-cols, auto-fit)),
-                        var(--g-col--md, var(--g-col,
-                                minmax(var(--g-min--md, var(--g-m, 288px)),
-                                    var(--g-max--md, var(--g-max, 1fr))))))));
+        --g-mins--md: var(--g-m);
+        --g-cols: auto-fit;
+        --g-cols--md: var(--g-cols);
+        --g-t-cols: repeat(var(--g-cols--md, var(--g-cols, auto-fit)), var(--g-col--md, var(--g-col,
+                        minmax(var(--g-min--md, var(--g-m, 288px)),
+                            var(--g-max--md, var(--g-max, 1fr))))));
+        --g-t-cols--md: var(--g-t-cols);
+        grid-template-columns: var(--g-t-cols--md, var(--g-t-cols));
 
+        --g-rows--md: var(--g-rows);
         grid-template-rows: var(--g-t-rows--md, var(--g-t-rows, none));
 
+        --g-row--md: var(--g-row);
+        --g-rows: minmax(var(--g-row--md, var(--g-row, 0)), auto);
+        --g-rows--md: var(--g-rows);
         grid-auto-rows: var(--g-rows--md, var(--g-rows, minmax(var(--g-row--md, var(--g-row, 0)), auto)));
+
+        --g-a-col--md: var(--g-a-col);
+        --g-a-cols: minmax(var(--g-a-col--md, var(--g-a-col, 1fr)), auto);
+        --g-a-cols--md: var(--g-a-cols);
         grid-auto-columns: var(--g-a-cols--md, var(--g-a-cols, minmax(var(--g-a-col--md, var(--g-a-col, 1fr)), auto)));
 
+        --g-ai--md: var(--g-ai);
         align-items: var(--g-ai--md, var(--g-ai));
+
+        --g-ji--md: var(--g-ji);
         justify-items: var(--g-ji--md, var(--g-ji));
+
+        --g-ac--md: var(--g-ac);
         align-content: var(--g-ac--md, var(--g-ac));
+
+        --g-jc--md: var(--g-jc);
         justify-content: var(--g-jc--md, var(--g-jc));
 
+        --g-flow--md: var(--g-flow);
         grid-auto-flow: var(--g-flow--md, var(--g-flow));
     }
 
     @container (width > 999.99px) {
+        --g-areas--lg: var(--g-areas);
         grid-template-areas: var(--g-areas--lg, var(--g-areas));
 
         --g-m: var(--g-min, 320px);
-        grid-template-columns: var(--g-t-cols--lg, var(--g-t-cols,
-                    repeat(var(--g-cols--lg, var(--g-cols, auto-fit)),
-                        var(--g-col--lg, var(--g-col,
-                                minmax(var(--g-min--lg, var(--g-m, 320px)),
-                                    var(--g-max--lg, var(--g-max, 1fr))))))));
+        --g-mins--lg: var(--g-m);
+        --g-cols: auto-fit;
+        --g-cols--lg: var(--g-cols);
+        --g-t-cols: repeat(var(--g-cols--lg, var(--g-cols, auto-fit)), var(--g-col--lg, var(--g-col,
+                        minmax(var(--g-min--lg, var(--g-m, 320px)),
+                            var(--g-max--lg, var(--g-max, 1fr))))));
+        --g-t-cols--lg: var(--g-t-cols);
+        grid-template-columns: var(--g-t-cols--lg, var(--g-t-cols));
 
+        --g-rows--lg: var(--g-rows);
         grid-template-rows: var(--g-t-rows--lg, var(--g-t-rows, none));
 
+        --g-row--lg: var(--g-row);
+        --g-rows: minmax(var(--g-row--lg, var(--g-row, 0)), auto);
+        --g-rows--lg: var(--g-rows);
         grid-auto-rows: var(--g-rows--lg, var(--g-rows, minmax(var(--g-row--lg, var(--g-row, 0)), auto)));
+
+        --g-a-col--lg: var(--g-a-col);
+        --g-a-cols: minmax(var(--g-a-col--lg, var(--g-a-col, 1fr)), auto);
+        --g-a-cols--lg: var(--g-a-cols);
         grid-auto-columns: var(--g-a-cols--lg, var(--g-a-cols, minmax(var(--g-a-col--lg, var(--g-a-col, 1fr)), auto)));
 
+        --g-ai--lg: var(--g-ai);
         align-items: var(--g-ai--lg, var(--g-ai));
+
+        --g-ji--lg: var(--g-ji);
         justify-items: var(--g-ji--lg, var(--g-ji));
+
+        --g-ac--lg: var(--g-ac);
         align-content: var(--g-ac--lg, var(--g-ac));
+
+        --g-jc--lg: var(--g-jc);
         justify-content: var(--g-jc--lg, var(--g-jc));
 
+        --g-flow--lg: var(--g-flow);
         grid-auto-flow: var(--g-flow--lg, var(--g-flow));
     }
 
     @container (width <=384px) {
         --g-m: var(--g-min--sm, 192px);
-        grid-template-columns: var(--g-t-cols, var(--g-t-cols--sm,
-                    repeat(var(--g-cols--sm, var(--g-cols, auto-fit)),
-                        var(--g-col--sm, var(--g-col,
-                                minmax(var(--g-min--xsm, var(--g-m, 192px)),
-                                    var(--g-max--xsm, var(--g-max--sm, 1fr))))))));
+        --g-mins--xsm: var(--g-m);
+        --g-cols: auto-fit;
+        --g-cols--xsm: var(--g-cols);
+        --g-t-cols: repeat(var(--g-cols--xsm, var(--g-cols, auto-fit)), var(--g-col--xsm, var(--g-col,
+                        minmax(var(--g-min--xsm, var(--g-m, 192px)),
+                            var(--g-max--xsm, var(--g-max--xsm, 1fr))))));
+        --g-t-cols--xsm: var(--g-t-cols);
+        grid-template-columns: var(--g-t-cols--xsm, var(--g-t-cols));
     }
 
     /**
@@ -116,58 +186,56 @@
    */
     :where(& > *, .sg > *, .sgc > *, .gi) {
         --gi-area: auto;
-
+        --gi-area--sm: var(--gi-area);
         grid-area: var(--gi-area--sm, var(--gi-area));
 
         --gi-col: auto;
         --gi-col--sm: var(--gi-col);
-        --gi-col--md: var(--gi-col);
-        --gi-col--lg: var(--gi-col);
         grid-column: var(--gi-col--sm);
 
         --gi-row: auto;
         --gi-row--sm: var(--gi-row);
-        --gi-row--md: var(--gi-row);
-        --gi-row--lg: var(--gi-row);
         grid-row: var(--gi-row--sm);
 
         --gi-as: auto;
         --gi-as--sm: var(--gi-as);
-        --gi-as--md: var(--gi-as);
-        --gi-as--lg: var(--gi-as);
         align-self: var(--gi-as--sm);
 
         --gi-js: auto;
         --gi-js--sm: var(--gi-js);
-        --gi-js--md: var(--gi-js);
-        --gi-js--lg: var(--gi-js);
         justify-self: var(--gi-js--sm);
 
         --gi-o: 0;
         --gi-o--sm: var(--gi-o);
-        --gi-o--md: var(--gi-o);
-        --gi-o--lg: var(--gi-o);
         order: var(--gi-o--sm);
 
         @container (669.99px <=width <=999.99px) {
+            --gi-area--md: var(--gi-area);
             grid-area: var(--gi-area--md, var(--gi-area));
+            --gi-col--md: var(--gi-col);
             grid-column: var(--gi-col--md);
+            --gi-row--md: var(--gi-row);
             grid-row: var(--gi-row--md);
-
+            --gi-as--md: var(--gi-as);
             align-self: var(--gi-as--md);
+            --gi-js--md: var(--gi-js);
             justify-self: var(--gi-js--md);
-
+            --gi-o--md: var(--gi-o);
             order: var(--gi-o--md);
         }
 
         @container (width > 999.99px) {
+            --gi-area--lg: var(--gi-area);
             grid-area: var(--gi-area--lg, var(--gi-area));
+            --gi-col--lg: var(--gi-col);
             grid-column: var(--gi-col--lg);
+            --gi-row--lg: var(--gi-row);
             grid-row: var(--gi-row--lg);
-
+            --gi-as--lg: var(--gi-as);
             align-self: var(--gi-as--lg);
+            --gi-js--lg: var(--gi-js);
             justify-self: var(--gi-js--lg);
-
+            --gi-o--lg: var(--gi-o);
             order: var(--gi-o--lg);
         }
     }
@@ -185,17 +253,8 @@
     /* 3. Reset Responsive Variables */
     /* This ensures a parent's responsive gap doesn't leak down */
     --g-gap--sm: var(--g-g);
-    --g-gap--md: var(--g-g);
-    --g-gap--lg: var(--g-g);
-
     --g-col-gap--sm: var(--g-col-gap);
-    --g-col-gap--md: var(--g-col-gap);
-    --g-col-gap--lg: var(--g-col-gap);
-
     --g-row-gap--sm: var(--g-row-gap);
-    --g-row-gap--md: var(--g-row-gap);
-    --g-row-gap--lg: var(--g-row-gap);
-
     column-gap: var(--g-col-gap--sm,
             var(--g-gap--sm,
                 var(--g-col-gap,
@@ -207,6 +266,9 @@
                     var(--g-g))));
 
     @container (669.99px <=width <=999.99px) {
+        --g-gap--md: var(--g-g);
+        --g-col-gap--md: var(--g-col-gap);
+        --g-row-gap--md: var(--g-row-gap);
         column-gap: var(--g-col-gap--md,
                 var(--g-gap--md,
                     var(--g-col-gap,
@@ -219,6 +281,9 @@
     }
 
     @container (width > 999.99px) {
+        --g-gap--lg: var(--g-g);
+        --g-col-gap--lg: var(--g-col-gap);
+        --g-row-gap--lg: var(--g-row-gap);
         column-gap: var(--g-col-gap--lg,
                 var(--g-gap--lg,
                     var(--g-col-gap,

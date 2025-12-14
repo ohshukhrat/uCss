@@ -988,5 +988,5 @@ We provide a robust suite of tools for managing deployments to our FTP staging e
 
 [Back to top](#)
 
-**License**: MIT
-**Copyright**: © 2024 UNQA.
+**License**: MPL-2.0
+**Copyright**: © 2025 Shukhrat (Alive 🜁) @ UNQA

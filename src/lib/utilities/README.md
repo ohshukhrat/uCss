@@ -414,3 +414,6 @@ Do not build your entire site using only utilities (unless you are prototyping).
 **Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Utilities](./) 
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

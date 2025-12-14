@@ -443,3 +443,6 @@ If you *only* want the Grid system:
 **Navigation**: [uCss](../) > [Source](./) > [Modules](./lib/)
 
 [Back to top](#toc)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

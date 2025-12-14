@@ -134,3 +134,6 @@ The `src/lib/layout/flex` directory contains specific partials.
 **Navigation**: [uCss](../../../../) > [Source](../../../) > [Modules](../../) > [Layout](../) > [Flex](./)
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

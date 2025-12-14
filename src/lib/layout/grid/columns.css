@@ -223,6 +223,42 @@
     }
 }
 
+:where(.g-1-3, .g-3-1) {
+    --g-cols--lg: 4;
+    --g-cols--md: 2;
+    --g-cols--sm: 1;
+    --g-min--lg: 2rem;
+    --g-min--md: 2rem;
+
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--md: span 2;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--md: span 2;
+    }
+}
+
+:where(.g-1-3) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--lg: span 1;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--lg: span 3;
+    }
+}
+
+:where(.g-3-1) {
+    :where(& > *:nth-child(odd), .gc:nth-child(odd)) {
+        --gi-col--lg: span 3;
+    }
+
+    :where(& > *:nth-child(even), .gc:nth-child(even)) {
+        --gi-col--lg: span 1;
+    }
+}
+
 :where(.g-1-3--lg, .g-1-3--mdl) {
     --g-cols--lg: 4;
     --g-min--lg: 2rem;

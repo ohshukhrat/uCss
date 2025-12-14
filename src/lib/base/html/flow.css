@@ -37,13 +37,18 @@
     margin-block-start: var(--p-flow, 0.75em);
 }
 
+/* 5. Table Inner Flow */
+:where(div)> :where(table:only-child) {
+    margin-block: var(--p-flow, 0.75em);
+}
+
 /**
  * @group Flow Control
  * Logic to stop and restore flow.
  */
 
-/* .s (Stop Flow / Section): Kills flow variables */
-:where(.s) {
+/* .s (Design Flow / Section): Kills flow variables */
+:where(.df, .s) {
     /* Primitives */
     --flow--xl: 0;
     --flow--l: 0;

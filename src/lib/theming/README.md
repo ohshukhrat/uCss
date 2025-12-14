@@ -393,3 +393,6 @@ Now `<div class="set christmas">` works instantly with all uCss patterns. Button
 **Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Theming](./) 
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

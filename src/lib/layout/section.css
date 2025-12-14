@@ -36,8 +36,12 @@
   margin-inline: var(--s-md, var(--s-mi,
         var(--s-mis) var(--s-mie)));
 
-  overflow-x: var(--s-ofx, var(--s-of, clip));
-  overflow-y: var(--s-ofy, var(--s-of, clip));
+  --of: auto;
+  --ofx: var(--of);
+  --ofy: var(--of);
+  --s-ofx: var(--ofx);
+  --s-ofy: var(--ofy);
+  overflow: var(--s-of, var(--s-ofx, auto) var(--s-ofy, auto));
 
   background-color: var(--s-bg--sm, var(--s-bg, var(--set-bg)));
 
@@ -106,8 +110,12 @@
   margin-block: var(--sc-mbs, var(--sc-mb)) var(--sc-mbe, var(--sc-mb));
   margin-inline: var(--sc-mis, var(--sc-mi)) var(--sc-mie, var(--sc-mi));
 
-  overflow-x: var(--sc-ofx, var(--sc-of, visible));
-  overflow-y: var(--sc-ofy, var(--sc-of, visible));
+  --of: auto;
+  --ofx: var(--of);
+  --ofy: var(--of);
+  --sc-ofx: var(--ofx);
+  --sc-ofy: var(--ofy);
+  overflow: var(--sc-of, var(--sc-ofx, auto) var(--sc-ofy, auto));
 
   background-color: var(--sc-bg--sm, var(--sc-bg));
 

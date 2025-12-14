@@ -1,19 +1,24 @@
 :where(.of, .overflow) {
-
-    --overflow-x: var(--of-x, auto);
-    --overflow-y: var(--of-y, auto);
-    --overflow: var(--of, var(--overflow-x) var(--overflow-y));
+    --of: auto;
+    --ofx: var(--of);
+    --ofy: var(--of);
+    --overflow-x: var(--ofx);
+    --overflow-y: var(--ofy);
     overflow: var(--overflow, var(--overflow-x, auto) var(--overflow-y, auto));
 }
 
-:where(.of-x, .overflow-x) {
-    --overflow-x: var(--of-x, auto);
-    overflow-x: var(--overflow-x);
+:where(.ofx, .overflow-x) {
+    --of: auto;
+    --ofx: var(--of);
+    --overflow-x: var(--ofx);
+    overflow-x: var(--overflow, var(--overflow-x));
 }
 
-:where(.of-y, .overflow-y) {
-    --overflow-y: var(--of-y, auto);
-    overflow-y: var(--overflow-y);
+:where(.ofy, .overflow-y) {
+    --of: auto;
+    --ofy: var(--of);
+    --overflow-y: var(--ofy);
+    overflow-y: var(--overflow, var(--overflow-y));
 }
 
 :where(.clip, .of-c) {
@@ -21,11 +26,11 @@
 }
 
 :where(.clip-x, .of-c-x) {
-    --of-x: clip;
+    --ofx: clip;
 }
 
 :where(.clip-y, .of-c-y) {
-    --of-y: clip;
+    --ofy: clip;
 }
 
 :where(.vis, .of-v) {
@@ -33,9 +38,9 @@
 }
 
 :where(.vis-x, .of-v-x) {
-    --of-x: visible;
+    --ofx: visible;
 }
 
 :where(.vis-y, .of-v-y) {
-    --of-y: visible;
+    --ofy: visible;
 }
