@@ -1,10 +1,10 @@
-# uCss: The Container-First CSS Framework
+# uCss Framework
 
 **Navigation**: [uCss](./) > [Source](./src/) > [Modules](./src/lib/)
 
 **Modules**: [Config](./src/lib/config/) | [Base](./src/lib/base/) | [Layout](./src/lib/layout/) | [Theming](./src/lib/theming/) | [Typography](./src/lib/typography/) | [Patterns](./src/lib/patterns/) | [Utilities](./src/lib/utilities/)
 
-> **The logical evolution of CSS**. uCss is a modern, 15KB lightweight framework designed to solve exactly one problem: **Component Portability**. It leverages **Container Queries** and **CSS Variables** to create resilient UI components that adapt to their *context*, not just the screen size. No build step required.
+> **The logical evolution of CSS**. uCss is a modern, 16KB lightweight framework designed to solve exactly one problem: **Component Portability**. It leverages **Container Queries** and **CSS Variables** to create resilient UI components that adapt to their *context*, not just the screen size. No build step required.
 
 ---
 

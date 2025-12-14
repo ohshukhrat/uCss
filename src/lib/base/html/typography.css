@@ -110,7 +110,7 @@
 
 :where(hr) {
     border: none;
-    border-block-start: var(--hr-h, 1px) solid var(--hr-c, var(--out, #1f1f1f));
+    border-block-start: var(--hr-h, 1px) solid var(--hr-c, var(--og-lt, hsl(0 0% 50% / .32)));
     --mg: var(--hr-m, 2.5rem);
     --mgb: var(--mg);
     margin-block: var(--mgb, var(--mg, var(--hr-m, 2.5rem)));

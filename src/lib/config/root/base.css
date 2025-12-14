@@ -105,8 +105,8 @@
     --tbl-bd-w: var(--bd-w, .125rem);
     --tbl-bd-c: var(--out, #131313);
     --tbl-pd: .75em;
-    --tbl-bg-head: var(--og-bd, hsl(0 0% 50% / .8));
-    --td-bg-hover: var(--og-lt, hsl(0 0% 50% / .32));
+    --tbl-bg-head: var(--og-lt, hsl(0 0% 50% / .8));
+    --td-bg-hover: var(--og-xlt, hsl(0 0% 50% / .32));
 
     /* HTML: Horizontal Rule (html.css) */
     --hr-h: 1px;
