@@ -124,7 +124,7 @@
     padding-block: var(--bq-pdb, .5em);
     font-style: italic;
     color: var(--bq-tx, var(--set-c, var(--alt-bd, var(--on-srf, var(--tx, currentColor)))));
-    --set-bg: var(--op-lt, var(--oter, var(--ontf, var(--srf, hsl(0 0% 93% / .08)))));
+    --set-bg: var(--op-lt, var(--oter, var(--ontf, hsl(43 83% 62% / .32))));
     background-color: var(--bq-bg, var(--set-bg));
     /* Margin handled by Smart Flow */
     margin-block: 0;

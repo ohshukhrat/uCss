@@ -86,6 +86,7 @@
     /* HTML: Blockquotes (html.css) */
     --bq-bd-w: var(--bd-w--l, .25rem);
     --bq-bd-c: var(--p, currentColor);
+    --bq-bg: var(--set-bg, var(--op-lt, var(--oter, var(--ontf, hsl(0 0% 93% / .08)))));
     --bq-pdy: 1.5em;
 
     /* HTML: Code / KBD (html.css) */
