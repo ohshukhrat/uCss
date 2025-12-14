@@ -459,3 +459,6 @@ Component-specific defaults.
 **Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Config](./)
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

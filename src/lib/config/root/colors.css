@@ -165,6 +165,8 @@
     --og: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al, .64));
     --og-bd: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-bd, .8));
     --og-lt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-lt, .32));
+    --og-xlt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-xlt, .16));
+    --og-xxlt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-lt, .08));
 
     --obg: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64));
     --oalt: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));

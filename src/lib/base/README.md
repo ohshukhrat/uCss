@@ -280,3 +280,6 @@ Apply this class to your `<article>` and the entire document rhythm expands loos
 **Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Base](./) 
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

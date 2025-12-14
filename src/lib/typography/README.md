@@ -284,3 +284,6 @@ For giant marketing headers, you often want:
 **Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Typography](./) 
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

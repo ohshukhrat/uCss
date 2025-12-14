@@ -9,63 +9,58 @@
 
 :where(.sg) {
     --g-row-gap: var(--g-g, clamp(1rem, 0.382vw + 0.924rem, 1.25rem));
-    grid-template-rows: var(--sg-rows-template--fallback--sm, var(--sg-rows-template--fallback, auto));
+    grid-template-rows: var(--sg-t-rows-flb--sm, var(--sg-t-rows--flb, auto));
 
     @container (669.99px <=width <=999.99px) {
         display: var(--sg-d--md, var(--sg-d, grid));
-        grid-template-rows: var(--sg-rows-template--md--fallback, var(--sg-rows-template--fallback, auto));
+        grid-template-rows: var(--sg-t-rows--md--flb, var(--sg-t-rows--flb, auto));
     }
 
     @container (width > 999.99px) {
         display: var(--sg-d--lg, var(--sg-d, grid));
-        grid-template-rows: var(--sg-rows-template--lg--fallback, var(--sg-rows-template--fallback, auto));
+        grid-template-rows: var(--sg-t-rows--lg--flb, var(--sg-t-rows--flb, auto));
     }
 }
 
 @supports (grid-template-rows: subgrid) {
     :where(.sg) {
-        grid-template-rows: var(--sg-rows-template--sm, var(--sg-rows-template, subgrid));
+        grid-template-rows: var(--sg-t-rows--sm, var(--sg-t-rows, subgrid));
 
         @container (669.99px <=width <=999.99px) {
-            grid-template-rows: var(--sg-rows-template--md, var(--sg-rows-template, subgrid));
+            grid-template-rows: var(--sg-t-rows--md, var(--sg-t-rows, subgrid));
         }
 
         @container (width > 999.99px) {
-            grid-template-rows: var(--sg-rows-template--lg, var(--sg-rows-template, subgrid));
+            grid-template-rows: var(--sg-t-rows--lg, var(--sg-t-rows, subgrid));
         }
     }
 }
 
 :where(.sgc) {
     --g-col-gap: var(--g-g, clamp(1rem, 0.382vw + 0.924rem, 1.25rem));
-    grid-template-columns: var(--sg-cols-template--fallback--sm, var(--sg-cols-template--fallback, auto));
+    grid-template-columns: var(--sg-t-cols-flb--sm, var(--sg-t-cols--flb, auto));
 
     @container (669.99px <=width <=999.99px) {
         display: var(--sg-d--md, var(--sg-d, grid));
-        grid-template-columns: var(--sg-cols-template--md--fallback, var(--sg-cols-template--fallback, auto));
+        grid-template-columns: var(--sg-t-cols-flb--md, var(--sg-t-cols--flb, auto));
     }
 
     @container (width > 999.99px) {
         display: var(--sg-d--lg, var(--sg-d, grid));
-        grid-template-columns: var(--sg-cols-template--lg--fallback, var(--sg-cols-template--fallback, auto));
-    }
-
-    @container (width > 999.99px) {
-        display: var(--sg-d--lg, var(--sg-d, grid));
-        grid-template-columns: var(--sg-cols-template--lg--fallback, var(--sg-cols-template--fallback, auto));
+        grid-template-columns: var(--sg-t-cols-flb--lg, var(--sg-t-cols--flb, auto));
     }
 }
 
 @supports (grid-template-columns: subgrid) {
     :where(.sgc) {
-        grid-template-columns: var(--sg-cols-template--sm, var(--sg-cols-template, subgrid));
+        grid-template-columns: var(--sg-t-cols--sm, var(--sg-t-cols, subgrid));
 
         @container (669.99px <=width <=999.99px) {
-            grid-template-columns: var(--sg-cols-template--md, var(--sg-cols-template, subgrid));
+            grid-template-columns: var(--sg-t-cols--md, var(--sg-t-cols, subgrid));
         }
 
         @container (width > 999.99px) {
-            grid-template-columns: var(--sg-cols-template--lg, var(--sg-cols-template, subgrid));
+            grid-template-columns: var(--sg-t-cols--lg, var(--sg-t-cols, subgrid));
         }
     }
 }

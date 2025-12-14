@@ -80,6 +80,16 @@ figure.o {
           var(--gradient-color-1, var(--overlay-darker, rgba(6, 27, 35, 0.92))) 23%,
           var(--gradient-color-2, var(--overlay-darker, rgba(6, 27, 35, 0.76))) 94%));
   }
+
+  /* Clip overflow to prevent overflow from child elements */
+  :where(.s:has(> &)) {
+    --of: clip;
+    --ofx: var(--of);
+    --ofy: var(--of);
+    --s-ofx: var(--ofx);
+    --s-ofy: var(--ofy);
+    overflow: var(--s-of, var(--s-ofx, clip) var(--s-ofy, clip));
+  }
 }
 
 /**

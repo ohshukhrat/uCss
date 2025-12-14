@@ -502,3 +502,6 @@ Row layout with space-between.
 **Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Layout](./) 
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

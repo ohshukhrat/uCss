@@ -16,18 +16,25 @@
     text-align: var(--tbl-th-ta, start);
     font-weight: var(--tbl-th-fw, var(--t-fw, 700));
     color: var(--tbl-th-c, var(--set-h, var(--t, currentColor)));
-    background-color: var(--tbl-bg-head, var(--og-bd, hsl(0 0% 50% / .8)));
-    padding: var(--tbl-pd, 0.75em);
+    font-size: var(--tbl-th-fs, var(--tx-fs--s, 1rem));
+    text-transform: var(--tbl-th-tt);
+    background-color: var(--tbl-th-bg, var(--tbl-bg-head, var(--og-lt, hsl(0 0% 50% / .16))));
+    border-bottom: var(--tbl-th-bd-w, 2px) solid var(--tbl-bd-c-final);
+    white-space: var(--tbl-th-ws);
+    padding: var(--tbl-pd, var(--tbl-pd-y, 0.75em) var(--tbl-pd-x, 0.75em));
 }
 
 :where(td) {
-    padding: var(--tbl-pd, 0.75em);
+    padding: var(--tbl-pd, var(--tbl-pd-y, 0.75em) var(--tbl-pd-x, 0.75em));
+    vertical-align: var(--tbl-va, middle);
     border-bottom: var(--tbl-bd-w, 1px) solid var(--tbl-bd-c, var(--out, #131313));
+    background-color: var(--tbl-td-bg, var(--og-xxlt, hsl(0 0% 50% / .08)));
+    font-variant-numeric: tabular-nums;
     color: var(--tbl-c, var(--set-c, var(--t, #333)));
 }
 
 :where(tr:hover td) {
     --set-bg: var(--og-bd, hsl(0 0% 50% / .8));
-    background-color: var(--tbl-bg-hover, var(--set-bg, var(--og-lt, hsl(0 0% 50% / .32))));
+    background-color: var(--td-bg-hover, var(--set-bg, var(--og-xlt, hsl(0 0% 50% / .16))));
     color: var(--tbl-c-hover, var(--set-c, var(--tx, currentColor)));
 }

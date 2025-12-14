@@ -16,5 +16,5 @@
 }
 
 :where(img) {
-    background-color: var(--srf, transparent);
+    background-color: var(--img-bg, transparent);
 }

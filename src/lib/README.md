@@ -179,3 +179,5 @@ For granular control, you can import specific single-file bundles. All individua
 | | `utilities/blur.css` | Blur (`.blur`) | [link](https://ucss.unqa.dev/stable/lib/utilities/blur.min.css) |
 | | `utilities/shadow.css` | Shadow (`.shd`) | [link](https://ucss.unqa.dev/stable/lib/utilities/shadow.min.css) |
 
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

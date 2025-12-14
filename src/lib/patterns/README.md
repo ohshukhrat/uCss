@@ -421,3 +421,6 @@ Using Card + Layout together.
 **Navigation**: [uCss](../../../) > [Source](../../) > [Modules](../) > [Patterns](./) 
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

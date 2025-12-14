@@ -274,3 +274,6 @@ You can change the break point of any grid locally:
 **Modules**: [Config](../../config/) | [Base](../../base/) | [Layout](../) | [Theming](../../theming/) | [Typography](../../typography/) | [Patterns](../../patterns/) | [Utilities](../../utilities/)
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

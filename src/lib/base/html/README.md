@@ -192,3 +192,6 @@ If spacing looks wrong:
 **Modules**: [Config](../../config/) | [Base](../) | [Layout](../../layout/) | [Theming](../../theming/) | [Typography](../../typography/) | [Patterns](../../patterns/) | [Utilities](../../utilities/)
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

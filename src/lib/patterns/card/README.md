@@ -95,3 +95,6 @@ The `src/lib/patterns/card` directory contains:
 **Navigation**: [uCss](../../../../) > [Source](../../../) > [Modules](../../) > [Patterns](../) > [Card](./)
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

@@ -86,6 +86,7 @@
     /* HTML: Blockquotes (html.css) */
     --bq-bd-w: var(--bd-w--l, .25rem);
     --bq-bd-c: var(--p, currentColor);
+    --bq-bg: var(--set-bg, var(--op-lt, var(--oter, var(--ontf, hsl(0 0% 93% / .08)))));
     --bq-pdy: 1.5em;
 
     /* HTML: Code / KBD (html.css) */
@@ -99,11 +100,13 @@
     --pre-pd: var(--gap, 1.5rem);
 
     /* HTML: Tables (html.css) */
+    --tbl-th-fs: var(--tx-fs--s, 1rem);
+    --tbl-th-tt: uppercase;
     --tbl-bd-w: var(--bd-w, .125rem);
     --tbl-bd-c: var(--out, #131313);
     --tbl-pd: .75em;
-    --tbl-bg-head: var(--og-bd, hsl(0 0% 50% / .8));
-    --tbl-bg-hover: var(--og-lt, hsl(0 0% 50% / .32));
+    --tbl-bg-head: var(--og-lt, hsl(0 0% 50% / .8));
+    --td-bg-hover: var(--og-xlt, hsl(0 0% 50% / .32));
 
     /* HTML: Horizontal Rule (html.css) */
     --hr-h: 1px;

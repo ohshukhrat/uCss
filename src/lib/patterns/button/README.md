@@ -337,3 +337,6 @@ const Button = ({ variant = 'primary', size = 'md', children, ...props }) => (
 **Modules**: [Config](../../config/) | [Base](../../base/) | [Layout](../../layout/) | [Theming](../../theming/) | [Typography](../../typography/) | [Patterns](../) | [Utilities](../../utilities/)
 
 [Back to top](#)
+
+**License**: MPL-2.0
+**Copyright**: © 2025 Alive 🜁

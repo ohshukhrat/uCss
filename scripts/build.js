@@ -9,9 +9,9 @@
  * ⚡ BUILD MODES
  * ---------------------------------------------------------------------------------------------
  * 
- * 1. FULL / ALL (`node build.js full` | `node build.js all`)
+ * 1. FULL / ALL (`node build.js full` | `                                                                                                                                                                                                                                                                                                                                                                              node build.js all`)
  *    - Builds everything: `latest` -> `p` -> `v` -> `stable`.
- *    - `all` mode explicitly includes `c` (Clean version) as well.
+ *    - `all` mode explicitly includes `c` (only classes prefixed version) as well.
  * 
  * 2. CHANNEL (`node build.js stable` | `latest`)
  *    - Builds standard distribution for that channel.
@@ -324,8 +324,11 @@ async function main() {
     const tasks = [];
 
     // 3. Static Assets (.htaccess)
+    // 3. Static Assets (.htaccess) - Only for Stable/Latest (Root controllers)
     tasks.push(async () => {
-        try { await fs.copyFile(path.join(PROJECT_ROOT, 'server/.htaccess.template'), path.join(DIST_ROOT, '.htaccess')); } catch (e) { }
+        if (outputDirName === 'stable' || outputDirName === 'latest') {
+            try { await fs.copyFile(path.join(PROJECT_ROOT, 'server/.htaccess.template'), path.join(DIST_ROOT, '.htaccess')); } catch (e) { }
+        }
     });
 
     // 4. Core Build (u.css)
@@ -340,6 +343,11 @@ async function main() {
             fs.writeFile(path.join(outputDir, 'u.clean.css'), cleanCss(content)),
             fs.writeFile(path.join(outputDir, 'u.min.css'), minifyCss(content))
         ]);
+
+        // Mirror stable u.min.css to root for easy access (e.g. ucss.unqa.dev/u.min.css)
+        if (outputDirName === 'stable') {
+            await fs.writeFile(path.join(DIST_ROOT, 'u.min.css'), minifyCss(content));
+        }
     });
 
     // 5. Modular Builds (lib/*.css)
@@ -432,8 +440,49 @@ async function main() {
         console.log('Generating documentation...');
 
         /**
+         * Applies prefixing to HTML content (classes and inline styles).
+         * @param {string} html
+         */
+        const prefixHtml = (html) => {
+            if (!validMode) return html;
+
+            let processed = html;
+            const p = (prefixString.endsWith('-') ? prefixString : `${prefixString}-`);
+
+            // 1. Class Prefixing (for 'p' or 'c' modes)
+            if (validMode === 'p' || validMode === 'c') {
+                // Regex: class="..."
+                processed = processed.replace(/class="([^"]*)"/g, (match, classList) => {
+                    const classes = classList.split(/\s+/).filter(Boolean);
+                    const prefixed = classes.map(cls => {
+                        // Exclude standard WP/Block classes
+                        if (/^(wp|block|editor)(?:-|$)/.test(cls)) return cls;
+                        return `${p}${cls}`;
+                    });
+                    return `class="${prefixed.join(' ')}"`;
+                });
+            }
+
+            // 2. Inline Style Variable Prefixing (for 'p' or 'v' modes)
+            if (validMode === 'p' || validMode === 'v') {
+                // Regex: style="..."
+                processed = processed.replace(/style="([^"]*)"/g, (match, styleContent) => {
+                    // Replace --var with --prefix-var inside the style string
+                    // Using similar logic to prefix.js but inline
+                    const paramPrefix = `--${p}`;
+                    const replacedStyle = styleContent.replace(/--(?!(theme|u|ucss|wp|block|editor)(?:-|$))([\w-]+)/g, (m, restricted, varName) => {
+                        return `${paramPrefix}${varName}`;
+                    });
+                    return `style="${replacedStyle}"`;
+                });
+            }
+
+            return processed;
+        };
+
+        /**
          * Converts Markdown to a complete HTML page with uCss styling.
-         * 
+         *
          * PIPELINE:
          * 1. Read Markdown file.
          * 2. Configure `marked` renderer to:
@@ -486,7 +535,12 @@ async function main() {
             // Wrap tables for scrollability
             htmlContent = htmlContent.replace(/<table>/g, '<div class="of-x"><table>').replace(/<\/table>/g, '</table></div>');
 
-            // Dynamic CDN Replacement in Content
+            // Apply HTML Prefixing to Content
+            // NOTE: We do NOT prefix here anymore to avoid double-prefixing when we process the full template later.
+            // if (validMode) { htmlContent = prefixHtml(htmlContent); }
+
+            // Apply HTML Prefixing to Content - WAITING for final assembly
+            // (Removed previous block to do it once at the end)
             // Replaces "ucss.unqa.dev/stable" with "ucss.unqa.dev/[current-build]" in the text
             // checking if outputDirName is 'p' or 'latest' or 'preview*'.
             const cdnSegment = outputDirName.startsWith('preview') ? outputDirName : (['p', 'latest'].includes(outputDirName) ? outputDirName : 'stable');
@@ -516,7 +570,7 @@ async function main() {
 </head>
 </head>
 <body class="set base">
-    <section class="s" style="--sc-max-w: 48rem; --scc-gap: .75rem;">
+    <section class="s" style="--sc-max-w: 56rem; --scc-gap: .75rem;">
         <div class="sf"><div>${htmlContent}</div></div>
     </section>
 
@@ -536,8 +590,15 @@ async function main() {
     </button>
 </body>
 </html>`;
-            await fs.writeFile(outPath, template);
+
+            if (validMode) {
+                await fs.writeFile(outPath, prefixHtml(template));
+            } else {
+                await fs.writeFile(outPath, template);
+            }
         };
+
+
 
         const docTasks = [];
         // Root README -> dist/index.html
@@ -545,8 +606,11 @@ async function main() {
         if (existsSync(path.join(PROJECT_ROOT, 'README.md'))) {
             docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(outputDir, 'index.html'), 'uCss Documentation - Root'));
 
-            // Always update root dist/index.html so it can be used for bootstrapping if needed
-            docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
+            // Always update root dist/index.html so it can be used for bootstrapping IF this is a root-capable build
+            if (outputDirName === 'stable' || outputDirName === 'latest') {
+                // We don't want 'p' or 'v' builds to overwrite the main entry point
+                docTasks.push(generateHtml(path.join(PROJECT_ROOT, 'README.md'), path.join(DIST_ROOT, 'index.html'), 'uCss Documentation - Root'));
+            }
         }
 
         // Subproject READMEs -> dist/lib/*/index.html
