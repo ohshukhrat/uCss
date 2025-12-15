@@ -41,6 +41,10 @@
         background-color: var(--set-link-bg, var(--set-lnk-bg, var(--lnk-bg)));
         text-decoration: var(--set-link-td, var(--set-lnk-td, var(--lnk-td, underline)));
         opacity: var(--set-link-opacity, var(--set-lnk-op, var(--lnk-op, 1)));
+
+        >:where(*) {
+            color: var(--set-link-child, var(--set-lnkc, inherit));
+        }
     }
 
     :is(a):not(.btn, [data-style="btn"]):hover {

@@ -4,50 +4,15 @@
  * @description
  * The "Commander" of the deployment process. It coordinates `build.js` and `remote.js` to 
  * take code from your machine to the internet.
- * 
- * ---------------------------------------------------------------------------------------------
- * 🤖 LOGIC
- * ---------------------------------------------------------------------------------------------
- * 
- * 1. PARSE ARGS
- *    It intelligently separates "Targets" (stable, latest, custom) from "Modifiers" (p, c, v).
- *    e.g., `npm run deploy p latest` -> Target: `latest`, Modifier: `p`.
- * 
- * 2. BUILD
- *    Calls `scripts/build.js` with the parsed arguments to generate artifacts in `dist/`.
- * 
- * 3. RESOLVE
- *    Determines the upload path.
- *    - `stable` -> Uploads to `/` (Root).
- *    - `latest` -> Uploads to `/latest`.
- *    - `preview` -> Uploads to `/preview-TIMESTAMP`.
- * 
- * 4. DEPLOY
- *    Calls `scripts/remote.js` to upload.
- *    - If `latest` or `preview`: Also runs `--cleanup` and `--bootstrap` (smart root check).
- * 
- * ---------------------------------------------------------------------------------------------
- * 🚀 COMMANDS
- * ---------------------------------------------------------------------------------------------
- * 
- * @example
- * // 1. Deploy Stable (Production)
- * npm run deploy stable
- * 
- * @example
- * // 2. Deploy Dev (Latest)
- * npm run deploy latest
- * 
- * @example
- * // 3. Deploy Prefixed Dev (Latest + Prefixed)
- * npm run deploy latest p
- * 
- * @example
- * // 4. Deploy Preview
- * npm run deploy preview
  */
 
-const { spawnSync } = require('child_process');
+const { spawnSync, execSync } = require('child_process');
+
+function exec(cmd) {
+    try {
+        return execSync(cmd, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+    } catch (e) { return ''; }
+}
 const fs = require('fs');
 const path = require('path');
 
@@ -63,27 +28,73 @@ async function main() {
     // Parse args to separate Modifiers (p, c, v) from Target (stable, latest, custom...)
     const modifiers = ['p', 'c', 'v'];
     let target = '';
-    let foundModifier = '';
+    let foundModifiers = [];
 
     for (const arg of args) {
         if (modifiers.includes(arg)) {
-            foundModifier = arg;
-        } else if (!target) {
+            foundModifiers.push(arg);
+        } else {
+            // If it's not a known modifier, assume it's a target.
+            // "Last Wins" strategy allows user args to override package.json defaults.
+            // e.g. "npm run deploy latest" -> args: ["stable", "latest"] -> target: "latest"
             target = arg;
         }
     }
 
-    // Default logic:
-    // 1. If we have a target (e.g. 'stable', 'my-site'), use it.
-    // 2. If no target but we have a modifier (e.g. 'p'), usage is implied 'dist/p', so target is 'p'.
-    // 3. If neither, default to 'preview'.
-    const mode = target || foundModifier || 'preview';
+    // Determine Mode/Target
+    // Examples:
+    // deploy stable -> target: stable
+    // deploy latest -> target: latest
+    // deploy p -> target: p (implicit)
+    // deploy custom -> target: custom
 
-    console.log(`\n🚀 [Deploy Orchestrator] Starting deployment for: ${mode.toUpperCase()} (Args: ${args.join(' ')})`);
+    // Default Target Logic (Smart Defaults via Git Branch)
+    if (!target && foundModifiers.length === 0) {
+        console.log("🤔 No target specified. Detecting git branch...");
+        const branch = exec('git rev-parse --abbrev-ref HEAD');
+
+        if (branch === 'main') {
+            target = 'stable';
+            console.log("  👉 On 'main' branch. Defaulting to: STABLE");
+        } else if (branch === 'dev') {
+            target = 'latest';
+            console.log("  👉 On 'dev' branch. Defaulting to: LATEST");
+        } else {
+            target = 'preview';
+            console.log(`  👉 On '${branch}' branch. Defaulting to: PREVIEW`);
+        }
+    } else if (!target && foundModifiers.length > 0) {
+        target = foundModifiers[0];
+    }
+
+    console.log(`\n🚀 [Deploy Orchestrator] Starting deployment for: ${target.toUpperCase()} (Args: ${args.join(' ')})`);
 
     // 1. BUILD STEP
+    // We assume the user MIGHT want to build before deploy.
+    // The requirement implies "rebuild" command does "clean + deploy".
+    // "deploy" command itself might just deploy existing?
+    // User said: "npm run deploy should deploy /p/, /v/ and /stable/" 
+    // And "npm run deploy stable should deploy only /stable/".
+    // Usually deploy implies "take what is built and ship it".
+    // IF we want "build & deploy", we use "rebuild" or chain them.
+    // BUT `deploy.js` historically ran build.
+    // Let's KEEP running build to be safe/consistent with previous behavior, unless flag is passed?
+    // Requirement for "reprod" says: "npm run reprod, should rebuild /p/, /v/ and /stable/ on local and remote"
+    // This implies `reprod` chains build + deploy.
+    // DOES `deploy` imply build?
+    // "npm run deploy should deploy /p/, /v/ and /stable/ -it should also deploy redeploy root index.html"
+    // It doesn't explicitly say "build".
+    // However, existing `deploy.js` DOES build. Removing it might break workflow if user relies on "npm run deploy" doing it all.
+    // Let's Keep Build step for now to be safe. "The orchestrator handles Build + Upload".
+
     console.log(`\n📦 Building artifacts...`);
-    const buildResult = spawnSync('node', ['scripts/build.js', ...args], {
+
+    // Fix: Explicitly pass the resolved target and modifiers to build.js.
+    // This avoids issues where conflicting arguments (e.g. 'stable' from 'npm run deploy' alias vs 'latest' from user) caused build mismatches.
+    // We want to build exactly what we decided to deploy.
+    const buildArgs = ['scripts/build.js', target, ...foundModifiers];
+
+    const buildResult = spawnSync('node', buildArgs, {
         stdio: 'inherit',
         cwd: PROJECT_ROOT
     });
@@ -95,63 +106,23 @@ async function main() {
 
     // 2. RESOLVE PATHS
     // We need to figure out what directory `build.js` just created.
-    // Since `build.js` has complex logic for naming, we'll scan `dist/` for the freshest folder/file.
 
     let localDir = '';
     let remoteDir = '';
+    let isStable = false;
 
-    if (mode === 'stable') {
-        // STABLE: Builds to 'dist/stable' BUT we want to upload the contents of 'dist/' to Root '/'
-        // Actually, looking at build.js logic:
-        // if mode='stable', outputDir is 'dist/stable'.
-        // HOWEVER, the user requirement is to update the ROOT index.html.
-        // `build.js` generates 'dist/stable/index.html' AND 'dist/index.html' (if stable).
-        // So we should upload the entire `dist/` folder content to the server root, 
-        // OR specifically mapping `dist/stable` -> `/stable` and `dist/index.html` -> `/index.html`.
-
-        // Simpler approach for STABLE: Upload `dist/` to `/`. 
-        // This puts `dist/stable` into `/stable` and `dist/index.html` into `/index.html`.
-        // BUT `dist/` might contain other junk like old previews if not cleaned.
-        // `build.js` cleans its target output dir, but not necessarily the whole `dist` root if targeting subfolder.
-        // Wait, `build.js` main logic: "if (existsSync(outputDir)) await fs.rm..." 
-        // It cleans specific build dir. 
-
-        // Let's assume for a clean deployment we want to map:
-        // dist/stable -> /stable
-        // dist/index.html -> /index.html
-        // dist/u.* -> /u.*
-
-        // This is tricky to do in one pass if we just say "upload dist/ to /".
-        // Let's stick to the implementation plan: "Upload dist/ to /".
-        // Use caution: We must trust `dist/` only contains what we just built.
-        // `build.js` does NOT clean the whole `dist` folder, only the target `outputDir`.
-
-        // To be safe, we will define LOCAL_SOURCE as `dist/stable` for the bulk, 
-        // and handle root files separately? No, `remote.js` is dir-based.
-
-        // REVISION: `build.js` logic for stable:
-        // It writes `dist/u.css`, `dist/stable/u.css`...
-        // Wait, line 346: `const outputDir = path.join(DIST_ROOT, outputDirName);`
-        // If args is stable, outputDir is `dist/stable`.
-        // BUT line 372: `fs.writeFile(path.join(outputDir, 'u.css'), ...)` -> `dist/stable/u.css`.
-        // AND line 632: `if (outputDirName === 'stable') verify(path.join(DIST_ROOT, 'index.html')...`
-        // So `build.js` puts `index.html` in `dist/` root when stable.
-
-        // Strategy: We will upload `dist/` to `/`. 
-        // User must ensure `dist/` is relatively clean. 
-        // Maybe we should wipe `dist` before build? `build.js` doesn't do that globally.
-        // Let's warn the user or just upload `dist/`.
-        localDir = 'dist';
-        remoteDir = '/';
-
-    } else if (mode === 'latest') {
+    if (target === 'stable') {
+        // STABLE: Builds to 'dist/stable'
+        // Target Remote: '/stable' (Cornerstone)
+        localDir = 'dist/stable';
+        remoteDir = '/stable';
+        isStable = true;
+    } else if (target === 'latest') {
         localDir = 'dist/latest';
         remoteDir = '/latest';
-    } else if (mode === 'preview' || mode.startsWith('preview')) {
-        // Find the preview folder. It has a timestamp we don't know exactly.
-        // Scan dist for directories starting with 'preview-'
+    } else if (target.startsWith('preview')) {
+        // Find the preview folder.
         const items = fs.readdirSync(DIST_ROOT);
-        // Sort by creation time desc
         const previews = items
             .filter(name => name.startsWith('preview-'))
             .map(name => ({ name, time: fs.statSync(path.join(DIST_ROOT, name)).mtime.getTime() }))
@@ -165,30 +136,43 @@ async function main() {
         const newest = previews[0].name;
         localDir = path.join('dist', newest);
         remoteDir = `/${newest}`;
-
         console.log(`  🔎 Identified preview build: ${newest}`);
     } else {
-        // Fallback or custom mode (e.g. 'p')
-        localDir = `dist/${mode}`;
-        remoteDir = `/${mode}`;
+        // Custom / Modifier Targets (e.g. 'p', 'v', 'my-client')
+        // build.js creates `dist/target`
+        localDir = `dist/${target}`;
+        remoteDir = `/${target}`;
     }
 
     // Double check existence
-    if (!fs.existsSync(path.join(PROJECT_ROOT, localDir))) {
+    const localPath = path.join(PROJECT_ROOT, localDir);
+    if (!fs.existsSync(localPath)) {
         console.error(`❌ Local directory not found: ${localDir}`);
         process.exit(1);
     }
 
     // 3. DEPLOY STEP
+    // Note: If remoteDir is '/', we often mean "Upload content of localDir TO root", not "Upload localDir AS root".
+    // `remote.js` upload usage: `--upload local remote`
+    // If remote is '/', basic-ftp uploadFromDir(local, '/') uploads contents of local INTO /.
+    // Correct.
+
     console.log(`\n🚀 Deploying: ${localDir} -> ${remoteDir}...`);
 
     const deployArgs = ['scripts/remote.js', '--upload', localDir, remoteDir];
 
-    // For ephemeral builds, cleanup old ones AND bootstrap root if empty
-    if (mode === 'preview' || mode === 'latest') {
+    // For ephemeral builds, cleanup old ones
+    if (target === 'latest' || target.startsWith('preview')) {
         deployArgs.push('--cleanup');
-        deployArgs.push('--bootstrap', 'dist'); // Check if we need to fill the root
     }
+
+    // Attempt to bootstrap root if deploying Latest (User Rule: Latest takes over if empty & no stable)
+    if (target === 'latest') {
+        deployArgs.push('--bootstrap', DIST_ROOT);
+    }
+
+    // 4. BOOTSTRAP / REFRESH ROOT
+    // User Requirement: "npm run deploy ... should also redeploy root index.html, htacess"
 
     const deployResult = spawnSync('node', deployArgs, {
         stdio: 'inherit',
@@ -200,12 +184,20 @@ async function main() {
         process.exit(1);
     }
 
-    // 4. SUMMARY
+    // 5. POST-DEPLOY ROOT REFRESH (If Stable)
+    if (isStable) {
+        console.log(`\n🔄 Refreshing Root Files (Stable as Cornerstone)...`);
+        // Force update root with files from DIST_ROOT (which contains stable mirrors)
+        spawnSync('node', ['scripts/remote.js', '--bootstrap', DIST_ROOT, '--force'], {
+            stdio: 'inherit', cwd: PROJECT_ROOT
+        });
+    }
+
+    // 6. SUMMARY
     console.log(`\n🎉 Success!`);
-    if (mode === 'stable') {
+    if (isStable) {
         console.log(`🌍 Live URL: https://ucss.unqa.dev/`);
     } else {
-        // remoteDir starts with /, strip it for URL
         const pathPart = remoteDir.startsWith('/') ? remoteDir.substring(1) : remoteDir;
         console.log(`🌍 Preview URL: https://ucss.unqa.dev/${pathPart}/`);
     }

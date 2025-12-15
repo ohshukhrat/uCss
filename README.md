@@ -725,6 +725,7 @@ Helper classes for spacing and decoration.
 | `margin.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/margin.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/margin.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/margin.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/margin.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/margin.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/margin.min.css) | 2.9KB / 2.0KB / 1.7KB / 0.3KB / 0.2KB | `.mg` |
 | `padding.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/padding.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/padding.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/padding.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/padding.min.css) | 4.8KB / 3.4KB / 2.8KB / 0.5KB / 0.4KB | `.pd` |
 | `radius.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/radius.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/radius.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/radius.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/radius.min.css) | 1.8KB / 1.1KB / 0.9KB / 0.3KB / 0.2KB | `.rad` |
+| `size.css` | [src](https://ucss.unqa.dev/stable/lib/utilities/size.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities/size.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities/size.min.css) | [src](https://ucss.unqa.dev/latest/lib/utilities/size.css) • [clean](https://ucss.unqa.dev/latest/lib/utilities/size.clean.css) • [min](https://ucss.unqa.dev/latest/lib/utilities/size.min.css) | 8.2KB / 6.5KB / 5.8KB / 0.8KB / 0.7KB | `.sz` |
 
 #### **Margin (`.mg`)**
 Responsive direction-aware spacing.
@@ -747,6 +748,18 @@ Border radius utilities.
 *   **Vars**: `--rad` (base radius).
 *   **Classes**: `.rad.sq` (square), `.rad.rd` (round/pill), `.rad.lg` (large).
 *   **Directions**: `.rad-t` (top only), `.rad-bl` (bottom-left only).
+
+#### **Size (`.sz`)**
+Responsive size utilities using CSS logical properties (`block-size` / `inline-size`).
+*   **Classes**:
+    *   `.szb` (Block Size / Height).
+    *   `.szi` (Inline Size / Width).
+*   **Presets**:
+    *   `.szb.fs` (Full Screen height, 100vh/100dvh).
+    *   `.szb.hf` (50%), `.szb.trd` (33%), `.szb.qf` (25%).
+    *   `.szi.content` (64ch), `.szi.con-wide` (76ch), `.szi.con-narrow` (56ch).
+    *   `.min-c`, `.max-c`, `.fit-c` (Content-based sizing).
+*   **Responsive**: Supports suffixes like `--sm`, `--md`, `--lg` (e.g., `.szb--hf--md` for 50% height only on tablet+).
 
 ---
 
