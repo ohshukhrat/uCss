@@ -11,11 +11,11 @@
 ## 📑 Page Contents
 *   [Overview](#modules-overview)
 *   [The Modules Table](#the-modules)
-*   [Installation & Bundle Stats](#-installation-bundle-stats)
-*   [Production vs Source](#-production-vs-source-why-use-dist-)
-*   [Understanding the Bundles](#-understanding-the-bundles)
+*   [Installation & Bundle Stats](#installation-bundle-stats)
+*   [Production vs Source](#production-vs-source-why-use-dist-)
+*   [Understanding the Bundles](#understanding-the-bundles)
 *   [How to use parts?](#how-to-use-parts-)
-*   [Single Flat Files Reference](#-single-flat-files-reference)
+*   [Single Flat Files Reference](#single-flat-files-reference)
 
 ---
 
@@ -56,14 +56,14 @@ All modules are available individually or as a single bundle.
 
 | File | Full | Clean | Min | Gzip | Brotli | Download |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`u.css` (Full)** | ~165KB | ~147KB | ~126KB | ~18.4KB | ~14.3KB | [src](https://ucss.unqa.dev/stable/u.css) • [clean](https://ucss.unqa.dev/stable/u.clean.css) • [min](https://ucss.unqa.dev/stable/u.min.css) |
-| **`config.css`** | ~21KB | ~12KB | ~11KB | ~2.5KB | ~2.1KB | [src](https://ucss.unqa.dev/stable/lib/config.css) • [clean](https://ucss.unqa.dev/stable/lib/config.clean.css) • [min](https://ucss.unqa.dev/stable/lib/config.min.css) |
-| **`base.css`** | ~2.1KB | ~1.3KB | ~0.9KB | ~0.3KB | ~0.3KB | [src](https://ucss.unqa.dev/stable/lib/base.css) • [clean](https://ucss.unqa.dev/stable/lib/base.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base.min.css) |
-| **`layout.css`** | ~70KB | ~67KB | ~57KB | ~7.1KB | ~5.2KB | [src](https://ucss.unqa.dev/stable/lib/layout.css) • [clean](https://ucss.unqa.dev/stable/lib/layout.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout.min.css) |
-| **`typography.css`** | ~15KB | ~10KB | ~8.6KB | ~1.6KB | ~1.3KB | [src](https://ucss.unqa.dev/stable/lib/typography.css) • [clean](https://ucss.unqa.dev/stable/lib/typography.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography.min.css) |
-| **`patterns.css`** | ~50KB | ~45KB | ~40KB | ~6.5KB | ~5.6KB | [src](https://ucss.unqa.dev/stable/lib/patterns.css) • [clean](https://ucss.unqa.dev/stable/lib/patterns.clean.css) • [min](https://ucss.unqa.dev/stable/lib/patterns.min.css) |
-| **`theming.css`** | ~17KB | ~15.6KB | ~14KB | ~3.3KB | ~2.8KB | [src](https://ucss.unqa.dev/stable/lib/theming.css) • [clean](https://ucss.unqa.dev/stable/lib/theming.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming.min.css) |
-| **`utilities.css`** | ~10KB | ~7.3KB | ~6.2KB | ~1.1KB | ~0.9KB | [src](https://ucss.unqa.dev/stable/lib/utilities.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities.min.css) |
+| **`u.css` (Full)** | 191KB | 168KB | 139KB | 23.2KB | 17.9KB | [src](https://ucss.unqa.dev/stable/u.css) • [clean](https://ucss.unqa.dev/stable/u.clean.css) • [min](https://ucss.unqa.dev/stable/u.min.css) |
+| **`config.css`** | 27KB | 18KB | 15KB | 3.3KB | 2.8KB | [src](https://ucss.unqa.dev/stable/lib/config.css) • [clean](https://ucss.unqa.dev/stable/lib/config.clean.css) • [min](https://ucss.unqa.dev/stable/lib/config.min.css) |
+| **`base.css`** | 20KB | 17KB | 15KB | 3.8KB | 3.3KB | [src](https://ucss.unqa.dev/stable/lib/base.css) • [clean](https://ucss.unqa.dev/stable/lib/base.clean.css) • [min](https://ucss.unqa.dev/stable/lib/base.min.css) |
+| **`layout.css`** | 80KB | 75KB | 60KB | 8.6KB | 6.2KB | [src](https://ucss.unqa.dev/stable/lib/layout.css) • [clean](https://ucss.unqa.dev/stable/lib/layout.clean.css) • [min](https://ucss.unqa.dev/stable/lib/layout.min.css) |
+| **`typography.css`** | 14KB | 9.5KB | 7.7KB | 1.7KB | 1.4KB | [src](https://ucss.unqa.dev/stable/lib/typography.css) • [clean](https://ucss.unqa.dev/stable/lib/typography.clean.css) • [min](https://ucss.unqa.dev/stable/lib/typography.min.css) |
+| **`patterns.css`** | 32KB | 28KB | 24KB | 4.4KB | 3.8KB | [src](https://ucss.unqa.dev/stable/lib/patterns.css) • [clean](https://ucss.unqa.dev/stable/lib/patterns.clean.css) • [min](https://ucss.unqa.dev/stable/lib/patterns.min.css) |
+| **`theming.css`** | 19KB | 17KB | 15KB | 3.8KB | 3.2KB | [src](https://ucss.unqa.dev/stable/lib/theming.css) • [clean](https://ucss.unqa.dev/stable/lib/theming.clean.css) • [min](https://ucss.unqa.dev/stable/lib/theming.min.css) |
+| **`utilities.css`** | 30KB | 25KB | 20KB | 3.6KB | 2.8KB | [src](https://ucss.unqa.dev/stable/lib/utilities.css) • [clean](https://ucss.unqa.dev/stable/lib/utilities.clean.css) • [min](https://ucss.unqa.dev/stable/lib/utilities.min.css) |
 
 
 > [!TIP]
@@ -180,4 +180,82 @@ For granular control, you can import specific single-file bundles. All individua
 | | `utilities/shadow.css` | Shadow (`.shd`) | [link](https://ucss.unqa.dev/stable/lib/utilities/shadow.min.css) |
 
 **License**: MPL-2.0
-**Copyright**: © 2025 Alive 🜁
+**Copyright**: © 2025 Shukhrat (Alive 🜁) ⤻ UNQA
+
+## 🗺️ Visual Map
+
+```
+src/lib/ <== YOU ARE HERE
+├── config/                  # 1. CONFIGURATION (The Brain)
+│   ├── root/                #    - Semantic Modules
+│   │   ├── colors.css       #    - Palettes & Themes
+│   │   ├── typography.css   #    - Fonts & Scales
+│   │   ├── layout.css       #    - Radius & Spacing
+│   │   └── patterns.css     #    - Component Vars
+│   ├── adapters/            #    - CMS Adapters
+│   │   ├── blocksy.css      #    - Blocksy Theme
+│   │   └── gutenberg.css    #    - WordPress Block Editor
+│   └── root.css             #    - Entry Point
+│
+├── base/                    # 2. BASE (The Foundation)
+│   ├── html/                #    - HTML Engine
+│   │   ├── reset.css        #    - Normalization
+│   │   ├── typography.css   #    - Text Defaults
+│   │   ├── flow.css         #    - Smart Flow Engine
+│   │   ├── lists.css        #    - List Styles
+│   │   ├── forms.css        #    - Input Styling
+│   │   └── helpers.css      #    - HTML Utilities
+│   └── html.css             #    - Entry Point
+│
+├── patterns/                # 3. PATTERNS (The Components)
+│   ├── button/              #    - Atomic Component
+│   │   ├── base.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
+│   └── patterns.css         #    - Entry Point
+│
+├── layout/                  # 4. LAYOUT (The Skeleton)
+│   ├── grid/                #    - Grid Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── columns.css      #    - Presets
+│   │   ├── subgrid.css      #    - Smart Grid
+│   │   ├── recipes.css      #    - Smart Logic (.masonry .g-row)
+│   │   └── item.css         #    - Child Logic
+│   ├── flex/                #    - Flex Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── alignment.css    #    - Alignment Tools
+│   │   ├── gaps.css         #    - Smart Gaps
+│   │   └── item.css         #    - Child Logic
+│   ├── container.css        #    - Container Queries (.c)
+│   ├── flex.css             #    - Entry Point
+│   ├── grid.css             #    - Entry Point
+│   └── section.css          #    - Structural Layout
+│
+├── theming/                 # 5. THEMING (The Skin)
+│   ├── set.css
+│   └── overlay.css
+│
+├── typography/              # 6. TYPOGRAPHY (The Voice)
+│   ├── title.css
+│   ├── text.css
+│   └── text-align.css
+│
+└── utilities/               # 7. UTILITIES (The Tools)
+    ├── display.css
+    ├── position.css
+    ├── overflow.css
+    ├── margin.css
+    ├── padding.css
+    ├── radius.css
+    ├── size.css             #    - Size Utilities
+    ├── blur.css
+    └── utilities.css
+```

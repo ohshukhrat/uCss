@@ -9,12 +9,12 @@
  * 🧹 MODES
  * ---------------------------------------------------------------------------------------------
  * 
- * 1. DEFAULT (`npm run clean`)
+ * 1. DEFAULT (`npm run clean` / `npm run wipe`)
  *    - Action: Nukes `dist/`.
- *    - Follow-up: Rebuilds `stable` + `latest` + `p` + `v` (via `npm run build:full`).
+ *    - Follow-up: Rebuilds FULL SUITE (via `npm run build:full`).
  *    - Goal: "Reset to a working state".
  * 
- * 2. ALL / NUKE (`npm run clean:all`)
+ * 2. ALL / NUKE (`npm run clean:all` / `npm run clean:nuke`)
  *    - Action: Nukes `dist/`.
  *    - Follow-up: NONE. Leaves directory empty.
  *    - Goal: "Kill it with fire".
@@ -25,20 +25,21 @@
  * 
  * 4. TARGETED (`npm run clean [target]`)
  *    - Action: Deletes specifically `dist/[target]`.
- *    - Example: `npm run clean my-test-build`.
+ *    - Example: `npm run clean preview` (deletes all previews), `npm run clean stable`.
  * 
  * ---------------------------------------------------------------------------------------------
  * 💻 EXAMPLES
  * ---------------------------------------------------------------------------------------------
  * 
  * @example
- * npm run clean          # Reset project
- * npm run clean:nuke     # Empty dist
+ * npm run clean          # Reset project (Clean + Build Full)
+ * npm run clean:nuke     # Empty dist (No rebuild)
  * npm run clean preview  # Delete all previews
  */
 
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const DIST_DIR = path.join(PROJECT_ROOT, 'dist');
@@ -85,49 +86,28 @@ function main() {
     const mode = ARGS[0]; // e.g., 'dist', 'stable', 'preview'
     const subMode = ARGS[1]; // e.g., 'latest'
 
-    console.log(`Clean mode: ${mode || 'FULL PROJECT'} ${subMode || ''}`);
+    console.log(`\n🧹 Clean mode: ${mode || 'DEFAULT (Reset)'} ${subMode || ''}`);
 
-    // Case 1: No args OR 'all' -> Full clean
-    if (!mode || mode === 'all') {
-        console.log('Cleaning all artifacts...');
-        remove(DIST_DIR);
+    // Cleanup Root Artifacts (Done slightly in all modes for hygiene)
+    // Only strictly remove them in full/nuke/default modes? No, good to keep root clean always.
+    const cleanRootArtifacts = () => {
         removePattern(PROJECT_ROOT, /\.tgz$/);
         removePattern(PROJECT_ROOT, /\.log$/);
         removePattern(PROJECT_ROOT, /^thumbs\.db$/i);
         removePattern(PROJECT_ROOT, /^\.DS_Store$/);
+    };
+
+    // Case 1: NUKE / ALL -> Delete dist, NO REBUILD
+    if (mode === 'all' || mode === 'nuke') {
+        console.log('🔥 Nuking dist folder...');
+        remove(DIST_DIR);
+        cleanRootArtifacts();
         return;
     }
 
-    // Case 2: Specific targets
-    if (mode === 'dist') {
-        if (subMode === 'latest') {
-            remove(path.join(DIST_DIR, 'latest'));
-        } else {
-            remove(DIST_DIR);
-        }
-        return;
-    }
-
-    if (mode === 'stable') {
-        remove(path.join(DIST_DIR, 'stable'));
-        return;
-    }
-
-    if (mode === 'latest') {
-        remove(path.join(DIST_DIR, 'latest'));
-        return;
-    }
-
-    if (mode === 'preview') {
-        // Delete dist/preview-*
-        if (fs.existsSync(DIST_DIR)) {
-            removePattern(DIST_DIR, /^preview-/);
-        }
-        return;
-    }
-
+    // Case 2: SAFE -> Delete everything except stable & latest
     if (mode === 'safe') {
-        // Delete everything in dist/ EXCEPT stable and latest
+        console.log('🛡️  Safe cleaning...');
         if (fs.existsSync(DIST_DIR)) {
             const files = fs.readdirSync(DIST_DIR);
             for (const file of files) {
@@ -136,24 +116,52 @@ function main() {
                 }
             }
         }
-        // Also clean root artifacts
-        removePattern(PROJECT_ROOT, /\.tgz$/);
-        removePattern(PROJECT_ROOT, /\.log$/);
-        removePattern(PROJECT_ROOT, /^thumbs\.db$/i);
-        removePattern(PROJECT_ROOT, /^\.DS_Store$/);
+        cleanRootArtifacts();
         return;
     }
 
-    // Fallback / Custom Target
-    // If user runs `npm run clean my-folder`, we assume they want to delete `dist/my-folder`
-    const customTarget = path.join(DIST_DIR, mode);
-    if (fs.existsSync(customTarget)) {
-        remove(customTarget);
+    // Case 3: PREVIEW -> Delete dist/preview-*
+    if (mode === 'preview') {
+        console.log('🗑️  Cleaning previews...');
+        if (fs.existsSync(DIST_DIR)) {
+            removePattern(DIST_DIR, /^preview-/);
+        }
         return;
     }
 
-    console.log(`Unknown clean target: ${mode}`);
-    console.log('Available targets: (empty), dist, stable, latest, preview, safe, [custom-folder]');
+    // Case 4: SPECIFIC TARGET -> Delete dist/[target]
+    if (mode && mode !== 'dist' && mode !== 'wipe') {
+        // e.g. 'stable', 'latest', 'p', 'v'
+        const customTarget = path.join(DIST_DIR, mode);
+        if (fs.existsSync(customTarget)) {
+            remove(customTarget);
+        } else {
+            console.log(`Target not found: ${mode}. Nothing to delete.`);
+        }
+        return;
+    }
+
+    // Case 5: DEFAULT / WIPE -> Delete dist, THEN REBUILD
+    // If no args, or 'dist', or 'wipe' -> standard reset
+    console.log('✨ Performing Full Reset...');
+    remove(DIST_DIR);
+    cleanRootArtifacts();
+
+    console.log('🏗️  Triggering Full Rebuild...');
+    spawnSync('npm', ['run', 'build:full'], { stdio: 'inherit' });
+
+    // Since we are inside the script, we can trigger the rebuild explicitly here,
+    // OR we can rely on package.json to chain it "node clean.js && npm run build".
+    // The requirement said "Default (npm run clean): Remove dist, then trigger npm run build:full (Local Only)."
+    // If we handle it in package.json, we don't need to spawn here.
+    // BUT the requirement implementation plan for package.json says: '"clean": "node scripts/clean.js && npm run build:full"'
+    // So this script just needs to exit after cleaning.
+    // Wait, the user prompt implementation plan says:
+    // "Default (npm run clean): Remove dist, then trigger npm run build:full (Local Only)."
+    // My plan for package.json handles the trigger. So I just clean here.
+
+    // However, if the user runs `node scripts/clean.js` directly, it won't rebuild. 
+    // That is fine, `npm run clean` is the interface.
 }
 
 main();

@@ -54,28 +54,35 @@
 
         :where(svg) {
             display: var(--crd-svg-d, block);
-            fill: var(--crd-svg-fill, currentColor);
-            stroke: var(--crd-svg-stroke);
             inline-size: var(--card-svg-size, var(--crd-svg-w, var(--crd-svg-size, 3em)));
             block-size: var(--card-svg-size, var(--crd-svg-h, var(--crd-svg-size, 3em)));
             aspect-ratio: var(--crd-svg-ar, var(--crd-ar));
             flex-shrink: var(--crd-svg-shrink, 0);
         }
 
-        :where(svg.str, .str svg) {
-            fill: var(--crd-svg-fill);
+        :where(svg.str, .str svg, svg.stroke, .str svg) {
             stroke: var(--crd-svg-stroke, currentColor);
         }
 
-        :where(svg.fill, .fill svg) {
+        :where(svg.fill, .fill svg, svg.fill, .fill svg) {
             fill: var(--crd-svg-fill, currentColor);
+        }
+
+        :where(svg.str, .str svg, svg.stroke, .str svg):where(.tr),
+        :where(svg.fill, .fill svg, svg.fill, .fill svg):where(.only) {
+            stroke: var(--crd-svg-stroke, transparent);
+        }
+
+        :where(svg.fill, .fill svg, svg.fill, .fill svg):where(.tr),
+        :where(svg.str, .str svg, svg.stroke, .str svg):where(.only) {
+            fill: var(--crd-svg-fill, transparent);
         }
 
         :where(.crd__media, > figure)> :where(img, picture, svg, video) {
             transition: var(--crd-med-trans,
                     var(--trans-d, 0.32s) var(--trans-t, ease-in-out));
             transition-property: var(--crd-med-trans-p,
-                    background-color, transform, opacity, fill, stroke);
+                    background-color, transform, opacity, fill, stroke, color);
         }
     }
 

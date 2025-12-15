@@ -327,7 +327,13 @@ async function main() {
     // 3. Static Assets (.htaccess) - Only for Stable/Latest (Root controllers)
     tasks.push(async () => {
         if (outputDirName === 'stable' || outputDirName === 'latest') {
-            try { await fs.copyFile(path.join(PROJECT_ROOT, 'server/.htaccess.template'), path.join(DIST_ROOT, '.htaccess')); } catch (e) { }
+            try {
+                const src = path.join(PROJECT_ROOT, 'server/.htaccess.template');
+                // Copy to Dist Root (for reference)
+                await fs.copyFile(src, path.join(DIST_ROOT, '.htaccess'));
+                // Copy to Output Dir (for deployment bootstrap)
+                await fs.copyFile(src, path.join(outputDir, '.htaccess'));
+            } catch (e) { }
         }
     });
 
@@ -344,10 +350,7 @@ async function main() {
             fs.writeFile(path.join(outputDir, 'u.min.css'), minifyCss(content))
         ]);
 
-        // Mirror stable u.min.css to root for easy access (e.g. ucss.unqa.dev/u.min.css)
-        if (outputDirName === 'stable') {
-            await fs.writeFile(path.join(DIST_ROOT, 'u.min.css'), minifyCss(content));
-        }
+
     });
 
     // 5. Modular Builds (lib/*.css)
@@ -503,8 +506,8 @@ async function main() {
             const renderer = {
                 heading({ tokens, depth }) {
                     const text = this.parser.parseInline(tokens);
-                    // Match marked default slugger: replace non-word chars with dash
-                    const id = text.toLowerCase().replace(/[^\w]+/g, '-');
+                    // Github-style slugger: remove non-alphanumeric chars (except dash/space), then dashify
+                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
                     return `<h${depth} id="${id}">${text}</h${depth}>`;
                 },
                 link({ href, title, tokens }) {
@@ -533,7 +536,7 @@ async function main() {
             try { htmlContent = marked.parse(md, { gfm: true, breaks: false }); } catch (e) { return; }
 
             // Wrap tables for scrollability
-            htmlContent = htmlContent.replace(/<table>/g, '<div class="of-x"><table>').replace(/<\/table>/g, '</table></div>');
+            htmlContent = htmlContent.replace(/<table>/g, '<div class="ofx"><table>').replace(/<\/table>/g, '</table></div>');
 
             // Apply HTML Prefixing to Content
             // NOTE: We do NOT prefix here anymore to avoid double-prefixing when we process the full template later.
@@ -569,13 +572,14 @@ async function main() {
     </style>
 </head>
 </head>
-<body class="set base">
+<body class="un set base">
+    <script>try{if(localStorage.getItem('u-theme')==='alt'){document.body.classList.remove('base');document.body.classList.add('alt')}}catch(e){}</script>
     <section class="s" style="--sc-max-w: 56rem; --scc-gap: .75rem;">
         <div class="sf"><div>${htmlContent}</div></div>
     </section>
 
     <!-- Theme Toggle -->
-    <button onclick="const b = document.body; b.classList.toggle('base'); b.classList.toggle('alt');" class="btn subtle icn blr rd" style="position: fixed; bottom: 2rem; left: 2rem; z-index: 999; --btn-c: var(--tx);">
+    <button onclick="const b=document.body;b.classList.toggle('base');b.classList.toggle('alt');const t=b.classList.contains('alt')?'alt':'base';try{localStorage.setItem('u-theme',t)}catch(e){}" class="btn subtle icn blr rd" style="position: fixed; bottom: 2rem; left: 2rem; z-index: 999; --btn-c: var(--tx);">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -667,6 +671,47 @@ async function main() {
     }
 
     spawnSync('node', ['scripts/compress.js', outputDir], { stdio: 'inherit' });
+
+    // 8. Root Mirroring (Mirror u.* to dist/ root)
+    // Ensures https://ucss.unqa.dev/u.min.css works.
+    // Logic:
+    // - If building STABLE: Always mirror.
+    // - If building LATEST: Mirror ONLY if stable doesn't exist (bootstrap empty root).
+    const mirrorToRoot = async (sourceDir) => {
+        console.log(`\n🪞 Mirroring core files from ${sourceDir} to root...`);
+        try {
+            const files = await fs.readdir(sourceDir);
+            for (const file of files) {
+                // Copy u.css, u.min.css, u.clean.css AND their compressed versions (.gz, .br)
+                if (file.startsWith('u.') && (file.endsWith('.css') || file.endsWith('.css.gz') || file.endsWith('.css.br'))) {
+                    await fs.copyFile(path.join(sourceDir, file), path.join(DIST_ROOT, file));
+                    console.log(`   + ${file}`);
+                }
+            }
+        } catch (e) {
+            console.error(`   ! Mirroring failed: ${e.message}`);
+        }
+    };
+
+    let shouldMirror = false;
+    let mirrorSource = '';
+
+    if (outputDirName === 'stable') {
+        shouldMirror = true;
+        mirrorSource = outputDir;
+    } else if (outputDirName === 'latest') {
+        // Check if root stable exists
+        const stableDir = path.join(DIST_ROOT, 'stable');
+        if (!existsSync(stableDir)) {
+            console.log('⚠️ Stable build not found. Fallback: Populating root from Latest.');
+            shouldMirror = true;
+            mirrorSource = outputDir;
+        }
+    }
+
+    if (shouldMirror && mirrorSource) {
+        await mirrorToRoot(mirrorSource);
+    }
     console.log('🎉 Build complete!');
     spawnSync('npm', ['audit', '--json'], { stdio: 'ignore' });
 }

@@ -9,31 +9,31 @@
 
 ## 📑 Contents
 
-*   [🌟 Overview](#-overview)
-*   [🤯 Philosophy](#-philosophy)
+*   [🌟 Overview](#overview)
+*   [🤯 Philosophy](#philosophy)
     *   [The Death of Breakpoints](#the-death-of-breakpoints)
     *   [Semantics First, Visuals Second](#semantics-first-visuals-second)
-*   [🚀 Getting Started](#-getting-started)
-*   [📦 Installation & Stats](#-installation--stats)
+*   [🚀 Getting Started](#getting-started)
+*   [📦 Installation & Stats](#installation--stats)
     *   [Bundle Stats](#bundle-stats)
     *   [Direct Links](#direct-links)
     *   [HTML Snippets](#html-snippets)
-*   [📂 Files Reference](#-files-reference)
-*   [🧠 Deep Dive](#-deep-dive)
+*   [📂 Files Reference](#files-reference)
+*   [🧠 Deep Dive](#deep-dive)
     *   [1. Fluid Scaling Mathematics (`clamp`)](#1-fluid-scaling-mathematics-clamp)
     *   [2. The Title System (`.t`)](#2-the-title-system-t)
     *   [3. The Text System (`.tx`)](#3-the-text-system-tx)
-*   [📍 Reference: Content Map](#-reference-content-map)
+*   [📍 Reference: Content Map](#reference-content-map)
     *   [Title Sizes (`.t`)](#title-sizes-t)
     *   [Text Sizes (`.tx`)](#text-sizes-tx)
     *   [Font Weights](#font-weights)
     *   [Alignment (`.ta`)](#alignment-ta)
     *   [Line Heights](#line-heights)
-*   [💡 Best Practices & Customization](#-best-practices--customization)
+*   [💡 Best Practices & Customization](#best-practices--customization)
     *   [Binding to Semantics](#binding-to-semantics)
     *   [Responsive Alignment](#responsive-alignment)
     *   [The "Hero" Header Pattern](#the-hero-header-pattern)
-*   [🔧 For Developers](#-for-developers)
+*   [🔧 For Developers](#for-developers)
 
 ---
 
@@ -100,10 +100,10 @@ Keep your document outline (H1 -> H2 -> H3) clean for screen readers and SEO, an
 
 | File | Full (Raw) | Clean | Min | Gzip | Brotli |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`typography.css` (Aggregator)** | **~15 KB** | **~10 KB** | **~8.6 KB** | **~1.6 KB** | **~1.3 KB** |
-| `title.css` | 6.1 KB | 4.2 KB | 3.4 KB | 0.8 KB | 0.7 KB |
-| `text.css` | 6.4 KB | 4.6 KB | 3.8 KB | 0.8 KB | 0.7 KB |
-| `text-align.css` | 2.1 KB | 1.4 KB | 1.2 KB | 0.3 KB | 0.3 KB |
+| **`typography.css` (Aggregator)** | **14 KB** | **9.5 KB** | **7.7 KB** | **2.7 KB** | **2.1 KB** |
+| `title.css` | 6.1 KB | 4.3 KB | 3.4 KB | 0.9 KB | 0.8 KB |
+| `text.css` | 5.9 KB | 4.2 KB | 3.4 KB | 0.9 KB | 0.8 KB |
+| `text-align.css` | 1.8 KB | 1.1 KB | 0.9 KB | 0.3 KB | 0.2 KB |
 
 ### Direct Links
 
@@ -286,4 +286,82 @@ For giant marketing headers, you often want:
 [Back to top](#)
 
 **License**: MPL-2.0
-**Copyright**: © 2025 Alive 🜁
+**Copyright**: © 2025 Shukhrat (Alive 🜁) ⤻ UNQA
+
+## 🗺️ Visual Map
+
+```
+src/lib/
+├── config/                  # 1. CONFIGURATION (The Brain)
+│   ├── root/                #    - Semantic Modules
+│   │   ├── colors.css       #    - Palettes & Themes
+│   │   ├── typography.css   #    - Fonts & Scales
+│   │   ├── layout.css       #    - Radius & Spacing
+│   │   └── patterns.css     #    - Component Vars
+│   ├── adapters/            #    - CMS Adapters
+│   │   ├── blocksy.css      #    - Blocksy Theme
+│   │   └── gutenberg.css    #    - WordPress Block Editor
+│   └── root.css             #    - Entry Point
+│
+├── base/                    # 2. BASE (The Foundation)
+│   ├── html/                #    - HTML Engine
+│   │   ├── reset.css        #    - Normalization
+│   │   ├── typography.css   #    - Text Defaults
+│   │   ├── flow.css         #    - Smart Flow Engine
+│   │   ├── lists.css        #    - List Styles
+│   │   ├── forms.css        #    - Input Styling
+│   │   └── helpers.css      #    - HTML Utilities
+│   └── html.css             #    - Entry Point
+│
+├── patterns/                # 3. PATTERNS (The Components)
+│   ├── button/              #    - Atomic Component
+│   │   ├── base.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
+│   └── patterns.css         #    - Entry Point
+│
+├── layout/                  # 4. LAYOUT (The Skeleton)
+│   ├── grid/                #    - Grid Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── columns.css      #    - Presets
+│   │   ├── subgrid.css      #    - Smart Grid
+│   │   ├── recipes.css      #    - Smart Logic (.masonry .g-row)
+│   │   └── item.css         #    - Child Logic
+│   ├── flex/                #    - Flex Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── alignment.css    #    - Alignment Tools
+│   │   ├── gaps.css         #    - Smart Gaps
+│   │   └── item.css         #    - Child Logic
+│   ├── container.css        #    - Container Queries (.c)
+│   ├── flex.css             #    - Entry Point
+│   ├── grid.css             #    - Entry Point
+│   └── section.css          #    - Structural Layout
+│
+├── theming/                 # 5. THEMING (The Skin)
+│   ├── set.css
+│   └── overlay.css
+│
+├── typography/              # 6. TYPOGRAPHY (The Voice) <== YOU ARE HERE
+│   ├── title.css
+│   ├── text.css
+│   └── text-align.css
+│
+└── utilities/               # 7. UTILITIES (The Tools)
+    ├── display.css
+    ├── position.css
+    ├── overflow.css
+    ├── margin.css
+    ├── padding.css
+    ├── radius.css
+    ├── size.css             #    - Size Utilities
+    ├── blur.css
+    └── utilities.css
+```

@@ -1,62 +1,102 @@
 # uCss Command Reference
 
-A complete list of all available NPM scripts in the `package.json` file.
+This document provides an **exhaustive** list of every available command, variation, and scenario for the uCss build system.
 
-## 🏗️ Build
+---
 
-| Command | Description | Artifacts |
-| :--- | :--- | :--- |
-| `npm run build` | **Production Build**. Default alias for `build:stable`. | `dist/stable/*`, `dist/u.*` |
-| `npm run build:full` | **Full CI Build**. Builds every channel sequentially. | `dist/stable`, `dist/latest`, `dist/p`, `dist/v` |
-| `npm run build:stable` | Builds the stable release channel. | `dist/stable/*` |
-| `npm run build:latest` | Builds the development (`dev`) channel. | `dist/latest/*` |
-| `npm run build:preview` | Creates a timestamped snapshot for PRs. | `dist/preview-YYYY-MM-DD.../*` |
-| `npm run build:prefixed`| Builds the Prefixed version (`.u-btn`). | `dist/p/*` |
-| `npm run build:v` | Builds Variable-Namespace version (`--u-var`). | `dist/v/*` |
-| `npm run build:c` | Builds Clean version (rarely used). | `dist/c/*` |
+## 🏗️ Build Commands (`npm run build`)
 
-## 🚀 Deployment
+The build system (`scripts/build.js`) converts `src/` into `dist/`.
 
-| Command | Description | Remote Target |
-| :--- | :--- | :--- |
-| `npm run deploy` | Default alias for `deploy:stable` (Production). | `/` (Root) |
-| `npm run deploy:stable` | **Deploy Production**. Builds stable and overwrites root. | `/` (Root) |
-| `npm run deploy:latest` | **Deploy Dev**. Builds latest and updates dev channel. checks/bootstraps root if needed. | `/latest/` |
-| `npm run deploy:preview`| **Deploy Snapshot**. Builds and deploys unique preview. | `/preview-TIMESTAMP/` |
-| `npm run deploy p latest` | **Flexible Deploy**. Deploys Prefixed (`p`) build of `latest`. | `/latest/` |
-| `npm run deploy stable c` | **Flexible Deploy**. Deploys Clean (`c`) build of `stable`. | `/` |
+### Core Build Modes
 
-## 🧹 Maintenance (Local)
+| Command | Target | Description | Artifacts |
+| :--- | :--- | :--- | :--- |
+| `npm run build` | **Smart Default** | Builds based on Git Branch. <br>• Main -> `stable`<br>• Dev -> `latest`<br>• Other -> `preview-TIMESTAMP` | `dist/[target]/*` |
+| `npm run build:full` | **Full Suite** | Builds **EVERYTHING**. Used by CI/CD. <br>Order: `latest` -> `p` -> `v` -> `stable`. | `dist/stable`, `dist/latest`, `dist/p`, `dist/v` |
+| `npm run build:all` | **Full Suite + Clean** | Alias for `build:full` but also explicitly includes `c` (clean/class-only) build. | Same as above + `dist/c` |
+| `npm run build:stable` | `stable` | Production release. Mirrors to root (`dist/u.min.css`). | `dist/stable/*`, `dist/u.*` |
+| `npm run build:latest` | `latest` | Development channel (`/latest`). | `dist/latest/*` |
+| `npm run build:preview` | `preview-TIMESTAMP` | Snapshot for Pull Requests. | `dist/preview-202X-.../*` |
 
-| Command | Description | Behavior |
-| :--- | :--- | :--- |
-| `npm run clean` | **Reset Project**. The robust default clean. | Deletes `dist/` -> **Rebuilds** full project. |
-| `npm run clean:all` | **Local Nuke**. Total deletion. | Deletes `dist/` content. **No Rebuild**. |
-| `npm run clean:nuke` | Alias for `clean:all`. | same as above. |
-| `npm run clean:safe` | **Smart Clean**. Preserves production builds. | Deletes everything inside `dist/` **EXCEPT** `stable` & `latest`. |
-| `npm run clean:preview` | Garbage collects local previews. | Deletes `dist/preview-*`. |
-| `npm run clean <folder>`| **Custom Clean**. | Deletes `dist/<folder>`. |
+### Modifiers (Mix & Match)
 
-## 🧪 Remote Management
+You can append these to any build command context (except `full`/`all` which run them automatically).
+
+| Modifier | Flag | Description | Example |
+| :--- | :--- | :--- | :--- |
+| **Prefixed** | `p` | Adds `.u-` prefix to all classes and `--u-` prefix to all variables. | `npm run build latest p` |
+| **Variables Only** | `v` | Adds `--u-` prefix to framework variables. | `npm run build stable v` |
+| **Classes Only** | `c` | Adds `.u-` prefix to all framework classes. | `npm run build preview c` |
+| **Custom Prefix** | `[string]` | **Custom Namespace**. Uses `[string]-` instead of `u-`. | `npm run build p myapp` -> `.myapp-btn` |
+
+---
+
+## 🧹 Cleanup Commands (`npm run clean` / `npm run wipe`)
+
+The janitor (`scripts/clean.js`) keeps the `dist/` directory standardized.
 
 | Command | Description | Behavior |
 | :--- | :--- | :--- |
-| `npm run remote:cleanup`| **Garbage Collector**. | Deletes remote `preview-*` folders older than 7 days. |
-| `npm run remote:wipe` | **Standard Wipe**. Cleans up dev junk. | Deletes `latest` and `preview-*`. **KEEPS** `stable`, `p`, `v`, `index.html`. |
-| `npm run remote:wipe:all`| **Remote Nuke**. Total Server Wipe. | Deletes **EVERYTHING** on the remote server. |
-| `npm run remote:nuke` | Alias for `remote:wipe:all`. | same as above. |
-| `npm run remote:wipe:safe`| **Safe Wipe**. | Keeps `stable`, `latest`, `p`, `v`, `index.html`. Only deletes previews. |
-| `npm run remote:wipe:stable`| **Kill Stable**. | Deletes `/stable` folder. |
+| `npm run clean` | **Reset Project (Recommended)** | 1. Deletes `dist/`.<br>2. **Triggers Local Build Full** (`npm run build:full`).<br>Use this to fix "weird" build issues. |
+| `npm run wipe` | **Alias** | Same as `npm run clean`. |
+| `npm run clean:all` | **Nuke Local** | Totally deletes `dist/`. **NO REBUILD**. |
+| `npm run clean:nuke` | **Nuke Local (Alias)** | Same as `clean:all`. |
+| `npm run clean:safe` | **Disk Saver** | Deletes all `preview-*` and misc folders.<br>**KEEPS**: `stable` and `latest`. |
+| `npm run clean preview` | **Preview Cleaner** | Deletes only `dist/preview-*` folders. |
+| `npm run clean stable` | **Targeted Cleaner** | Deletes only `dist/stable`. |
 
-## ☢️ Nuclear
+---
 
-| Command | Description | Behavior |
+## 🚀 Deployment Commands (`npm run deploy`)
+
+The orchestrator (`scripts/deploy.js`) handles Build + Upload.
+
+### Standard Deployments
+
+| Command | Target Env | Remote Path | Notes |
+| :--- | :--- | :--- | :--- |
+| `npm run deploy` | **Smart Default** | `/` or `/latest/` | **Auto-detects branch**. <br>• Main -> `stable`<br>• Dev -> `latest`<br>• Other -> `preview` |
+| `npm run deploy:stable` | **Production** | `/` | Explicit production deploy. |
+| `npm run deploy:latest` | **Development** | `/latest/` | Updates the rolling dev channel. |
+| `npm run deploy:preview`| **Snapshot** | `/preview-TIMESTAMP/` | Creates a permanent unique URL for testing. |
+
+### Partial & Complex Deployments
+
+| Scenario | Command | Outcome |
 | :--- | :--- | :--- |
-| `npm run nuke` | **Total System Wipe**. | Runs `clean:nuke` (Local) + `remote:nuke` (Remote). |
+| **Deploy Prefixed** | `npm run deploy p` | Builds `p` -> Uploads to `/p/`. |
+| **Deploy Variables** | `npm run deploy v` | Builds `v` -> Uploads to `/v/`. |
+| **Deploy Prefixed Dev** | `npm run deploy latest p` | Builds `latest` in **Prefixed** mode -> Uploads to `/latest/`. |
+| **Deploy Custom Name** | `npm run deploy latest custom-name` | Builds `latest` with custom output -> Uploads to `/custom-name/`. |
 
-## 🛠️ Utils
+---
 
-| Command | Description |
-| :--- | :--- |
-| `npm run watch` | Watches `src/` for changes and rebuilds `latest`. |
-| `npm run security` | Runs `npm audit`. |
+## 🧪 Remote Management (`npm run remote`)
+
+Direct commands for the FTP server (`scripts/remote.js`). No local building involved.
+
+### 🗑️ Remote Wipe (Destructive)
+
+**Note:** `npm run remote` is a shortcut for `npm run remote:wipe` (Default Cleanup).
+
+| Command | Mode | Deletes | Keeps |
+| :--- | :--- | :--- | :--- |
+| `npm run remote:wipe` | **Default / Clean** | **EVERYTHING**. Then **DEPLOYS ALL**. | Symmetric to `local clean`. Wipes remote -> Repopulates with full suite. |
+| `npm run remote:wipe:safe`| **Safe** | `p`, `v`, previews | `stable`, `latest`. |
+| `npm run remote:wipe:all` | **NUKE** | **EVERYTHING** | **NOTHING**. Empty server. |
+| `npm run remote:wipe:preview`| **Previews** | `preview-*` only | Everything else. |
+| `npm run remote:wipe:stable`| **Production** | `/stable` folder | Everything else. |
+
+---
+
+## 🔄 Composite / Macro Commands
+
+These commands combine multiple steps and include **Safety Confirmation Prompts** (`y/n`).
+
+| Command | Actions | Description |
+| :--- | :--- | :--- |
+| `npm run nuke` | `clean:nuke` + `remote:wipe:all` | **TOTAL DESTRUTION**. Deletes `dist/` locally and `/` remotely. Asks for confirmation. |
+| `npm run rebuild` | `clean` + `deploy:all` | 1. Cleans Local<br>2. Builds Full<br>3. Deploys **EVERYTHING** (`stable`, `latest`, `p`, `v`).<br>Asks for confirmation. |
+| `npm run reprod` | `build:stable` + `build:p` + `build:v` + `deploy...` | Rebuilds and Deploys ALL Production artifacts (`stable`, `p`, `v`). Asks for confirmation. |
+| `npm run redev` | `build:latest` + `deploy:latest` | Rebuilds and Deploys the Development channel (`latest`). Asks for confirmation. |

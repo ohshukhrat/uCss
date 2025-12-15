@@ -10,35 +10,35 @@
 
 ## 📑 Contents
 
-*   [🌟 Overview](#-overview)
-*   [🤯 Philosophy](#-philosophy)
+*   [🌟 Overview](#overview)
+*   [🤯 Philosophy](#philosophy)
     *   [Viewport vs Container](#viewport-vs-container)
     *   [Implicit vs Explicit](#implicit-vs-explicit)
     *   [The Death of Media Queries](#the-death-of-media-queries)
-*   [🚀 Getting Started](#-getting-started)
+*   [🚀 Getting Started](#getting-started)
     *   [The "Clicked" Moment](#the-clicked-moment)
     *   [Rollout in 5 Seconds](#rollout-in-5-seconds)
-*   [📦 Installation & Stats](#-installation--stats)
+*   [📦 Installation & Stats](#installation--stats)
     *   [Bundle Stats](#bundle-stats)
     *   [Direct Links](#direct-links)
     *   [HTML Snippets](#html-snippets)
-*   [📂 Files Reference](#-files-reference)
-*   [🧠 Deep Dive](#-deep-dive)
+*   [📂 Files Reference](#files-reference)
+*   [🧠 Deep Dive](#deep-dive)
     *   [1. The Logic of Container Queries](#1-the-logic-of-container-queries)
     *   [2. Section Architecture (`.s`)](#2-section-architecture-s)
     *   [3. Implicit Auto-Fit Grids (`.g`)](#3-implicit-auto-fit-grids-g)
     *   [4. The Flex System (`.f`)](#4-the-flex-system-f)
     *   [5. Variable API (Advanced)](#5-variable-api-advanced)
-*   [📍 Reference: Content Map](#-reference-content-map)
+*   [📍 Reference: Content Map](#reference-content-map)
     *   [Section Classes (`.s`)](#section-classes-s)
     *   [Grid Classes (`.g`)](#grid-classes-g)
     *   [Flex Classes (`.f`)](#flex-classes-f)
     *   [Alignment Cheatsheet](#alignment-cheatsheet)
     *   [Spacing Scale](#spacing-scale)
-*   [💡 Best Practices & Customization](#-best-practices--customization)
+*   [💡 Best Practices & Customization](#best-practices--customization)
     *   [Grid vs Flex: The Golden Rule](#grid-vs-flex-the-golden-rule)
     *   [Real World Examples](#real-world-examples)
-*   [🔧 For Developers](#-for-developers)
+*   [🔧 For Developers](#for-developers)
 
 ---
 
@@ -117,10 +117,10 @@ Done!
 
 | File | Full (Raw) | Clean | Min | Gzip | Brotli |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`layout.css` (Aggregator)** | **~70 KB** | **~67 KB** | **~57 KB** | **~7.0 KB** | **~5.2 KB** |
-| `grid.css` | 36 KB | 35 KB | 29 KB | 3.8 KB | 2.8 KB |
-| `flex.css` | 26 KB | 25 KB | 21 KB | 2.4 KB | 1.9 KB |
-| `section.css` | 8 KB | 7 KB | 6 KB | 1.4 KB | 1.1 KB |
+| **`layout.css` (Aggregator)** | **78 KB** | **74 KB** | **59 KB** | **8.4 KB** | **6.1 KB** |
+| `grid.css` | 39 KB | 37 KB | 29 KB | 3.7 KB | 2.7 KB |
+| `flex.css` | 29 KB | 27 KB | 21 KB | 2.4 KB | 1.9 KB |
+| `section.css` | 9.5 KB | 8.5 KB | 7.3 KB | 1.3 KB | 1.1 KB |
 
 ### Direct Links
 
@@ -504,4 +504,82 @@ Row layout with space-between.
 [Back to top](#)
 
 **License**: MPL-2.0
-**Copyright**: © 2025 Alive 🜁
+**Copyright**: © 2025 Shukhrat (Alive 🜁) ⤻ UNQA
+
+## 🗺️ Visual Map
+
+```
+src/lib/
+├── config/                  # 1. CONFIGURATION (The Brain)
+│   ├── root/                #    - Semantic Modules
+│   │   ├── colors.css       #    - Palettes & Themes
+│   │   ├── typography.css   #    - Fonts & Scales
+│   │   ├── layout.css       #    - Radius & Spacing
+│   │   └── patterns.css     #    - Component Vars
+│   ├── adapters/            #    - CMS Adapters
+│   │   ├── blocksy.css      #    - Blocksy Theme
+│   │   └── gutenberg.css    #    - WordPress Block Editor
+│   └── root.css             #    - Entry Point
+│
+├── base/                    # 2. BASE (The Foundation)
+│   ├── html/                #    - HTML Engine
+│   │   ├── reset.css        #    - Normalization
+│   │   ├── typography.css   #    - Text Defaults
+│   │   ├── flow.css         #    - Smart Flow Engine
+│   │   ├── lists.css        #    - List Styles
+│   │   ├── forms.css        #    - Input Styling
+│   │   └── helpers.css      #    - HTML Utilities
+│   └── html.css             #    - Entry Point
+│
+├── patterns/                # 3. PATTERNS (The Components)
+│   ├── button/              #    - Atomic Component
+│   │   ├── base.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
+│   └── patterns.css         #    - Entry Point
+│
+├── layout/                  # 4. LAYOUT (The Skeleton) <== YOU ARE HERE
+│   ├── grid/                #    - Grid Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── columns.css      #    - Presets
+│   │   ├── subgrid.css      #    - Smart Grid
+│   │   ├── recipes.css      #    - Smart Logic (.masonry .g-row)
+│   │   └── item.css         #    - Child Logic
+│   ├── flex/                #    - Flex Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── alignment.css    #    - Alignment Tools
+│   │   ├── gaps.css         #    - Smart Gaps
+│   │   └── item.css         #    - Child Logic
+│   ├── container.css        #    - Container Queries (.c)
+│   ├── flex.css             #    - Entry Point
+│   ├── grid.css             #    - Entry Point
+│   └── section.css          #    - Structural Layout
+│
+├── theming/                 # 5. THEMING (The Skin)
+│   ├── set.css
+│   └── overlay.css
+│
+├── typography/              # 6. TYPOGRAPHY (The Voice)
+│   ├── title.css
+│   ├── text.css
+│   └── text-align.css
+│
+└── utilities/               # 7. UTILITIES (The Tools)
+    ├── display.css
+    ├── position.css
+    ├── overflow.css
+    ├── margin.css
+    ├── padding.css
+    ├── radius.css
+    ├── size.css             #    - Size Utilities
+    ├── blur.css
+    └── utilities.css
+```

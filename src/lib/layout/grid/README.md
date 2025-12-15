@@ -10,30 +10,30 @@
 
 ## 📑 Contents
 
-*   [🌟 Overview](#-overview)
-*   [🤯 Philosophy](#-philosophy)
+*   [🌟 Overview](#overview)
+*   [🤯 Philosophy](#philosophy)
     *   [The Death of the 12-Column Grid](#the-death-of-the-12-column-grid)
     *   [Implicit Resilience](#implicit-resilience)
-*   [🚀 Getting Started](#-getting-started)
-*   [📦 Installation & Stats](#-installation--stats)
+*   [🚀 Getting Started](#getting-started)
+*   [📦 Installation & Stats](#installation--stats)
     *   [Bundle Stats](#bundle-stats)
     *   [HTML Snippets](#html-snippets)
-*   [📂 Files Reference](#-files-reference)
-*   [🧠 Deep Dive](#-deep-dive)
+*   [📂 Files Reference](#files-reference)
+*   [🧠 Deep Dive](#deep-dive)
     *   [1. The Auto-Fit Algorithm](#1-the-auto-fit-algorithm)
     *   [2. Subgrid Magic (`.sg`)](#2-subgrid-magic-sg)
     *   [3. Asymmetrical Grids (`.g-2-1`)](#3-asymmetrical-grids-g-2-1)
     *   [4. Density Engine (`dense`)](#4-density-engine-dense)
-*   [📍 Reference: Content Map](#-reference-content-map)
+*   [📍 Reference: Content Map](#reference-content-map)
     *   [Base Classes](#base-classes)
     *   [Column Presets](#column-presets)
     *   [Gap Presets](#gap-presets)
     *   [Subgrid Modifiers](#subgrid-modifiers)
     *   [Item Modifiers](#item-modifiers)
-*   [💡 Best Practices & Customization](#-best-practices--customization)
+*   [💡 Best Practices & Customization](#best-practices--customization)
     *   [Aligning Card Headers (Holy Grail)](#aligning-card-headers-holy-grail)
     *   [Masonry-Style Layouts](#masonry-style-layouts)
-*   [🔧 For Developers](#-for-developers)
+*   [🔧 For Developers](#for-developers)
 
 ---
 
@@ -100,13 +100,13 @@ This "Fail-Safe" nature makes uCss grids perfect for CMS content where you don't
 
 This Submodule is part of `layout.css`.
 
-| File | Size (Raw) | Description |
-| :--- | :--- | :--- |
-| **`grid/base.css`** | **~2 KB** | Core Auto-Fit logic. |
-| **`grid/columns.css`** | **~3 KB** | Explicit column overrides (`.g-1`...). |
-| **`grid/gaps.css`** | **~14 KB** | Fluid gap system. |
-| **`grid/subgrid.css`** | **~5 KB** | Nesting alignment logic. |
-| **`grid/alignment.css`** | **~4 KB** | Alignment utilities. |
+| File | Full (Raw) | Clean | Min | Gzip | Brotli |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`grid/base.css`** | **10 KB** | **9.5 KB** | **7.0 KB** | **1.9 KB** | **1.5 KB** |
+| **`grid/columns.css`** | **6.1 KB** | **6.0 KB** | **4.6 KB** | **0.7 KB** | **0.6 KB** |
+| **`grid/gaps.css`** | **14.9 KB** | **14.8 KB** | **12 KB** | **1.4 KB** | **1.1 KB** |
+| **`grid/subgrid.css`** | **2.1 KB** | **2.0 KB** | **1.6 KB** | **0.5 KB** | **0.4 KB** |
+| **`grid/alignment.css`** | **4.2 KB** | **4.1 KB** | **3.4 KB** | **0.7 KB** | **0.5 KB** |
 
 ### HTML Snippets
 
@@ -276,4 +276,82 @@ You can change the break point of any grid locally:
 [Back to top](#)
 
 **License**: MPL-2.0
-**Copyright**: © 2025 Alive 🜁
+**Copyright**: © 2025 Shukhrat (Alive 🜁) ⤻ UNQA
+
+## 🗺️ Visual Map
+
+```
+src/lib/
+├── config/                  # 1. CONFIGURATION (The Brain)
+│   ├── root/                #    - Semantic Modules
+│   │   ├── colors.css       #    - Palettes & Themes
+│   │   ├── typography.css   #    - Fonts & Scales
+│   │   ├── layout.css       #    - Radius & Spacing
+│   │   └── patterns.css     #    - Component Vars
+│   ├── adapters/            #    - CMS Adapters
+│   │   ├── blocksy.css      #    - Blocksy Theme
+│   │   └── gutenberg.css    #    - WordPress Block Editor
+│   └── root.css             #    - Entry Point
+│
+├── base/                    # 2. BASE (The Foundation)
+│   ├── html/                #    - HTML Engine
+│   │   ├── reset.css        #    - Normalization
+│   │   ├── typography.css   #    - Text Defaults
+│   │   ├── flow.css         #    - Smart Flow Engine
+│   │   ├── lists.css        #    - List Styles
+│   │   ├── forms.css        #    - Input Styling
+│   │   └── helpers.css      #    - HTML Utilities
+│   └── html.css             #    - Entry Point
+│
+├── patterns/                # 3. PATTERNS (The Components)
+│   ├── button/              #    - Atomic Component
+│   │   ├── base.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
+│   └── patterns.css         #    - Entry Point
+│
+├── layout/                  # 4. LAYOUT (The Skeleton)
+│   ├── grid/                #    - Grid Engine <== YOU ARE HERE
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── columns.css      #    - Presets
+│   │   ├── subgrid.css      #    - Smart Grid
+│   │   ├── recipes.css      #    - Smart Logic (.masonry .g-row)
+│   │   └── item.css         #    - Child Logic
+│   ├── flex/                #    - Flex Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── alignment.css    #    - Alignment Tools
+│   │   ├── gaps.css         #    - Smart Gaps
+│   │   └── item.css         #    - Child Logic
+│   ├── container.css        #    - Container Queries (.c)
+│   ├── flex.css             #    - Entry Point
+│   ├── grid.css             #    - Entry Point
+│   └── section.css          #    - Structural Layout
+│
+├── theming/                 # 5. THEMING (The Skin)
+│   ├── set.css
+│   └── overlay.css
+│
+├── typography/              # 6. TYPOGRAPHY (The Voice)
+│   ├── title.css
+│   ├── text.css
+│   └── text-align.css
+│
+└── utilities/               # 7. UTILITIES (The Tools)
+    ├── display.css
+    ├── position.css
+    ├── overflow.css
+    ├── margin.css
+    ├── padding.css
+    ├── radius.css
+    ├── size.css             #    - Size Utilities
+    ├── blur.css
+    └── utilities.css
+```

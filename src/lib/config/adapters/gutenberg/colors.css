@@ -1,0 +1,104 @@
+/**
+ * @file Gutenberg Theme Color Palette Adapter
+ * @description Maps Gutenberg's native Custom Properties to uCss tokens.
+ * Enables uCss to drive Gutenberg's color palette engine.
+ */
+
+:root body {
+    /* 1. Primary / Brand (#eec14c, hsl(43 83% 62%) */
+    --wp--preset--color--p: var(--p, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%)));
+    /* 2. Accent / Brand (#ffb900, hsl(44 100% 50%)) */
+    --wp--preset--color--a: var(--a, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%)));
+    /* 3. Text / Body (Dark) (#141414, hsl(0 0% 8%)) */
+    --wp--preset--color--tx: var(--tx, var(--alt, var(--neutral, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)))));
+    /* 4. Title / Heading (Darker) (#0a0a0a, hsl(0 0% 4%)) */
+    --wp--preset--color--t: var(--t, var(--alt-bd, var(--neutral-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))));
+    /* 5. Outline / Border (Less Dark) (#1f1f1f, hsl(0 0% 12%)) */
+    --wp--preset--color--out: var(--out, var(--alt-lt, var(--neutral-lt, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-lt, 12%)))));
+    /* 6. Lite Background / Surface (Less White) (#f5f5f5, hsl(0 0% 93%)) */
+    --wp--preset--color--bg-lt: var(--bg-lt, var(--base-lt, var(--l-lt, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%)))));
+    /* 7. Background / Body (White) (#f5f5f5, hsl(0 0% 96%)) */
+    --wp--preset--color--bg: var(--bg, var(--base, var(--l, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)))));
+    /* 8. Bold Background / Cards (Whiter) (#fff, hsl(0 0% 100%)) */
+    --wp--preset--color--bg-bd: var(--bg-bd, var(--base-bd, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)))));
+    /* 9. Overlay / Tint (Opace White) */
+    --wp--preset--color--ol: var(--ol, hsl(var(--ol-h, 0) var(--ol-s, 0%) var(--ol-l, 96% / var(--al, .64))));
+    /* 10.Overlay Dark Shade (Opace Black) */
+    --wp--preset--color--od: var(--od, hsl(var(--od-h, 0) var(--od-s, 0%) var(--od-l, 8% / var(--al, .64))));
+    /* 11. Always Dark #141414 */
+    --wp--preset--color--d: var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%)));
+    /* 12. Always Light #f5f5f5 */
+    --wp--preset--color--l: var(--l, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%)));
+    /* 13. Notification: Success Green #1E8E3E */
+    --wp--preset--color--scs: var(--scs, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%)));
+    /* 14. Notification: Alert Red #D93025 */
+    --wp--preset--color--alr: var(--alr, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%)));
+    /* 15. Notification: Info Blue #1A73E8 */
+    --wp--preset--color--inf: var(--inf, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%)));
+    /* 16. Notification: Tip Purple #8E24AA*/
+    --wp--preset--color--tip: var(--tip, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 40%)));
+    /* 17. Overlay Light Bold */
+    --wp--preset--color--ol-bd: var(--ol-bd, hsl(var(--ol-h, 0) var(--ol-s, 0%) var(--ol-l, 96% / var(--al-bd, .8))));
+    /* 18. Overlay Light Lite */
+    --wp--preset--color--ol-lt: var(--ol-lt, hsl(var(--ol-h, 0) var(--ol-s, 0%) var(--ol-l, 96% / var(--al-lt, .32))));
+    /* 19. Overlay Dark Bold */
+    --wp--preset--color--od-bd: var(--od-bd, hsl(var(--od-h, 0) var(--od-s, 0%) var(--od-l, 8% / var(--al-bd, .8))));
+    /* 20. Overlay Dark Lite */
+    --wp--preset--color--od-lt: var(--od-lt, hsl(var(--od-h, 0) var(--od-s, 0%) var(--od-l, 8% / var(--al-lt, .32))));
+    /* 21. Overlay Primary */
+    --wp--preset--color--op: var(--op, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al, .64)));
+    /* 22. Overlay Accent */
+    --wp--preset--color--oa: var(--oa, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al, .64)));
+    /* 23. Secondary / Brand Contrast (#eec14c, hsl(43 83% 62%) */
+    --wp--preset--color--sec: var(--sec, hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%))));
+    /* 24. Tertiary / Brand Base (#ffb900, hsl(44 100% 50%)) */
+    --wp--preset--color--ter: var(--ter, hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%))));
+    /* 25. Always Dark Bold (#0a0a0a, hsl(0 0% 4%)) */
+    --wp--preset--color--d-bd: var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)));
+    /* 26. Always Dark Lite (#1f1f1f, hsl(0 0% 12%)) */
+    --wp--preset--color--d-lt: var(--d-lt, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-lt, 12%)));
+    /* 27. Always Light Bold (#ffffff, hsl(0 0% 100%)) */
+    --wp--preset--color--l-bd: var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%)));
+    /* 28. Always Light Lite (#ececec, hsl(0 0% 93%)) */
+    --wp--preset--color--l-lt: var(--l-lt, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%)));
+    /* 29. Overlay Primary Bold */
+    --wp--preset--color--op-bd: var(--op-bd, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-bd, .8)));
+    /* 30. Overlay Primary Lite */
+    --wp--preset--color--op-lt: var(--op-lt, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-lt, .32)));
+    /* 31. Overlay Accent Bold */
+    --wp--preset--color--oa-bd: var(--oa-bd, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-bd, .8)));
+    /* 32. Overlay Accent Lite */
+    --wp--preset--color--oa-lt: var(--oa-lt, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-lt, .32)));
+    /* 33. Overlay Success */
+    --wp--preset--color--oscs: var(--oscs, hsl(var(--scs-h, 137) var(--scs-s, 65%) var(--scs-l, 34%) / var(--ntf-al, .32)));
+    /* 34. Overlay Alert */
+    --wp--preset--color--oalr: var(--oalr, hsl(var(--alr-h, 4) var(--alr-s, 71%) var(--alr-l, 50%) / var(--ntf-al, .32)));
+    /* 35. Overlay Info */
+    --wp--preset--color--oinf: var(--oinf, hsl(var(--inf-h, 214) var(--inf-s, 82%) var(--inf-l, 51%) / var(--ntf-al, .32)));
+    /* 36. Overlay Tip */
+    --wp--preset--color--otip: var(--otip, hsl(var(--tip-h, 287) var(--tip-s, 65%) var(--tip-l, 40%) / var(--ntf-al, .32)));
+    /* 37. Notification: Spotlight Yellow */
+    --wp--preset--color--ntf: var(--ntf, var(--p, hsl(var(--ntf-h, 43) var(--ntf-s, 83%) var(--ntf-l, 62%))));
+    /* 38. Overlay Spotlight */
+    --wp--preset--color--ontf: var(--ontf, hsl(var(--ntf-h, 43) var(--ntf-s, 83%) var(--ntf-l, 62%) / var(--ntf-al, .32)));
+    /* 39. Overlay Secondary */
+    --wp--preset--color--osec: var(--osec, hsl(var(--sec-h, 200) var(--sec-s, 19%) var(--sec-l, 18%) / var(--st-al, .32)));
+    /* 40. Overlay Tertiary */
+    --wp--preset--color--oter: var(--oter, hsl(var(--ter-h, 40) var(--ter-s, 33%) var(--ter-l, 93%) / var(--st-al, .32)));
+    /* 41. Gray */
+    --wp--preset--color--g: var(--g, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%)));
+    /* 42. Gray Bold */
+    --wp--preset--color--g-bd: var(--g-bd, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 64%)));
+    /* 43. Gray Lite */
+    --wp--preset--color--g-lt: var(--g-lt, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%)));
+    /* 44. Gray Overlay */
+    --wp--preset--color--og: var(--og, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al, .64)));
+    /* 45. Gray Overlay Bold */
+    --wp--preset--color--og-bd: var(--og-bd, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 64%) / var(--al-bd, .8)));
+    /* 46. Gray Overlay Lite */
+    --wp--preset--color--og-lt: var(--og-lt, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al-lt, .32)));
+    /* 47. Gray Overlay xLite */
+    --wp--preset--color--og-xlt: var(--og-xlt, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al-xlt, .16)));
+    /* 48. Gray Overlay xxLite */
+    --wp--preset--color--og-xxlt: var(--og-xxlt, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al-xxlt, .08)));
+}

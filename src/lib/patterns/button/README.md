@@ -10,31 +10,31 @@
 
 ## 📑 Contents
 
-*   [🌟 Overview](#-overview)
-*   [🤯 Philosophy](#-philosophy)
+*   [🌟 Overview](#overview)
+*   [🤯 Philosophy](#philosophy)
     *   [The "Button-ness" Abstraction](#the-button-ness-abstraction)
     *   [Skinning vs Structure](#skinning-vs-structure)
-*   [🚀 Getting Started](#-getting-started)
-*   [📦 Installation & Stats](#-installation--stats)
+*   [🚀 Getting Started](#getting-started)
+*   [📦 Installation & Stats](#installation--stats)
     *   [Bundle Stats](#bundle-stats)
     *   [HTML Snippets](#html-snippets)
-*   [📂 Files Reference](#-files-reference)
-*   [🧠 Deep Dive](#-deep-dive)
+*   [📂 Files Reference](#files-reference)
+*   [🧠 Deep Dive](#deep-dive)
     *   [1. The Skin Engine (Colors)](#1-the-skin-engine-colors)
     *   [2. The Size Engine (Dimensions)](#2-the-size-engine-dimensions)
     *   [3. The Group Container (`.btns`)](#3-the-group-container-btns)
     *   [4. Icon Handling Logic](#4-icon-handling-logic)
     *   [5. State Management (Loading/Disabled)](#5-state-management-loadingdisabled)
-*   [📍 Reference: Content Map](#-reference-content-map)
+*   [📍 Reference: Content Map](#reference-content-map)
     *   [Base Classes](#base-classes)
     *   [Skin Variants](#skin-variants)
     *   [Size Variants](#size-variants)
     *   [Shape Variants](#shape-variants)
     *   [Group Helpers](#group-helpers)
-*   [💡 Best Practices & Customization](#-best-practices--customization)
+*   [💡 Best Practices & Customization](#best-practices--customization)
     *   [Buttons vs Links](#buttons-vs-links)
     *   [Accessibility First](#accessibility-first)
-*   [🔧 For Developers](#-for-developers)
+*   [🔧 For Developers](#for-developers)
 
 ---
 
@@ -105,12 +105,12 @@ This separation allows you to create a "Ghost Button" just by changing the Skin 
 
 This Submodule is part of `patterns.css`.
 
-| File | Size (Raw) | Description |
-| :--- | :--- | :--- |
-| **`button/base.css`** | **~8 KB** | Core logic. |
-| **`button/skins.css`** | **~9 KB** | Color mappings. |
-| **`button/sizes.css`** | **~2 KB** | Size scales. |
-| **`button/group.css`** | **~2.5 KB** | Container logic. |
+| File | Full (Raw) | Clean | Min | Gzip | Brotli |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`button/base.css`** | **7.0 KB** | **6.2 KB** | **5.4 KB** | **1.3 KB** | **1.2 KB** |
+| **`button/skins.css`** | **9.3 KB** | **8.6 KB** | **7.8 KB** | **1.6 KB** | **1.3 KB** |
+| **`button/sizes.css`** | **2.4 KB** | **2.0 KB** | **1.7 KB** | **0.5 KB** | **0.5 KB** |
+| **`button/group.css`** | **2.9 KB** | **2.7 KB** | **2.3 KB** | **0.6 KB** | **0.5 KB** |
 
 ### HTML Snippets
 
@@ -339,4 +339,82 @@ const Button = ({ variant = 'primary', size = 'md', children, ...props }) => (
 [Back to top](#)
 
 **License**: MPL-2.0
-**Copyright**: © 2025 Alive 🜁
+**Copyright**: © 2025 Shukhrat (Alive 🜁) ⤻ UNQA
+
+## 🗺️ Visual Map
+
+```
+src/lib/
+├── config/                  # 1. CONFIGURATION (The Brain)
+│   ├── root/                #    - Semantic Modules
+│   │   ├── colors.css       #    - Palettes & Themes
+│   │   ├── typography.css   #    - Fonts & Scales
+│   │   ├── layout.css       #    - Radius & Spacing
+│   │   └── patterns.css     #    - Component Vars
+│   ├── adapters/            #    - CMS Adapters
+│   │   ├── blocksy.css      #    - Blocksy Theme
+│   │   └── gutenberg.css    #    - WordPress Block Editor
+│   └── root.css             #    - Entry Point
+│
+├── base/                    # 2. BASE (The Foundation)
+│   ├── html/                #    - HTML Engine
+│   │   ├── reset.css        #    - Normalization
+│   │   ├── typography.css   #    - Text Defaults
+│   │   ├── flow.css         #    - Smart Flow Engine
+│   │   ├── lists.css        #    - List Styles
+│   │   ├── forms.css        #    - Input Styling
+│   │   └── helpers.css      #    - HTML Utilities
+│   └── html.css             #    - Entry Point
+│
+├── patterns/                # 3. PATTERNS (The Components)
+│   ├── button/              #    - Atomic Component <== YOU ARE HERE
+│   │   ├── base.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
+│   └── patterns.css         #    - Entry Point
+│
+├── layout/                  # 4. LAYOUT (The Skeleton)
+│   ├── grid/                #    - Grid Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── columns.css      #    - Presets
+│   │   ├── subgrid.css      #    - Smart Grid
+│   │   ├── recipes.css      #    - Smart Logic (.masonry .g-row)
+│   │   └── item.css         #    - Child Logic
+│   ├── flex/                #    - Flex Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── alignment.css    #    - Alignment Tools
+│   │   ├── gaps.css         #    - Smart Gaps
+│   │   └── item.css         #    - Child Logic
+│   ├── container.css        #    - Container Queries (.c)
+│   ├── flex.css             #    - Entry Point
+│   ├── grid.css             #    - Entry Point
+│   └── section.css          #    - Structural Layout
+│
+├── theming/                 # 5. THEMING (The Skin)
+│   ├── set.css
+│   └── overlay.css
+│
+├── typography/              # 6. TYPOGRAPHY (The Voice)
+│   ├── title.css
+│   ├── text.css
+│   └── text-align.css
+│
+└── utilities/               # 7. UTILITIES (The Tools)
+    ├── display.css
+    ├── position.css
+    ├── overflow.css
+    ├── margin.css
+    ├── padding.css
+    ├── radius.css
+    ├── size.css             #    - Size Utilities
+    ├── blur.css
+    └── utilities.css
+```

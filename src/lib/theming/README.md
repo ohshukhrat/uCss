@@ -10,29 +10,29 @@
 
 ## 📑 Contents
 
-*   [🌟 Overview](#-overview)
-*   [🤯 Philosophy](#-philosophy)
+*   [🌟 Overview](#overview)
+*   [🤯 Philosophy](#philosophy)
     *   [Inversion of Control](#inversion-of-control)
     *   [The "Scope" vs "Global" Debate](#the-scope-vs-global-debate)
-*   [🚀 Getting Started](#-getting-started)
-*   [📦 Installation & Stats](#-installation--stats)
+*   [🚀 Getting Started](#getting-started)
+*   [📦 Installation & Stats](#installation--stats)
     *   [Bundle Stats](#bundle-stats)
     *   [Direct Links](#direct-links)
     *   [HTML Snippets](#html-snippets)
-*   [📂 Files Reference](#-files-reference)
-*   [🧠 Deep Dive](#-deep-dive)
+*   [📂 Files Reference](#files-reference)
+*   [🧠 Deep Dive](#deep-dive)
     *   [1. The 'Set' Engine (Variable Interception)](#1-the-set-engine-variable-interception)
     *   [2. Infinite Nesting Logic](#2-infinite-nesting-logic)
     *   [3. The Overlay Architecture (`.o`)](#3-the-overlay-architecture-o)
-*   [📍 Reference: Content Map](#-reference-content-map)
+*   [📍 Reference: Content Map](#reference-content-map)
     *   [Standard Sets](#standard-sets)
     *   [Functional Sets](#functional-sets)
     *   [Set Variables (Hooks)](#set-variables-hooks)
     *   [Overlay Classes](#overlay-classes)
-*   [💡 Best Practices & Customization](#-best-practices--customization)
+*   [💡 Best Practices & Customization](#best-practices--customization)
     *   [Creating Semantic Sets](#creating-semantic-sets)
     *   [The "Christmas Theme" Example](#the-christmas-theme-example)
-*   [🔧 For Developers](#-for-developers)
+*   [🔧 For Developers](#for-developers)
 
 ---
 
@@ -102,9 +102,9 @@ Infinite nesting works because CSS Variables cascade naturally.
 
 | File | Full (Raw) | Clean | Min | Gzip | Brotli |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`theming.css`** | **~17 KB** | **~15 KB** | **~14 KB** | **~3.3 KB** | **~2.8 KB** |
-| `set.css` | 14 KB | 13 KB | 12 KB | 1.9 KB | 1.6 KB |
-| `overlay.css` | 3.2 KB | 2.3 KB | 1.9 KB | 0.6 KB | 0.5 KB |
+| **`theming.css`** | **19 KB** | **17 KB** | **15 KB** | **3.8 KB** | **3.2 KB** |
+| `set.css` | 16 KB | 15 KB | 13 KB | 2.7 KB | 2.3 KB |
+| `overlay.css` | 3.5 KB | 2.5 KB | 2.1 KB | 0.7 KB | 0.6 KB |
 
 ### Direct Links
 
@@ -395,4 +395,82 @@ Now `<div class="set christmas">` works instantly with all uCss patterns. Button
 [Back to top](#)
 
 **License**: MPL-2.0
-**Copyright**: © 2025 Alive 🜁
+**Copyright**: © 2025 Shukhrat (Alive 🜁) ⤻ UNQA
+
+## 🗺️ Visual Map
+
+```
+src/lib/
+├── config/                  # 1. CONFIGURATION (The Brain)
+│   ├── root/                #    - Semantic Modules
+│   │   ├── colors.css       #    - Palettes & Themes
+│   │   ├── typography.css   #    - Fonts & Scales
+│   │   ├── layout.css       #    - Radius & Spacing
+│   │   └── patterns.css     #    - Component Vars
+│   ├── adapters/            #    - CMS Adapters
+│   │   ├── blocksy.css      #    - Blocksy Theme
+│   │   └── gutenberg.css    #    - WordPress Block Editor
+│   └── root.css             #    - Entry Point
+│
+├── base/                    # 2. BASE (The Foundation)
+│   ├── html/                #    - HTML Engine
+│   │   ├── reset.css        #    - Normalization
+│   │   ├── typography.css   #    - Text Defaults
+│   │   ├── flow.css         #    - Smart Flow Engine
+│   │   ├── lists.css        #    - List Styles
+│   │   ├── forms.css        #    - Input Styling
+│   │   └── helpers.css      #    - HTML Utilities
+│   └── html.css             #    - Entry Point
+│
+├── patterns/                # 3. PATTERNS (The Components)
+│   ├── button/              #    - Atomic Component
+│   │   ├── base.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
+│   └── patterns.css         #    - Entry Point
+│
+├── layout/                  # 4. LAYOUT (The Skeleton)
+│   ├── grid/                #    - Grid Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── columns.css      #    - Presets
+│   │   ├── subgrid.css      #    - Smart Grid
+│   │   ├── recipes.css      #    - Smart Logic (.masonry .g-row)
+│   │   └── item.css         #    - Child Logic
+│   ├── flex/                #    - Flex Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── alignment.css    #    - Alignment Tools
+│   │   ├── gaps.css         #    - Smart Gaps
+│   │   └── item.css         #    - Child Logic
+│   ├── container.css        #    - Container Queries (.c)
+│   ├── flex.css             #    - Entry Point
+│   ├── grid.css             #    - Entry Point
+│   └── section.css          #    - Structural Layout
+│
+├── theming/                 # 5. THEMING (The Skin) <== YOU ARE HERE
+│   ├── set.css
+│   └── overlay.css
+│
+├── typography/              # 6. TYPOGRAPHY (The Voice)
+│   ├── title.css
+│   ├── text.css
+│   └── text-align.css
+│
+└── utilities/               # 7. UTILITIES (The Tools)
+    ├── display.css
+    ├── position.css
+    ├── overflow.css
+    ├── margin.css
+    ├── padding.css
+    ├── radius.css
+    ├── size.css             #    - Size Utilities
+    ├── blur.css
+    └── utilities.css
+```

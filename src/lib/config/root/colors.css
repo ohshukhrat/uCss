@@ -49,8 +49,8 @@
     --g-s: 0%;
     --g-l: 50%;
     --g: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%));
-    --dg: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 64%));
-    --lg: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 32%));
+    --g-bd: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 64%));
+    --g-lt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%));
 
     /* Grays (For those who prefer --neu convention instead of --g) */
     /* --neu: var(--g, hsl(0 0% 50%));
@@ -166,7 +166,7 @@
     --og-bd: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-bd, .8));
     --og-lt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-lt, .32));
     --og-xlt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-xlt, .16));
-    --og-xxlt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-lt, .08));
+    --og-xxlt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-xxlt, .08));
 
     --obg: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64));
     --oalt: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));

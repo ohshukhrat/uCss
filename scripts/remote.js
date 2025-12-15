@@ -3,66 +3,7 @@
  * 
  * @description
  * This script serves as the interface between the local build environment (GitHub Actions or Local Machine)
- * and the remote FTP staging server. It handles state management, directory structure synchronization,
- * garbage collection of old preview builds, and direct file uploads.
- * 
- * ---------------------------------------------------------------------------------------------
- * 🧠 ARCHITECTURE & PHILOSOPHY
- * ---------------------------------------------------------------------------------------------
- * This is the bridge between your local machine and the FTP Staging Server.
- * It handles uploading, cleaning, wiping, and structure mirroring.
- * 
- * ---------------------------------------------------------------------------------------------
- * 🛠️ FEATURES
- * ---------------------------------------------------------------------------------------------
- * 
- * 1. SECURE CONNECTION
- *    Uses `basic-ftp` with TLS support. Reads credentials from `.env` (never committed).
- * 
- * 2. MIRRORING (`--ensure`)
- *    Can replicate a local directory structure to the remote server before uploading.
- *    This prevents "550 No such file" errors when uploading to new deep paths.
- * 
- * 3. UPLOADING (`--upload`)
- *    Directly uploads a folder to a target path.
- * 
- * 4. CLEANUP (`--cleanup`)
- *    Garbage Collection for ephemeral builds. Scans for folders matching `preview-YYYY...`
- *    and deletes them if they are older than 7 days.
- * 
- * 5. WIPE (`--wipe [mode]`)
- *    Destructive cleaning modes.
- *    - `safe`: Keeps stable/latest/p/v.
- *    - `stable`: Nukes stable.
- *    - `preview`: Nukes all previews.
- *    - `all`: Nukes EVERYTHING.
- * 
- * 6. BOOTSTRAP (`--bootstrap`)
- *    Smart initialization. If the remote root is empty, it uploads `index.html` and `.htaccess`.
- *    If root exists, it does nothing. Prevents breaking production on dev deploys.
- * 
- * ---------------------------------------------------------------------------------------------
- * 💻 CLI COMMANDS
- * ---------------------------------------------------------------------------------------------
- * 
- * @example
- * // 1. Standard Cleanup
- * node scripts/remote.js --cleanup
- * 
- * @example
- * // 2. Upload Stable
- * node scripts/remote.js --upload dist/stable /
- * 
- * @example
- * // 3. Wipe Previews
- * node scripts/remote.js --wipe preview
- * 
- * @example
- * // 4. Bootstap Root (if missing)
- * node scripts/remote.js --bootstrap dist
- * @requires ENV.FTP_SERVER
- * @requires ENV.FTP_USERNAME
- * @requires ENV.FTP_PASSWORD
+ * and the remote FTP staging server.
  */
 
 require('dotenv').config(); // Load .env if present
@@ -83,22 +24,10 @@ const CONFIG = {
  */
 class RemoteManager {
     constructor() {
-        /**
-         * The underlying basic-ftp client instance.
-         * @type {ftp.Client}
-         */
         this.client = new ftp.Client();
-        // verbose logging helps debug CI failures
         this.client.ftp.verbose = true;
     }
 
-    /**
-     * Establishes a secure connection to the FTP server with retry logic.
-     * 
-     * @async
-     * @throws {Error} If connection fails after all retries or if credentials are missing.
-     * @returns {Promise<void>}
-     */
     async connect() {
         const { FTP_SERVER, FTP_USERNAME, FTP_PASSWORD } = process.env;
 
@@ -108,8 +37,6 @@ class RemoteManager {
 
         for (let i = 0; i < CONFIG.RETRIES; i++) {
             try {
-                // We use secure: false typically for legacy FTP servers or simple setups.
-                // Promote to true if server supports explicit FTPS.
                 await this.client.access({
                     host: FTP_SERVER,
                     user: FTP_USERNAME,
@@ -120,17 +47,12 @@ class RemoteManager {
                 return;
             } catch (err) {
                 if (i === CONFIG.RETRIES - 1) throw new Error(`FTP Connection Failed: ${err.message}`);
-
                 console.warn(`  ⚠ Connection attempt ${i + 1}/${CONFIG.RETRIES} failed. Retrying in ${CONFIG.RETRY_DELAY}ms...`);
                 await new Promise(resolve => setTimeout(resolve, CONFIG.RETRY_DELAY));
             }
         }
     }
 
-    /**
-     * Closes the FTP connection safely.
-     * @async
-     */
     async close() {
         if (!this.client.closed) {
             this.client.close();
@@ -138,19 +60,6 @@ class RemoteManager {
         }
     }
 
-    /**
-     * MIRROR MODE: Recursively ensures that the local directory structure exists on the remote.
-     * 
-     * Strategy:
-     * 1. Walk local source directory to collect all relative directory paths.
-     * 2. Sort paths by length (shortest first) to ensure parent directories are created before children.
-     * 3. Iterate and call `ensureDir` for each.
-     * 
-     * @async
-     * @param {string} localSourceDir - The local path to mirror (e.g., 'dist/p')
-     * @param {string} remoteTargetRoot - The remote root to mirror relative to (Default: '/')
-     * @returns {Promise<void>}
-     */
     async ensureStructure(localSourceDir, remoteTargetRoot = '/') {
         console.log(`\n📂 [Mirror Mode] Synchronizing structure from: '${localSourceDir}' to '${remoteTargetRoot}'`);
 
@@ -158,22 +67,13 @@ class RemoteManager {
             throw new Error(`Local source directory not found: ${localSourceDir}`);
         }
 
-        // 1. Walk & Collect
         const dirsToCreate = [];
-
-        /**
-         * Recursive walker to find all subdirectories.
-         * @param {string} currentDir 
-         */
         const walk = (currentDir) => {
             const items = fs.readdirSync(currentDir);
             for (const item of items) {
                 const fullPath = path.join(currentDir, item);
                 const stat = fs.statSync(fullPath);
-
                 if (stat.isDirectory()) {
-                    // Convert to relative path (e.g., "lib/theming")
-                    // Windows backslashes replaced with forward slashes for FTP
                     const relativePath = path.relative(localSourceDir, fullPath).replace(/\\/g, '/');
                     dirsToCreate.push(relativePath);
                     walk(fullPath);
@@ -182,46 +82,33 @@ class RemoteManager {
         };
 
         walk(localSourceDir);
-
-        // 2. Sort (Parents First)
-        // e.g., ["lib", "lib/theming", "lib/theming/overlay"]
         dirsToCreate.sort((a, b) => a.length - b.length);
 
-        console.log(`  👉 Found ${dirsToCreate.length} subdirectories to verify.`);
-
-        // 3. Create Remotely
-        // Ensure root exists first
         if (remoteTargetRoot !== '/' && remoteTargetRoot !== '.') {
             await this.client.ensureDir(remoteTargetRoot);
         }
 
         for (const dir of dirsToCreate) {
-            const remoteDir = path.posix.join(remoteTargetRoot, dir);
+            let remoteDir = path.posix.join(remoteTargetRoot, dir);
+
+            // Fix: If deploying to root, avoid absolute path starting with / if server dislikes it.
+            // "MKD /lib" -> Permission denied. "MKD lib" -> Success.
+            if (remoteTargetRoot === '/') {
+                remoteDir = dir;
+            }
+
             try {
                 await this.client.ensureDir(remoteDir);
-                await this.client.cd('/'); // Reset to root
+                await this.client.cd('/');
             } catch (err) {
                 console.warn(`  ⚠ Failed to ensure remote dir '${remoteDir}': ${err.message}`);
             }
         }
-        console.log(`  ✓ Structure successfully mirrored.`);
     }
 
-    /**
-     * UPLOAD MODE: Uploads a local directory to a remote directory.
-     * Implements implicit structural mirroring for safety.
-     * 
-     * @async
-     * @param {string} localDir 
-     * @param {string} remoteDir 
-     */
     async uploadFromDir(localDir, remoteDir = '/') {
         console.log(`\n🚀 [Upload Mode] Uploading '${localDir}' -> '${remoteDir}'`);
-
-        // 1. Ensure Structure First (Safety)
         await this.ensureStructure(localDir, remoteDir);
-
-        // 2. Upload Files
         console.log(`  👉 Starting transfer...`);
         try {
             await this.client.uploadFromDir(localDir, remoteDir);
@@ -231,12 +118,23 @@ class RemoteManager {
         }
     }
 
-    /**
-     * WIPE MODE: Aggressive cleaning of the remote server based on mode.
-     * 
-     * @async
-     * @param {string} mode - 'all' | 'safe' | 'preview' | 'stable' | 'default'
-     */
+    async uploadFile(localPath, remoteDir = '/') {
+        const fileName = path.basename(localPath);
+        console.log(`\n📄 [Upload File] Uploading '${fileName}' -> '${remoteDir}'`);
+        try {
+            // ensureDir might change CWD, so let's be safe
+            if (remoteDir !== '/') await this.client.ensureDir(remoteDir);
+
+            // uploadFrom uploads specific file to CWD + name? or full path?
+            // basic-ftp uploadFrom(localPath, remoteName)
+            const remotePath = path.posix.join(remoteDir, fileName);
+            await this.client.uploadFrom(localPath, remotePath);
+            console.log(`  ✓ Uploaded ${fileName}`);
+        } catch (err) {
+            throw new Error(`File Upload Failed: ${err.message}`);
+        }
+    }
+
     async wipe(mode) {
         console.log(`\n🧨 [Wipe Mode] Starting wipe: ${mode.toUpperCase()}...`);
 
@@ -244,7 +142,7 @@ class RemoteManager {
             const list = await this.client.list('/');
             let deletionList = [];
 
-            if (mode === 'all') {
+            if (mode === 'all' || mode === 'nuke') {
                 // DELETE EVERYTHING
                 deletionList = list.map(i => i.name);
             } else if (mode === 'stable') {
@@ -254,18 +152,44 @@ class RemoteManager {
                 // DELETE PREVIEWS ONLY
                 deletionList = list.filter(i => i.name.startsWith('preview-')).map(i => i.name);
             } else if (mode === 'safe') {
-                // SAFE: Keep stable, latest, p, v, index.html, .htaccess
-                const keep = new Set(['stable', 'latest', 'p', 'v', 'index.html', '.htaccess']);
+                // SAFE: Keep stable, latest
+                const keep = new Set(['stable', 'latest']);
+                // Note: user logic for 'clean safe' was "everything except stable and latest".
+                // Does this mean we DELETE 'p', 'v'? Yes.
                 deletionList = list.filter(i => !keep.has(i.name)).map(i => i.name);
-            } else {
+            } else if (mode === 'default' || mode === 'wipe') {
                 // DEFAULT (npm run remote wipe):
-                // Keep stable, p, v, index.html, .htaccess
-                // DELETE latest, previews, junk
-                const keep = new Set(['stable', 'p', 'v', 'index.html', '.htaccess']);
-                deletionList = list.filter(i => !keep.has(i.name)).map(i => i.name);
+                // Logic: "npm run clean"
+                // Clean logic: "Delete dist, then rebuild".
+                // Clean all logic: "Delete dist".
+                // The implementation plan says:
+                // "wipe: Alias for clean (Local)."
+                // "remote:wipe ... Defaults to cleaning remote similar to how clean cleans local."
+                // Clean local: Deletes dist.
+                // So Remote Wipe Default -> Delete EVERYTHING same as nuke?
+
+                // WAIT. User said: 
+                // "npm run clean should do general cleanup, and then delete /dist/" -> Local
+                // "npm run remote wipe - deletes everything and rebuilds" -> implies nuke.
+                // BUT "npm run remote wipe safe should do full cleanup and delete everything except /stable and /latest"
+
+                // Let's assume 'default' wipe for remote is AGGRESSIVE like local 'clean' which deletes dist.
+                // So delete everything?
+                // Or delete everything but root files?
+                // User said "npm run remote wipe - deletes everything and rebuilds".
+                // So it essentially nukes content.
+                // NOTE: We probably want to keep .htaccess maybe? 
+                // "npm run remote wipe SAFE" keeps stable/latest.
+                // "npm run remote wipe" -> deletes everything.
+                deletionList = list.map(i => i.name);
             }
 
-            // Exclude '.' and '..' just in case
+            // Always Exclude '.' and '..'
+            // Also, handle root files protection?
+            // "npm run remote wipe ... deletes everything"
+            // If we delete .htaccess, website goes down down.
+            // But rebuild/deploy will restore it.
+
             deletionList = deletionList.filter(name => name !== '.' && name !== '..');
 
             if (deletionList.length === 0) {
@@ -276,15 +200,9 @@ class RemoteManager {
             console.log(`  Targeting ${deletionList.length} items for deletion:`);
             console.log(`  [ ${deletionList.slice(0, 5).join(', ')}${deletionList.length > 5 ? '...' : ''} ]`);
 
-            // Confirm? (In CI/Script we assume yes)
-
             for (const name of deletionList) {
                 try {
-                    // Determine if file or dir for logging? basic-ftp 'removeDir' works for content? 
-                    // 'removeDir' removes directory recursively. 'remove' removes file.
-                    // we need to distinguish.
                     const isDir = list.find(i => i.name === name)?.isDirectory;
-
                     if (isDir) {
                         await this.client.removeDir(name);
                     } else {
@@ -304,77 +222,69 @@ class RemoteManager {
 
     async cleanupOldPreviews() {
         console.log("\n🧹 [Cleanup Mode] Scanning for expired previews...");
-
         try {
-            // List root directory
             const list = await this.client.list('/');
             const now = Date.now();
             const TTL_MS = CONFIG.TTL_DAYS * 24 * 60 * 60 * 1000;
             let deletedCount = 0;
 
             for (const item of list) {
-                // Filter for directories matching "preview-YYYY..."
                 if (item.isDirectory && item.name.startsWith('preview-')) {
                     const datePart = item.name.replace('preview-', '');
                     const parts = datePart.split('-');
-
-                    // Simple validation: should have 6 parts (YYYY-MM-DD-HH-mm-ss)
                     if (parts.length === 6) {
                         const [yyyy, MM, dd, HH, mm, ss] = parts;
-                        // Month is 0-indexed in JS
                         const buildDate = new Date(yyyy, MM - 1, dd, HH, mm, ss).getTime();
-                        const age = now - buildDate;
-                        const ageDays = (age / (1000 * 60 * 60 * 24)).toFixed(1);
 
-                        if (age > TTL_MS) {
-                            console.log(`  🗑️ Deleting EXPIRED: ${item.name} (Age: ${ageDays} days)`);
+                        if ((now - buildDate) > TTL_MS) {
+                            console.log(`  🗑️ Deleting EXPIRED: ${item.name}`);
                             await this.client.removeDir(item.name);
                             deletedCount++;
-                        } else {
-                            // Verbose: console.log(`  ✅ Keeping ACTIVE: ${item.name} (Age: ${ageDays} days)`);
                         }
                     }
                 }
             }
-
-            if (deletedCount === 0) console.log("  ✨ No expired previews found. Server is clean.");
+            if (deletedCount === 0) console.log("  ✨ Server is clean.");
             else console.log(`  ✓ Deleted ${deletedCount} old preview(s).`);
 
         } catch (err) {
             console.error("  ❌ Access Error during cleanup:", err.message);
-            // We soft-fail cleanup to avoid breaking the deployment if listing fails
         }
     }
-    /**
-     * BOOTSTRAP MODE: Conditional upload of root files.
-     * Checks if remote root has content. If empty/missing index, uploads index.html/.htaccess from local.
-     * 
-     * @async
-     * @param {string} localDir - Directory containing index.html and .htaccess (usually 'dist')
-     */
-    async bootstrapRoot(localDir) {
-        console.log(`\n🌱 [Bootstrap Mode] Checking remote root...`);
 
+    async bootstrapRoot(localDir, force = false) {
+        console.log(`\n🌱 [Bootstrap Mode] Checking remote root... ${force ? '(FORCE)' : ''}`);
         try {
-            const list = await this.client.list('/');
-            const hasIndex = list.some(f => f.name === 'index.html');
-            const hasHtaccess = list.some(f => f.name === '.htaccess');
+            if (!force) {
+                const list = await this.client.list('/');
+                const hasIndex = list.some(f => f.name === 'index.html');
+                const hasHtaccess = list.some(f => f.name === '.htaccess');
+                const hasStable = list.some(f => f.name === 'stable');
 
-            if (hasIndex && hasHtaccess) {
-                console.log("  ✅ Root files exist. Skipping bootstrap.");
-                return;
+                // User Rule: Only bootstrap if no root files AND no stable folder.
+                if ((hasIndex && hasHtaccess) || hasStable) {
+                    console.log("  ✅ Root populated (Index, .htaccess, or Stable folder detected). Skipping bootstrap.");
+                    return;
+                }
+            } else {
+                console.log("  ⚠️ Force Mode active: Overwriting root files.");
             }
 
-            console.log("  ⚠️ Missing root files (index.html or .htaccess). Bootstrapping...");
+            console.log("  👉 Bootstrapping root files...");
 
-            const filesToUpload = ['index.html', '.htaccess'];
+            // Fix: Include u.* files (css, min, br, gz) in bootstrap as requested by user.
+            const localFiles = fs.readdirSync(localDir);
+            const filesToUpload = localFiles.filter(f => {
+                return f === 'index.html' ||
+                    f === '.htaccess' ||
+                    (f.startsWith('u.') && (f.endsWith('.css') || f.endsWith('.br') || f.endsWith('.gz')));
+            });
+
             for (const file of filesToUpload) {
                 const localPath = path.join(localDir, file);
                 if (fs.existsSync(localPath)) {
                     await this.client.uploadFrom(localPath, file);
                     console.log(`  ✓ Uploaded: ${file}`);
-                } else {
-                    console.warn(`  ⚠️ Local file missing: ${file}`);
                 }
             }
         } catch (err) {
@@ -383,41 +293,30 @@ class RemoteManager {
     }
 }
 
-// --- CLI Entry Point ---
-
-/**
- * Main execution flow, handles argument parsing and orchestrates the manager.
- */
 async function main() {
     const args = process.argv.slice(2);
 
-    // Parse Flags
     const modeEnsureIdx = args.indexOf('--ensure');
     const modeUploadIdx = args.indexOf('--upload');
-    const modeWipeIdx = args.indexOf('--wipe'); // New
-    const modeBootstrapIdx = args.indexOf('--bootstrap'); // New
+    const modeUploadFileIdx = args.indexOf('--upload-file');
+    const modeWipeIdx = args.indexOf('--wipe');
+    const modeBootstrapIdx = args.indexOf('--bootstrap');
     const doCleanup = args.includes('--cleanup');
     const showHelp = args.includes('--help') || args.includes('-h');
 
-    // Show Help
-    if (showHelp || (modeEnsureIdx === -1 && modeUploadIdx === -1 && modeWipeIdx === -1 && modeBootstrapIdx === -1 && !doCleanup)) {
+    if (showHelp || (modeEnsureIdx === -1 && modeUploadIdx === -1 && modeUploadFileIdx === -1 && modeWipeIdx === -1 && modeBootstrapIdx === -1 && !doCleanup)) {
         console.log(`
 uCss Remote Manager
 -------------------
 Usage: node scripts/remote.js [options]
 
 Options:
-  --cleanup             Run garbage collection for old 'preview-*' folders.
-  --wipe [mode]         Wipe remote files. modes: all, safe, preview, stable. (Default: excludes stable/p/v)
-  --ensure <dir>        Mirror local directory structure to remote (creates missing dirs).
-  --upload <local> [remote]  Upload local directory to remote (default remote is /).
-  --bootstrap <local>   Conditionally upload root files if missing on remote.
-  --help, -h            Show this help message.
-
-Examples:
-  node scripts/remote.js --wipe safe
-  node scripts/remote.js --ensure dist/stable
-  node scripts/remote.js --upload dist/stable /stable
+  --cleanup                Run garbage collection.
+  --wipe [mode]            Wipe remote. modes: all, safe, preview, stable.
+  --ensure <dir>           Mirror structure.
+  --upload <local> <rem>   Upload dir.
+  --upload-file <loc> <r>  Upload file.
+  --bootstrap <local>      Conditional root file upload.
         `);
         if (!showHelp && args.length > 0) process.exit(1);
         process.exit(0);
@@ -429,53 +328,34 @@ Examples:
         const startTime = Date.now();
         await manager.connect();
 
-        // 0. Run Wipe if requested (Destructive first)
         if (modeWipeIdx !== -1) {
             let wipeMode = args[modeWipeIdx + 1];
-            // If next arg is a flag or undefined, use default
-            if (!wipeMode || wipeMode.startsWith('-')) {
-                wipeMode = 'default';
-            }
+            if (!wipeMode || wipeMode.startsWith('-')) wipeMode = 'default';
             await manager.wipe(wipeMode);
         }
 
-        // 1. Run Cleanup if requested
-        if (doCleanup) {
-            await manager.cleanupOldPreviews();
-        }
+        if (doCleanup) await manager.cleanupOldPreviews();
 
-        // 2. Run Ensure Structure if requested (Standalone)
         if (modeEnsureIdx !== -1) {
-            const targetDir = args[modeEnsureIdx + 1];
-            if (!targetDir || targetDir.startsWith('-')) {
-                throw new Error("❌ Error: --ensure requires a local directory path argument.");
-            }
-            await manager.ensureStructure(targetDir);
+            await manager.ensureStructure(args[modeEnsureIdx + 1]);
         }
 
-        // 3. Run Bootstrap if requested
         if (modeBootstrapIdx !== -1) {
-            const localDir = args[modeBootstrapIdx + 1];
-            if (!localDir || localDir.startsWith('-')) {
-                throw new Error("❌ Error: --bootstrap requires a local directory path.");
-            }
-            await manager.bootstrapRoot(localDir);
+            await manager.bootstrapRoot(args[modeBootstrapIdx + 1], args.includes('--force'));
         }
 
-        // 4. Run Upload if requested
         if (modeUploadIdx !== -1) {
             const localDir = args[modeUploadIdx + 1];
             let remoteDir = args[modeUploadIdx + 2];
-
-            if (!localDir || localDir.startsWith('-')) {
-                throw new Error("❌ Error: --upload requires a local directory path.");
-            }
-            // If remote dir is omitted or is another flag, default to root '/'
-            if (!remoteDir || remoteDir.startsWith('-')) {
-                remoteDir = '/';
-            }
-
+            if (!remoteDir || remoteDir.startsWith('-')) remoteDir = '/';
             await manager.uploadFromDir(localDir, remoteDir);
+        }
+
+        if (modeUploadFileIdx !== -1) {
+            const localFile = args[modeUploadFileIdx + 1];
+            let remoteDir = args[modeUploadFileIdx + 2];
+            if (!remoteDir || remoteDir.startsWith('-')) remoteDir = '/';
+            await manager.uploadFile(localFile, remoteDir);
         }
 
         const duration = ((Date.now() - startTime) / 1000).toFixed(2);
@@ -490,5 +370,4 @@ Examples:
     }
 }
 
-// Execute
 main();

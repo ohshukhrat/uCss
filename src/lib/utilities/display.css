@@ -45,14 +45,3 @@
 :where(.td, .table-cell, .dis-td) {
     display: var(--display, table-cell);
 }
-
-:where(.hidden, .hide):has(:not(.editor-styles-wrapper)) {
-    display: var(--hidden-display, none);
-    opacity: var(--hidden-opacity, 0);
-    visibility: var(--hidden-visibility, hidden);
-}
-
-.editor-styles-wrapper :is(.hidden, .hide) {
-    opacity: var(--hidden-opacity, 0.48);
-    transform: scale(.96);
-}

@@ -10,29 +10,29 @@
 
 ## 📑 Contents
 
-*   [🌟 Overview](#-overview)
-*   [🤯 Philosophy](#-philosophy)
+*   [🌟 Overview](#overview)
+*   [🤯 Philosophy](#philosophy)
     *   [The "Exception" Rule](#the-exception-rule)
     *   [Logical Space](#logical-space)
-*   [🚀 Getting Started](#-getting-started)
-*   [📦 Installation & Stats](#-installation--stats)
+*   [🚀 Getting Started](#getting-started)
+*   [📦 Installation & Stats](#installation--stats)
     *   [Bundle Stats](#bundle-stats)
     *   [Direct Links](#direct-links)
     *   [HTML Snippets](#html-snippets)
-*   [📂 Files Reference](#-files-reference)
-*   [🧠 Deep Dive](#-deep-dive)
+*   [📂 Files Reference](#files-reference)
+*   [🧠 Deep Dive](#deep-dive)
     *   [1. Logical Properties (The End of Top/Left)](#1-logical-properties-the-end-of-top-left)
     *   [2. The Fallback Chain (Contextual Spacing)](#2-the-fallback-chain-contextual-spacing)
     *   [3. Responsive Suffixes](#3-responsive-suffixes)
-*   [📍 Reference: Content Map](#-reference-content-map)
+*   [📍 Reference: Content Map](#reference-content-map)
     *   [Padding (`.pd`)](#padding-pd)
     *   [Margin (`.mg`)](#margin-mg)
     *   [Radius (`.rad`)](#radius-rad)
     *   [Position & Display](#position--display)
     *   [Blur & Misc](#blur--misc)
-*   [💡 Best Practices & Customization](#-best-practices--customization)
+*   [💡 Best Practices & Customization](#best-practices--customization)
     *   [When to use Styles vs Utilities](#when-to-use-styles-vs-utilities)
-*   [🔧 For Developers](#-for-developers)
+*   [🔧 For Developers](#for-developers)
 
 ---
 
@@ -92,11 +92,12 @@ uCss enforces this mental model to ensure your app is ready for global distribut
 
 | File | Full (Raw) | Clean | Min | Gzip | Brotli |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`utilities.css`** | **~15 KB** | **~13 KB** | **~12 KB** | **~2.2 KB** | **~1.8 KB** |
-| `padding.css` | 5.5 KB | 4.5 KB | 3.8 KB | 0.7 KB | 0.6 KB |
-| `margin.css` | 5.5 KB | 4.5 KB | 3.8 KB | 0.7 KB | 0.6 KB |
-| `radius.css` | 1.9 KB | 1.5 KB | 1.2 KB | 0.3 KB | 0.2 KB |
-| `misc.css` | 2 KB | 1.8 KB | 1.5 KB | 0.4 KB | 0.3 KB |
+| **`utilities.css`** | **30 KB** | **25 KB** | **20 KB** | **5.4 KB** | **4.2 KB** |
+| `size.css` | 8.2 KB | 7.3 KB | 6.0 KB | 1.1 KB | 0.9 KB |
+| `padding.css` | 6.7 KB | 5.0 KB | 4.1 KB | 0.7 KB | 0.6 KB |
+| `margin.css` | 6.7 KB | 5.3 KB | 4.3 KB | 0.8 KB | 0.6 KB |
+| `position.css` | 3.6 KB | 3.1 KB | 2.5 KB | 0.6 KB | 0.5 KB |
+| `radius.css` | 2.4 KB | 1.6 KB | 1.3 KB | 0.3 KB | 0.3 KB |
 
 ### Direct Links
 
@@ -416,4 +417,82 @@ Do not build your entire site using only utilities (unless you are prototyping).
 [Back to top](#)
 
 **License**: MPL-2.0
-**Copyright**: © 2025 Alive 🜁
+**Copyright**: © 2025 Shukhrat (Alive 🜁) ⤻ UNQA
+
+## 🗺️ Visual Map
+
+```
+src/lib/
+├── config/                  # 1. CONFIGURATION (The Brain)
+│   ├── root/                #    - Semantic Modules
+│   │   ├── colors.css       #    - Palettes & Themes
+│   │   ├── typography.css   #    - Fonts & Scales
+│   │   ├── layout.css       #    - Radius & Spacing
+│   │   └── patterns.css     #    - Component Vars
+│   ├── adapters/            #    - CMS Adapters
+│   │   ├── blocksy.css      #    - Blocksy Theme
+│   │   └── gutenberg.css    #    - WordPress Block Editor
+│   └── root.css             #    - Entry Point
+│
+├── base/                    # 2. BASE (The Foundation)
+│   ├── html/                #    - HTML Engine
+│   │   ├── reset.css        #    - Normalization
+│   │   ├── typography.css   #    - Text Defaults
+│   │   ├── flow.css         #    - Smart Flow Engine
+│   │   ├── lists.css        #    - List Styles
+│   │   ├── forms.css        #    - Input Styling
+│   │   └── helpers.css      #    - HTML Utilities
+│   └── html.css             #    - Entry Point
+│
+├── patterns/                # 3. PATTERNS (The Components)
+│   ├── button/              #    - Atomic Component
+│   │   ├── base.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
+│   └── patterns.css         #    - Entry Point
+│
+├── layout/                  # 4. LAYOUT (The Skeleton)
+│   ├── grid/                #    - Grid Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── columns.css      #    - Presets
+│   │   ├── subgrid.css      #    - Smart Grid
+│   │   ├── recipes.css      #    - Smart Logic (.masonry .g-row)
+│   │   └── item.css         #    - Child Logic
+│   ├── flex/                #    - Flex Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── alignment.css    #    - Alignment Tools
+│   │   ├── gaps.css         #    - Smart Gaps
+│   │   └── item.css         #    - Child Logic
+│   ├── container.css        #    - Container Queries (.c)
+│   ├── flex.css             #    - Entry Point
+│   ├── grid.css             #    - Entry Point
+│   └── section.css          #    - Structural Layout
+│
+├── theming/                 # 5. THEMING (The Skin)
+│   ├── set.css
+│   └── overlay.css
+│
+├── typography/              # 6. TYPOGRAPHY (The Voice)
+│   ├── title.css
+│   ├── text.css
+│   └── text-align.css
+│
+└── utilities/               # 7. UTILITIES (The Tools) <== YOU ARE HERE
+    ├── display.css
+    ├── position.css
+    ├── overflow.css
+    ├── margin.css
+    ├── padding.css
+    ├── radius.css
+    ├── size.css             #    - Size Utilities
+    ├── blur.css
+    └── utilities.css
+```

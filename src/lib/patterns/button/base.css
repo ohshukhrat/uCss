@@ -106,34 +106,6 @@ a.btn {
 }
 
 /**
- * @group Icon Integration
- */
-:where(.btn > .icn, .btn > svg, [data-style="btn"] > .icn, [data-style="btn"] > svg) {
-    fill: var(--btn-icon-fill, var(--btn-icn-fill, var(--icn-fill, currentColor)));
-    stroke: var(--btn-icon-stroke, var(--btn-icn-stroke, var(--icn-stroke)));
-    inline-size: var(--btn-icon-w, var(--btn-icn-w, var(--btn-icn-size, var(--icn-size, 1.25em))));
-    block-size: var(--btn-icon-h, var(--btn-icn-h, var(--btn-icn-size, var(--icn-size, 1.25em))));
-    flex-shrink: var(--btn-icon-shrink, var(--btn-icn-shrink, 0));
-    order: var(--btn-icon-o, var(--btn-icn-o, var(--icn-o)));
-
-    transition: var(--btn-icon-trans, var(--btn-icn-trans, var(--btn-transition, var(--btn-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out)))));
-    transition-property: var(--btn-icon-trans-p, var(--btn-icn-trans-p, color, fill, stroke, height, width, inline-size, block-size));
-}
-
-:where(.btn.str > .icn, .btn.str > svg, .btn > .str, [data-style="btn"].str > svg, [data-style="btn"] > .str) {
-    fill: var(--btn-icon-fill, var(--btn-icn-fill, var(--icn-fill)));
-    stroke: var(--btn-icon-stroke, var(--btn-icn-stroke, var(--icn-stroke, currentColor)));
-}
-
-:where(svg.fill, .fill svg) {
-    fill: var(--btn-icon-fill, var(--btn-icn-fill, var(--icn-fill, currentColor)));
-}
-
-:where(.btn.io1, [data-style="btn"].io1, .io1) {
-    --icn-o: -3;
-}
-
-/**
  * @group States
  */
 

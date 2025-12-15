@@ -12,7 +12,9 @@ src/lib/
 │   │   ├── typography.css   #    - Fonts & Scales
 │   │   ├── layout.css       #    - Radius & Spacing
 │   │   └── patterns.css     #    - Component Vars
-│   ├── blocksy.css          #    - Theme Adapter
+│   ├── adapters/            #    - CMS Adapters
+│   │   ├── blocksy.css      #    - Blocksy Theme
+│   │   └── gutenberg.css    #    - WordPress Block Editor
 │   └── root.css             #    - Entry Point
 │
 ├── base/                    # 2. BASE (The Foundation)
@@ -73,6 +75,7 @@ src/lib/
     ├── margin.css
     ├── padding.css
     ├── radius.css
+    ├── size.css             #    - Size Utilities
     ├── blur.css
     └── utilities.css
 ```

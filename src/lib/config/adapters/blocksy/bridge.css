@@ -1,6 +1,6 @@
 /**
  * @file Blocksy Theme Color Palette Adapter
- * @description Maps uCss tokens to Blocksy's native Custom Properties.
+ * @description Maps Blocksy's native Custom Properties to uCss tokens.
  * Enables uCss to drive Blocksy's theme engine.
  */
 
@@ -85,6 +85,22 @@
     --theme-palette-color-39: var(--osec, hsl(var(--sec-h, 200) var(--sec-s, 19%) var(--sec-l, 18%) / var(--st-al, .32)));
     /* 40. Overlay Tertiary */
     --theme-palette-color-40: var(--oter, hsl(var(--ter-h, 40) var(--ter-s, 33%) var(--ter-l, 93%) / var(--st-al, .32)));
+    /* 41. Gray */
+    --theme-palette-color-41: var(--g, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%)));
+    /* 42. Gray Bold */
+    --theme-palette-color-42: var(--g-bd, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 64%)));
+    /* 43. Gray Lite */
+    --theme-palette-color-43: var(--g-lt, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%)));
+    /* 44. Gray Overlay */
+    --theme-palette-color-44: var(--og, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al, .64)));
+    /* 45. Gray Overlay Bold */
+    --theme-palette-color-45: var(--og-bd, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 64%) / var(--al-bd, .8)));
+    /* 46. Gray Overlay Lite */
+    --theme-palette-color-46: var(--og-lt, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al-lt, .32)));
+    /* 46. Gray Overlay xLite */
+    --theme-palette-color-47: var(--og-xlt, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al-xlt, .16)));
+    /* 46. Gray Overlay xxLite */
+    --theme-palette-color-48: var(--og-xxlt, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al-xxlt, .08)));
 }
 
 /**
@@ -178,18 +194,42 @@
 }
 
 .set {
-    --theme-text-color: var(--set-tx, var(--set-color, var(--tx, var(--theme-palette-color-3, currentColor))));
+    --theme-text-color: var(--set-text, var(--set-tx, var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))))));
 
     :is(h1, h2) {
-        --theme-heading-color: var(--set-t, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+        --theme-heading-color: var(--set-title, var(--set-t, var(--set-heading, var(--set-h, var(--set-color, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
     }
 
     :is(h3, h4, h5, h6) {
-        --theme-heading-color: var(--set-st, var(--set-h, var(--set-color, var(--t, var(--theme-palette-color-4, currentColor)))));
+        --theme-heading-color: var(--set-subtitle, var(--set-st, var(--set-heading, var(--set-h, var(--set-color, var(--set-c, var(--t, var(--theme-palette-color-4, currentColor))))))));
     }
 
     :is(a):not(.btn, [data-style="btn"]) {
-        --theme-link-initial-color: var(--set-link, var(--set-lnk, var(--set-color, var(--set-c, var(--tx, var(--theme-palette-color-3, currentColor))))));
-        --theme-link-hover-color: var(--set-link-hover, var(--set-lnk-hover, var(--a, var(--theme-palette-color-2))));
+        --theme-link-initial-color: var(--set-link, var(--set-lnk, var(--set-p, var(--set-h, var(--set-color, var(--set-c, var(--lnk, var(--p, var(--t, var(--theme-palette-color-4, currentColor))))))))));
+        --theme-link-hover-color: var(--set-link-hover, var(--set-lnk-hover, var(--set-a, var(--lnk-hover, var(--a, var(--theme-palette-color-2, currentColor))))));
+    }
+}
+
+:where(.s, .df) {
+    --theme-content-spacing: var(--el-flow, 0);
+
+    :where(ul, ol, blockquote, figure, pre, table) {
+        --theme-content-spacing: var(--el-flow, 0);
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) {
+        --theme-content-spacing: var(--t-flow-s, 0);
+    }
+
+    :is(p, a, button, .btn) {
+        --theme-content-spacing: var(--p-flow-e, 0);
+    }
+
+    :is(ul, ol) {
+        --theme-content-spacing: var(--list-flow, 0);
+    }
+
+    :is(li) {
+        --theme-content-spacing: var(--li-flow, 0);
     }
 }

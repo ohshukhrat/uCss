@@ -10,25 +10,25 @@
 
 ## 📑 Contents
 
-*   [🌟 Overview](#-overview)
-*   [🤯 Philosophy](#-philosophy)
+*   [🌟 Overview](#overview)
+*   [🤯 Philosophy](#philosophy)
     *   [The End of Magic Numbers](#the-end-of-magic-numbers)
     *   [The Three-Tier Architecture](#the-three-tier-architecture)
-*   [🚀 Getting Started](#-getting-started)
-*   [📦 Installation & Stats](#-installation--stats)
+*   [🚀 Getting Started](#getting-started)
+*   [📦 Installation & Stats](#installation--stats)
     *   [Bundle Stats](#bundle-stats)
     *   [Direct Links](#direct-links)
     *   [HTML Snippets](#html-snippets)
-*   [📂 Files Reference](#-files-reference)
-*   [🧠 Deep Dive](#-deep-dive)
+*   [📂 Files Reference](#files-reference)
+*   [🧠 Deep Dive](#deep-dive)
     *   [The HSL Logic](#the-hsl-logic)
     *   [The Fluid Equation (Clamp)](#the-fluid-equation-clamp)
-*   [📍 Variable Dictionary (Reference)](#-variable-dictionary-reference)
+*   [📍 Variable Dictionary (Reference)](#variable-dictionary-reference)
     *   [Colors (Core)](#colors-core)
     *   [Typography](#typography)
     *   [Layout & Spacing](#layout--spacing)
-*   [💡 Best Practices & Theming](#-best-practices--theming)
-*   [🔧 For Developers](#-for-developers)
+*   [💡 Best Practices & Theming](#best-practices--theming)
+*   [🔧 For Developers](#for-developers)
 
 ---
 
@@ -115,11 +115,11 @@ The fastest way to customize uCss is to create a local `style.css` (or `<style>`
 
 | File | Full (Raw) | Clean | Min | Gzip | Brotli |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`root.css` (Aggregator)** | **~20 KB** | **~16 KB** | **~14 KB** | **~3.5 KB** | **~3.0 KB** |
-| `colors.css` | 8.5 KB | 7.0 KB | 6.0 KB | 1.5 KB | 1.2 KB |
-| `typography.css` | 1.7 KB | 1.5 KB | 1.2 KB | 0.4 KB | 0.3 KB |
-| `layout.css` | 2.0 KB | 1.8 KB | 1.5 KB | 0.5 KB | 0.4 KB |
-| `utilities.css` | 1.2 KB | 1.0 KB | 0.8 KB | 0.3 KB | 0.2 KB |
+| **`root.css` (Aggregator)** | **26 KB** | **18 KB** | **15 KB** | **3.3 KB** | **2.8 KB** |
+| `colors.css` | 7.9 KB | 5.7 KB | 4.9 KB | 1.0 KB | 0.8 KB |
+| `typography.css` | 1.8 KB | 1.3 KB | 1.1 KB | 0.3 KB | 0.3 KB |
+| `layout.css` | 2.0 KB | 1.4 KB | 1.2 KB | 0.4 KB | 0.3 KB |
+| `utilities.css` | 1.2 KB | 0.8 KB | 0.7 KB | 0.3 KB | 0.2 KB |
 
 ### Direct Links
 
@@ -461,4 +461,82 @@ Component-specific defaults.
 [Back to top](#)
 
 **License**: MPL-2.0
-**Copyright**: © 2025 Alive 🜁
+**Copyright**: © 2025 Shukhrat (Alive 🜁) ⤻ UNQA
+
+## 🗺️ Visual Map
+
+```
+src/lib/
+├── config/                  # 1. CONFIGURATION (The Brain) <== YOU ARE HERE
+│   ├── root/                #    - Semantic Modules
+│   │   ├── colors.css       #    - Palettes & Themes
+│   │   ├── typography.css   #    - Fonts & Scales
+│   │   ├── layout.css       #    - Radius & Spacing
+│   │   └── patterns.css     #    - Component Vars
+│   ├── adapters/            #    - CMS Adapters
+│   │   ├── blocksy.css      #    - Blocksy Theme
+│   │   └── gutenberg.css    #    - WordPress Block Editor
+│   └── root.css             #    - Entry Point
+│
+├── base/                    # 2. BASE (The Foundation)
+│   ├── html/                #    - HTML Engine
+│   │   ├── reset.css        #    - Normalization
+│   │   ├── typography.css   #    - Text Defaults
+│   │   ├── flow.css         #    - Smart Flow Engine
+│   │   ├── lists.css        #    - List Styles
+│   │   ├── forms.css        #    - Input Styling
+│   │   └── helpers.css      #    - HTML Utilities
+│   └── html.css             #    - Entry Point
+│
+├── patterns/                # 3. PATTERNS (The Components)
+│   ├── button/              #    - Atomic Component
+│   │   ├── base.css
+│   │   └── group.css
+│   ├── card/                #    - Card Component
+│   │   ├── base.css
+│   │   ├── content.css      #    - Slots & Padding
+│   │   ├── media.css        #    - Full-bleed Media
+│   │   └── subgrid.css      #    - Subgrid Support
+│   ├── button.css           #    - Aggregator
+│   ├── card.css             #    - Aggregator
+│   ├── media.css            #    - Media Wrapper
+│   ├── link.css             #    - Link Wrapper
+│   └── patterns.css         #    - Entry Point
+│
+├── layout/                  # 4. LAYOUT (The Skeleton)
+│   ├── grid/                #    - Grid Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── columns.css      #    - Presets
+│   │   ├── subgrid.css      #    - Smart Grid
+│   │   ├── recipes.css      #    - Smart Logic (.masonry .g-row)
+│   │   └── item.css         #    - Child Logic
+│   ├── flex/                #    - Flex Engine
+│   │   ├── base.css         #    - Core Logic
+│   │   ├── alignment.css    #    - Alignment Tools
+│   │   ├── gaps.css         #    - Smart Gaps
+│   │   └── item.css         #    - Child Logic
+│   ├── container.css        #    - Container Queries (.c)
+│   ├── flex.css             #    - Entry Point
+│   ├── grid.css             #    - Entry Point
+│   └── section.css          #    - Structural Layout
+│
+├── theming/                 # 5. THEMING (The Skin)
+│   ├── set.css
+│   └── overlay.css
+│
+├── typography/              # 6. TYPOGRAPHY (The Voice)
+│   ├── title.css
+│   ├── text.css
+│   └── text-align.css
+│
+└── utilities/               # 7. UTILITIES (The Tools)
+    ├── display.css
+    ├── position.css
+    ├── overflow.css
+    ├── margin.css
+    ├── padding.css
+    ├── radius.css
+    ├── size.css             #    - Size Utilities
+    ├── blur.css
+    └── utilities.css
+```
