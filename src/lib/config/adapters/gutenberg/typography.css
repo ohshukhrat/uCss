@@ -1,0 +1,28 @@
+/**
+ * @file Gutenberg Typography Adapter
+ * @description Maps Gutenberg's native Custom Properties to uCss tokens.
+ * Enables uCss to drive Gutenberg's typography engine.
+ */
+
+:root body {
+    /* Titles: Scales (title.css) */
+    --wp--preset--font-size--t-xxxl: var(--t-fs--xxxl, clamp(3.5rem, 2.294vw + 3.041rem, 5rem));
+    --wp--preset--font-size--t-xxl: var(--t-fs--xxl, clamp(3.25rem, 1.912vw + 2.868rem, 4.5rem));
+    --wp--preset--font-size--t-xl: var(--t-fs--xl, clamp(3rem, 1.53vw + 2.694rem, 4rem));
+    --wp--preset--font-size--t-l: var(--t-fs--l, clamp(2.75rem, 1.53vw + 2.444rem, 3.75rem));
+    --wp--preset--font-size--t-m: var(--t-fs--m, clamp(2.5rem, 1.53vw + 2.194rem, 3.5rem));
+    --wp--preset--font-size--t-s: var(--t-fs--s, clamp(2.25rem, 1.147vw + 2.021rem, 3rem));
+    --wp--preset--font-size--t-xs: var(--t-fs--xs, clamp(2rem, 0.765vw + 1.847rem, 2.5rem));
+    --wp--preset--font-size--t-xxs: var(--t-fs--xxs, clamp(1.75rem, 0.765vw + 1.597rem, 2.25rem));
+    --wp--preset--font-size--t-xxxs: var(--t-fs--xxxs, clamp(1.5rem, 0.765vw + 1.347rem, 2rem));
+
+    /* Text: Scales (text.css) */
+    --wp--preset--font-size--tx-xxl: var(--tx-fs--xxl, clamp(1.5rem, 0.382vw + 1.424rem, 1.75rem));
+    --wp--preset--font-size--tx-xl: var(--tx-fs--xl, clamp(1.375rem, 0.191vw + 1.337rem, 1.5rem));
+    --wp--preset--font-size--tx-l: var(--tx-fs--l, clamp(1.25rem, 0.191vw + 1.212rem, 1.375rem));
+    --wp--preset--font-size--tx-m: var(--tx-fs--m, clamp(1.125rem, 0.191vw + 1.087rem, 1.25rem));
+    --wp--preset--font-size--tx-s: var(--tx-fs--s, clamp(1rem, 0.191vw + 0.962rem, 1.125rem));
+    --wp--preset--font-size--tx-xs: var(--tx-fs--xs, clamp(0.875rem, 0.191vw + 0.837rem, 1rem));
+    --wp--preset--font-size--tx-xxs: var(--tx-fs--xxs, clamp(0.75rem, 0.191vw + 0.712rem, 0.875rem));
+    --wp--preset--font-size--tx-xxxs: var(--tx-fs--xxxs, clamp(0.625rem, 0.191vw + 0.587rem, 0.75rem));
+}

@@ -573,12 +573,13 @@ async function main() {
 </head>
 </head>
 <body class="un set base">
+    <script>try{if(localStorage.getItem('u-theme')==='alt'){document.body.classList.remove('base');document.body.classList.add('alt')}}catch(e){}</script>
     <section class="s" style="--sc-max-w: 56rem; --scc-gap: .75rem;">
         <div class="sf"><div>${htmlContent}</div></div>
     </section>
 
     <!-- Theme Toggle -->
-    <button onclick="const b = document.body; b.classList.toggle('base'); b.classList.toggle('alt');" class="btn subtle icn blr rd" style="position: fixed; bottom: 2rem; left: 2rem; z-index: 999; --btn-c: var(--tx);">
+    <button onclick="const b=document.body;b.classList.toggle('base');b.classList.toggle('alt');const t=b.classList.contains('alt')?'alt':'base';try{localStorage.setItem('u-theme',t)}catch(e){}" class="btn subtle icn blr rd" style="position: fixed; bottom: 2rem; left: 2rem; z-index: 999; --btn-c: var(--tx);">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>

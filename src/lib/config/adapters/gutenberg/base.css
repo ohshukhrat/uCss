@@ -17,3 +17,14 @@
     margin-block-start: 0;
     margin-block-end: 0;
 }
+
+:where(.hidden, .hide):has(:not(.editor-styles-wrapper)) {
+    display: var(--hidden-display, none);
+    opacity: var(--hidden-opacity, 0);
+    visibility: var(--hidden-visibility, hidden);
+}
+
+.editor-styles-wrapper :is(.hidden, .hide) {
+    opacity: var(--hidden-opacity, 0.48);
+    transform: scale(.96);
+}

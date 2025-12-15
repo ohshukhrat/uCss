@@ -91,4 +91,20 @@
     --osec: var(--theme-palette-color-39, var(--theme-palette-color-10, hsl(200 19% 18%)));
     /* 40. Overlay Tertiary */
     --oter: var(--theme-palette-color-40, var(--theme-palette-color-9, hsl(40 33% 93%)));
+    /* 41. Gray */
+    --g: var(--theme-palette-color-41, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%)));
+    /* 42. Gray Bold */
+    --g-bd: var(--theme-palette-color-42, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 64%)));
+    /* 43. Gray Lite */
+    --g-lt: var(--theme-palette-color-43, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%)));
+    /* 44. Gray Overlay */
+    --og: var(--theme-palette-color-44, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al, .64)));
+    /* 45. Gray Overlay Bold */
+    --og-bd: var(--theme-palette-color-45, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 64%) / var(--al-bd, .8)));
+    /* 46. Gray Overlay Lite */
+    --og-lt: var(--theme-palette-color-46, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al-lt, .32)));
+    /* 46. Gray Overlay xLite */
+    --og-xlt: var(--theme-palette-color-47, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al-xlt, .16)));
+    /* 46. Gray Overlay xxLite */
+    --og-xxlt: var(--theme-palette-color-48, hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%) / var(--al-xxlt, .08)));
 }

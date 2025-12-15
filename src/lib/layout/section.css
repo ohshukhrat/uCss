@@ -150,6 +150,21 @@
   @media (height > 1024px) {
     min-block-size: var(--sc-min-h--fh, var(--sc-min-h));
   }
+
+  /* Primitives */
+  --flow--xl: 0;
+  --flow--l: 0;
+  --flow--m: 0;
+  --flow--s: 0;
+  --flow--xs: 0;
+
+  /* Mappings */
+  --p-flow: 0;
+  --list-flow: 0;
+  --li-flow: 0;
+  --el-flow: 0;
+  --t-flow-s: 0;
+  --t-flow-e: 0;
 }
 
 /**
