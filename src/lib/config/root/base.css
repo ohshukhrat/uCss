@@ -100,16 +100,26 @@
     --pre-pd: var(--gap, 1.5rem);
 
     /* HTML: Tables (html.css) */
-    --tbl-th-fs: var(--tx-fs--s, 1rem);
+    --tbl-th-fs: var(--tx-fs--s, clamp(1rem, 0.191vw + 0.962rem, 1.125rem));
     --tbl-th-tt: uppercase;
     --tbl-bd-w: var(--bd-w, .125rem);
-    --tbl-bd-c: var(--out, #131313);
-    --tbl-pd: .75em;
-    --tbl-bg-head: var(--og-lt, hsl(0 0% 50% / .8));
-    --td-bg-hover: var(--og-xlt, hsl(0 0% 50% / .32));
+    --tbl-bd-c: var(--set-bg, var(--bg, var(--og, hsl(0 0% 50% / .64))));
+    --tbl-pd: 1em .75em;
+    --tbl-bg-head: var(--og-lt, hsl(0 0% 50% / .32));
+    --tbl-bg: var(--og-xxlt, var(--bg, var(--l, hsl(0 0% 50% / .08))));
+    --td-bg-hover: var(--og-xlt, hsl(0 0% 50% / .16));
 
     /* HTML: Horizontal Rule (html.css) */
     --hr-h: 1px;
-    --hr-c: var(--out, #1f1f1f);
+    --hr-c: var(--og-lt, hsl(0 0% 50% / .32));
     --hr-m: 2.5rem;
+
+    /* HTML: Links (html.css) */
+    --lnk: var(--p);
+    --lnk-hover: var(--a);
+    --lnk-bg: transparent;
+    --lnk-bg-hover: transparent;
+    --lnk-op: 1;
+    --lnk-op-hover: 1;
+    --lnk-td: underline;
 }

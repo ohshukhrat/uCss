@@ -67,6 +67,7 @@
 :where(.pd, .pdi, .pdis, .pdie) {
     /* Default padding */
     --padding: 0;
+    padding: var(--padding);
     /* Padding Single Value */
     --pd: var(--padding);
     --pd--sm: var(--pd);

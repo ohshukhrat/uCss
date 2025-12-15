@@ -56,27 +56,6 @@
     color: var(--t, currentColor);
 }
 
-/* Links */
-:where(a) {
-    color: var(--link, var(--alt-bd, var(--p, #000)));
-    text-decoration: var(--link-text-decoration, var(--a-td, underline));
-    text-decoration-thickness: var(--link-text-decoration-thickness, var(--a-td-t, var(--bd-w, 1px)));
-    text-underline-offset: var(--link-text-decoration-offset, var(--a-td-o, 0.125em));
-    transition: color var(--trans-d, 0.16s) ease, text-decoration-color var(--trans-d, 0.16s) ease;
-}
-
-:where(a:focus-visible) {
-    outline: var(--link-focus-ring, 0.125rem solid var(--p, currentColor));
-    outline-offset: var(--link-focus-offset, 0.125rem);
-    text-decoration: none;
-    border-radius: var(--link-focus-radius, var(--rad--xs, 0.125em));
-}
-
-:where(a:hover) {
-    color: var(--link-hover, var(--a, #eec14c));
-    text-decoration: var(--link-hover-text-decoration, var(--a-td, underline));
-}
-
 /* Inline Code */
 :where(code, kbd, samp) {
     font-family: var(--mono-font, monospace);
@@ -128,6 +107,35 @@
     background-color: var(--bq-bg, var(--set-bg));
     /* Margin handled by Smart Flow */
     margin-block: 0;
+}
+
+/* Links */
+:where(a) {
+    color: var(--link, var(--lnk, var(--p, var(--t, currentColor))));
+    background-color: var(--link-bg, var(--lnk-bg, transparent));
+    text-decoration: var(--link-text-decoration, var(--lnk-td, underline));
+    text-decoration-thickness: var(--link-text-decoration-thickness, var(--lnk-td-t, var(--bd-w, 1px)));
+    text-underline-offset: var(--link-text-decoration-offset, var(--lnk-td-o, 0.125em));
+    transition: color var(--trans-d, 0.16s) ease, text-decoration-color var(--trans-d, 0.16s) ease;
+    opacity: var(--link-opacity, var(--lnk-op, 1));
+}
+
+:where(a:focus-visible) {
+    outline: var(--link-focus-ring, 0.125rem solid var(--p, currentColor));
+    outline-offset: var(--link-focus-offset, 0.125rem);
+    text-decoration: none;
+    border-radius: var(--link-focus-radius, var(--rad--xs, 0.125em));
+}
+
+:where(a:hover) {
+    color: var(--link-hover, var(--lnk-hover, var(--a, #eec14c)));
+    background-color: var(--link-bg-hover, var(--lnk-bg-hover, transparent));
+    text-decoration: var(--link-text-decoration-hover, var(--lnk-td-hover, underline));
+    opacity: var(--link-opacity-hover, var(--lnk-op-hover, 1));
+
+    >* {
+        color: inherit;
+    }
 }
 
 /* Selection Color */

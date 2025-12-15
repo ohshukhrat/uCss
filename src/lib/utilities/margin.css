@@ -59,6 +59,9 @@
 }
 
 :where(.mg, .mgi, .mgis, .mgie) {
+    /* Default margin */
+    --margin: 0;
+    margin: var(--margin);
     /* Margin Single Value */
     --mg: var(--margin);
     --mg--sm: var(--mg);

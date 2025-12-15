@@ -4,11 +4,24 @@
  */
 
 :where(table) {
+    font-size: var(--tbl-fs, var(--tx-fs--xs, clamp(0.875rem, 0.191vw + 0.837rem, 1rem)));
     width: var(--tbl-w, 100%);
+
+    --tbl-bd-c: transparent;
+    --tbl-bd: var(--tbl-bd-w, .0625rem) var(--tbl-bd-s, solid) var(--tbl-bd-c, var(--set-bg, var(--bg, var(--og, hsl(0 0% 50% / .64)))));
+    border-top: var(--tbl-bdt, var(--tbl-bd));
+    border-bottom: var(--tbl-bdb, var(--tbl-bd));
+    border-left: var(--tbl-bdl, var(--tbl-bd));
+    border-right: var(--tbl-bdr, var(--tbl-bd));
+
     border-collapse: var(--tbl-border-collapse, collapse);
     caption-side: var(--tbl-caption-side, bottom);
+
     margin-block-start: var(--tbl-mbs, 0);
     margin-block-end: var(--tbl-mbe, 0);
+
+    --tbl-bg: transparent;
+    background-color: var(--tbl-bg, var(--og-xxlt, var(--bg, var(--l, hsl(0 0% 50% / .08)))));
     /* Handled by Smart Flow */
 }
 
@@ -16,25 +29,49 @@
     text-align: var(--tbl-th-ta, start);
     font-weight: var(--tbl-th-fw, var(--t-fw, 700));
     color: var(--tbl-th-c, var(--set-h, var(--t, currentColor)));
-    font-size: var(--tbl-th-fs, var(--tx-fs--s, 1rem));
+    font-size: var(--tbl-th-fs, var(--tx-fs--s, clamp(1rem, 0.191vw + 0.962rem, 1.125rem)));
     text-transform: var(--tbl-th-tt);
+
     background-color: var(--tbl-th-bg, var(--tbl-bg-head, var(--og-lt, hsl(0 0% 50% / .16))));
-    border-bottom: var(--tbl-th-bd-w, 2px) solid var(--tbl-bd-c-final);
+
+    --tbl-th-bdt: 0;
+    --tbl-th-bdl: 0;
+    --tbl-th-bdr: 0;
+    --tbl-th-bd: var(--tbl-th-bd-w, var(--tbl-bd-w, .0625rem)) var(--tbl-th-bd-s, solid) var(--tbl-th-bd-c, var(--tbl-bd-c, var(--set-bg, var(--bg, var(--og, hsl(0 0% 50% / .64))))));
+    border-top: var(--tbl-th-bdt, var(--tbl-th-bd));
+    border-bottom: var(--tbl-th-bdb, var(--tbl-th-bd));
+    border-left: var(--tbl-th-bdl, var(--tbl-th-bd));
+    border-right: var(--tbl-th-bdr, var(--tbl-th-bd));
+
     white-space: var(--tbl-th-ws);
-    padding: var(--tbl-pd, var(--tbl-pd-y, 0.75em) var(--tbl-pd-x, 0.75em));
+    min-width: var(--tbl-th-min-w, calc(var(--tbl-pd-x, 0.75em) * 2) + 5ch);
+    padding: var(--tbl-pd, var(--tbl-pd-y, 1em) var(--tbl-pd-x, 0.75em));
 }
 
 :where(td) {
-    padding: var(--tbl-pd, var(--tbl-pd-y, 0.75em) var(--tbl-pd-x, 0.75em));
+    padding: var(--tbl-pd, var(--tbl-pd-y, 1em) var(--tbl-pd-x, 0.75em));
     vertical-align: var(--tbl-va, middle);
+
+    color: var(--tbl-c, var(--set-c, var(--t, currentColor)));
+    background-color: var(--tbl-td-bg, var(--tbl-bg, var(--og-xxlt, var(--bg, var(--l, hsl(0 0% 50% / .08))))));
+
     border-bottom: var(--tbl-bd-w, 1px) solid var(--tbl-bd-c, var(--out, #131313));
-    background-color: var(--tbl-td-bg, var(--og-xxlt, hsl(0 0% 50% / .08)));
+
     font-variant-numeric: tabular-nums;
-    color: var(--tbl-c, var(--set-c, var(--t, #333)));
+}
+
+:where(td:not(:last-child)) {
+    --tbl-td-bdt: 0;
+    --tbl-td-bdl: 0;
+    --tbl-td-bdr: 0;
+    --tbl-td-bd: var(--tbl-td-bd-w, var(--tbl-bd-w, .0625rem)) var(--tbl-td-bd-s, solid) var(--tbl-td-bd-c, var(--tbl-bd-c, var(--set-bg, var(--bg, var(--og, hsl(0 0% 50% / .64))))));
+    border-top: var(--tbl-td-bdt, var(--tbl-td-bd));
+    border-bottom: var(--tbl-td-bdb, var(--tbl-td-bd));
+    border-left: var(--tbl-td-bdl, var(--tbl-td-bd));
+    border-right: var(--tbl-td-bdr, var(--tbl-td-bd));
 }
 
 :where(tr:hover td) {
-    --set-bg: var(--og-bd, hsl(0 0% 50% / .8));
     background-color: var(--td-bg-hover, var(--set-bg, var(--og-xlt, hsl(0 0% 50% / .16))));
     color: var(--tbl-c-hover, var(--set-c, var(--tx, currentColor)));
 }

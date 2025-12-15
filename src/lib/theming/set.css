@@ -37,14 +37,17 @@
 
     /* Link Overrides */
     :is(a):not(.btn, [data-style="btn"]) {
-        color: var(--set-link, var(--set-lnk, var(--set-h, var(--set-color, var(--set-c, var(--tx, currentColor))))));
-        background-color: var(--set-link-bg, var(--set-lnk-bg));
-        text-decoration: var(--set-link-dec, var(--set-lnk-dec, var(--link-dec, var(--lnk-dec, underline))));
+        color: var(--set-link, var(--set-lnk, var(--set-p, var(--set-h, var(--set-color, var(--set-c, var(--lnk, var(--p, var(--t, currentColor)))))))));
+        background-color: var(--set-link-bg, var(--set-lnk-bg, var(--lnk-bg)));
+        text-decoration: var(--set-link-td, var(--set-lnk-td, var(--lnk-td, underline)));
+        opacity: var(--set-link-opacity, var(--set-lnk-op, var(--lnk-op, 1)));
     }
 
-    :is(a:hover):not(.btn, [data-style="btn"]) {
-        color: var(--set-link-hover, var(--set-lnk-hover, var(--set-a, var(--a, currentColor))));
-        background-color: var(--set-link-bg-hover, var(--set-lnk-bg-hover, var(--set-lnk-bg)));
+    :is(a):not(.btn, [data-style="btn"]):hover {
+        --set-a: var(--lnk-hover, var(--a, #ffb900));
+        color: var(--set-link-hover, var(--set-lnk-hover, var(--set-a, var(--lnk-hover, var(--a, currentColor)))));
+        background-color: var(--set-link-bg-hover, var(--set-lnk-bg-hover, var(--set-lnk-bg, var(--lnk-bg-hover, var(--lnk-bg)))));
+        opacity: var(--set-link-opacity-hover, var(--set-lnk-op-hover, var(--lnk-op-hover, 0.8)));
     }
 
     /* Card Context */
@@ -54,6 +57,10 @@
         --crd-tx-c: var(--set-card-text-c, var(--set-crd-tx-c, var(--set-tx, var(--set-c, var(--tx, currentColor)))));
 
         --crd-h-c-hover: var(--set-card-link-c, var(--set-crd-lnk-c, var(--set-lnk-hover, var(--set-a, var(--a, #ffb900)))));
+
+        :where(h2, h3, h4)> :where(a) {
+            text-decoration: var(--set-card-link-td, none);
+        }
     }
 }
 
@@ -68,7 +75,8 @@
     --set-c: var(--set-primary-color, var(--set-p-c, var(--tx, hsl(0 0% 8%))));
     --set-bg: var(--set-primary-background, var(--set-p-bg, var(--op-lt, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-lt, .32)))));
 
-    --set-a: var(--alt-bd, var(--contrast, #000));
+    --set-p: var(--t, var(--alt-bd, var(--contrast, #000)));
+    --set-a: var(--lnk-hover, var(--a, #ffb900));
 }
 
 :where(.set.primary, .set-primary, .p, .set-p):where(.bd, .bold) {

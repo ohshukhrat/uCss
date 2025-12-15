@@ -533,7 +533,7 @@ async function main() {
             try { htmlContent = marked.parse(md, { gfm: true, breaks: false }); } catch (e) { return; }
 
             // Wrap tables for scrollability
-            htmlContent = htmlContent.replace(/<table>/g, '<div class="of-x"><table>').replace(/<\/table>/g, '</table></div>');
+            htmlContent = htmlContent.replace(/<table>/g, '<div class="ofx"><table>').replace(/<\/table>/g, '</table></div>');
 
             // Apply HTML Prefixing to Content
             // NOTE: We do NOT prefix here anymore to avoid double-prefixing when we process the full template later.
@@ -569,7 +569,7 @@ async function main() {
     </style>
 </head>
 </head>
-<body class="set base">
+<body class="un set base">
     <section class="s" style="--sc-max-w: 56rem; --scc-gap: .75rem;">
         <div class="sf"><div>${htmlContent}</div></div>
     </section>

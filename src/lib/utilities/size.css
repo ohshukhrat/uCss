@@ -1,0 +1,301 @@
+/**
+ * @file Size Utilities
+ * @description Responsive size system using CSS logical properties.
+ * Supports fluid scaling via container queries using --sz* variables.
+ * Includes predefined size presets (clamp and percentage based).
+ * 
+ * @usage
+ * classes: .sz (all), .szb (block), .szi (inline), .szbs (block-start), etc.
+ * variables: --sz, --szb, --szi, --szbs, --szbe, --szie, --sz--sm, --sz--md, --sz--lg, etc.
+ */
+
+/**
+ * @group Size block (Height)
+ * Controls size-block.
+ * Fallback chain: szbs -> szb -> sz
+ */
+:where(.sz, .szb) {
+    /* Default size */
+    --size: auto;
+    block-size: var(--size);
+    /* Size Single Value */
+    --sz: var(--size);
+    --sz--sm: var(--sz);
+    /* Size Block */
+    --szb: var(--sz--sm);
+    --szb--sm: var(--szb);
+    /* Chained Declaration (for ease of computation) */
+    block-size:
+        var(--szb--sm, var(--szb, var(--sz--sm, var(--sz))));
+
+    --szb-min: auto;
+    --szb-min--sm: var(--szb-min);
+    min-block-size: var(--sz-min--sm, var(--sz-min));
+    --szb-max: auto;
+    --szb-max--sm: var(--szb-max);
+    max-block-size: var(--sz-max--sm, var(--sz-max));
+
+    @container (669.99px <=width <=999.99px) {
+        --sz--md: var(--sz);
+        --szb: var(--sz--md);
+        --szb--md: var(--szb);
+        block-size:
+            var(--szb--md, var(--szb, var(--sz--md, var(--sz))));
+
+        --szb-min--md: var(--szb-min);
+        min-block-size: var(--sz-min--md, var(--sz-min));
+        --szb-max--md: var(--szb-max);
+        max-block-size: var(--sz-max--md, var(--sz-max));
+    }
+
+    @container (width >999.99px) {
+        --sz--lg: var(--sz);
+        --szb: var(--sz--lg);
+        --szb--lg: var(--szb);
+        block-size:
+            var(--szb--lg, var(--szb, var(--sz--lg, var(--sz))));
+
+        --szb-min--lg: var(--szb-min);
+        min-block-size: var(--sz-min--lg, var(--sz-min));
+        --szb-max--lg: var(--szb-max);
+        max-block-size: var(--sz-max--lg, var(--sz-max));
+    }
+}
+
+/**
+ * @group Size inline
+ * Controls size-inline.
+ * Fallback chain: sz -> szi
+ */
+:where(.sz, .szi) {
+    /* Default size */
+    --size: auto;
+    inline-size: var(--size);
+    /* Padding Single Value */
+    --sz: var(--size);
+    --sz--sm: var(--sz);
+    /* Padding Inline */
+    --szi: var(--sz--sm);
+    --szi--sm: var(--szi);
+    /* Chained Declaration (for ease of computation) */
+    inline-size:
+        var(--szi--sm, var(--szi, var(--sz--sm, var(--sz))));
+
+    --szi-min: auto;
+    --szi-min--sm: var(--szi-min);
+    min-inline-size: var(--szi-min--sm, var(--szi-min));
+    --szi-max: auto;
+    --szi-max--sm: var(--szi-max);
+    max-inline-size: var(--szi-max--sm, var(--szi-max));
+
+    @container (669.99px <=width <=999.99px) {
+        --sz--md: var(--sz);
+        --szi: var(--sz--md);
+        --szi--md: var(--szi);
+        inline-size:
+            var(--szi--md, var(--szi, var(--sz--md, var(--sz))));
+
+        --szi-min--md: var(--szi-min);
+        min-inline-size: var(--szi-min--md, var(--szi-min));
+        --szi-max--md: var(--szi-max);
+        max-inline-size: var(--szi-max--md, var(--szi-max));
+    }
+
+    @container (width >999.99px) {
+        --sz--lg: var(--sz);
+        --szi: var(--sz--lg);
+        --szi--lg: var(--szi);
+        inline-size:
+            var(--szi--lg, var(--szi, var(--sz--lg, var(--sz))));
+
+        --szi-min--lg: var(--szi-min);
+        min-inline-size: var(--szi-min--lg, var(--szi-min));
+        --szi-max--lg: var(--szi-max);
+        max-inline-size: var(--szi-max--lg, var(--szi-max));
+    }
+}
+
+
+/**
+ * @group Block Size Presets
+ * 
+ * 
+ */
+:where(.szb.fs, .szb--fs, .szb.screen, .szb--screen, .sz.fs, .sz--fs) {
+    --szb-min: var(--szb-min-fs, 100vh);
+    --szb-min--sm: var(--szb-min-fs-sm, 100dvh);
+}
+
+:where(.szb.min-content, .szb--min-content, .szb.min-c, .sz.min-content, .sz--min-content, .sz.min-c) {
+    --szb: min-content;
+}
+
+:where(.szb.fit-content, .szb--fit-content, .szb.fit-c, .sz.fit-content, .sz--fit-content, .sz.fit-c) {
+    --szb: fit-content;
+}
+
+:where(.szb.max-content, .szb--max-content, .szb.max-c, .sz.max-content, .sz--max-content, .sz.max-c) {
+    --szb: max-content;
+}
+
+:where(.szb.hf, .szb--hf, .szb.half, .szb--half, .szb-50, .szb-1-2) {
+    --szb: var(--sz-hf, 50%);
+}
+
+:where(.szb.qf, .szb--qf, .szb.quarter, .szb--quarter, .szb-25, .szb-1-4) {
+    --szb: var(--sz-qf, 25%);
+}
+
+:where(.szb.trd, .szb--trd, .szb.third, .szb--third, .szb-33, .szb-1-3) {
+    --szb: var(--sz-trd, 33, 33333%);
+}
+
+:where(.szb.trds, .szb--trds, .szb.two-thirds, .szb--two-thirds, .szb-66, .szb-2-3) {
+    --szb: var(--sz-trds, 66, 33337%);
+}
+
+:where(.szb.fifth, .szb--fifth, .szb-20, .szb-1-5) {
+    --szb: var(--sz-f, 20%);
+}
+
+:where(.szb.xxxl, .szb--xxxl, .szb--3xl, .sz.xxxl, .sz--xxxl, .sz--3xl) {
+    --szb: var(--sz-xxxl, 20rem);
+}
+
+:where(.szb.xxl, .szb--xxl, .szb--2xl, .sz.xxl, .sz--xxl, .sz--2xl) {
+    --szb: var(--sz-xxl, 16rem);
+}
+
+:where(.szb.xl, .szb--xl, .sz.xl, .sz--xl) {
+    --szb: var(--sz-xl, 12rem);
+}
+
+:where(.szb.l, .szb--l, .sz.l, .sz--l) {
+    --szb: var(--sz-l, 10rem);
+}
+
+:where(.szb.m, .szb--m, .sz.m, .sz--m) {
+    --szb: var(--sz-m, 8rem);
+}
+
+:where(.szb.s, .szb--s, .sz.s, .sz--s) {
+    --szb: var(--sz-s, 6rem);
+}
+
+:where(.szb.xs, .szb--xs, .sz.xs, .sz--xs) {
+    --szb: var(--sz-xs, 5rem);
+}
+
+:where(.szb.xxs, .szb--xxs, .szb--2xs, .sz.xxs, .sz--xxs, .sz--2xs) {
+    --szb: var(--sz-xxs, 4rem);
+}
+
+:where(.szb.xxxs, .szb--xxxs, .szb--3xs, .sz.xxs, .sz--xxs, .sz--2xs) {
+    --szb: var(--sz-xxxs, 3rem);
+}
+
+:where(.szb.tiny, .szb--t, .sz.tiny, .sz--t) {
+    --szb: var(--sz-t, 2.5rem);
+}
+
+:where(.szb.xt, .szb--xt, .sz.xt, .sz--xt) {
+    --szb: var(--sz-xt, 2rem);
+}
+
+:where(.szb.xxt, .szb--xxt, .szb--2xt, .sz.xxt, .sz--xxt, .sz--2xt) {
+    --szb: var(--sz-xxt, 1.5rem);
+}
+
+:where(.szb.xxxt, .szb--xxxt, .szb--3xt, .sz.xxxt, .sz--xxxt, .sz--3xt) {
+    --szb: var(--sz-xxxt, 1.25rem);
+}
+
+/**
+ * @group Inline Size Presets
+ * 
+ * 
+ */
+
+:where(.szi.content, .szi--contentm, .szi.con, .szi--con, .sz.content, .sz--content, .sz.con, .sz--con) {
+    --szi: 64ch;
+}
+
+:where(.szi.con-wide, .szi--con-wide, .sz.con-wide, .sz--con-wide, .szi.cwide, .szi--cwide, .sz.cwide, .sz--cwide, .szi.cw, .szi--cw, .sz.cw, .sz--cw) {
+    --szi: 76ch;
+}
+
+:where(.szi.con-narrow, .szi--con-narrow, .sz.con-narrow, .sz--con-narrow, .szi.cnarrow, .szi--cnarrow, .sz.cnarrow, .sz--cnarrow, .szi.cn, .szi--cn, .sz.cn, .sz--cn) {
+    --szi: 56ch;
+}
+
+:where(.szi.con-xnarrow, .szi--con-xnarrow, .sz.con-xnarrow, .sz--con-xnarrow, .szi.cxnarrow, .szi--cxnarrow, .sz.cxnarrow, .sz--cxnarrow, .szi.cxn, .szi--cxn, .sz.cxn, .sz--cxn) {
+    --szi: 48ch;
+}
+
+:where(.szi.min-content, .szi--min-content, .szi.min-c, .sz.min-content, .sz--min-content, .sz.min-c) {
+    --szi: min-content;
+}
+
+:where(.szi.fit-content, .szi--fit-content, .szi.fit-c, .sz.fit-content, .sz--fit-content, .sz.fit-c) {
+    --szi: fit-content;
+}
+
+:where(.szi.max-content, .szi--max-content, .szi.max-c, .sz.max-content, .sz--max-content, .sz.max-c) {
+    --szi: max-content;
+}
+
+:where(.szi.xxxl, .szi--xxxl, .szi--3xl, .sz.xxxl, .sz--xxxl, .sz--3xl) {
+    --szi: var(--sz-xxxl, 20rem);
+}
+
+:where(.szi.xxl, .szi--xxl, .szi--2xl, .sz.xxl, .sz--xxl, .sz--2xl) {
+    --szi: var(--sz-xxl, 16rem);
+}
+
+:where(.szi.xl, .szi--xl, .sz.xl, .sz--xl) {
+    --szi: var(--sz-xl, 12rem);
+}
+
+:where(.szi.l, .szi--l, .sz.l, .sz--l) {
+    --szi: var(--sz-l, 10rem);
+}
+
+:where(.szi.m, .szi--m, .sz.m, .sz--m) {
+    --szi: var(--sz-m, 8rem);
+}
+
+:where(.szi.s, .szi--s, .sz.s, .sz--s) {
+    --szi: var(--sz-s, 6rem);
+}
+
+:where(.szi.xs, .szi--xs, .sz.xs, .sz--xs) {
+    --szi: var(--sz-xs, 5rem);
+}
+
+:where(.szi.xxs, .szi--xxs, .szi--2xs, .sz.xxs, .sz--xxs, .sz--2xs) {
+    --szi: var(--sz-xxs, 4rem);
+}
+
+:where(.szi.xxxs, .szi--xxxs, .szi--3xs, .sz.xxs, .sz--xxs, .sz--2xs) {
+    --szi: var(--sz-xxxs, 3rem);
+}
+
+:where(.szi.tiny, .szi--t, .sz.tiny, .sz--t) {
+    --szi: var(--sz-t, 2.5rem);
+}
+
+:where(.szi.xt, .szi--xt, .sz.xt, .sz--xt) {
+    --szi: var(--sz-xt, 2rem);
+}
+
+:where(.szi.xxt, .szi--xxt, .szi--2xt, .sz.xxt, .sz--xxt, .sz--2xt) {
+    --szi: var(--sz-xxt, 1.5rem);
+}
+
+:where(.szi.xxxt, .szi--xxxt, .szi--3xt, .sz.xxxt, .sz--xxxt, .sz--3xt) {
+    --szi: var(--sz-xxxt, 1.25rem);
+}
+
+:where(.sz.ar) {
+    aspect-ratio: var(--sz-ar, 1);
+}

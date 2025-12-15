@@ -79,13 +79,18 @@
   :where(a:not(.btn, [data-style="btn"])) {
     text-decoration: var(--link-text-dec, var(--lnk-text-d, var(--lnk-td, var(--a-td, underline))));
   }
+
+  :where(&):where(.fh, .screen) {
+    --s-min-h: 100dvh;
+    --s-min-h--fh: auto;
+  }
 }
 
 /**
  * @group Content Container
  * The inner wrapper (.sc or direct child of .s). Handles max-inline-size (max-width) and centering.
  */
-:where(.s > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc) {
+:where(.s:not(.s *.s) > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc) {
   display: var(--sc-d, flex);
   flex-direction: var(--sc-fd, column);
   flex-wrap: var(--sc-fw);
@@ -151,19 +156,19 @@
  * @group Inner Container Width Modifiers
  * Presets for inner container max-inline-size (max-width) (.s__w, .s__uw, etc).
  */
-:where(.s__w) {
+:where(.s__w, .sc--w, .s > .wide) {
   --sc-max-w: var(--sc-w-max-w, 1440px);
 }
 
-:where(.s__xw) {
+:where(.s__xw, .sc--xw, .s > .xwide) {
   --sc-max-w: var(--sc-xw-max-w, 1600px);
 }
 
-:where(.s__uw) {
+:where(.s__uw, .sc--uw, .s > .uwide) {
   --sc-max-w: var(--sc-uw-max-w, 1920px);
 }
 
-:where(.s__f) {
+:where(.s__f, .sc--f, .s > .full) {
   --sc-max-w: var(--sc-f-max-w, 100%);
 }
 
@@ -171,7 +176,7 @@
  * @group Inner Container Child Items (.scc)
  * API for third-level items (Section > Container > Child).
  */
-:where(.s > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc)>:where(*, .scc) {
+:where(.s:not(.s *.s) > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc)>:where(*, .scc) {
   inline-size: var(--scc-w--sm, var(--scc-w, 100%));
   max-inline-size: var(--scc-max-w--sm, var(--scc-max-w));
 
@@ -201,37 +206,37 @@
   }
 }
 
-:where(.s > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc)>:where(.as-c),
+:where(.s:not(.s *.s) > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc)>:where(.as-c),
 :where(.scc-as-c, .scc.as-c) {
   --scc-as: center;
 }
 
-:where(.s > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc)>:where(.as-s),
+:where(.s:not(.s *.s) > *:not(.o, figure, img, picture, video, svg, .block-list-appender, style, script), .sc)>:where(.as-s),
 :where(.scc-as-s, .scc.as-s) {
   --scc-as: stretch;
 }
 
-:where(.s__h) {
+:where(.s__h, .scc--h, .s > * > .header, .s > * > .head) {
   --scc-max-w: var(--s-h-max-w, 64rem);
 }
 
-:where(.s__hw) {
+:where(.s__hw, .scc--hw, .s > * > .head-wide, .s > * > .hwide, .s > * > .hw) {
   --scc-max-w: var(--s-hw-max-w, 72rem);
 }
 
-:where(.s__hn) {
+:where(.s__hn, .scc--hn, .s > * > .head-narrow, .s > * > .hnarrow, .s > * > .hn) {
   --scc-max-w: var(--s-hn-max-w, 56rem);
 }
 
-:where(.s__c) {
+:where(.s__c, .scc--c, .s > * > .content, .s > * > .con) {
   --scc-max-w: var(--s-c-max-w, 48rem);
 }
 
-:where(.s__cw) {
+:where(.s__cw, .scc--cw, .s > * > .con-wide, .s > * > .cwide, .s > * > .cw) {
   --scc-max-w: var(--s-cw-max-w, 56rem);
 }
 
-:where(.s__cn) {
+:where(.s__cn, .scc--cn, .s > * > .con-narrow, .s > * > .cnarrow, .s > * > .cn) {
   --scc-max-w: var(--s-cn-max-w, 40rem);
 }
 
