@@ -116,7 +116,8 @@
     text-decoration: var(--link-text-decoration, var(--lnk-td, underline));
     text-decoration-thickness: var(--link-text-decoration-thickness, var(--lnk-td-t, var(--bd-w, 1px)));
     text-underline-offset: var(--link-text-decoration-offset, var(--lnk-td-o, 0.125em));
-    transition: color var(--trans-d, 0.16s) ease, text-decoration-color var(--trans-d, 0.16s) ease;
+    transition: var(--lnk-trans, var(--trans-d, 0.16s) ease-in-out);
+    transition-property: var(--lnk-trans-p, color, text-decoration-color, opacity);
     opacity: var(--link-opacity, var(--lnk-op, 1));
 }
 
@@ -128,14 +129,20 @@
 }
 
 :where(a:hover) {
-    color: var(--link-hover, var(--lnk-hover, var(--a, #eec14c)));
+    color: var(--link-hover, var(--lnk-hover, var(--set-a, var(--a, #eec14c))));
     background-color: var(--link-bg-hover, var(--lnk-bg-hover, transparent));
     text-decoration: var(--link-text-decoration-hover, var(--lnk-td-hover, underline));
-    opacity: var(--link-opacity-hover, var(--lnk-op-hover, 1));
+    opacity: var(--link-opacity-hover, var(--lnk-op-hover, var(--set-lnk-op-hover, var(--lnk-op-hover, 1))));
 
     >* {
         color: inherit;
     }
+}
+
+:where(pre, code, kbd, samp, blockquote, table, td) :where(a:hover) {
+    --lnk-hover: var(--set-a, var(--alt-bd, var(--contrast, #000)));
+    color: var(--bq-link-hover, var(--set-link-hover, var(--lnk-hover, var(--t, var(--alt-bd, var(--contrast, #000))))));
+    opacity: var(--bq-link-opacity-hover, var(--set-link-op-hover, var(--lnk-op-active, 1)));
 }
 
 /* Selection Color */

@@ -115,12 +115,12 @@
   margin-block: var(--sc-mbs, var(--sc-mb)) var(--sc-mbe, var(--sc-mb));
   margin-inline: var(--sc-mis, var(--sc-mi)) var(--sc-mie, var(--sc-mi));
 
-  --of: auto;
+  --of: visible;
   --ofx: var(--of);
   --ofy: var(--of);
   --sc-ofx: var(--ofx);
   --sc-ofy: var(--ofy);
-  overflow: var(--sc-of, var(--sc-ofx, auto) var(--sc-ofy, auto));
+  overflow: var(--sc-of, var(--sc-ofx, visible) var(--sc-ofy, visible));
 
   background-color: var(--sc-bg--sm, var(--sc-bg));
 

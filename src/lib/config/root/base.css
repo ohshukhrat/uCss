@@ -121,5 +121,8 @@
     --lnk-bg-hover: transparent;
     --lnk-op: 1;
     --lnk-op-hover: 1;
+    --lnk-op-active: 0.8;
     --lnk-td: underline;
+    --lnk-trans: var(--trans-hover, 0.16s ease-in-out);
+    --lnk-trans-p: color, text-decoration-color, opacity;
 }

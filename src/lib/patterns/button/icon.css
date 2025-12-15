@@ -1,0 +1,46 @@
+/**
+ * @group Icon Integration
+ */
+:where(.btn, [data-style="btn"]) {
+
+    :where(.icn, svg),
+    &:where(.icn) :where(svg) {
+        display: var(--btn-icon-d, var(--btn-icn-d, block));
+        inline-size: var(--btn-icon-w, var(--btn-icn-w, var(--btn-icn-size, var(--icn-size, 1.25em))));
+        block-size: var(--btn-icon-h, var(--btn-icn-h, var(--btn-icn-size, var(--icn-size, 1.25em))));
+        aspect-ratio: var(--btn-svg-ar, var(--btn-ar));
+        flex-shrink: var(--btn-icon-shrink, var(--btn-icn-shrink, 0));
+        order: var(--btn-icon-o, var(--btn-icn-o, var(--icn-o)));
+
+        transition: var(--btn-icon-trans, var(--btn-icn-trans, var(--btn-transition, var(--btn-trans, var(--trans-d, 0.32s) var(--trans-t, ease-in-out)))));
+        transition-property: var(--btn-icon-trans-p, var(--btn-icn-trans-p, color, fill, stroke, height, width, inline-size, block-size));
+    }
+
+    :where(svg.str, .svg.stroke),
+    &:where(.str, .stroke) :where(svg) {
+        stroke: var(--btn-icon-stroke, var(--btn-icn-stroke, var(--icn-stroke, currentColor)));
+    }
+
+    :where(svg.fill, .svg.fill),
+    &:where(.fill, .fill) :where(svg) {
+        fill: var(--btn-icon-fill, var(--btn-icn-fill, var(--icn-fill, currentColor)));
+    }
+
+    :where(svg.str, svg.stroke):where(.tr),
+    &:where(.str, .stroke):where(.tr) :where(svg),
+    :where(svg.fill, .svg.fill):where(.only),
+    &:where(.fill, .fill):where(.only) :where(svg) {
+        stroke: var(--btn-svg-stroke, transparent);
+    }
+
+    :where(svg.str, svg.stroke):where(.only),
+    &:where(.str, .stroke):where(.only) :where(svg),
+    :where(svg.fill, .svg.fill):where(.tr),
+    &:where(.fill, .fill):where(.tr) :where(svg) {
+        fill: var(--btn-svg-fill, transparent);
+    }
+
+    :where(.o-1, .o-f) {
+        --icn-o: -69;
+    }
+}
