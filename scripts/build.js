@@ -506,8 +506,8 @@ async function main() {
             const renderer = {
                 heading({ tokens, depth }) {
                     const text = this.parser.parseInline(tokens);
-                    // Match marked default slugger: replace non-word chars with dash
-                    const id = text.toLowerCase().replace(/[^\w]+/g, '-');
+                    // Github-style slugger: remove non-alphanumeric chars (except dash/space), then dashify
+                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
                     return `<h${depth} id="${id}">${text}</h${depth}>`;
                 },
                 link({ href, title, tokens }) {

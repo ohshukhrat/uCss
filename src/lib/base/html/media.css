@@ -4,15 +4,12 @@
  */
 
 :where(img, picture, video, canvas, svg) {
-    display: block;
-    max-width: 100%;
-    height: auto;
+    display: var(--med-d, block);
+    max-width: var(--med-max-w, 100%);
+    height: var(--med-h, auto);
     font-style: var(--med-font-style, italic);
-    shape-margin: var(--shape-m, 1rem);
-
-    /* SVG Specifics */
-    fill: var(--svg-fill, initial);
-    stroke: var(--svg-stroke, initial);
+    shape-outside: var(--med-shp-out, none);
+    shape-margin: var(--med-shp-m, 1em);
 }
 
 :where(img) {
