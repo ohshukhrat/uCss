@@ -725,6 +725,41 @@ async function main() {
 
     spawnSync('node', ['scripts/compress.js', outputDir], { stdio: 'inherit' });
 
+    // 7.5 Create Zip Archive (For root downloads)
+    // Generates dist/latest.zip or dist/stable.zip
+    if (outputDirName === 'latest' || outputDirName === 'stable') {
+        console.log(`\n📦 Creating Zip Archive: ${outputDirName}.zip ...`);
+        const zipName = `${outputDirName}.zip`;
+        const zipPath = path.join(DIST_ROOT, zipName);
+
+        // Try native zip first (Faster on Linux)
+        let success = false;
+        if (process.platform !== 'win32') {
+            try {
+                // cd into outputDir and zip everything to ../zipName
+                const res = spawnSync('zip', ['-r', '-q', zipPath, '.'], { cwd: outputDir });
+                if (res.status === 0) {
+                    success = true;
+                    console.log(`  ✓ Native zip created at dist/${zipName}`);
+                }
+            } catch (e) { console.warn('  ! Native zip failed, falling back to adm-zip.'); }
+        }
+
+        // Fallback to adm-zip
+        if (!success) {
+            try {
+                const AdmZip = require('adm-zip');
+                const zip = new AdmZip();
+                zip.addLocalFolder(outputDir);
+                zip.writeZip(zipPath);
+                console.log(`  ✓ adm-zip created at dist/${zipName}`);
+            } catch (e) {
+                console.error(`  ❌ Zip generation failed: ${e.message}`);
+                console.log('  (Make sure "adm-zip" is installed if you are on Windows or lack "zip" command)');
+            }
+        }
+    }
+
     // 8. Root Mirroring (Mirror u.* to dist/ root)
     // Ensures https://ucss.unqa.dev/u.min.css works.
     // Logic:

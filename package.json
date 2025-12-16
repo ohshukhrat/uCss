@@ -94,6 +94,7 @@
     "README.md"
   ],
   "devDependencies": {
+    "adm-zip": "^0.5.16",
     "basic-ftp": "^5.0.4",
     "dotenv": "^17.2.3",
     "marked": "17.0.1"
