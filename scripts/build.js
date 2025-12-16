@@ -604,11 +604,20 @@ async function main() {
 
             const cssUrl = (path) => `https://ucss.unqa.dev/${path}`;
 
-            const coreCss = isRootEntry
-                ? cssUrl('u.min.css')
-                : cssUrl(`${cdnBase}/u.min.css`);
+            // Cache Busting: Use Git Short Hash or Timestamp
+            let buildHash = 'latest';
+            try {
+                // Try to get git short hash
+                const res = require('child_process').execSync('git rev-parse --short HEAD', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+                if (res) buildHash = res;
+                else buildHash = Date.now().toString(36);
+            } catch (e) { buildHash = Date.now().toString(36); }
 
-            const configCss = cssUrl(`${cdnBase}/lib/config.min.css`); // Always deep link for now
+            const coreCss = isRootEntry
+                ? cssUrl(`u.min.css?v=${buildHash}`)
+                : cssUrl(`${cdnBase}/u.min.css?v=${buildHash}`);
+
+            const configCss = cssUrl(`${cdnBase}/lib/config.min.css?v=${buildHash}`); // Always deep link for now
 
             const template = `<!DOCTYPE html>
 <html lang="en">
@@ -724,6 +733,24 @@ async function main() {
     }
 
     spawnSync('node', ['scripts/compress.js', outputDir], { stdio: 'inherit' });
+
+    // 7.1 Manifest Generation (Dist Specific)
+    // Generates a manifest ONLY for the files we are shipping in this channel
+    console.log('Generating Channel Manifest...');
+    const maniArgs = ['scripts/manifest.js', '--scan', outputDir, '--out', path.join(outputDir, 'manifest.json')];
+    const maniRes = spawnSync('node', maniArgs, { stdio: 'inherit', cwd: PROJECT_ROOT });
+
+    if (maniRes.status === 0) {
+        console.log(`  ✓ Manifest generated for ${outputDirName}`);
+
+        // If stable or latest is taking over root, we also want a manifest for the ROOT of the domain.
+        // But strictly speaking, ucss.unqa.dev/manifest.json should probably represent the STABLE build.
+        if (outputDirName === 'stable' || outputDirName === 'latest') {
+            await fs.copyFile(path.join(outputDir, 'manifest.json'), path.join(DIST_ROOT, 'manifest.json'));
+        }
+    } else {
+        console.warn('  ⚠️ Manifest generation failed.');
+    }
 
     // 7.5 Create Zip Archive (For root downloads)
     // Generates dist/latest.zip or dist/stable.zip

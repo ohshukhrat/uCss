@@ -277,6 +277,7 @@ class RemoteManager {
             const filesToUpload = localFiles.filter(f => {
                 return f === 'index.html' ||
                     f === '.htaccess' ||
+                    f === 'manifest.json' ||
                     (f.startsWith('u.') && (f.endsWith('.css') || f.endsWith('.br') || f.endsWith('.gz')));
             });
 

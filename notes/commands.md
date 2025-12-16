@@ -100,3 +100,28 @@ These commands combine multiple steps and include **Safety Confirmation Prompts*
 | `npm run rebuild` | `clean` + `deploy:all` | 1. Cleans Local<br>2. Builds Full<br>3. Deploys **EVERYTHING** (`stable`, `latest`, `p`, `v`).<br>Asks for confirmation. |
 | `npm run reprod` | `build:stable` + `build:p` + `build:v` + `deploy...` | Rebuilds and Deploys ALL Production artifacts (`stable`, `p`, `v`). Asks for confirmation. |
 | `npm run redev` | `build:latest` + `deploy:latest` | Rebuilds and Deploys the Development channel (`latest`). Asks for confirmation. |
+
+---
+
+## 📦 NPM Publishing
+
+Instructions for publishing `@unqa/ucss` to the NPM registry.
+
+### Prerequisites
+- **Account**: You must have an NPM account and be a member of the `@unqa` organization.
+- **Login**: Run `npm login` in your terminal once.
+
+### Workflow
+
+1. **Update Version**: Open `package.json` and bump the version number (e.g., `0.0.1` -> `0.0.2`).
+   - Or use: `npm version patch` / `minor` / `major`.
+
+2. **Build Production**: Ensure you are shipping the latest stable code.
+   - `npm run build:stable`
+
+3. **Publish**:
+   ```bash
+   npm publish --access public
+   ```
+
+4. **Verify**: Check [npmjs.com/package/@unqa/ucss](https://www.npmjs.com/package/@unqa/ucss).

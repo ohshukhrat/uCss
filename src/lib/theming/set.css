@@ -74,12 +74,12 @@
 
 /* Primary Theme */
 :where(.set.primary, .set-primary, .set.p, .set-p) {
-    --set-h: var(--set-primary-heading, var(--set-p-h, var(--t, hsl(0 0% 4%))));
-    --set-c: var(--set-primary-color, var(--set-p-c, var(--tx, hsl(0 0% 8%))));
+    --set-h: var(--set-primary-heading, var(--set-p-h, var(--d-bd, hsl(0 0% 4%))));
+    --set-c: var(--set-primary-color, var(--set-p-c, var(--d, hsl(0 0% 8%))));
     --set-bg: var(--set-primary-background, var(--set-p-bg, var(--op-lt, hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-lt, .32)))));
 
-    --set-p: var(--t, var(--alt-bd, var(--contrast, #000)));
-    --set-a: var(--t, var(--alt-bd, var(--contrast, #000)));
+    --set-p: var(--on-p, var(--d-lt, #000));
+    --set-a: var(--on-a, var(--d-bd, #000));
     --set-lnk-op-hover: var(--set-lnk-op-active, var(--lnk-op-active, 1));
 }
 
@@ -93,12 +93,12 @@
 
 /* Accent Theme */
 :where(.set.accent, .set-accent, .set.a, .set-a) {
-    --set-h: var(--set-accent-heading, var(--set-a-h, var(--t, hsl(0 0% 4%))));
-    --set-c: var(--set-accent-color, var(--set-a-c, var(--tx, hsl(0 0% 8%))));
+    --set-h: var(--set-accent-heading, var(--set-a-h, var(--d-bd, hsl(0 0% 4%))));
+    --set-c: var(--set-accent-color, var(--set-a-c, var(--d, hsl(0 0% 8%))));
     --set-bg: var(--set-accent-background, var(--set-a-bg, var(--oa-lt, hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-lt, .32)))));
 
-    --set-p: var(--t, var(--alt-bd, var(--contrast, #000)));
-    --set-a: var(--t, var(--alt-bd, var(--contrast, #000)));
+    --set-p: var(--on-p, var(--d-lt, #000));
+    --set-a: var(--on-a, var(--d-bd, #000));
     --set-lnk-op-hover: var(--set-lnk-op-active, var(--lnk-op-active, 1));
 }
 
