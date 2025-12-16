@@ -571,7 +571,7 @@ async function main() {
                 // We decided to link to the folder.
 
                 // If we are building 'latest' and it's taking over root (bootstrap), point config to /latest.
-                if (outputDirName === 'latest' && !fs.existsSync(path.join(DIST_ROOT, 'stable'))) {
+                if (outputDirName === 'latest' && !existsSync(path.join(DIST_ROOT, 'stable'))) {
                     cdnBase = 'latest';
                 } else {
                     cdnBase = 'stable';
