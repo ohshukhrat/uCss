@@ -56,9 +56,9 @@
     "deploy:latest": "node scripts/deploy.js latest",
     "deploy:preview": "node scripts/deploy.js preview",
     "deploy:all": "npm run deploy:stable && npm run deploy:latest && npm run deploy p && npm run deploy v",
-    "rebuild": "node scripts/confirm.js \"Rebuild will clean and deploy everything. Sure?\" && npm run clean && npm run deploy:all",
-    "reprod": "node scripts/confirm.js \"Reprod will rebuild and deploy STABLE, P, V. Sure?\" && npm run build:stable && npm run build:prefixed && npm run build:v && npm run deploy:stable && npm run deploy p && npm run deploy v",
-    "redev": "node scripts/confirm.js \"Redev will rebuild and deploy LATEST. Sure?\" && npm run build:latest && npm run deploy:latest",
+    "rebuild": "node scripts/confirm.js \"Rebuild will clean (NUKE) and deploy everything. Sure?\" && npm run clean:nuke && npm run deploy:all",
+    "reprod": "node scripts/confirm.js \"Reprod will clean (NUKE) and deploy STABLE, P, V. Sure?\" && npm run clean:nuke && npm run deploy:stable && npm run deploy p && npm run deploy v",
+    "redev": "node scripts/confirm.js \"Redev will clean (LATEST) and deploy LATEST. Sure?\" && npm run clean:latest && npm run deploy:latest",
     "watch": "node scripts/watch.js",
     "manifest": "node scripts/manifest.js",
     "prepublishOnly": "node scripts/build.js stable"

@@ -411,17 +411,17 @@ We don't just copy files. Our `dist` assets go through a rigorous optimization p
 
 For production usage, use the **Stable** channel.
 
+### Optimization Tip (Preconnect)
+Speed up connection time to our CDN:
+```html
+<link rel="preconnect" href="https://ucss.unqa.dev">
+```
+
 ### Full Framework
 ```html
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/u.min.css">
 <!-- Optional: Config Override -->
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.css">
-```
-
-### Optimization Tip (Preconnect)
-Speed up connection time to our CDN:
-```html
-<link rel="preconnect" href="https://ucss.unqa.dev">
 ```
 
 ### Module-Only Import

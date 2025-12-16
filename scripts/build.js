@@ -546,16 +546,69 @@ async function main() {
             // (Removed previous block to do it once at the end)
             // Replaces "ucss.unqa.dev/stable" with "ucss.unqa.dev/[current-build]" in the text
             // checking if outputDirName is 'p' or 'latest' or 'preview*'.
-            const cdnSegment = outputDirName.startsWith('preview') ? outputDirName : (['p', 'latest'].includes(outputDirName) ? outputDirName : 'stable');
-            if (cdnSegment !== 'stable') {
-                htmlContent = htmlContent.replace(/ucss\.unqa\.dev\/stable/g, `ucss.unqa.dev/${cdnSegment}`);
+
+            // 1. Determine CDN Base based on where this file is living.
+            // If we are writing to DIST_ROOT/index.html, we are the ROOT.
+            // If we are writing to outputDir/index.html, we are the CHANNEL (Stable, Latest, Preview, etc).
+
+            const isRootEntry = (path.resolve(outPath) === path.resolve(DIST_ROOT, 'index.html'));
+
+            let cdnBase = 'stable'; // Default fallback
+
+            if (isRootEntry) {
+                // ROOT Logic:
+                // u.min.css -> /u.min.css (Mirrored)
+                // config -> /stable/lib... OR /latest/lib...
+                // Ideally, we link config to the same source we mirrored from.
+                // We know 'outputDirName' is what we are currently building.
+                // If we are building 'stable', then root points to 'stable'.
+                // If we are building 'latest' (and stable missing), root points to 'latest'.
+
+                // However, the USER RULE specificly asked: "only root index.html should connect to ucss.unqa.dev/u.min.css"
+                // So u.min.css is ALWAYS /u.min.css for Root.
+
+                // For Config: "Maybe let's also build config.min.css ... in root folder... Or should we better just link to /latest/ or /stable/"
+                // We decided to link to the folder.
+
+                // If we are building 'latest' and it's taking over root (bootstrap), point config to /latest.
+                if (outputDirName === 'latest' && !fs.existsSync(path.join(DIST_ROOT, 'stable'))) {
+                    cdnBase = 'latest';
+                } else {
+                    cdnBase = 'stable';
+                }
+            } else {
+                // CHANNEL Logic:
+                // We are inside a folder (e.g. /p/, /latest/, /preview-xyz/).
+                // We should link to our own assets relative to our deploy root.
+                // e.g. /p/u.min.css
+
+                if (outputDirName.startsWith('preview')) cdnBase = outputDirName;
+                else if (outputDirName === 'latest') cdnBase = 'latest';
+                else if (['p', 'c', 'v'].includes(outputDirName)) cdnBase = outputDirName;
+                else cdnBase = 'stable';
+            }
+
+            // Rewrite Content Links (e.g. Markdown links to "ucss.unqa.dev/stable")
+            // We enable this for non-stable builds so they point to themselves.
+            // e.g. /p/ README links should point to /p/ URLS.
+            if (cdnBase !== 'stable') {
+                htmlContent = htmlContent.replace(/ucss\.unqa\.dev\/stable/g, `ucss.unqa.dev/${cdnBase}`);
             }
 
             // TEMPLATE: Minimal HTML wrapper
             const relRoot = path.relative(path.dirname(outPath), outputDir);
+
             // Calculated path to CSS assets
-            const configPath = path.join(relRoot, 'lib/config.css');
-            const corePath = path.join(relRoot, 'u.min.css');
+            // Root Entry always uses /u.min.css for Core.
+            // Channel Entry uses /channel/u.min.css (or absolute https://...)
+
+            const cssUrl = (path) => `https://ucss.unqa.dev/${path}`;
+
+            const coreCss = isRootEntry
+                ? cssUrl('u.min.css')
+                : cssUrl(`${cdnBase}/u.min.css`);
+
+            const configCss = cssUrl(`${cdnBase}/lib/config.min.css`); // Always deep link for now
 
             const template = `<!DOCTYPE html>
 <html lang="en">
@@ -564,13 +617,13 @@ async function main() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="uCss - Modern, mobile-first, pure CSS framework with zero dependencies">
     <title>${title}</title>
-    <link rel="stylesheet" href="https://ucss.unqa.dev/${cdnSegment === 'stable' ? 'stable' : cdnSegment}/lib/config.css">
-    <link rel="stylesheet" href="https://ucss.unqa.dev/${cdnSegment === 'stable' ? 'stable' : cdnSegment}/u.min.css">
+    <link rel="preconnect" href="https://ucss.unqa.dev">
+    <link rel="stylesheet" href="${configCss}">
+    <link rel="stylesheet" href="${coreCss}">
     <style>
         /* Documentation specific overrides */
         .s { min-height: 100vh; }
     </style>
-</head>
 </head>
 <body class="un set base">
     <script>try{if(localStorage.getItem('u-theme')==='alt'){document.body.classList.remove('base');document.body.classList.add('alt')}}catch(e){}</script>

@@ -107,6 +107,11 @@ uCss enforces this mental model to ensure your app is ready for global distribut
 
 ### HTML Snippets
 
+#### Optimization Tip
+```html
+<link rel="preconnect" href="https://ucss.unqa.dev">
+```
+
 #### Standard
 ```html
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/utilities.min.css">
