@@ -88,8 +88,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
-    "dist",
-    "src",
+    "dist/stable",
+    "dist/manifest.json",
     "LICENSE",
     "README.md"
   ],
