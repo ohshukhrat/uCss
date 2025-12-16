@@ -20,8 +20,24 @@ const path = require('path');
 const crypto = require('crypto');
 const { execSync } = require('child_process');
 
-const PROJECT_ROOT = path.resolve(__dirname, '..');
-const OUTPUT_FILE = path.join(PROJECT_ROOT, 'manifest.json');
+const args = process.argv.slice(2);
+
+// Argument Parsing
+let scanTarget = path.resolve(__dirname, '..');
+let outputFile = path.join(scanTarget, 'manifest.json');
+
+for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--scan') {
+        scanTarget = path.resolve(process.cwd(), args[i + 1]);
+        i++;
+    } else if (args[i] === '--out') {
+        outputFile = path.resolve(process.cwd(), args[i + 1]);
+        i++;
+    }
+}
+
+const PROJECT_ROOT = path.resolve(__dirname, '..'); // Keep reference for relative paths
+const OUTPUT_FILE = outputFile;
 const PACKAGE_JSON = require('../package.json');
 
 const EXCLUDED_DIRS = new Set(['node_modules', '.git']);
@@ -88,7 +104,7 @@ function scanDir(dirPath, structureNode) {
         if (EXCLUDED_FILES.has(item)) continue;
 
         const fullPath = path.join(dirPath, item);
-        const relPath = path.relative(PROJECT_ROOT, fullPath);
+        const relPath = path.relative(scanTarget, fullPath);
 
         // Check for specific excluded paths
         const normalizedRelPath = relPath.split(path.sep).join('/');
@@ -123,12 +139,12 @@ function scanDir(dirPath, structureNode) {
     }
 }
 
-console.log(`🔍 Scanning project: ${PROJECT_ROOT}`);
+console.log(`🔍 Scanning target: ${scanTarget}`);
 console.log(`   Git: ${manifest.meta.git.branch} (${manifest.meta.git.commit.substring(0, 7)})`);
 
 const start = Date.now();
 try {
-    scanDir(PROJECT_ROOT, manifest.structure);
+    scanDir(scanTarget, manifest.structure);
 
     // Finalize Stats
     manifest.meta.stats.totalSizeHuman = formatBytes(manifest.meta.stats.totalSize);

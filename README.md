@@ -482,7 +482,7 @@ uCss compresses this:
 *   Stop writing `hover:bg-blue-500`. Start using `.btn` which handles states.
 *   Stop writing `w-1/2 md:w-1/3`. Start using `.g` which fits content auto-magically.
 
-## 📚 Detailed Documentatio
+## 📚 Detailed Documentation
 
 ### 1. Base
 Core resets and normalizers.

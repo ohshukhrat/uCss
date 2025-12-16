@@ -114,6 +114,11 @@ Infinite nesting works because CSS Variables cascade naturally.
 
 ### HTML Snippets
 
+#### Optimization Tip
+```html
+<link rel="preconnect" href="https://ucss.unqa.dev">
+```
+
 #### Standard
 ```html
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/theming.min.css">

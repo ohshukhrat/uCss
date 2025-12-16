@@ -1,69 +1,40 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# ===========================
+# NPM Ignore File (Exhaustive)
+# ===========================
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Dependency directories
-node_modules/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Optional REPL history  
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
+# 1. Source & Development
+src/
+scripts/
+server/
+examples/
+site/
+notes/
+instructions.md
+CODE_OF_CONDUCT.md
+.editorconfig
 .env
-.env.local
-.env.*.local
-
-# Build tools
-.cache
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Git
-.git/
 .gitignore
-.gitattributes
-
-# GitHub
+.npmignore
+.git/
 .github/
 
-# Project specific
-server/
-scripts/
-examples/
-local/
-*.md
-!README.md
-.editorconfig
-build.sh
+# 2. Build Artifacts in Root
+manifest.json
+*.zip
+*.tar.gz
+*.tgz
+*.log
 
-# Private Notes
-notes/private/
+# 3. Distribution Safety Net
+# We heavily strive to only publish 'dist/stable'.
+# These patterns ensure other builds don't leak if 'files' is misconfigured.
+dist/latest/
+dist/p/
+dist/v/
+dist/c/
+dist/preview-*/
+dist/*.zip
+
+# 4. System Junk
+.DS_Store
+Thumbs.db

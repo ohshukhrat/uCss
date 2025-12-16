@@ -113,6 +113,11 @@ Keep your document outline (H1 -> H2 -> H3) clean for screen readers and SEO, an
 
 ### HTML Snippets
 
+#### Optimization Tip
+```html
+<link rel="preconnect" href="https://ucss.unqa.dev">
+```
+
 #### Standard
 ```html
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/typography.min.css">

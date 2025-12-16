@@ -105,3 +105,19 @@ jobs:
           password: "${{ secrets.FTP_PASSWORD }}"
           local-dir: "${{ steps.target.outputs.local_dir }}"
           server-dir: "${{ steps.target.outputs.server_dir }}"
+
+      # 5. Upload Zip Archive (if exists)
+      - name: 📦 Upload Zip Archive
+        run: |
+           # Check for zip corresponding to the build target (stable.zip or latest.zip)
+           ZIP_FILE="./dist/${{ steps.target.outputs.build_arg }}.zip"
+           if [ -f "$ZIP_FILE" ]; then
+             echo "Found zip: $ZIP_FILE. Uploading to root..."
+             node scripts/remote.js --upload-file "$ZIP_FILE" /
+           else
+             echo "No zip archive found (expected for previews)."
+           fi
+        env:
+           FTP_SERVER: ${{ secrets.FTP_SERVER }}
+           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}

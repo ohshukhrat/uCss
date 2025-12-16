@@ -131,6 +131,11 @@ The fastest way to customize uCss is to create a local `style.css` (or `<style>`
 
 ### HTML Snippets
 
+#### Optimization Tip
+```html
+<link rel="preconnect" href="https://ucss.unqa.dev">
+```
+
 #### Standard
 ```html
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/config/root.min.css">

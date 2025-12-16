@@ -47,8 +47,8 @@
  * Logic to stop and restore flow.
  */
 
-/* .s (Design Flow): Kills flow variables */
-:where(.df) {
+/* .df / .s (Design Flow / Section): Kills flow variables */
+:where(.df, .s) {
     /* Primitives */
     --flow--xl: 0;
     --flow--l: 0;

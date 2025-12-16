@@ -184,6 +184,17 @@ async function main() {
         process.exit(1);
     }
 
+    // 3.5 UPLOAD ZIP (If exists)
+    // Upload dist/latest.zip -> /latest.zip
+    const zipPath = path.join(DIST_ROOT, `${target}.zip`);
+    if (fs.existsSync(zipPath)) {
+        console.log(`\n📦 Uploading Zip Archive: ${target}.zip ...`);
+        const zipArgs = ['scripts/remote.js', '--upload-file', zipPath, '/'];
+        const zipResult = spawnSync('node', zipArgs, { stdio: 'inherit', cwd: PROJECT_ROOT });
+        if (zipResult.status === 0) console.log(`  ✓ Zip uploaded.`);
+        else console.warn(`  ⚠️ Zip upload failed.`);
+    }
+
     // 5. POST-DEPLOY ROOT REFRESH (If Stable)
     if (isStable) {
         console.log(`\n🔄 Refreshing Root Files (Stable as Cornerstone)...`);

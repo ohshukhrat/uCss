@@ -114,6 +114,11 @@ This Submodule is part of `patterns.css`.
 
 ### HTML Snippets
 
+#### Optimization Tip
+```html
+<link rel="preconnect" href="https://ucss.unqa.dev">
+```
+
 Since this is a nested module, it is included in `patterns.min.css`:
 ```html
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/patterns.min.css">

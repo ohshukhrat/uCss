@@ -130,6 +130,11 @@ Done!
 
 ### HTML Snippets
 
+#### Optimization Tip
+```html
+<link rel="preconnect" href="https://ucss.unqa.dev">
+```
+
 #### Standard
 ```html
 <link rel="stylesheet" href="https://ucss.unqa.dev/stable/lib/layout.min.css">
