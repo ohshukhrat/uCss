@@ -6,6 +6,7 @@
     :where(.icn, svg),
     &:where(.icn) :where(svg) {
         display: var(--btn-icon-d, var(--btn-icn-d, block));
+        color: var(--btn-icon-color, var(--btn-icn-c, var(--btn-color, var(--btn-c, var(--on-p, var(--d, currentColor))))));
         inline-size: var(--btn-icon-w, var(--btn-icn-w, var(--btn-icn-size, var(--icn-size, 1.25em))));
         block-size: var(--btn-icon-h, var(--btn-icn-h, var(--btn-icn-size, var(--icn-size, 1.25em))));
         aspect-ratio: var(--btn-svg-ar, var(--btn-ar));

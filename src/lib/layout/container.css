@@ -16,7 +16,7 @@
 :where(.un) {
     --c-name: none;
     --c-type: normal;
-    --c-min-w: initial;
-    --c-max-w: initial;
-    --c-w: initial;
+    --c-min-w: auto;
+    --c-max-w: auto;
+    --c-w: auto;
 }
