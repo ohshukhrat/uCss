@@ -215,6 +215,7 @@ Our build system is custom-written in Node.js to handle the specific needs of a 
 
 ### Build Scripts
 *   **`build.js`**: The main orchestrator. usage: `npm run build [target]`.
+*   **`index.js`**: Documentation generator. Renders Markdown to HTML and injects UI elements.
 *   **`bundle.js`**: Recursive resolver. Finds `@import` lines, reads the file, reads *its* imports, and flattens them into a single string.
 *   **`clean.js`**: Sanitizer. Removes JSDoc comments (`/** ... */`) but keeps copyright headers. Removes extra newlines.
 *   **`minify.js`**: Compressor. Removes all whitespace, shortens color codes, flattens newlines.

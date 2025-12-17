@@ -167,7 +167,7 @@
 }
 
 /* Card Theme */
-:where(.set.card, .set-card, .set.crd, .set-crd) {
+:where(.set.card, .set-card, .set-crd) {
     --set-h: var(--set-card-heading, var(--set-crd-h, var(--t, var(--alt-bd, var(--d-bd, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%)))))));
     --set-c: var(--set-card-color, var(--set-crd-c, var(--on-crd, var(--tx, var(--alt-lt, var(--d, hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%))))))));
     --set-bg: var(--set-card-background, var(--set-crd-bg, var(--crd, var(--base-bd, var(--bg-bd, var(--l-bd, hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%))))))));
