@@ -3,7 +3,7 @@
  * @description Aggregator for all card partials.
  */
 
-@import "./base.css";
-@import "./content.css";
-@import "./media.css";
-@import "./subgrid.css";
+@import "card/base.css";
+@import "card/content.css";
+@import "card/media.css";
+@import "card/subgrid.css";

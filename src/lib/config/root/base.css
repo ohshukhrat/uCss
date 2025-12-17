@@ -8,26 +8,20 @@
    * @group Base: Generic Globals
    */
 
+
+    /**
+   * @part Spacing: Global Gap, Radius
+   */
+
     /* Spacing: Gaps */
     --gap: 1.5rem;
 
     /* Shapes: Radius */
     --rad: 0.5em;
-    --rad--xs: 0.25em;
-    --rad--s: 0.375em;
-    --rad--m: 0.625em;
-    --rad--l: 0.75em;
-    --rad--xl: 1em;
-    --rad--xxl: 1.5em;
-    --rad--xxxl: 2.5em;
-    --rad--full: 100vw;
 
-    /* Borders: Widths */
-    --bd-w: .0625rem;
-    --bd-w--s: .0625rem;
-    --bd-w--m: .125rem;
-    --bd-w--l: .25rem;
-    --border-width: var(--bd-w--m, .125rem);
+    /**
+   * @part Body: Typography and Scrollbar
+   */
 
     /* Typography: Families */
     --tx-font-fam: system-ui, -apple-system, sans-serif;
@@ -44,7 +38,11 @@
 
 
     /**
-   * @group Advanced: Animation & Transform
+   * @group Advanced: Animation & Effects
+   */
+
+    /*
+   * @part Animation: Transition & Transform
    */
 
     /* Animation: Transition */
@@ -60,12 +58,18 @@
     --tf-translatey: -0.125em;
     --tf-translatey-active: 0.0625em;
 
+    /* 
+    * @part Effects: Shadow
+    */
+
     /* Shadows */
     --shd-c: var(--od-lt, hsl(0 0% 8% / .32));
+
     --shd-h: 0;
     --shd-v: 0.25em;
     --shd-b: 2em;
     --shd-s: -0.5em;
+
     --shd--m: var(--shd-h, 0) var(--shd-v, 0.25em) var(--shd-b, 2em) var(--shd-s, -0.5em);
     --shd: var(--shd--m, 0 0.25em 2em -0.5em) var(--shd-c, hsl(0 0% 8% / .32));
 
@@ -73,15 +77,45 @@
    * @group Pro: Effects & Elements
    */
 
+    /*
+   * @part Effects: Focus & Blur
+   */
+
     /* Focus outline offset */
     --out-of: .125rem;
 
-    /* Blurs */
-    --blr--m: 0.25rem;
+    /* Blurs Scale */
     --blr--s: 0.125rem;
+    --blr--m: 0.25rem;
     --blr--l: 0.5rem;
     --blr--xl: 1rem;
     --blr--xxl: 2rem;
+
+    /* 
+    * @part Effects: Radius & Border
+    */
+
+    /* Radius Scale */
+    --rad--xxs: 0.125em;
+    --rad--xs: 0.25em;
+    --rad--s: 0.375em;
+    --rad--m: 0.625em;
+    --rad--l: 0.75em;
+    --rad--xl: 1em;
+    --rad--xxl: 1.5em;
+    --rad--xxxl: 2.5em;
+    --rad--full: 100vw;
+
+    /* Border Widths Scale */
+    --bd-w: .0625rem;
+    --bd-w--s: .0625rem;
+    --bd-w--m: .125rem;
+    --bd-w--l: .25rem;
+    --border-width: var(--bd-w--m, .125rem);
+
+    /* 
+    * @part Elements: HTML
+    */
 
     /* HTML: Blockquotes (html.css) */
     --bq-bd-w: var(--bd-w--l, .25rem);

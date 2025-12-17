@@ -5,8 +5,12 @@
 
 :where(:root) {
     /**
-    * @group Base: Core Palette & Colors
-    */
+     * @group Base: Core Palette & Colors
+     */
+
+    /*
+     * @part Core Colors: Primary, Accent, Dark, Light, Grays
+     */
 
     /* Primary Color (#eec14c, hsl(43 83% 62%)) */
     --p-h: 43;
@@ -20,42 +24,56 @@
     --a-l: 50%;
     --a: hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%));
 
-    /* Dark Color Constants */
+    /* Dark Color (#141414, hsl(0 0% 8%)) */
     --d-h: 0;
     --d-s: 0%;
     --d-l: 8%;
-    --d-l-bd: 4%;
-    --d-l-lt: 12%;
-
-    /* Dark Color (#141414, hsl(0 0% 8%)) / #0a0a0a, hsl(0 0% 4%) / #1f1f1f, hsl(0 0% 12%) */
     --d: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%));
+
+    /* Dark Bold Color (#0a0a0a, hsl(0 0% 4%)) */
+    --d-l-bd: 4%;
     --d-bd: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-bd, 4%));
+
+    /* Dark Lite Color (#1f1f1f, hsl(0 0% 12%)) */
+    --d-l-lt: 12%;
     --d-lt: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l-lt, 12%));
 
-    /* Light Color Constants */
+    /* Light Color (#f5f5f5, hsl(0 0% 96%)) */
     --l-h: 0;
     --l-s: 0%;
     --l-l: 96%;
-    --l-l-bd: 100%;
-    --l-l-lt: 93%;
-
-    /* Light Color (#f5f5f5, hsl(0 0% 96%)) / #ffffff, hsl(0 0% 100%) / #ececec, hsl(0 0% 93%) */
     --l: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%));
+
+    /* Light Bold Color (#ffffff, hsl(0 0% 100%)) */
+    --l-l-bd: 100%;
     --l-bd: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-bd, 100%));
+
+    /* Light Lite Color (#ececec, hsl(0 0% 93%)) */
+    --l-l-lt: 93%;
     --l-lt: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l-lt, 93%));
 
-    /* Grays hsl(0 0% 50%) / hsl(0 0% 64%) / hsl(0 0% 32%) */
+    /* Gray (hsl(0 0% 50%)) */
     --g-h: 0;
     --g-s: 0%;
     --g-l: 50%;
     --g: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%));
+
+    /* Gray Bold Color (hsl(0 0% 64%)) */
+    --g-l-bd: 64%;
     --g-bd: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-bd, 64%));
+
+    /* Gray Lite Color (hsl(0 0% 64%)) */
+    --g-l-lt: 32%;
     --g-lt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l-lt, 32%));
 
     /* Grays (For those who prefer --neu convention instead of --g) */
-    /* --neu: var(--g, hsl(0 0% 50%));
-    --dneu: var(--g-lt, hsl(0 0% 64%));
-    --lneu: var(--g-bd, hsl(0 0% 32%)); */
+    /* --neu: var(--g, hsl(0 0% 50%));*/
+    /* --dneu: var(--g-lt, hsl(0 0% 64%));*/
+    /* --lneu: var(--g-bd, hsl(0 0% 32%));*/
+
+    /*
+     * @part Contextual Colors: Backgrounds & Alternatives
+     */
 
     /* Backgrounds: Base Contexts */
     --bg: var(--l, hsl(0 0% 96%));
@@ -68,22 +86,31 @@
     --alt-lt: var(--d-lt, hsl(0 0% 12%));
 
     /* Base Colors (For those who prefer --base instead of --bg) */
-    /* --base: var(--l, hsl(0 0% 96%));
-   --base-bd: var(--l-bd, hsl(0 0% 100%));
-   --base-lt: var(--l-lt, hsl(0 0% 93%)); */
+    /* --base: var(--l, hsl(0 0% 96%)); */
+    /* --base-bd: var(--l-bd, hsl(0 0% 100%)); */
+    /* --base-lt: var(--l-lt, hsl(0 0% 93%)); */
 
     /* Alternative Colors (For those who prefer --contrast instead of --alt) */
-    /* --contrast: var(--l, hsl(0 0% 96%));
-   --contrast-bd: var(--l-bd, hsl(0 0% 100%));
-   --contrast-lt: var(--l-lt, hsl(0 0% 93%)); */
+    /* --contrast: var(--l, hsl(0 0% 96%)); */
+    /* --contrast-bd: var(--l-bd, hsl(0 0% 100%)); */
+    /* --contrast-lt: var(--l-lt, hsl(0 0% 93%)); */
+
+    /*
+     * @part Pattern Colors: Surface & Card
+     */
+
+    /* Main Typography Colors */
+    --tx: var(--alt, var(--contrast, hsl(0 0% 8%)));
+    --t: var(--alt-bd, var(--contrast-bd, hsl(0 0% 4%)));
 
     /* Surface & Card context */
     --srf: var(--bg-lt, var(--base-lt, hsl(0 0% 93%)));
     --crd: var(--bg-bd, var(--base-bd, hsl(0 0% 100%)));
 
-    /* Main Typography Colors */
-    --tx: var(--alt, var(--contrast, hsl(0 0% 8%)));
-    --t: var(--alt-bd, var(--contrast-bd, hsl(0 0% 4%)));
+
+    /*
+     * @part Outline Globals: Outlines & Borders
+     */
 
     /* Outlines & Borders */
     --out: var(--alt-lt, var(--contrast-lt, hsl(0 0% 12%)));
@@ -95,6 +122,10 @@
     /**
    * @group Advanced: Semantic & Extended Palette
    */
+
+    /*
+     * @part Notification Colors: Success, Alert, Info, Tip, Spotlight
+     */
 
     /* Notification: Success Green (#1E8E3E, hsl(137 65% 34%)) */
     --ntf-al: var(--al-lt, .32);
@@ -132,50 +163,74 @@
     --ntf: hsl(var(--ntf-h, 43) var(--ntf-s, 83%) var(--ntf-l, 62%));
     --ontf: hsl(var(--ntf-h, 43) var(--ntf-s, 83%) var(--ntf-l, 62%) / var(--ntf-al, .32));
 
-    /* Secondary Gunmetal (#263238, hsl(200 19% 18%)) & Tertiary Sand (#F5F0E6, hsl(40 33% 93%)) */
+
+    /*
+     * @part Additional Brand Colors: Secondary & Tertiary
+     */
+
+    /* Secondary Gunmetal (#263238, hsl(200 19% 18%)) */
     --st-al: var(--al-lt, .32);
 
     --sec-h: 200;
     --sec-s: 19%;
     --sec-l: 18%;
     --sec: hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%)));
+
+    /* Secondary Semi-Transparent */
     --osec: hsl(var(--sec-h, var(--d-h, 200)) var(--sec-s, var(--d-s, 19%)) var(--sec-l, var(--d-l-xlt, 18%)) / var(--st-al, .32));
 
+
+    /* Tertiary Sand (#F5F0E6, hsl(40 33% 93%)) */
     --ter-h: 40;
     --ter-s: 33%;
     --ter-l: 93%;
     --ter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)));
+
+    /* Tertiary Semi-Transparent */
     --oter: hsl(var(--ter-h, var(--l-h, 40)) var(--ter-s, var(--l-s, 33%)) var(--ter-l, var(--l-l-lt, 93%)) / var(--st-al, .32));
 
+
+    /* 
+    * @part Additional Colors: Overlays
+    */
 
     /* Alphas Constants */
     --al: .64;
     --al-bd: .8;
     --al-lt: .32;
 
-    /* Overlays (overlay.css) hsl(0 0% 96%) / hsl(0 0% 8%) / hsl(0 0% 50%) */
+    /* Light Overlays (overlay.css) hsl(0 0% 96% / .64) / hsl(0 0% 96% / .8) / hsl(0 0% 96% / .32) */
     --ol: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64));
     --ol-bd: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al-bd, .8));
     --ol-lt: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al-lt, .32));
 
+    /* Dark Overlays (overlay.css) hsl(0 0% 8% / .64) / hsl(0 0% 8% / .8) / hsl(0 0% 8% / .32) */
     --od: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
     --od-bd: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al-bd, .8));
     --od-lt: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al-lt, .32));
 
+    /* Gray Overlays (overlay.css) hsl(0 0% 50% / .64) / hsl(0 0% 50% / .8) / hsl(0 0% 50% / .32) */
     --og: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al, .64));
     --og-bd: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-bd, .8));
     --og-lt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-lt, .32));
+
+    /* Gray Overlays extra colors hsl(0 0% 50% / .16) / hsl(0 0% 50% / .08) */
     --og-xlt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-xlt, .16));
     --og-xxlt: hsl(var(--g-h, 0) var(--g-s, 0%) var(--g-l, 50%) / var(--al-xxlt, .08));
 
+    /* Background & Alt (overlay.css) hsl(0 0% 96% / .64) / hsl(0 0% 8% / .64) */
     --obg: hsl(var(--l-h, 0) var(--l-s, 0%) var(--l-l, 96%) / var(--al, .64));
     --oalt: hsl(var(--d-h, 0) var(--d-s, 0%) var(--d-l, 8%) / var(--al, .64));
 
     /**
-   * @group Pro: Detailed Contextual Colors
-   */
+     * @group Pro: Detailed Contextual Colors
+     */
 
-    /* Contextual Variants of overlays (set.css) */
+    /*
+     * @part Extended Additional Colors: Brand Overlays
+     */
+
+    /* Contextual Variants of Brand overlays (set.css) */
     --op: hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al, .64));
     --op-bd: hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-bd, .8));
     --op-lt: hsl(var(--p-h, 43) var(--p-s, 83%) var(--p-l, 62%) / var(--al-lt, .32));
@@ -183,6 +238,10 @@
     --oa: hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al, .64));
     --oa-bd: hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-bd, .8));
     --oa-lt: hsl(var(--a-h, 44) var(--a-s, 100%) var(--a-l, 50%) / var(--al-lt, .32));
+
+    /*
+     * @part Extended Additional Colors: On Colors
+     */
 
     /* Text on Colors */
     --on-p: var(--sec, var(--d, hsl(0 0% 8%)));

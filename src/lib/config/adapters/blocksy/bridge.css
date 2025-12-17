@@ -211,7 +211,7 @@
 }
 
 :where(.s, .df) {
-    --theme-content-spacing: var(--el-flow, 0);
+    --theme-content-spacing: 0;
 
     :where(ul, ol, blockquote, figure, pre, table) {
         --theme-content-spacing: var(--el-flow, 0);

@@ -17,34 +17,34 @@
 
 /* Specific Sizes */
 :where(h1) {
-    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--xl, var(--t-fs, var(--t-fs--s, 2.625rem)))));
+    font-size: var(--heading-font-size, var(--h1-fs, var(--h-fs, var(--h-fs--xl, var(--t-fs, var(--t-fs--s, 2.625rem))))));
 }
 
 :where(h2) {
-    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--l, var(--t-fs, var(--t-fs--xs, 2.25rem)))));
+    font-size: var(--heading-font-size, var(--h2-fs, var(--h-fs, var(--h-fs--l, var(--t-fs, var(--t-fs--xs, 2.25rem))))));
 }
 
 :where(h3) {
-    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--m, var(--t-fs, var(--t-fs--xxs, 2rem)))));
+    font-size: var(--heading-font-size, var(--h3-fs, var(--h-fs, var(--h-fs--m, var(--t-fs, var(--t-fs--xxs, 2rem))))));
 }
 
 :where(h4) {
-    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--s, var(--t-fs, var(--t-fs--xxxs, 1.75rem)))));
+    font-size: var(--heading-font-size, var(--h4-fs, var(--h-fs, var(--h-fs--s, var(--t-fs, var(--t-fs--xxxs, 1.75rem))))));
 }
 
 :where(h5) {
-    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--xs, var(--t-fs, var(--tx-fs--xxl, 1.625rem)))));
+    font-size: var(--heading-font-size, var(--h5-fs, var(--h-fs, var(--h-fs--xs, var(--t-fs, var(--tx-fs--xxl, 1.625rem))))));
 }
 
 :where(h6) {
-    font-size: var(--heading-font-size, var(--h-fs, var(--h-fs--xxs, var(--t-fs, var(--tx-fs--xl, 1.4375rem)))));
+    font-size: var(--heading-font-size, var(--h6-fs, var(--h-fs, var(--h-fs--xxs, var(--t-fs, var(--tx-fs--xl, 1.4375rem))))));
 }
 
 /* Paragraphs & Text */
 :where(p) {
     font-size: var(--paragraph-font-size, var(--p-fs, var(--tx-fs, var(--tx-fs--s, 1rem))));
     margin-block: 0;
-    max-width: var(--flow-max-width, 65ch);
+    max-width: var(--paragraph-max-width, var(--flow-max-w));
 }
 
 :where(small) {
