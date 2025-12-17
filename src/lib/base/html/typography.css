@@ -44,7 +44,7 @@
 :where(p) {
     font-size: var(--paragraph-font-size, var(--p-fs, var(--tx-fs, var(--tx-fs--s, 1rem))));
     margin-block: 0;
-    max-width: var(--flow-max-width, 65ch);
+    max-width: var(--paragraph-max-width, var(--flow-max-w));
 }
 
 :where(small) {

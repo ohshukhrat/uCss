@@ -1,7 +1,7 @@
 {
   "name": "@unqa/ucss",
   "description": "uCss is a modern, mobile-first, pure CSS framework designed for granular control, responsiveness, and flexibility. It leverages CSS Variables and Container Queries to provide a highly adaptable styling API without the need for complex build steps or JavaScript.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/stable/u.min.css",
   "style": "dist/stable/u.min.css",
   "exports": {
