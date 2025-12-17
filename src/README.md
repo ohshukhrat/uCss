@@ -246,6 +246,8 @@ The prefixing logic (`scripts/prefix.js`) is sophisticated. It knows how to:
 ### 📦 Deployment Stats
 The entire framework is surprisingly lightweight thanks to our optimization pipeline.
 
+📥 **Offline Usage**: You can also [download the full stable release (.zip)](https://ucss.unqa.dev/stable.zip) containing all compiled assets.
+
 | File | Full | Clean | Min | Gzip | Brotli | Download |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`u.css` (Full)** | ~165KB | ~147KB | ~126KB | ~18.4KB | ~14.3KB | [src](https://ucss.unqa.dev/stable/u.css) • [clean](https://ucss.unqa.dev/stable/u.clean.css) • [min](https://ucss.unqa.dev/stable/u.min.css) |

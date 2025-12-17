@@ -209,6 +209,8 @@ We provide multiple bundles to suit your needs. From the "Full Framework" to spe
 
 ### Direct Links Table
 
+📥 **Offline Usage**: You can also [download the full stable release (.zip)](https://ucss.unqa.dev/stable.zip) containing all compiled assets.
+
 | Module | Full Source | Clean Source | Minified (Prod) | Docs |
 | :--- | :--- | :--- | :--- | :--- |
 | **Full Framework** | [u.css](https://ucss.unqa.dev/stable/u.css) | [u.clean.css](https://ucss.unqa.dev/stable/u.clean.css) | [u.min.css](https://ucss.unqa.dev/stable/u.min.css) | [Root Docs](./) |
